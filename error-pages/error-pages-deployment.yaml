@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: error-pages
+  labels:
+    app: error-pages
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxSurge: 0
+      maxUnavailable: 1
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: error-pages
+  template:
+    metadata:
+      labels:
+        app: error-pages
+    spec:
+      containers:
+      - name: error-pages
+        image: tarampampam/error-pages:2.20.0
+        imagePullPolicy: IfNotPresent
+        env:
+        - name: TEMPLATE_NAME
+          value: "app-down"
+        - name: SHOW_DETAILS
+          value: "true"
+        ports:
+        - containerPort: 8080
+        securityContext:
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          # Run the container as nobody:nogroup
+          runAsUser: 65534
+          runAsGroup: 65534
+          capabilities:
+            drop:
+            - NET_RAW
+        resources:
+          requests:
+            cpu: 50m
+            memory: 16Mi
+          limits:
+            memory: 32M
