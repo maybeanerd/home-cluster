@@ -1,0 +1,91 @@
+# Default values for vaultwarden.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: vaultwarden/server
+  tag: v1.28.1
+  pullPolicy: IfNotPresent
+  # imagePullSecrets for accessing private registries
+  # pullSecrets: regcred
+
+env:
+  SIGNUPS_ALLOWED: false
+  INVITATIONS_ALLOWED: true
+  # SERVER_ADMIN_EMAIL
+  # DOMAIN
+  # YUBICO_CLIENT_ID
+  # YUBICO_SECRET_KEY
+  # DATA_FOLDER
+  # DATABASE_URL
+  # ATTACHMENTS_FOLDER
+  # ICON_CACHE_FOLDER
+  # ROCKET_LIMITS
+  # ROCKET_WORKERS
+  # SMTP_HOST
+  # SMTP_FROM
+  # SMTP_PORT
+  # SMTP_SSL
+  # SMTP_EXPLICIT_TLS
+  # SMTP_USERNAME
+  # SMTP_PASSWORD
+  # SHOW_PASSWORD_HINT
+  # WEB_VAULT_ENABLED
+
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  type: LoadBalancer
+  port: 80
+#  loadBalancerIP:
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+#    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - bitwarden
+#  tls:
+#    - secretName: bitwarden-tls
+#      hosts:
+#        - bitwarden
+
+  # pathType is only for k8s >= 1.1=
+  pathType: Prefix
+
+
+
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+podAnnotations: {}
+
+deploymentAnnotations: {}
+
+## Persist data to a persitent volume
+persistence:
+  enabled: false
+  accessMode: ReadWriteOnce
+  size: 800Mi
+  #storageClass:
+  #existingClaim: "bitwarden-pvc"

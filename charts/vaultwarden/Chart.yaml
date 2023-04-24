@@ -1,0 +1,9 @@
+apiVersion: v1
+appVersion: "1.1"
+description: A Bitwarden Helm chart for Kubernetes
+name: vaultwarden
+version: 0.1.0
+icon: https://raw.githubusercontent.com/bitwarden/brand/master/icons/icon.svg
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
