@@ -12,7 +12,7 @@ image:
   # pullSecrets: regcred
 
 env:
-  SIGNUPS_ALLOWED: false
+  SIGNUPS_ALLOWED: true
   INVITATIONS_ALLOWED: true
   # SERVER_ADMIN_EMAIL
   # DOMAIN
@@ -49,7 +49,7 @@ ingress:
 #    kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - bitwarden
+    - bitwarden.cluster.diluz.io
 #  tls:
 #    - secretName: bitwarden-tls
 #      hosts:
