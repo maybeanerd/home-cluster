@@ -1,0 +1,8 @@
+version: '3.1'	
+services:
+  proxy:
+    image: caddy_2.6.4
+    ports:
+      - "80:80"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
