@@ -49,7 +49,7 @@ ingress:
 #    kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - vaultwarden.cluster.diluz.io
+#    - vaultwarden.cluster.diluz.io
     - cluster.diluz.io
     - turing-cluster.local
 #  tls:
