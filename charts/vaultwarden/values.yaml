@@ -47,9 +47,9 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: traefik
 #    kubernetes.io/tls-acme: "true"
-  path: /vaultwarden
+  path: /
   hosts:
-#    - bitwarden.cluster.diluz.io
+    - vaultwarden.cluster.diluz.io
     - turing-cluster.local
 #  tls:
 #    - secretName: bitwarden-tls
