@@ -1,7 +1,7 @@
 cluster.diluz.io {
-    reverse_proxy 10.43.236.181:443
+    reverse_proxy 192.168.178.100:80
 }
 
 *.cluster.diluz.io {
-    reverse_proxy 10.43.236.181:443
+    reverse_proxy 192.168.178.100:80
 }
