@@ -3,13 +3,13 @@
 }
 
 http://cluster.diluz.io {
-    reverse_proxy 192.168.178.101:80
+    reverse_proxy 192.168.178.100:80
 }
 
 https://cluster.diluz.io {
-    reverse_proxy 192.168.178.101:443
+    reverse_proxy 192.168.178.100:443
 }
 
 *.cluster.diluz.io {
-    reverse_proxy 192.168.178.101:80
+    reverse_proxy 192.168.178.100:80
 }
