@@ -10,10 +10,6 @@ https://cluster.diluz.io {
     reverse_proxy 192.168.178.100:80
 }
 
-http://10.20.30.3 {
-    reverse_proxy 192.168.178.100:80
-}
-
-https://10.20.30.3 {
+10.20.30.3 {
     reverse_proxy 192.168.178.100:80
 }
