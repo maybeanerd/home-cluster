@@ -2,14 +2,6 @@
     auto_https off
 }
 
-http://cluster.diluz.io {
-    reverse_proxy 192.168.178.100:80
-}
-
-https://cluster.diluz.io {
-    reverse_proxy 192.168.178.100:80
-}
-
-10.20.30.3 {
+cluster.diluz.io {
     reverse_proxy 192.168.178.100:80
 }
