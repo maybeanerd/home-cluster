@@ -3,5 +3,5 @@
 }
 
 cluster.diluz.io {
-  reverse_proxy 10.20.30.3:80
+  reverse_proxy 10.20.30.3
 }
