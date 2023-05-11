@@ -3,9 +3,9 @@
 }
 
 cluster.diluz.io:80 {
-  reverse_proxy 10.20.30.3:80
+  reverse_proxy 192.168.178.100:80
 }
 
 cluster.diluz.io:443 {
-  reverse_proxy 10.20.30.3:443
+  reverse_proxy 192.168.178.100:443
 }
