@@ -2,10 +2,10 @@
   auto_https off
 }
 
-http://cluster.diluz.io {
+cluster.diluz.io:80 {
   reverse_proxy 10.20.30.3:80
 }
 
-https://cluster.diluz.io {
-  reverse_proxy 10.20.30.3:80
+cluster.diluz.io:443 {
+  reverse_proxy 10.20.30.3:443
 }
