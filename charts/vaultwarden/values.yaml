@@ -86,8 +86,8 @@ deploymentAnnotations: {}
 
 ## Persist data to a persitent volume
 persistence:
-  enabled: false
+  enabled: true
   accessMode: ReadWriteOnce
   size: 800Mi
-  #storageClass:
+  storageClass: nfs-client
   #existingClaim: "bitwarden-pvc"
