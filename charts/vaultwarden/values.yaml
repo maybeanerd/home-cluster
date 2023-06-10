@@ -52,6 +52,7 @@ ingress:
     - vaultwarden.cluster.diluz.io
     - cluster.diluz.io
     - turing-cluster.local
+    - 192.168.178.100
 #  tls:
 #    - secretName: bitwarden-tls
 #      hosts:
