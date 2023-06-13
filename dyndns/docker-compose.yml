@@ -1,0 +1,11 @@
+services:
+  dyndns:
+    image: davd/docker-ddns
+    ports:
+      - 53:53
+      - 53:53/udp
+      - 8080:8080
+    environment:
+      # - SHARED_SECRET=changeme
+      - ZONE=diluz.io
+      - RECORD_TTL=3600
