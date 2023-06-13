@@ -50,8 +50,6 @@ ingress:
   path: /
   hosts:
     - vaultwarden.cluster.diluz.io
-    - cluster.diluz.io
-    - turing-cluster.local
 #  tls:
 #    - secretName: bitwarden-tls
 #      hosts:
