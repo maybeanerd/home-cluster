@@ -9,3 +9,4 @@ services:
       - SHARED_SECRET=${SHARED_SECRET}
       - ZONE=diluz.io
       - RECORD_TTL=3600
+    restart: always
