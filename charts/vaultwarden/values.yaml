@@ -49,8 +49,7 @@ ingress:
 #    kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-    - vaultwarden.cluster.d.diluz.io
-    - cluster.d.diluz.io
+    - vaultwarden.cluster.diluz.io
 #  tls:
 #    - secretName: bitwarden-tls
 #      hosts:
