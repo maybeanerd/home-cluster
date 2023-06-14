@@ -46,21 +46,20 @@ ingress:
   enabled: true
   annotations:
     kubernetes.io/ingress.class: traefik
-#    kubernetes.io/tls-acme: "true"
+  #    kubernetes.io/tls-acme: "true"
   path: /
-  hosts:
-    - vaultwarden.cluster.diluz.io
-#  tls:
-#    - secretName: bitwarden-tls
-#      hosts:
-#        - bitwarden
+  #  hosts:
+  #    - vaultwarden.cluster.diluz.io
+  tls:
+    - secretName: vaultwarden-tls
+      hosts:
+        - vaultwarden.cluster.diluz.io
 
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
 
-
-
-resources: {}
+resources:
+  {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
