@@ -10,3 +10,7 @@ services:
       - ZONE=cluster.diluz.io
       - RECORD_TTL=3600
     restart: always
+    volumes:
+      - dyndns-cache:/var/cache/bind
+volumes:
+  dyndns-cache:
