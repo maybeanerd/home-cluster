@@ -13,7 +13,7 @@ spec:
     logs:
       # Configure log settings here...
       general:
-        level: DEBUG
+        level: ERROR
     ports:
       # Configure your entrypoints here...
       web:
