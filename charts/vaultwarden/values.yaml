@@ -49,11 +49,10 @@ ingress:
     kubernetes.io/tls-acme: "true"
   path: /
   hosts:
-     - vaultwarden.cluster.diluz.io
+    - vaultwarden.cluster.diluz.io
   tls:
-    - secretName: vaultwarden-tls
-      hosts:
-        - vaultwarden.cluster.diluz.io
+    hosts:
+      - vaultwarden.cluster.diluz.io
 
   # pathType is only for k8s >= 1.1=
   pathType: Prefix
