@@ -8,8 +8,6 @@ image:
   repository: vaultwarden/server
   tag: 1.28.1
   pullPolicy: IfNotPresent
-  # imagePullSecrets for accessing private registries
-  # pullSecrets: regcred
 
 env:
   SIGNUPS_ALLOWED: false
@@ -40,7 +38,6 @@ fullnameOverride: ""
 service:
   type: ClusterIP
   port: 80
-#  loadBalancerIP:
 
 ingress:
   enabled: true
@@ -50,7 +47,6 @@ ingress:
   path: /
   hosts:
     - vaultwarden.cluster.diluz.io
-  # pathType is only for k8s >= 1.1=
   pathType: Prefix
 
 resources:
@@ -80,6 +76,5 @@ deploymentAnnotations: {}
 persistence:
   enabled: true
   accessMode: ReadWriteOnce
-  size: 800Mi
+  size: 1Gi
   storageClass: nfs-client
-  #existingClaim: "bitwarden-pvc"
