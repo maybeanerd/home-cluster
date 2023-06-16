@@ -9,6 +9,7 @@ spec:
       - "--certificatesresolvers.netlify.acme.dnschallenge.provider=netlify"
       - "--certificatesresolvers.netlify.acme.email=cluster@diluz.io"
       - "--certificatesresolvers.netlify.acme.storage=/ssl-certs/acme-netlify.json"
+      - "--certificatesresolvers.netlify.acme.dnschallenge.resolvers=8.8.8.8"
     logs:
       # Configure log settings here...
       general:
