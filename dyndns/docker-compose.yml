@@ -1,6 +1,6 @@
 services:
   dyndns:
-    image: davd/docker-ddns
+    image: davd/docker-ddns:1.5.0
     ports:
       - 53:53
       - 53:53/udp
