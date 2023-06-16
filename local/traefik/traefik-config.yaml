@@ -6,10 +6,10 @@ metadata:
 spec:
   valuesContent: |-
     additionalArguments:
-      - "--certificatesresolvers.netlify.acme.dnschallenge.provider=netlify"
-      - "--certificatesresolvers.netlify.acme.email=cluster@diluz.io"
-      - "--certificatesresolvers.netlify.acme.storage=/ssl-certs/acme-netlify.json"
-      - "--certificatesresolvers.netlify.acme.dnschallenge.resolvers=8.8.8.8"
+      - "--certificatesresolvers.production.acme.email=cluster@diluz.io"
+      - "--certificatesresolvers.production.acme.caServer=https://acme-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.production.acme.httpChallenge.entryPoint=web"
+      - "--certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json"
     logs:
       # Configure log settings here...
       general:
@@ -23,13 +23,7 @@ spec:
         tls:
           enabled: true
           # (optional) Set a Default CertResolver
-          certResolver: netlify
-    env:
-      - name: NETLIFY_TOKEN
-        valueFrom:
-          secretKeyRef:
-            key: token
-            name: netlify-credentials
+          certResolver: production
     ingressRoute:
       dashboard:
         enabled: false
