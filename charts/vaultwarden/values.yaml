@@ -12,7 +12,7 @@ image:
   # pullSecrets: regcred
 
 env:
-  SIGNUPS_ALLOWED: true
+  # SIGNUPS_ALLOWED: true
   INVITATIONS_ALLOWED: true
   # SERVER_ADMIN_EMAIL
   # DOMAIN
