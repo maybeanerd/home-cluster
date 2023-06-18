@@ -7,9 +7,9 @@
 
 image:
   # -- image repository
-  repository: ghcr.io/k8s-at-home/plex
+  repository: ghcr.io/onedr0p/plex
   # @default -- chart.appVersion
-  tag:
+  tag: 1.32.3.7192-7aa441827
   # -- image pull policy
   pullPolicy: IfNotPresent
 
@@ -19,11 +19,11 @@ image:
 # @default -- See below
 env:
   # -- Set the container timezone
-  TZ: UTC
+  TZ: CET
   # ADVERTISE_IP:
   # ALLOWED_NETWORKS:
   # PLEX_CLAIM:
-  # PLEX_PREFERENCE_1: "FriendlyName=plex-kubernetes"
+  PLEX_PREFERENCE_1: "FriendlyName=plex-kubernetes"
   # PLEX_PREFERENCE_2: "EnableIPv6=0"
   # PLEX_PREFERENCE_3: "logDebug=0"
   # PLEX_PREFERENCE_4: "DisableTLSv1_0=1"
@@ -65,7 +65,14 @@ ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See values.yaml
   main:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - plex.cluster.diluz.io
+    pathType: Prefix
 
 # -- Enable devices to be discoverable
 hostNetwork: false
@@ -74,15 +81,22 @@ hostNetwork: false
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 20Mi
+    storageClass: nfs-client
     mountPath: /config
 
   transcode:
-    enabled: false
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    storageClass: nfs-client
     mountPath: /transcode
 
 # -- Configure the Security Context for the Pod
-podSecurityContext: {}
+podSecurityContext:
+  {}
   # runAsUser: 568
   # runAsGroup: 568
   # fsGroup: 568
@@ -97,7 +111,8 @@ podSecurityContext: {}
   # - 109
 
 # -- Configure the resource requests and/or limits for the Pod
-resources: {}
+resources:
+  {}
   # requests:
   #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
   #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)

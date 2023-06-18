@@ -7,10 +7,10 @@
 
 image:
   # -- image repository
-  repository: jellyfin/jellyfin
+  repository: ghcr.io/onedr0p/jellyfin
   # -- image tag
   # @default -- chart.appVersion
-  tag:
+  tag: 10.8.10
   # -- image pull policy
   pullPolicy: IfNotPresent
 
@@ -18,7 +18,7 @@ image:
 # @default -- See below
 env:
   # -- Set the container timezone
-  TZ: UTC
+  TZ: CET
 
 # -- Configures service settings for the chart.
 # @default -- See values.yaml
@@ -32,14 +32,23 @@ ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See values.yaml
   main:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - jellyfin.cluster.diluz.io
+    pathType: Prefix
 
 # -- Configure persistence settings for the chart under this key.
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: false
-
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 20Mi
+    storageClass: nfs-client
   # Cache does NOT contain temporary transcoding data.
   cache:
     enabled: false

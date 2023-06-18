@@ -50,39 +50,54 @@ ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See values.yaml
   main:
-    enabled: false
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - paperless.cluster.diluz.io
+    pathType: Prefix
 
 persistence:
   # -- Configure persistence for data.
   # @default -- See values.yaml
   data:
-    enabled: false
-    mountPath: /usr/src/paperless/data
+    enabled: true
     accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
+    mountPath: /usr/src/paperless/data
     emptyDir:
       enabled: false
   # -- Configure persistence for media.
   # @default -- See values.yaml
   media:
-    enabled: false
-    mountPath: /usr/src/paperless/media
+    enabled: true
     accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
+    mountPath: /usr/src/paperless/media
     emptyDir:
       enabled: false
   # -- Configure volume to monitor for new documents.
   # @default -- See values.yaml
   consume:
-    enabled: false
-    mountPath: /usr/src/paperless/consume
+    enabled: true
     accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
+    mountPath: /usr/src/paperless/consume
     emptyDir:
       enabled: false
   # -- Configure export volume.
   # @default -- See values.yaml
   export:
-    enabled: false
-    mountPath: /usr/src/paperless/export
+    enabled: true
     accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
+    mountPath: /usr/src/paperless/export
     emptyDir:
       enabled: false
 
