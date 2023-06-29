@@ -1,87 +1,123 @@
-#
-# IMPORTANT NOTE
-#
-# This chart inherits from our common library chart. You can check the default values/options here:
-# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
-#
+# Default values for jellyfin.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
 
 image:
-  # -- image repository
-  repository: ghcr.io/onedr0p/jellyfin
-  # -- image tag
-  # @default -- chart.appVersion
-  tag: 10.8.10
-  # -- image pull policy
+  repository: jellyfin/jellyfin
+  tag: 20230629.3-unstable
   pullPolicy: IfNotPresent
 
-# -- environment variables. See [image docs](https://jellyfin.org/docs/general/administration/configuration.html) for more details.
-# @default -- See below
-env:
-  # -- Set the container timezone
-  TZ: CET
+nameOverride: ""
+fullnameOverride: ""
 
-# -- Configures service settings for the chart.
-# @default -- See values.yaml
+# Setting this to true enables DLNA which requires the pod to be attached to the
+# host network in order to be useful - this can break things like ingress to the service
+# https://kubernetes.io/docs/reference/kubernetes-api/workload-resources/pod-v1/#hosts-namespaces
+# https://jellyfin.org/docs/general/networking/dlna.html
+enableDLNA: false
+
 service:
-  main:
-    ports:
-      http:
-        port: 8096
+  type: ClusterIP
+  port: 80 ##8096
+  ## Specify the nodePort value for the LoadBalancer and NodePort service types.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport
+  ##
+  # nodePort:
+  ## Provide any additional annotations which may be required. This can be used to
+  ## set the LoadBalancer service type to internal only.
+  ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
+  ##
+  ##annotations: {}
+  ##labels: {}
+  ## Use loadBalancerIP to request a specific static IP,
+  ## otherwise leave blank
+  ##
+  ##loadBalancerIP:
+  # loadBalancerSourceRanges: []
+  ## Set the externalTrafficPolicy in the Service to either Cluster or Local
+  # externalTrafficPolicy: Cluster
 
 ingress:
-  # -- Enable and configure ingress settings for the chart under this key.
-  # @default -- See values.yaml
-  main:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
-    path: /
-    hosts:
-      - jellyfin.cluster.diluz.io
-    pathType: Prefix
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - jellyfin.cluster.diluz.io
+  pathType: Prefix
 
-# -- Configure persistence settings for the chart under this key.
-# @default -- See values.yaml
 persistence:
   config:
+    ## jellyfin configuration data Persistent Volume Storage Class
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    ##
+    ## If you want to reuse an existing claim, you can pass the name of the PVC using
+    ## the existingClaim variable
+    # existingClaim: your-claim
+    # subPath: some-subpath
     enabled: true
     accessMode: ReadWriteOnce
-    size: 20Mi
+    size: 1Gi
     storageClass: nfs-client
-  # Cache does NOT contain temporary transcoding data.
-  cache:
-    enabled: false
-    mountPath: /cache
-
   media:
-    enabled: false
-    mountPath: /media
+    ## Directory where media is persisted
+    ## If defined, storageClassName: <storageClass>
+    ## If set to "-", storageClassName: "", which disables dynamic provisioning
+    ## If undefined (the default) or set to null, no storageClassName spec is
+    ##   set, choosing the default provisioner.  (gp2 on AWS, standard on
+    ##   GKE, AWS & OpenStack)
+    ##
+    # storageClass: "-"
+    ##
+    ## If you want to reuse an existing claim, you can pass the name of the PVC using
+    ## the existingClaim variable
+    # existingClaim: your-claim
+    # subPath: some-subpath
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 10Gi
+    storageClass: nfs-client
+  extraExistingClaimMounts: []
+    # - name: external-mount
+    #   mountPath: /srv/external-mount
+    ## A manually managed Persistent Volume and Claim
+    ## If defined, PVC must be created manually before volume will be bound
+    #   existingClaim:
+    #   readOnly: true
 
-# -- Configure the Security Context for the Pod
-podSecurityContext: {}
-#   runAsUser: 568
-#   runAsGroup: 568
-#   fsGroup: 568
-#   # Hardware acceleration using an Intel iGPU w/ QuickSync
-#   # These IDs below should be matched to your `video` and `render` group on the host
-#   # To obtain those IDs run the following grep statement on the host:
-#   # $ cat /etc/group | grep "video\|render"
-#   # video:x:44:
-#   # render:x:109:
-#   supplementalGroups:
-#   - 44
-#   - 109
+resources: {}
+  # We usually recommend not to specify default resources and to leave this as a conscious
+  # choice for the user. This also increases chances charts run on environments with little
+  # resources, such as Minikube. If you do want to specify resources, uncomment the following
+  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+  # limits:
+  #  cpu: 100m
+  #  memory: 128Mi
+  # requests:
+  #  cpu: 100m
+  #  memory: 128Mi
 
-# resources:
-#   requests:
-#     # Hardware acceleration using an Intel iGPU w/ QuickSync and
-#     # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-#     gpu.intel.com/i915: 1
-#     cpu: 200m
-#     memory: 256Mi
-#   limits:
-#     # Hardware acceleration using an Intel iGPU w/ QuickSync and
-#     # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
-#     gpu.intel.com/i915: 1
-#     memory: 4096Mi
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+extraVolumes: []
+  #- name: renderD129
+  #  hostPath:
+  #    path: /dev/dri/renderD129
+
+extraVolumeMounts: []
+  #- mountPath: /dev/dri/renderD129
+  #  name: renderD129
+

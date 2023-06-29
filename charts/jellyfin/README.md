@@ -1,117 +1,76 @@
-# jellyfin
+# Jellyfin Software Media System
 
-![Version: 9.5.3](https://img.shields.io/badge/Version-9.5.3-informational?style=flat-square) ![AppVersion: 10.8.1](https://img.shields.io/badge/AppVersion-10.8.1-informational?style=flat-square)
+This is a helm chart for [Jellyfin](https://github.com/jellyfin/jellyfin/)
 
-Jellyfin is a Free Software Media System
+## Prerequisites
 
-**This chart is not maintained by the upstream project and any issues with the chart should be raised [here](https://github.com/k8s-at-home/charts/issues/new/choose)**
+- Kubernetes 1.19+
+- Helm 3+
 
-## Source Code
+## TL;DR;
 
-* <https://hub.docker.com/r/jellyfin/jellyfin>
-* <https://github.com/jellyfin/jellyfin>
-
-## Requirements
-
-Kubernetes: `>=1.16.0-0`
-
-## Dependencies
-
-| Repository | Name | Version |
-|------------|------|---------|
-| https://library-charts.k8s-at-home.com | common | 4.5.2 |
-
-## TL;DR
-
-```console
-helm repo add k8s-at-home https://k8s-at-home.com/charts/
-helm repo update
-helm install jellyfin k8s-at-home/jellyfin
+```shell
+$ git clone https://github.com/brianmcarey/jellyfin-helm.git
+$ helm install ./jellyfin-helm
 ```
 
 ## Installing the Chart
 
-To install the chart with the release name `jellyfin`
+To install the chart with the release name `my-release`:
 
 ```console
-helm install jellyfin k8s-at-home/jellyfin
+git clone https://github.com/brianmcarey/jellyfin-helm.git
+helm install  my-release ./jellyfin-helm
 ```
 
 ## Uninstalling the Chart
 
-To uninstall the `jellyfin` deployment
+To uninstall/delete the `my-release` deployment:
 
 ```console
-helm uninstall jellyfin
+helm delete my-release
 ```
 
-The command removes all the Kubernetes components associated with the chart **including persistent volumes** and deletes the release.
+The command removes all the Kubernetes components associated with the chart and deletes the release.
 
 ## Configuration
 
-Read through the [values.yaml](./values.yaml) file. It has several commented out suggested values.
-Other values may be used from the [values.yaml](https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml) from the [common library](https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common).
+The following tables lists the configurable parameters of the Jellyfin chart and their default values.
+
+| Parameter                  | Description                         | Default                                                 |
+|----------------------------|-------------------------------------|---------------------------------------------------------|
+| `image.repository`         | Image repository | `docker.io/jellyfin/jellyfin` |
+| `image.tag`                | Image tag. Possible values listed [here](https://hub.docker.com/r/jellyfin/jellyfin/tags/).| `latest`|
+| `image.pullPolicy`         | Image pull policy | `IfNotPresent` |
+| `enableDLNA`		  | Enable DLNA for jellyfin | `false` |
+| `Service.type`          | Kubernetes service type for the jellyfin GUI | `ClusterIP` |
+| `Service.port`          | Kubernetes port where the jellyfin GUI is exposed| `8096` |
+| `Service.annotations`   | Service annotations for the jellyfin GUI | `{}` |
+| `Service.labels`        | Custom labels | `{}` |
+| `Service.loadBalancerIP` | Loadbalance IP for the jellyfin GUI | `{}` |
+| `Service.loadBalancerSourceRanges` | List of IP CIDRs allowed access to load balancer (if supported)      | None
+| `ingress.enabled`              | Enables Ingress | `false` |
+| `ingress.annotations`          | Ingress annotations | `{}` |
+| `ingress.labels`               | Custom labels                       | `{}`
+| `ingress.path`                 | Ingress path | `/` |
+| `ingress.hosts`                | Ingress accepted hostnames | `chart-example.local` |
+| `ingress.tls`                  | Ingress TLS configuration | `[]` |
+| `persistence.config.enabled`      | Use persistent volume to store configuration data | `false` |
+| `persistence.config.size`         | Size of persistent volume claim | `1Gi` |
+| `persistence.config.existingClaim`| Use an existing PVC to persist data | `nil` |
+| `persistence.config.storageClass` | Type of persistent volume claim | `-` |
+| `persistence.config.accessMode`  | Persistence access mode | `ReadWriteOnce` |
+| `persistence.media.enabled`      | Use persistent volume to store configuration data | `true` |
+| `persistence.media.size`         | Size of persistent volume claim | `10Gi` |
+| `persistence.media.existingClaim`| Use an existing PVC to persist data | `nil` |
+| `persistence.media.storageClass` | Type of persistent volume claim | `-` |
+| `persistence.media.accessMode`  | Persistence access mode | `ReadWriteOnce` |
+| `persistence.extraExistingClaimMounts`  | Optionally add multiple existing claims | `[]` |
+| `resources`                | CPU/Memory resource requests/limits | `{}` |
+| `nodeSelector`             | Node labels for pod assignment | `{}` |
+| `tolerations`              | Toleration labels for pod assignment | `[]` |
+| `affinity`                 | Affinity settings for pod assignment | `{}` |
 
 Specify each parameter using the `--set key=value[,key=value]` argument to `helm install`.
 
-```console
-helm install jellyfin \
-  --set env.TZ="America/New York" \
-    k8s-at-home/jellyfin
-```
-
-Alternatively, a YAML file that specifies the values for the above parameters can be provided while installing the chart.
-
-```console
-helm install jellyfin k8s-at-home/jellyfin -f values.yaml
-```
-
-## Custom configuration
-
-N/A
-
-## Values
-
-**Important**: When deploying an application Helm chart you can add more values from our common library chart [here](https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common)
-
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| env | object | See below | environment variables. See [image docs](https://jellyfin.org/docs/general/administration/configuration.html) for more details. |
-| env.TZ | string | `"UTC"` | Set the container timezone |
-| image.pullPolicy | string | `"IfNotPresent"` | image pull policy |
-| image.repository | string | `"jellyfin/jellyfin"` | image repository |
-| image.tag | string | chart.appVersion | image tag |
-| ingress.main | object | See values.yaml | Enable and configure ingress settings for the chart under this key. |
-| persistence | object | See values.yaml | Configure persistence settings for the chart under this key. |
-| podSecurityContext | object | `{}` | Configure the Security Context for the Pod |
-| service | object | See values.yaml | Configures service settings for the chart. |
-
-## Changelog
-
-### Version 9.5.3
-
-#### Added
-
-N/A
-
-#### Changed
-
-* Upgraded `common` chart dependency to version 4.5.2
-
-#### Fixed
-
-N/A
-
-### Older versions
-
-A historical overview of changes can be found on [ArtifactHUB](https://artifacthub.io/packages/helm/k8s-at-home/jellyfin?modal=changelog)
-
-## Support
-
-- See the [Docs](https://docs.k8s-at-home.com/our-helm-charts/getting-started/)
-- Open an [issue](https://github.com/k8s-at-home/charts/issues/new/choose)
-- Ask a [question](https://github.com/k8s-at-home/organization/discussions)
-- Join our [Discord](https://discord.gg/sTMX7Vh) community
-
-----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v0.1.1](https://github.com/k8s-at-home/helm-docs/releases/v0.1.1)
+Read through the [values.yaml](values.yaml) file. It has several suggested values.
