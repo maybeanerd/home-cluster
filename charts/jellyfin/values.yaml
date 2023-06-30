@@ -84,7 +84,7 @@ persistence:
     # subPath: some-subpath
     enabled: true
     accessMode: ReadWriteOnce
-    size: 1Ti
+    size: 10Gi
     storageClass: nfs-client
   extraExistingClaimMounts: []
     # - name: external-mount
