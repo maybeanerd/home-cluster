@@ -24,6 +24,9 @@ spec:
     {{- if .Values.enableDLNA }}
       hostNetwork: true
     {{- end }}
+    {{- if .Values.keepAliveForSeconds }}
+      terminationGracePeriodSeconds: .Values.keepAliveForSeconds
+    {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -38,14 +41,12 @@ spec:
               hostPort: 1900
               protocol: UDP
           {{- end }}
-{{- /*
            livenessProbe:
             tcpSocket:
               port: http
           readinessProbe:
             tcpSocket:
               port: http 
-*/ -}}
           volumeMounts:
             - mountPath: /config
               name: config
