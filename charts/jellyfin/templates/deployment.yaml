@@ -25,7 +25,7 @@ spec:
       hostNetwork: true
     {{- end }}
     {{- if .Values.keepAliveForSeconds }}
-      terminationGracePeriodSeconds: .Values.keepAliveForSeconds
+      terminationGracePeriodSeconds: {{ .Values.keepAliveForSeconds }}
     {{- end }}
       containers:
         - name: {{ .Chart.Name }}
