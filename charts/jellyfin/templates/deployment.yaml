@@ -41,12 +41,14 @@ spec:
               hostPort: 1900
               protocol: UDP
           {{- end }}
+{{- /*
           livenessProbe:
             tcpSocket:
               port: http
           readinessProbe:
             tcpSocket:
-              port: http 
+              port: http
+*/ -}}
           volumeMounts:
             - mountPath: /config
               name: config
