@@ -41,7 +41,7 @@ spec:
               hostPort: 1900
               protocol: UDP
           {{- end }}
-           livenessProbe:
+          livenessProbe:
             tcpSocket:
               port: http
           readinessProbe:
