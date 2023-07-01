@@ -24,9 +24,6 @@ spec:
     {{- if .Values.enableDLNA }}
       hostNetwork: true
     {{- end }}
-    {{- if .Values.keepAlive }}
-      terminationGracePeriodSeconds: 36000
-    {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"

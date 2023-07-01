@@ -18,9 +18,6 @@ fullnameOverride: ""
 # https://jellyfin.org/docs/general/networking/dlna.html
 enableDLNA: false
 
-# keep service alive for 36000 seconds == 10h after being terminated
-keepAlive: true
-
 service:
   type: ClusterIP
   port: 8096
