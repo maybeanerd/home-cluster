@@ -19,7 +19,7 @@ fullnameOverride: ""
 enableDLNA: false
 
 # keep service alive for 36000 seconds == 10h after being terminated
-keepAliveForSeconds: 36000
+keepAlive: true
 
 service:
   type: ClusterIP
