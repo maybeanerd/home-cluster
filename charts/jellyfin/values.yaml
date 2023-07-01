@@ -5,8 +5,8 @@
 replicaCount: 1
 
 image:
-  repository: jellyfin/jellyfin
-  tag: 20230701.2-unstable
+  repository: lscr.io/linuxserver/jellyfin
+  tag: nightly-version-20230701.9-unstable
   pullPolicy: IfNotPresent
 
 nameOverride: ""
