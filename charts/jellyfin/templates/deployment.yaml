@@ -38,6 +38,7 @@ spec:
               hostPort: 1900
               protocol: UDP
           {{- end }}
+{{- /*
           livenessProbe:
             timeoutSeconds: 600
             tcpSocket:
@@ -45,7 +46,8 @@ spec:
           readinessProbe:
             timeoutSeconds: 600
             tcpSocket:
-              port: http
+              port: http 
+*/ -}}
           volumeMounts:
             - mountPath: /config
               name: config
