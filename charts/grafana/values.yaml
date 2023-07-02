@@ -294,12 +294,12 @@ extraContainerVolumes: []
 ## ref: http://kubernetes.io/docs/user-guide/persistent-volumes/
 ##
 persistence:
+  type: pvc
   enabled: true
-  # storageClassName: default
+  storageClassName: nfs-client
   accessModes:
     - ReadWriteOnce
   size: 10Gi
-  storageClass: nfs-client
   finalizers:
     - kubernetes.io/pvc-protection
   # selectorLabels: {}
