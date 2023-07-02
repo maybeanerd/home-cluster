@@ -65,7 +65,7 @@ persistence:
     # existingClaim: your-claim
     # subPath: some-subpath
     enabled: true
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 1Gi
     storageClass: nfs-client
   media:
@@ -83,7 +83,7 @@ persistence:
     # existingClaim: your-claim
     # subPath: some-subpath
     enabled: true
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 1Ti
     storageClass: nfs-client
   extraExistingClaimMounts: []
