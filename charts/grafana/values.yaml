@@ -145,7 +145,7 @@ extraLabels: {}
 
 downloadDashboardsImage:
   repository: docker.io/curlimages/curl
-  tag: 7.85.0
+  tag: 7.88.1
   sha: ""
   pullPolicy: IfNotPresent
 
