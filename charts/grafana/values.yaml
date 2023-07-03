@@ -331,7 +331,7 @@ initChownData:
   ##
   image:
     repository: docker.io/library/busybox
-    tag: "1.31.1"
+    tag: "1.36.1"
     sha: ""
     pullPolicy: IfNotPresent
 
