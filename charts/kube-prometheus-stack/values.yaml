@@ -877,42 +877,14 @@ grafana:
     pspEnabled: false
 
   ingress:
-    ## If true, Grafana Ingress will be created
-    ##
-    enabled: false
-
-    ## IngressClassName for Grafana Ingress.
-    ## Should be provided if Ingress is enable.
-    ##
-    # ingressClassName: nginx
-
-    ## Annotations for Grafana Ingress
-    ##
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
-
-    ## Labels to be added to the Ingress
-    ##
-    labels: {}
-
-    ## Hostnames.
-    ## Must be provided if Ingress is enable.
-    ##
-    # hosts:
-    #   - grafana.domain.com
-    hosts: []
-
-    ## Path for grafana ingress
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
     path: /
-
-    ## TLS configuration for grafana Ingress
-    ## Secret must be manually created in the namespace
-    ##
-    tls: []
-    # - secretName: grafana-general-tls
-    #   hosts:
-    #   - grafana.example.com
+    hosts:
+      - grafana.cluster.diluz.io
+    pathType: Prefix
 
   sidecar:
     dashboards:
