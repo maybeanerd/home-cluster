@@ -40,18 +40,18 @@ annotations:
 
 dependencies:
   - name: kube-state-metrics
-    version: "5.8.*"
+    version: "5.8.1"
     repository: https://prometheus-community.github.io/helm-charts
     condition: kubeStateMetrics.enabled
   - name: prometheus-node-exporter
-    version: "4.18.*"
+    version: "4.18.1"
     repository: https://prometheus-community.github.io/helm-charts
     condition: nodeExporter.enabled
   - name: grafana
-    version: "6.57.*"
+    version: "6.57.4"
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
   - name: prometheus-windows-exporter
     repository: https://prometheus-community.github.io/helm-charts
-    version: "0.1.*"
+    version: "0.1.0"
     condition: windowsMonitoring.enabled
