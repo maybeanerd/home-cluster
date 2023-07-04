@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jellyfin/jellyfin
-  tag: 20230704.4-unstable
+  tag: 10.8.10
   pullPolicy: IfNotPresent
 
 nameOverride: ""
