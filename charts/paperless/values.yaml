@@ -22,18 +22,18 @@ env:
   # -- Project name
   COMPOSE_PROJECT_NAME: paperless
   # -- Redis to use
-  PAPERLESS_REDIS:
+  # PAPERLESS_REDIS:
   # -- OCR languages to install
   PAPERLESS_OCR_LANGUAGE: eng
   # USERMAP_UID: 1000
   # USERMAP_GID: 1000
-  # PAPERLESS_TIME_ZONE: Europe/London
+  PAPERLESS_TIME_ZONE: Europe/Berlin
   # -- Database host to use
-  PAPERLESS_DBHOST:
+  # PAPERLESS_DBHOST:
   # -- Port to use
   PAPERLESS_PORT: 8000
   # -- Username for the root user
-  # PAPERLESS_ADMIN_USER: admin
+  PAPERLESS_ADMIN_USER: basti
   # -- Password for the root user
   # PAPERLESS_ADMIN_PASSWORD: admin
   # PAPERLESS_URL: <set to main ingress by default>
@@ -105,18 +105,20 @@ persistence:
 #    For more options see [postgresql chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/postgresql)
 # @default -- See values.yaml
 postgresql:
-  enabled: false
+  enabled: true
   postgresqlUsername: paperless
   postgresqlPassword: paperless
   postgresqlDatabase: paperless
   persistence:
-    enabled: false
-    # storageClass: ""
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
 
 # -- Enable and configure redis subchart under this key.
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 # @default -- See values.yaml
 redis:
-  enabled: false
+  enabled: true
   auth:
     enabled: false
