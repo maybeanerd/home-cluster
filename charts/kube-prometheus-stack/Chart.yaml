@@ -40,7 +40,7 @@ annotations:
 
 dependencies:
   - name: kube-state-metrics
-    version: "5.8.1"
+    version: "5.10.1"
     repository: https://prometheus-community.github.io/helm-charts
     condition: kubeStateMetrics.enabled
   - name: prometheus-node-exporter
