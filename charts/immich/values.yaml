@@ -32,7 +32,7 @@ immich:
 # Dependencies
 
 postgresql:
-  enabled: false
+  enabled: true
   global:
     postgresql:
       auth:
@@ -54,10 +54,10 @@ typesense:
   persistence:
     tsdata:
       # Enabling typesense persistence is recommended to avoid slow reindexing
-      enabled: false
+      enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
-      # storageClass: storage-class
+      storageClass: nfs-client
   image:
     repository: docker.io/typesense/typesense
     tag: 0.24.0
