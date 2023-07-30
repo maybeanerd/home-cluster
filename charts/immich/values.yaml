@@ -47,7 +47,7 @@ redis:
     enabled: false
 
 typesense:
-  enabled: false
+  enabled: true
   env:
     TYPESENSE_DATA_DIR: /tsdata
     TYPESENSE_API_KEY: typesense
@@ -79,10 +79,8 @@ microservices:
     geodata-cache:
       enabled: true
       size: 1Gi
-      # Optional: Set this to pvc to avoid downloading the geodata every start.
-      type: emptyDir
       accessMode: ReadWriteMany
-      # storageClass: your-class
+      storageClass: nfs-client
   image:
     repository: ghcr.io/immich-app/immich-server
     pullPolicy: IfNotPresent
@@ -98,10 +96,8 @@ machine-learning:
     cache:
       enabled: true
       size: 10Gi
-      # Optional: Set this to pvc to avoid downloading the ML models every start.
-      type: emptyDir
       accessMode: ReadWriteMany
-      # storageClass: your-class
+      storageClass: nfs-client
 
 web:
   enabled: true
