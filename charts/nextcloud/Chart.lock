@@ -4,9 +4,9 @@ dependencies:
   version: 11.6.26
 - name: mariadb
   repository: https://charts.bitnami.com/bitnami
-  version: 11.0.14
+  version: 11.5.7
 - name: redis
   repository: https://charts.bitnami.com/bitnami
   version: 16.12.3
-digest: sha256:1fe44b4dd2b44c629e52357bfbfc581ecb204e0864a96b8521006f4973bb84ee
-generated: "2023-08-06T16:53:07.651436804Z"
+digest: sha256:3adaba220cd564f55d19782db03721f5167cdc4dfdfc42f4e5b7a02f9604c989
+generated: "2023-08-06T19:53:19.020970338Z"
