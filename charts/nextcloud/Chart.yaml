@@ -23,14 +23,14 @@ maintainers:
     email: jeff@billimek.com
 dependencies:
   - name: postgresql
-    version: 11.6.*
+    version: 11.6.26
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: mariadb
-    version: 11.0.*
+    version: 11.0.14
     repository: https://charts.bitnami.com/bitnami
     condition: mariadb.enabled
   - name: redis
-    version: 16.12.*
+    version: 16.12.3
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
