@@ -3,7 +3,7 @@
 ##
 image:
   repository: nextcloud
-  # tag: 24.0.3-apache
+  tag: 25.0.9
   pullPolicy: IfNotPresent
   # pullSecrets:
   #   - myRegistrKeySecretName
@@ -21,48 +21,19 @@ replicaCount: 1
 ## ref: https://kubernetes.io/docs/concepts/services-networking/ingress/
 ##
 ingress:
-  enabled: false
-  # className: nginx
-  annotations: {}
-  #  nginx.ingress.kubernetes.io/proxy-body-size: 4G
-  #  kubernetes.io/tls-acme: "true"
-  #  cert-manager.io/cluster-issuer: letsencrypt-prod
-  #  nginx.ingress.kubernetes.io/server-snippet: |-
-  #    server_tokens off;
-  #    proxy_hide_header X-Powered-By;
-  #    rewrite ^/.well-known/webfinger /index.php/.well-known/webfinger last;
-  #    rewrite ^/.well-known/nodeinfo /index.php/.well-known/nodeinfo last;
-  #    rewrite ^/.well-known/host-meta /public.php?service=host-meta last;
-  #    rewrite ^/.well-known/host-meta.json /public.php?service=host-meta-json;
-  #    location = /.well-known/carddav {
-  #      return 301 $scheme://$host/remote.php/dav;
-  #    }
-  #    location = /.well-known/caldav {
-  #      return 301 $scheme://$host/remote.php/dav;
-  #    }
-  #    location = /robots.txt {
-  #      allow all;
-  #      log_not_found off;
-  #      access_log off;
-  #    }
-  #    location ~ ^/(?:build|tests|config|lib|3rdparty|templates|data)/ {
-  #      deny all;
-  #    }
-  #    location ~ ^/(?:autotest|occ|issue|indie|db_|console) {
-  #      deny all;
-  #    }
-  # tls:
-  #   - secretName: nextcloud-tls
-  #     hosts:
-  #       - nextcloud.kube.home
-  labels: {}
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
   path: /
+  hosts:
+    - nextcloud.cluster.diluz.io
   pathType: Prefix
-
 
 # Allow configuration of lifecycle hooks
 # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
-lifecycle: {}
+lifecycle:
+  {}
   # postStartCommand: []
   # preStopCommand: []
 
@@ -71,7 +42,7 @@ phpClientHttpsFix:
   protocol: https
 
 nextcloud:
-  host: nextcloud.kube.home
+  host: nextcloud.cluster.diluz.io
   username: admin
   password: changeme
   ## Use an existing secret
@@ -299,7 +270,7 @@ mariadb:
 ##
 ## PostgreSQL chart configuration
 ## for more options see https://github.com/bitnami/charts/tree/main/bitnami/postgresql
-##
+## TODO use this
 postgresql:
   enabled: false
   global:
@@ -315,6 +286,7 @@ postgresql:
         # ldap.bind_password will be ignored and picked from this secret in this case.
         existingSecret: ""
         # Names of keys in existing secret to use for PostgreSQL credentials
+        # TODO create secrets
         secretKeys:
           adminPasswordKey: ""
           userPasswordKey: ""
@@ -335,12 +307,11 @@ redis:
   enabled: false
   auth:
     enabled: true
-    password: 'changeme'
+    password: "changeme"
     # name of an existing secret with Redis® credentials (instead of auth.password), must be created ahead of time
     existingSecret: ""
     # Password key to be retrieved from existing secret
     existingSecretPasswordKey: ""
-
 
 ## Cronjob to execute Nextcloud background tasks
 ## ref: https://docs.nextcloud.com/server/latest/admin_manual/configuration_server/background_jobs_configuration.html#cron
@@ -355,7 +326,8 @@ cronjob:
 
   # Allow configuration of lifecycle hooks
   # ref: https://kubernetes.io/docs/tasks/configure-pod-container/attach-handler-lifecycle-event/
-  lifecycle: {}
+  lifecycle:
+    {}
     # postStartCommand: []
     # preStopCommand: []
   # Set securityContext parameters. For example, you may need to define runAsNonRoot directive
@@ -376,7 +348,7 @@ service:
 ##
 persistence:
   # Nextcloud Data (/var/www/html)
-  enabled: false
+  enabled: true
   annotations: {}
   ## nextcloud data Persistent Volume Storage Class
   ## If defined, storageClassName: <storageClass>
@@ -390,23 +362,21 @@ persistence:
   ## A manually managed Persistent Volume and Claim
   ## Requires persistence.enabled: true
   ## If defined, PVC must be created manually before volume will be bound
-  # existingClaim:
-
   accessMode: ReadWriteOnce
-  size: 8Gi
+  size: 1Gi
+  storageClass: nfs-client
 
   ## Use an additional pvc for the data directory rather than a subpath of the default PVC
   ## Useful to store data on a different storageClass (e.g. on slower disks)
   nextcloudData:
-    enabled: false
+    enabled: true
     subPath:
     annotations: {}
-    # storageClass: "-"
-    # existingClaim:
     accessMode: ReadWriteOnce
-    size: 8Gi
+    size: 1Gi
+    storageClass: nfs-client
 
-resources: {}
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -414,9 +384,9 @@ resources: {}
   # limits:
   #  cpu: 100m
   #  memory: 128Mi
-  # requests:
-  #  cpu: 100m
-  #  memory: 128Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
 
 ## Liveness and readiness probe values
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
@@ -443,7 +413,6 @@ startupProbe:
   failureThreshold: 30
   successThreshold: 1
 
-
 ## Enable pod autoscaling using HorizontalPodAutoscaler
 ## ref: https://kubernetes.io/docs/tasks/run-application/horizontal-pod-autoscale/
 ##
@@ -458,7 +427,6 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
-
 
 ## Prometheus Exporter / Metrics
 ##
@@ -532,14 +500,12 @@ metrics:
     ##
     labels: {}
 
-
 rbac:
   enabled: false
   serviceaccount:
     create: true
     name: nextcloud-serviceaccount
     annotations: {}
-
 
 ## @param securityContext for nextcloud pod @deprecated Use `nextcloud.podSecurityContext` instead
 securityContext: {}
