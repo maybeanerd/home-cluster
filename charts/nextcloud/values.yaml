@@ -3,7 +3,7 @@
 ##
 image:
   repository: nextcloud
-  tag: 25.0.9-fpm
+  tag: 25.0.9
   pullPolicy: IfNotPresent
   # pullSecrets:
   #   - myRegistrKeySecretName
@@ -392,21 +392,21 @@ resources:
 ## Ref: https://kubernetes.io/docs/concepts/workloads/pods/pod-lifecycle/#container-probes
 ##
 livenessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
 readinessProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 10
   periodSeconds: 10
   timeoutSeconds: 5
   failureThreshold: 3
   successThreshold: 1
 startupProbe:
-  enabled: true
+  enabled: false
   initialDelaySeconds: 60
   periodSeconds: 10
   timeoutSeconds: 5
