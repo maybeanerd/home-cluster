@@ -339,7 +339,7 @@ cronjob:
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8080
   loadBalancerIP: nil
   nodePort: nil
 
