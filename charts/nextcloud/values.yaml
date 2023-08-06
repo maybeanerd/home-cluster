@@ -3,7 +3,7 @@
 ##
 image:
   repository: nextcloud
-  tag: 25.0.9
+  tag: 25.0.9-fpm
   pullPolicy: IfNotPresent
   # pullSecrets:
   #   - myRegistrKeySecretName
