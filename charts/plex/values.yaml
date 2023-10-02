@@ -50,7 +50,7 @@ image:
   # -- Image pull policy
   pullPolicy: IfNotPresent
   # -- Image tag (if not specified, defaults to the chart's appVersion)
-  tag: ""
+  tag: "1.32.6"
 
 # -- Image pull secrets
 imagePullSecrets: []
@@ -90,21 +90,14 @@ service:
   port: 32400
 
 ingress:
-  # -- Expose the app using an ingress
-  enabled: false
-  # -- Ingress class name
-  className: ""
-  # -- Annotations for the ingress
-  annotations: {}
-  # -- Ingress hosts configuration
-  # @default -- see [values.yaml](values.yaml)
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+  path: /
   hosts:
-    - host: chart-example.local
-      paths:
-        - path: /
-          pathType: ImplementationSpecific
-  # -- The TLS configuration for the Ingress
-  tls: []
+    - plex.cluster.diluz.io
+  pathType: Prefix
 
 # -- The resource requests and limits of the container
 resources: {}
@@ -120,47 +113,15 @@ affinity: {}
 
 persistence:
   config:
-    # -- Config: Enable persistence
     enabled: true
-    # -- Config: Persistence type is pvc. When `false`, data volume definition is read from `persistence.config.customVolume`
-    isPvc: true
-    # -- Config: Name of the existing claim to be used for config
-    existingClaim: ""
-    # -- Config: Storage class for the volume
-    storageClass: ""
-    # -- Config: Annotations for the claim
-    annotations: {}
-      # helm.sh/resource-policy: keep
-    # -- Config: Access modes for the claim
-    accessModes:
-      - ReadWriteOnce
-    # -- Config: Size for the claim
-    size: 2Gi
-    # -- Config: Alternative data volume definition (e.g. nfs, hostPath). Used when `persistence.config.isPvc` is `false`
-    customVolume: {}
-      # hostPath:
-      #   path: /path/on/host
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
   data:
-    # -- Data: Enable persistence
-    enabled: false
-    # -- Data: Persistence type is pvc. When `false`, data volume definition is read from `persistence.data.customVolume`
-    isPvc: true
-    # -- Data: Name of the existing claim to be used
-    existingClaim: ""
-    # -- Data: Storage class for the data volume
-    storageClass: ""
-    # -- Data: Annotations for the claim
-    annotations: {}
-    # helm.sh/resource-policy: keep
-    # -- Data: Access modes for the claim
-    accessModes:
-      - ReadWriteOnce
-    # -- Data: Size for the claim
-    size: 64Gi
-    # -- Data: Alternative data volume definition (e.g. nfs, hostPath). Used when `persistence.data.isPvc` is `false`
-    customVolume: {}
-    # hostPath:
-    #   path: /path/on/host
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Ti
+    storageClass: nfs-client
 
 # -- Non-sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
 env: {}
