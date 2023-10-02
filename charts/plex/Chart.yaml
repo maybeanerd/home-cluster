@@ -1,0 +1,28 @@
+apiVersion: v2
+name: plex
+description: Plex Media Server Helm chart
+type: application
+version: 2.1.1
+appVersion: 1.25.2
+home: https://www.plex.tv
+keywords:
+  - plex
+  - media-server
+  - plex-media-server
+  - streaming
+  - tv
+sources:
+  - https://github.com/linuxserver/docker-plex
+  - https://github.com/utkuozdemir/helm-charts
+icon: https://utkuozdemir.org/helm-charts/plex.png
+maintainers:
+  - name: Utku Özdemir
+    email: uoz@protonmail.com
+    url: https://utkuozdemir.org
+annotations:
+  artifacthub.io/license: MIT
+  artifacthub.io/changes: |
+    - Disable NET_ADMIN capability
+  artifacthub.io/images: |
+    - name: linuxserver/plex
+      image: docker.io/linuxserver/plex:1.25.2

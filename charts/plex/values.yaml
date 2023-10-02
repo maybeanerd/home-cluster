@@ -1,0 +1,207 @@
+# -- Number of replicas to run. Chart is not designed to scale horizontally, use at your own risk
+replicaCount: 1
+
+# -- Use host network
+hostNetwork: false
+
+hostPort:
+  # -- Use host port for the application
+  enabled: false
+  # -- Host port to bind to
+  port: 32400
+
+# -- Additional port definitions for the pod
+additionalPorts: []
+  # - name: udp-1900
+  #   containerPort: 1900
+  #   protocol: UDP
+  #   hostPort: 1900
+  # - name: udp-5353
+  #   containerPort: 5353
+  #   protocol: UDP
+  #   hostPort: 5353
+  # - name: tcp-32410
+  #   containerPort: 32410
+  #   protocol: TCP
+  #   hostPort: 32410
+  # - name: tcp-32412
+  #   containerPort: 32412
+  #   protocol: TCP
+  #   hostPort: 32412
+  # - name: tcp-32413
+  #   containerPort: 32413
+  #   protocol: TCP
+  #   hostPort: 32413
+  # - name: tcp-32414
+  #   containerPort: 32414
+  #   protocol: TCP
+  #   hostPort: 32414
+  # - name: tcp-32469
+  #   containerPort: 32469
+  #   protocol: TCP
+  #   hostPort: 32469
+
+# -- Additional port definitions for the service
+additionalServicePorts: []
+
+image:
+  # -- Image repository
+  repository: docker.io/linuxserver/plex
+  # -- Image pull policy
+  pullPolicy: IfNotPresent
+  # -- Image tag (if not specified, defaults to the chart's appVersion)
+  tag: ""
+
+# -- Image pull secrets
+imagePullSecrets: []
+# -- String to partially override fullname template with a string (will prepend the release name)
+nameOverride: ""
+# -- String to fully override fullname template with a string
+fullnameOverride: ""
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+  # -- Annotations to add to the service account
+  annotations: {}
+  # -- The name of the service account to use. If not set and create is true, a name is generated using the fullname template
+  name: ""
+
+# -- Annotations for the pods
+podAnnotations: {}
+
+# -- Security context for the pods
+podSecurityContext: {}
+
+# -- Security context for the container
+securityContext: {}
+  # capabilities:
+  #   add:
+  #     - NET_ADMIN
+
+# -- Deployment strategy
+strategy:
+  type: Recreate
+
+service:
+  # -- Type of the service
+  type: ClusterIP
+  # -- Port for the service to use
+  port: 32400
+
+ingress:
+  # -- Expose the app using an ingress
+  enabled: false
+  # -- Ingress class name
+  className: ""
+  # -- Annotations for the ingress
+  annotations: {}
+  # -- Ingress hosts configuration
+  # @default -- see [values.yaml](values.yaml)
+  hosts:
+    - host: chart-example.local
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  # -- The TLS configuration for the Ingress
+  tls: []
+
+# -- The resource requests and limits of the container
+resources: {}
+
+# -- The node selector for the deployment
+nodeSelector: {}
+
+# -- Tolerations for the pod assignment
+tolerations: []
+
+# -- Affinity for the pod assignment
+affinity: {}
+
+persistence:
+  config:
+    # -- Config: Enable persistence
+    enabled: true
+    # -- Config: Persistence type is pvc. When `false`, data volume definition is read from `persistence.config.customVolume`
+    isPvc: true
+    # -- Config: Name of the existing claim to be used for config
+    existingClaim: ""
+    # -- Config: Storage class for the volume
+    storageClass: ""
+    # -- Config: Annotations for the claim
+    annotations: {}
+      # helm.sh/resource-policy: keep
+    # -- Config: Access modes for the claim
+    accessModes:
+      - ReadWriteOnce
+    # -- Config: Size for the claim
+    size: 2Gi
+    # -- Config: Alternative data volume definition (e.g. nfs, hostPath). Used when `persistence.config.isPvc` is `false`
+    customVolume: {}
+      # hostPath:
+      #   path: /path/on/host
+  data:
+    # -- Data: Enable persistence
+    enabled: false
+    # -- Data: Persistence type is pvc. When `false`, data volume definition is read from `persistence.data.customVolume`
+    isPvc: true
+    # -- Data: Name of the existing claim to be used
+    existingClaim: ""
+    # -- Data: Storage class for the data volume
+    storageClass: ""
+    # -- Data: Annotations for the claim
+    annotations: {}
+    # helm.sh/resource-policy: keep
+    # -- Data: Access modes for the claim
+    accessModes:
+      - ReadWriteOnce
+    # -- Data: Size for the claim
+    size: 64Gi
+    # -- Data: Alternative data volume definition (e.g. nfs, hostPath). Used when `persistence.data.isPvc` is `false`
+    customVolume: {}
+    # hostPath:
+    #   path: /path/on/host
+
+# -- Non-sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
+env: {}
+
+# -- Sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
+secretEnv: {}
+
+# -- DNS configuration for the pod
+dnsConfig: {}
+
+# -- DNS policy for the pod
+dnsPolicy: ClusterFirst
+
+# -- Arbitrary extra volume definitions for the pod
+extraVolumes: []
+
+# -- Arbitrary extra volume mounts for the pod
+extraVolumeMounts: {}
+
+# -- Pod liveness probe
+livenessProbe: {}
+
+# -- Pod readiness probe
+readinessProbe:
+  tcpSocket:
+    port: plex
+
+# -- Init containers
+initContainers: []
+  # - name: init
+  #   image: busybox:stable-musl
+  #   command:
+  #     - sh
+  #     - -c
+  #     - echo "initializing..."
+
+# -- Sidecar containers
+sidecarContainers: []
+  # - name: sidecar
+  #   image: busybox:stable-musl
+  #   command:
+  #     - tail
+  #     - -f
+  #     - /dev/null
