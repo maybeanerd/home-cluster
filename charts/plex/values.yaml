@@ -54,11 +54,10 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
-            backend:
-              service:
-                name: plex
-                port:
-                  name: http
+            service:
+              name: plex
+              port:
+                name: http
 
 # -- Enable devices to be discoverable
 hostNetwork: false
