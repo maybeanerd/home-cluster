@@ -60,11 +60,6 @@ spec:
                 name: {{ include "plex.fullname" . }}
             - secretRef:
                 name: {{ include "plex.fullname" . }}
-          env:
-            {{- range $key, $val := .Values.env }}
-            - name: {{ $key }}
-              value: {{ $val | quote }}
-            {{- end}}
           ports:
             - name: plex
               containerPort: 32400

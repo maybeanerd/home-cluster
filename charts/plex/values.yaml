@@ -51,9 +51,6 @@ image:
   pullPolicy: IfNotPresent
   # -- Image tag (if not specified, defaults to the chart's appVersion)
   tag: "1.32.6"
-  env:
-    - name: PLEX_CLAIM
-      value: "claim-7D3skugG21hxXKLzPywJ"
 
 # -- Image pull secrets
 imagePullSecrets: []
@@ -131,7 +128,9 @@ persistence:
     storageClass: nfs-client
 
 # -- Non-sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
-env: {}
+env: 
+  - name: PLEX_CLAIM
+    value: "claim-LKzucKJwzzW17Fs9aAet"
 
 # -- Sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
 secretEnv: {}
