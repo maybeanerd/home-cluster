@@ -152,7 +152,7 @@ livenessProbe: {}
 # -- Pod readiness probe
 readinessProbe:
   tcpSocket:
-    port: plex
+    port: http
 
 # -- Init containers
 initContainers: []
