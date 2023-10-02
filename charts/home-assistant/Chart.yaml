@@ -1,18 +1,24 @@
----
 apiVersion: v2
-description: Home Assistant
 name: home-assistant
-version: 0.1.0
-kubeVersion: ">=1.16.0-0"
-icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/519px-Home_Assistant_Logo.svg.png
-maintainers:
-  - name: sebastian
-    email: sebastian@diluz.io
-dependencies:
-  - name: common
-    repository: https://library-charts.k8s-at-home.com
-    version: 4.5.2
-  - name: postgresql
-    version: 11.6.12
-    repository: https://charts.bitnami.com/bitnami
-    condition: postgresql.enabled
+description: |
+  HomeAssistant is an open source home automation that puts local control and privacy first.
+  Powered by a worldwide community of tinkerers and DIY enthusiasts.
+  Perfect to run on a Raspberry Pi or a local server.
+type: application
+version: 0.5.4
+# renovate: image=homeassistant/home-assistant
+appVersion: "2023.9.3"
+icon: https://design.home-assistant.io/images/logo-variants.png
+keywords:
+  - homeassistant
+  - home-assistant
+  - smart home
+annotations:
+  artifacthub.io/changes: |
+    - kind: changed
+      description: bump home assistant version to "2023.9.3"
+  artifacthub.io/links: |
+    - name: Home assistant source repo
+      url: https://github.com/home-assistant
+    - name: Helm Repo
+      url: https://gitlab.com/alexander-chernov/helm/home-assistant
