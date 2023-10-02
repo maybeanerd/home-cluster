@@ -51,6 +51,9 @@ image:
   pullPolicy: IfNotPresent
   # -- Image tag (if not specified, defaults to the chart's appVersion)
   tag: "1.32.6"
+  env:
+    - name: PLEX_CLAIM
+      value: "claim-EBHHskMtGJvzDiwU3QH-"
 
 # -- Image pull secrets
 imagePullSecrets: []
