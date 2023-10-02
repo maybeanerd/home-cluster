@@ -41,10 +41,10 @@ spec:
   externalTrafficPolicy: {{ .Values.service.externalTrafficPolicy }}
   {{- end }}
   ports:
-    - name: http
+    - name: plex
       port: {{ .Values.service.port }}
       protocol: TCP
-      targetPort: http
+      targetPort: plex
 {{ if (and (eq .Values.service.type "NodePort") (not (empty .Values.service.nodePort))) }}
       nodePort: {{.Values.service.nodePort}}
 {{ end }}
