@@ -1,0 +1,18 @@
+---
+apiVersion: v2
+description: Home Assistant
+name: home-assistant
+version: 0.1.0
+kubeVersion: ">=1.16.0-0"
+icon: https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/Home_Assistant_Logo.svg/519px-Home_Assistant_Logo.svg.png
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.5.2
+  - name: postgresql
+    version: 11.6.12
+    repository: https://charts.bitnami.com/bitnami
+    condition: postgresql.enabled
