@@ -71,8 +71,11 @@ ingress:
       kubernetes.io/tls-acme: "true"
     hosts:
       - host: plex.cluster.diluz.io
-        path: /
-        pathType: Prefix
+        paths:
+          - path: /
+            pathType: Prefix
+            # service:
+            #  port: http
 
 # -- Enable devices to be discoverable
 hostNetwork: false
