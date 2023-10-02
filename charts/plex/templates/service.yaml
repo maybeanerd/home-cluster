@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: {{ template "plex.fullname" . }}
   labels:
+    {{- include "plex.labels" . | nindent 4 }}
     app.kubernetes.io/name: {{ include "plex.name" . }}
     helm.sh/chart: {{ include "plex.chart" . }}
     app.kubernetes.io/instance: {{ .Release.Name }}
