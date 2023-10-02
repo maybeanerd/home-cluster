@@ -114,12 +114,14 @@ affinity: {}
 persistence:
   config:
     enabled: true
+    # necessary for how this chart handles PVCs
     isPvc: true
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: nfs-client
   data:
     enabled: true
+    # necessary for how this chart handles PVCs
     isPvc: true
     accessMode: ReadWriteOnce
     size: 1Ti
