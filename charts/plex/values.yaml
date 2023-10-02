@@ -64,15 +64,15 @@ service:
 ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See values.yaml
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
   main:
     enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
-    path: /
     hosts:
-      - plex.cluster.diluz.io
-    pathType: Prefix
+      - host: plex.cluster.diluz.io
+        path: /
+        pathType: Prefix
 
 # -- Enable devices to be discoverable
 hostNetwork: false
