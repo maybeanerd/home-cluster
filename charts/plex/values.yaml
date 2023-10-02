@@ -71,7 +71,7 @@ ingress:
       kubernetes.io/tls-acme: "true"
     path: /
     hosts:
-      - jellyfin.cluster.diluz.io
+      - plex.cluster.diluz.io
     pathType: Prefix
 
 # -- Enable devices to be discoverable
