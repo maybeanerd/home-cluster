@@ -40,26 +40,6 @@ service:
     ports:
       http:
         port: 32400
-  dnla-tcp:
-    enabled: false
-    type: NodePort
-    ports:
-      dnla-tcp:
-        enabled: true
-        port: 32469
-        protocol: TCP
-        targetPort: 32469
-    externalTrafficPolicy: Local
-  dnla-udp:
-    enabled: false
-    type: NodePort
-    ports:
-      dnla-udp:
-        enabled: true
-        port: 1900
-        protocol: TCP
-        targetPort: 1900
-    externalTrafficPolicy: Local
 
 ingress:
   # -- Enable and configure ingress settings for the chart under this key.
@@ -74,8 +54,6 @@ ingress:
         paths:
           - path: /
             pathType: Prefix
-            # service:
-            #  port: http
 
 # -- Enable devices to be discoverable
 hostNetwork: false
