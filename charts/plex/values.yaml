@@ -94,7 +94,7 @@ ingress:
   annotations:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/tls-acme: "true"
-  path: /
+  path: /web
   hosts:
     - plex.cluster.diluz.io
   pathType: Prefix
