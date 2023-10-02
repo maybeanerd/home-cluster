@@ -20,6 +20,7 @@ image:
 env:
   # -- Set the container timezone
   TZ: CET
+  PLEX_CLAIM: "claim-UJszFssgJP3SquG4x3c9"
   # ADVERTISE_IP:
   # ALLOWED_NETWORKS:
   # PLEX_CLAIM:
