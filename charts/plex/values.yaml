@@ -129,8 +129,7 @@ persistence:
 
 # -- Non-sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
 env: 
-  - name: "PLEX_CLAIM"
-    value: "claim-LKzucKJwzzW17Fs9aAet"
+  PLEX_CLAIM: "claim-RESeP7XPLQyHeWsQjAEs"
 
 # -- Sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
 secretEnv: {}
