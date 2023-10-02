@@ -1,5 +1,5 @@
 
-{{- if and .Values.persistence.media.enabled (not .Values.persistence.media.existingClaim) }}
+{{- if and .Values.persistence.data.enabled (not .Values.persistence.data.existingClaim) }}
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
@@ -11,15 +11,15 @@ metadata:
     app.kubernetes.io/managed-by: {{ .Release.Service }}
 spec:
   accessModes:
-    - {{ .Values.persistence.media.accessMode | quote }}
+    - {{ .Values.persistence.data.accessMode | quote }}
   resources:
     requests:
-      storage: {{ .Values.persistence.media.size | quote }}
-{{- if .Values.persistence.media.storageClass }}
-{{- if (eq "-" .Values.persistence.media.storageClass) }}
+      storage: {{ .Values.persistence.data.size | quote }}
+{{- if .Values.persistence.data.storageClass }}
+{{- if (eq "-" .Values.persistence.data.storageClass) }}
   storageClassName: ""
 {{- else }}
-  storageClassName: "{{ .Values.persistence.media.storageClass }}"
+  storageClassName: "{{ .Values.persistence.data.storageClass }}"
 {{- end }}
 {{- end }}
 {{- end -}}
