@@ -90,9 +90,9 @@ persistence:
     size: 1Gi
     storageClass: nfs-client
 
-  transcode:
+  data:
     enabled: true
-    mountPath: /transcode
+    mountPath: /data
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: nfs-client
