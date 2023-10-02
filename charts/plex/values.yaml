@@ -53,7 +53,7 @@ image:
   tag: "1.32.6"
   env:
     - name: PLEX_CLAIM
-      value: "claim-EBHHskMtGJvzDiwU3QH-"
+      value: "claim-7D3skugG21hxXKLzPywJ"
 
 # -- Image pull secrets
 imagePullSecrets: []
