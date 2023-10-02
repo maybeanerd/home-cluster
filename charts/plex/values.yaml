@@ -114,11 +114,13 @@ affinity: {}
 persistence:
   config:
     enabled: true
+    isPvc: true
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: nfs-client
   data:
     enabled: true
+    isPvc: true
     accessMode: ReadWriteOnce
     size: 1Ti
     storageClass: nfs-client
