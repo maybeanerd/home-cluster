@@ -1,173 +1,125 @@
-# -- Number of replicas to run. Chart is not designed to scale horizontally, use at your own risk
-replicaCount: 1
-
-# -- Use host network
-hostNetwork: false
-
-hostPort:
-  # -- Use host port for the application
-  enabled: false
-  # -- Host port to bind to
-  port: 32400
-
-# -- Additional port definitions for the pod
-additionalPorts: []
-  # - name: udp-1900
-  #   containerPort: 1900
-  #   protocol: UDP
-  #   hostPort: 1900
-  # - name: udp-5353
-  #   containerPort: 5353
-  #   protocol: UDP
-  #   hostPort: 5353
-  # - name: tcp-32410
-  #   containerPort: 32410
-  #   protocol: TCP
-  #   hostPort: 32410
-  # - name: tcp-32412
-  #   containerPort: 32412
-  #   protocol: TCP
-  #   hostPort: 32412
-  # - name: tcp-32413
-  #   containerPort: 32413
-  #   protocol: TCP
-  #   hostPort: 32413
-  # - name: tcp-32414
-  #   containerPort: 32414
-  #   protocol: TCP
-  #   hostPort: 32414
-  # - name: tcp-32469
-  #   containerPort: 32469
-  #   protocol: TCP
-  #   hostPort: 32469
-
-# -- Additional port definitions for the service
-additionalServicePorts: []
+#
+# IMPORTANT NOTE
+#
+# This chart inherits from our common library chart. You can check the default values/options here:
+# https://github.com/k8s-at-home/library-charts/tree/main/charts/stable/common/values.yaml
+#
 
 image:
-  # -- Image repository
+  # -- image repository
   repository: docker.io/linuxserver/plex
-  # -- Image pull policy
-  pullPolicy: IfNotPresent
-  # -- Image tag (if not specified, defaults to the chart's appVersion)
+  # @default -- chart.appVersion
   tag: "1.32.6"
+  # -- image pull policy
+  pullPolicy: IfNotPresent
 
-# -- Image pull secrets
-imagePullSecrets: []
-# -- String to partially override fullname template with a string (will prepend the release name)
-nameOverride: ""
-# -- String to fully override fullname template with a string
-fullnameOverride: ""
+# -- environment variables. See [plex docs](https://support.plex.tv/articles/201105343-advanced-hidden-server-settings/) for more details.
+# **NOTE:** Plex preference options are camelCase and CASE SENSITIVE!
+# You can do horrible things to your Plex configuration if you are not careful
+# @default -- See below
+env:
+  # -- Set the container timezone
+  TZ: CET
+  # ADVERTISE_IP:
+  # ALLOWED_NETWORKS:
+  # PLEX_CLAIM:
+  # PLEX_PREFERENCE_1: "FriendlyName=plex-kubernetes"
+  # PLEX_PREFERENCE_2: "EnableIPv6=0"
+  # PLEX_PREFERENCE_3: "logDebug=0"
+  # PLEX_PREFERENCE_4: "DisableTLSv1_0=1"
+  # PLEX_PREFERENCE_5: "LanNetworksBandwidth=xxx.xxx.xxx.0/18\,xxx.xxx.xxx.0/24\,xxx.xxx.xxx.0/24"
+  # PLEX_PREFERENCE_6: "TranscoderQuality=2"
+  # PLEX_PREFERENCE_7: "TreatWanIpAsLocal=0"
+  # PLEX_PREFERENCE_8: "TranscoderH264BackgroundPreset=fast"
 
-serviceAccount:
-  # -- Specifies whether a service account should be created
-  create: true
-  # -- Annotations to add to the service account
-  annotations: {}
-  # -- The name of the service account to use. If not set and create is true, a name is generated using the fullname template
-  name: ""
-
-# -- Annotations for the pods
-podAnnotations: {}
-
-# -- Security context for the pods
-podSecurityContext: {}
-
-# -- Security context for the container
-securityContext: {}
-  # capabilities:
-  #   add:
-  #     - NET_ADMIN
-
-# -- Deployment strategy
-strategy:
-  type: Recreate
-
+# -- Configures service settings for the chart.
+# @default -- See values.yaml
 service:
-  # -- Type of the service
-  type: ClusterIP
-  # -- Port for the service to use
-  port: 32400
+  main:
+    primary: true
+    ports:
+      http:
+        port: 32400
+  dnla-tcp:
+    enabled: false
+    type: NodePort
+    ports:
+      dnla-tcp:
+        enabled: true
+        port: 32469
+        protocol: TCP
+        targetPort: 32469
+    externalTrafficPolicy: Local
+  dnla-udp:
+    enabled: false
+    type: NodePort
+    ports:
+      dnla-udp:
+        enabled: true
+        port: 1900
+        protocol: TCP
+        targetPort: 1900
+    externalTrafficPolicy: Local
 
 ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-  path: /
-  hosts:
-    - plex.cluster.diluz.io
-  pathType: Prefix
+  # -- Enable and configure ingress settings for the chart under this key.
+  # @default -- See values.yaml
+  main:
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    path: /
+    hosts:
+      - jellyfin.cluster.diluz.io
+    pathType: Prefix
 
-# -- The resource requests and limits of the container
-resources: {}
+# -- Enable devices to be discoverable
+hostNetwork: false
 
-# -- The node selector for the deployment
-nodeSelector: {}
-
-# -- Tolerations for the pod assignment
-tolerations: []
-
-# -- Affinity for the pod assignment
-affinity: {}
-
+# -- Configure persistence settings for the chart under this key.
+# @default -- See values.yaml
 persistence:
   config:
     enabled: true
-    # necessary for how this chart handles PVCs
-    isPvc: true
+    mountPath: /config
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: nfs-client
-  data:
+
+  transcode:
     enabled: true
-    # necessary for how this chart handles PVCs
-    isPvc: true
+    mountPath: /transcode
     accessMode: ReadWriteOnce
-    size: 1Ti
+    size: 1Gi
     storageClass: nfs-client
 
-# -- Non-sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
-env: 
-  PLEX_CLAIM: "claim-RESeP7XPLQyHeWsQjAEs"
+# -- Configure the Security Context for the Pod
+podSecurityContext:
+  {}
+  # runAsUser: 568
+  # runAsGroup: 568
+  # fsGroup: 568
+  # # Hardware acceleration using an Intel iGPU w/ QuickSync
+  # # These IDs below should be matched to your `video` and `render` group on the host
+  # # To obtain those IDs run the following grep statement on the host:
+  # # $ cat /etc/group | grep "video\|render"
+  # # video:x:44:
+  # # render:x:109:
+  # supplementalGroups:
+  # - 44
+  # - 109
 
-# -- Sensitive environment variables to be set in the pods. See the [application docs](https://docs.linuxserver.io/images/docker-plex)
-secretEnv: {}
-
-# -- DNS configuration for the pod
-dnsConfig: {}
-
-# -- DNS policy for the pod
-dnsPolicy: ClusterFirst
-
-# -- Arbitrary extra volume definitions for the pod
-extraVolumes: []
-
-# -- Arbitrary extra volume mounts for the pod
-extraVolumeMounts: {}
-
-# -- Pod liveness probe
-livenessProbe: {}
-
-# -- Pod readiness probe
-readinessProbe:
-  tcpSocket:
-    port: plex
-
-# -- Init containers
-initContainers: []
-  # - name: init
-  #   image: busybox:stable-musl
-  #   command:
-  #     - sh
-  #     - -c
-  #     - echo "initializing..."
-
-# -- Sidecar containers
-sidecarContainers: []
-  # - name: sidecar
-  #   image: busybox:stable-musl
-  #   command:
-  #     - tail
-  #     - -f
-  #     - /dev/null
+# -- Configure the resource requests and/or limits for the Pod
+resources:
+  requests:
+    #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+    #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+    #   gpu.intel.com/i915: 1
+    cpu: 200m
+    memory: 256Mi
+  # limits:
+  #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
+  #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
+  #   gpu.intel.com/i915: 1
+  #   memory: 4096Mi

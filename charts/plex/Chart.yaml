@@ -1,13 +1,14 @@
+---
 apiVersion: v2
+description: Plex Media Server
 name: plex
-description: Plex Media Server Helm chart
-type: application
 version: 0.1.0
-home: https://www.plex.tv
+kubeVersion: ">=1.16.0-0"
 keywords:
   - plex
-  - media-server
   - plex-media-server
-  - streaming
-  - tv
-icon: https://utkuozdemir.org/helm-charts/plex.png
+icon: https://www.plex.tv/wp-content/uploads/2018/01/pmp-icon-1.png
+dependencies:
+  - name: common
+    repository: https://library-charts.k8s-at-home.com
+    version: 4.5.2
