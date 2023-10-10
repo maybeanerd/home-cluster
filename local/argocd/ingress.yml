@@ -1,12 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: argocd-ingress
-  labels:
-    # app.kubernetes.io/managed-by: argocd-server
-    # app.kubernetes.io/component: server
-    app.kubernetes.io/name: argocd-ingress
-    app.kubernetes.io/part-of: argocd
+  name: argocd-server
   namespace: argocd
   annotations:
     kubernetes.io/ingress.class: traefik
@@ -22,4 +17,4 @@ spec:
               service:
                 name: argocd-server
                 port:
-                  name: http
+                  number: 80
