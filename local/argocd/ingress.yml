@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: argocd-server
+  labels:
+    app.kubernetes.io/managed-by: argocd-server
+    app.kubernetes.io/component: server
+    app.kubernetes.io/name: argocd-server
+    app.kubernetes.io/part-of: argocd
+  namespace: argocd
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+spec:
+  rules:
+    - host: argocd.cluster.diluz.io
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: argocd-server
+                port:
+                  name: http
