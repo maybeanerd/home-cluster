@@ -20,6 +20,8 @@ image:
 env:
   # -- Set the container timezone
   TZ: CET
+  PUID: 0
+  PGID: 0
   # ADVERTISE_IP:
   # ALLOWED_NETWORKS:
   # PLEX_CLAIM:
