@@ -29,12 +29,12 @@ service:
   ## set the LoadBalancer service type to internal only.
   ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#internal-load-balancer
   ##
-  ##annotations: {}
-  ##labels: {}
+  ## annotations: {}
+  ## labels: {}
   ## Use loadBalancerIP to request a specific static IP,
   ## otherwise leave blank
   ##
-  ##loadBalancerIP:
+  ## loadBalancerIP:
   # loadBalancerSourceRanges: []
   ## Set the externalTrafficPolicy in the Service to either Cluster or Local
   # externalTrafficPolicy: Cluster
@@ -94,7 +94,7 @@ persistence:
     #   existingClaim:
     #   readOnly: true
 
-resources: 
+resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
@@ -113,11 +113,10 @@ tolerations: []
 affinity: {}
 
 extraVolumes: []
-  #- name: renderD129
+  # - name: renderD129
   #  hostPath:
   #    path: /dev/dri/renderD129
 
 extraVolumeMounts: []
-  #- mountPath: /dev/dri/renderD129
+  # - mountPath: /dev/dri/renderD129
   #  name: renderD129
-
