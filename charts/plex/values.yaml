@@ -97,8 +97,8 @@ resources:
     #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
     #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
     #   gpu.intel.com/i915: 1
-    cpu: 200m
-    memory: 256Mi
+    cpu: 400m
+    memory: 512Mi
   # limits:
   #   # Hardware acceleration using an Intel iGPU w/ QuickSync and
   #   # using intel-gpu-plugin (https://github.com/intel/intel-device-plugins-for-kubernetes)
