@@ -64,14 +64,14 @@ hostNetwork: false
 # @default -- See values.yaml
 persistence:
   config:
-    enabled: true
+    enabled: false
     mountPath: /config
     accessMode: ReadWriteOnce
     size: 1Gi
     storageClass: nfs-client
 
   data:
-    enabled: true
+    enabled: false
     mountPath: /data
     accessMode: ReadWriteOnce
     size: 1Gi
