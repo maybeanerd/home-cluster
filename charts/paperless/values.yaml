@@ -54,10 +54,11 @@ ingress:
     annotations:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/tls-acme: "true"
-    path: /
     hosts:
-      - paperless.cluster.diluz.io
-    pathType: Prefix
+      - host: paperless.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
 
 persistence:
   # -- Configure persistence for data.
