@@ -42,13 +42,13 @@ config:
     port: 6379
     prefix: misskey
     db: 1
-  
+
   # elasticsearch:
   #   host: '{{ .Release.Name }}-postgresql'
   #   port: 9200
   #   ssl: false
-  #   user: 
-  #   pass: 
+  #   user:
+  #   pass:
 
   id: 'aid'
 
@@ -112,4 +112,4 @@ redis:
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch)
 # @default -- See values.yaml
 elasticsearch:
-  enabled: false 
+  enabled: false
