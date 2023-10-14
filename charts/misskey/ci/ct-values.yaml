@@ -1,0 +1,59 @@
+
+config:
+  url: https://your-domain.com
+
+  db:
+    host: misskey-postgresql
+    port: 5432
+    db: misskey
+    user: example-misskey-user
+    pass: example-misskey-pass
+
+  redis:
+    host: misskey-redis-master
+    port: 6379
+    prefix: misskey
+    db: 1
+  
+  elasticsearch:
+    host: misskey-elasticsearch
+    port: 9200
+    ssl: false
+
+persistence:
+  files:
+    enabled: true
+    type: emptyDir
+    mountPath: /misskey/files
+
+postgresql:
+  enabled: true
+  persistence:
+    enabled: false
+
+redis: 
+  enabled: true
+  master:
+    persistence:
+      enabled: false
+  replica:
+    persistence:
+      enabled: false
+  sentinel:
+    persistence:
+      enabled: false
+
+elasticsearch:
+  enabled: true
+  master:
+    persistence:
+      enabled: false   
+  data:
+    persistence:
+      enabled: false
+
+probes: 
+  liveness:
+    enabled: false
+  startup:
+    enabled: false
