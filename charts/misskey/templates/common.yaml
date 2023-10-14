@@ -1,0 +1,14 @@
+{{- include "common.values.setup" . }}
+---
+{{- define "misskey.settingsVolume" -}}
+enabled: "true"
+mountPath: "/misskey/.config/default.yml"
+subPath: "default.yml"
+type: "custom"
+volumeSpec:
+  configMap:
+    name: {{ include "common.names.fullname" . }}-settings
+{{- end -}}
+{{- $_ := set .Values.persistence "misskey-settings" (include "misskey.settingsVolume" . | fromYaml) -}}
+
+{{ include "common.all" . }}

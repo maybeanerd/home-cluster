@@ -1,0 +1,33 @@
+apiVersion: v2
+description: |
+    Misskey is a decentralized microblogging platform born on Earth. 
+    Since it exists within the Fediverse (a universe where various social media platforms are organized),
+    it is mutually linked with other social media platforms. 
+name: misskey
+version: 1.0.0
+kubeVersion: ">=1.16.0-0"
+keywords:
+- misskey
+- fediverse
+- mastodon
+sources:
+- https://github.com/misskey-dev/misskey
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
+dependencies:
+- name: common
+  repository: https://library-charts.k8s-at-home.com
+  version: 4.4.2
+- name: postgresql
+  version: 10.5.3
+  repository: https://charts.bitnami.com/bitnami
+  condition: postgresql.enabled
+- name: redis
+  version: 16.9.2
+  repository: https://charts.bitnami.com/bitnami
+  condition: redis.enabled
+- name: elasticsearch
+  version: 18.0.2
+  repository: https://charts.bitnami.com/bitnami
+  condition: elasticsearch.enabled
