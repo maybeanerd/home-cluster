@@ -9,7 +9,7 @@ image:
   # -- image repository
   repository: misskey/misskey
   # -- image tag
-  tag: 12.110.1
+  tag: 12.119.2
   # -- image pull policy
   pullPolicy: IfNotPresent
 
