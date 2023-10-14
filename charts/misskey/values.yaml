@@ -28,7 +28,7 @@ config:
   #    Either use provided subchart or overwrite below values.
   # @default -- See values.yaml
   db:
-    host: '{{ .Release.Name }}-postgresql'
+    host: 'misskey-postgresql'
     port: 5432
     db: misskey
     user: example-misskey-user
@@ -38,13 +38,13 @@ config:
   #    Either use provided subchart or overwrite below values.
   # @default -- See values.yaml
   redis:
-    host: '{{ .Release.Name }}-redis-master'
+    host: 'misskey-redis-master'
     port: 6379
     prefix: misskey
     db: 1
 
   # elasticsearch:
-  #   host: '{{ .Release.Name }}-postgresql'
+  #   host: 'misskey-postgresql'
   #   port: 9200
   #   ssl: false
   #   user:
@@ -107,7 +107,7 @@ postgresql:
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 # @default -- See values.yaml
 redis:
-  enabled: true
+  enabled: false
   auth:
     enabled: false
 
@@ -115,4 +115,4 @@ redis:
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch)
 # @default -- See values.yaml
 elasticsearch:
-  enabled: true
+  enabled: false
