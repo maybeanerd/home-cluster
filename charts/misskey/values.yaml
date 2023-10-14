@@ -92,19 +92,22 @@ persistence:
 #    For more options see [postgresql chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/postgresql)
 # @default -- See values.yaml
 postgresql:
-  enabled: false
+  enabled: true
   postgresqlUsername: example-misskey-user
   postgresqlPassword: example-misskey-pass
   postgresqlDatabase: misskey
   persistence:
-    enabled: false
+    enabled: true
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    storageClass: nfs-client
 
 
 # -- Enable and configure redis subchart under this key.
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 # @default -- See values.yaml
 redis:
-  enabled: false
+  enabled: true
   auth:
     enabled: false
 
@@ -112,4 +115,4 @@ redis:
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch)
 # @default -- See values.yaml
 elasticsearch:
-  enabled: false
+  enabled: true
