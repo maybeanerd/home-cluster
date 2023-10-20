@@ -8,7 +8,7 @@ image:
   repository: registry.joinfirefish.org/firefish/firefish
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.4-beta31"
+  tag: "v1.0.4-beta2"
 
 firefish:
   isManagedHosting: true
