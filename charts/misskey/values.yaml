@@ -107,12 +107,7 @@ postgresql:
 #    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/redis)
 # @default -- See values.yaml
 redis:
-  enabled: false
+  enabled: true
   auth:
     enabled: false
 
-# -- Enable and configure elasticsearch subchart under this key.
-#    For more options see [redis chart documentation](https://github.com/bitnami/charts/tree/master/bitnami/elasticsearch)
-# @default -- See values.yaml
-elasticsearch:
-  enabled: false
