@@ -1,0 +1,17 @@
+{{- if .Values.firefish.persistence.data.enabled }}
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ include "firefish.fullname" . }}-files
+  labels:
+    {{- include "firefish.labels" . | nindent 4 }}
+spec:
+  accessModes:
+    - {{ .Values.firefish.persistence.data.accessMode | quote }}
+  {{- if .Values.firefish.persistence.data.storageClass }}
+  storageClassName: {{ .Values.firefish.persistence.data.storageClass | quote }}
+  {{- end }}
+  resources:
+    requests:
+      storage: {{ .Values.firefish.persistence.data.size | quote }}
+  {{- end }}

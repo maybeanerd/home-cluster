@@ -32,6 +32,9 @@ spec:
         - name: config-volume
           secret:
             secretName: {{ template "firefish.fullname" . }}-config
+        - name: files-volume
+          persistentVolumeClaim:
+            claimName: {{ include "firefish.fullname" . }}-files
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
@@ -48,6 +51,8 @@ spec:
           volumeMounts:
             - name: config-volume
               mountPath: /firefish/.config
+            - name: files-volume
+              mountPath: /firefish/files
           ports:
             - name: http
               containerPort: 3000
