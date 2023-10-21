@@ -31,12 +31,12 @@ spec:
       volumes:
         - name: config-volume
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (include "firefish.fullname" .)-config }}
+            claimName: {{ include "firefish.fullname" . }}-config
           secret:
             secretName: {{ template "firefish.fullname" . }}-config
         - name: files-volume
           persistentVolumeClaim:
-            claimName: {{ .Values.persistence.existingClaim | default (include "firefish.fullname" .)-files }}
+            claimName: {{ include "firefish.fullname" . }}-files
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
