@@ -52,7 +52,7 @@ spec:
             - name: config-volume
               mountPath: /firefish/.config
             - name: files-volume
-              mountPath: /firefish/files/
+              mountPath: /firefish/files
           ports:
             - name: http
               containerPort: 3000
