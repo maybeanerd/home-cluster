@@ -35,10 +35,8 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command:
-            - pnpm
-            - run
-            - migrate
+          command: ["/bin/sh"]
+          args: ["pnpm", "migrate"]
           env:
             - name: "NODE_ENV"
               value: "production"
