@@ -38,8 +38,10 @@ spec:
             {{- toYaml .Values.securityContext | nindent 12 }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh"]
-          args: ["pnpm", "start"]
+          command:
+            - pnpm
+            - run
+            - start
           env:
             - name: "NODE_ENV"
               value: "production"
