@@ -30,8 +30,6 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       volumes:
         - name: config-volume
-          persistentVolumeClaim:
-            claimName: {{ include "firefish.fullname" . }}-config
           secret:
             secretName: {{ template "firefish.fullname" . }}-config
         - name: files-volume
