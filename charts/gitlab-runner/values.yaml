@@ -61,7 +61,7 @@ gitlabUrl: https://git.joinfirefish.org/
 ## be retrieved from your GitLab Instance. It is token of already registered runner.
 ## ref: (we don't yet have docs for that, but we want to use existing token)
 ##
-# runnerToken: ""
+runnerToken: ""
 #
 
 ## Unregister all runners before termination
