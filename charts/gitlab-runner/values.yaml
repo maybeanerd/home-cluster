@@ -49,7 +49,7 @@ imagePullPolicy: IfNotPresent
 ## The GitLab Server URL (with protocol) that want to register the runner against
 ## ref: https://docs.gitlab.com/runner/commands/index.html#gitlab-runner-register
 ##
-gitlabUrl:  https://git.joinfirefish.org/
+gitlabUrl: https://git.joinfirefish.org/
 
 ## DEPRECATED: The Registration Token for adding new Runners to the GitLab Server.
 ##
@@ -121,7 +121,7 @@ checkInterval: 30
 ## A custom bash script that will be executed prior to the invocation
 ## gitlab-runner process
 #
-#preEntrypointScript: |
+# preEntrypointScript: |
 #  echo "hello"
 
 ## Specify whether the runner should start the session server.
@@ -179,7 +179,7 @@ rbac:
   ## serviceAccountAnnotations:
   ##   eks.amazonaws.com/role-arn: "arn:aws:iam::{{ .Values.global.accountId }}:role/{{ .Values.global.iamRoleName }}"
   ##
-  ## ref: https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html 
+  ## ref: https://docs.aws.amazon.com/eks/latest/userguide/associate-service-account-role.html
   ##
   # serviceAccountAnnotations: {}
 
@@ -237,7 +237,7 @@ metrics:
 
     ## Supply a tls configuration for the service monitor
     ##
-    ## ref: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml 
+    ## ref: https://github.com/prometheus-community/helm-charts/blob/main/charts/kube-prometheus-stack/charts/crds/crds/crd-servicemonitors.yaml
     ##
     # tlsConfig: {}
 
@@ -438,7 +438,7 @@ runners:
 # schedulerName: "my-custom-scheduler"
 
 ## Configure securitycontext for the main container
-## ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ 
+## ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/
 ##
 securityContext:
   allowPrivilegeEscalation: false
@@ -449,7 +449,7 @@ securityContext:
     drop: ["ALL"]
 
 ## Configure securitycontext valid for the whole pod
-## ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/ 
+## ref: https://kubernetes.io/docs/concepts/security/pod-security-standards/
 ##
 podSecurityContext:
   runAsUser: 100
@@ -547,7 +547,7 @@ podLabels: {}
 ## implementing "custom.metrics.k8s.io" using supported third party adapter
 ## Example: https://github.com/directxman12/k8s-prometheus-adapter
 ##
-#hpa: {}
+# hpa: {}
   # minReplicas: 1
   # maxReplicas: 10
   # metrics:
