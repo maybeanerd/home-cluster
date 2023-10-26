@@ -1,0 +1,27 @@
+suite: test deployment
+templates:
+  - deployment.yaml
+  - configmap.yaml
+  - secrets.yaml
+tests:
+  - it: renders runner registration token secret
+    set:
+      image.tag: latest
+      runnerRegistrationToken: "MY_REGISTRATION_TOKEN"
+    template: deployment.yaml
+    asserts:
+      - isKind:
+          of: Deployment
+      - equal:
+          path: spec.template.spec.volumes[2].name
+          value: projected-secrets
+      - equal:
+          path: spec.template.spec.volumes[2].projected.sources[0]
+          value:
+            secret:
+              name: RELEASE-NAME-gitlab-runner
+              items:
+                - key: runner-registration-token
+                  path: runner-registration-token
+                - key: runner-token
+                  path: runner-token
