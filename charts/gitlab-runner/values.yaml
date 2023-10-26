@@ -61,7 +61,7 @@ gitlabUrl:  https://git.joinfirefish.org/
 ## be retrieved from your GitLab Instance. It is token of already registered runner.
 ## ref: (we don't yet have docs for that, but we want to use existing token)
 ##
-# runnerToken: ""
+runnerToken: "glrt-VgiArruEn29u5s1fLDus"
 #
 
 ## Unregister all runners before termination
@@ -464,15 +464,15 @@ podSecurityContext:
 ## Configure resource requests and limits
 ## ref: https://kubernetes.io/docs/concepts/configuration/manage-resources-containers/
 ##
-resources: {}
+resources:
   # limits:
   #   memory: 256Mi
   #   cpu: 200m
   #   ephemeral-storage: 512Mi
-  # requests:
-  #   memory: 128Mi
-  #   cpu: 100m
-  #   ephemeral-storage: 256Mi
+  requests:
+    memory: 128Mi
+    cpu: 100m
+    ephemeral-storage: 128Mi
 
 ## Affinity for pod assignment
 ## Ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#affinity-and-anti-affinity
