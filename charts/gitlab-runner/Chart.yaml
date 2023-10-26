@@ -22,6 +22,6 @@ type: application
 version: 0.1.0
 
 dependencies:
-  - name: gitlab/gitlab-runner
+  - name: gitlab-runner
     version: 0.58.1
     repository: https://charts.gitlab.io

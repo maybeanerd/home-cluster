@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-gitlab/gitlab-runner:
+gitlab-runner:
   ## GitLab Runner Image
   ##
   ## By default it's using registry.gitlab.com/gitlab-org/gitlab-runner:alpine-v{VERSION}
