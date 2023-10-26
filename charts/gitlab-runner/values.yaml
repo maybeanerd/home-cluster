@@ -12,7 +12,7 @@
 image:
   registry: registry.gitlab.com
   image: gitlab-org/gitlab-runner
-  # tag: alpine-v11.6.0
+  tag: 16.4.2
 
 ## When using GitLab Runner Helm Chart with gitlab-runner-ubi-images (https://gitlab.com/gitlab-org/ci-cd/gitlab-runner-ubi-images/container_registry)
 ## the installation fails because dumb-init is not packaged in the image. However, the tini is present.
