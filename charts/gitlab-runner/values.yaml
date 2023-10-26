@@ -144,7 +144,7 @@ sessionServer:
 
 ## For RBAC support:
 rbac:
-  create: false
+  create: true
 
   ## Define list of rules to be added to the rbac role permissions.
   ## Each rule supports the keys:
