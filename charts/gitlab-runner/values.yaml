@@ -330,6 +330,7 @@ runners:
       [runners.kubernetes]
         namespace = "{{.Release.Namespace}}"
         image = "alpine"
+        helper_image = "gitlab/gitlab-runner-helper:arm-latest"
 
   ## Absolute path for an existing runner configuration file
   ## Can be used alongside "volumes" and "volumeMounts" to use an external config file
