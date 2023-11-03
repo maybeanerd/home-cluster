@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "immich.fullname" . }}-files
+  name: immich-library
   labels:
     {{- include "immich.labels" . | nindent 4 }}
 spec:
