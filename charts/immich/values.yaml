@@ -53,14 +53,14 @@ redis:
     enabled: false
 
 typesense:
-  enabled: false
+  enabled: true
   env:
     TYPESENSE_DATA_DIR: /tsdata
     TYPESENSE_API_KEY: typesense
   persistence:
     tsdata:
       # Enabling typesense persistence is recommended to avoid slow reindexing
-      enabled: false
+      enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
