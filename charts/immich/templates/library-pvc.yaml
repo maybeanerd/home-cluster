@@ -3,8 +3,8 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: immich-library
-  labels:
-    {{- include "immich.labels" . | nindent 4 }}
+#  labels:
+#    {{- include "immich.labels" . | nindent 4 }}
 spec:
   accessModes:
     - {{ .Values.immich.persistence.library.accessMode | quote }}
