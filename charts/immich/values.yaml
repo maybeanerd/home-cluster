@@ -19,12 +19,14 @@ env:
   IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
 image:
+  repository: ghcr.io/immich-app/immich-server
   tag: v1.79.1
 
 immich:
   persistence:
     # Main data store for all photos shared between different components.
     library:
+      existingClaim: immich-library # Which is exactly what we specify below and create with library-pvc.yaml
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Ti
