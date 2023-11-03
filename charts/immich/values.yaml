@@ -25,23 +25,29 @@ immich:
   persistence:
     # Main data store for all photos shared between different components.
     library:
-      # Automatically creating the library volume is not supported by this chart
-      # You have to specify an existing PVC to use
-      existingClaim:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Ti
+      storageClass: nfs-client
 
 # Dependencies
-
 postgresql:
-  enabled: false
+  enabled: true
   global:
     postgresql:
       auth:
         username: immich
         database: immich
         password: immich
+      primary:
+        persistence:
+          enabled: true
+          accessMode: ReadWriteOnce
+          size: 1Gi
+          storageClass: nfs-client
 
 redis:
-  enabled: false
+  enabled: true
   architecture: standalone
   auth:
     enabled: false
@@ -57,7 +63,7 @@ typesense:
       enabled: false
       accessMode: ReadWriteOnce
       size: 1Gi
-      # storageClass: storage-class
+      storageClass: nfs-client
   image:
     repository: docker.io/typesense/typesense
     tag: 0.24.0
@@ -78,11 +84,9 @@ microservices:
   persistence:
     geodata-cache:
       enabled: true
+      accessMode: ReadWriteOnce
       size: 1Gi
-      # Optional: Set this to pvc to avoid downloading the geodata every start.
-      type: emptyDir
-      accessMode: ReadWriteMany
-      # storageClass: your-class
+      storageClass: nfs-client
   image:
     repository: ghcr.io/immich-app/immich-server
     pullPolicy: IfNotPresent
@@ -97,11 +101,9 @@ machine-learning:
   persistence:
     cache:
       enabled: true
+      accessMode: ReadWriteOnce
       size: 10Gi
-      # Optional: Set this to pvc to avoid downloading the ML models every start.
-      type: emptyDir
-      accessMode: ReadWriteMany
-      # storageClass: your-class
+      storageClass: nfs-client
 
 web:
   enabled: true
@@ -124,12 +126,14 @@ proxy:
 
   ingress:
     main:
-      enabled: false
+      enabled: true
       annotations:
         # proxy-body-size is set to 0 to remove the body limit on file uploads
         nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
       hosts:
-        - host: immich.local
+        - host: immich.cluster.diluz.io
           paths:
-            - path: "/"
-      tls: []
+            - path: /
+              pathType: Prefix
