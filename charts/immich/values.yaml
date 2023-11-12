@@ -94,7 +94,7 @@ microservices:
     pullPolicy: IfNotPresent
 
 machine-learning:
-  enabled: false
+  enabled: true
   image:
     repository: ghcr.io/immich-app/immich-machine-learning
     pullPolicy: IfNotPresent
