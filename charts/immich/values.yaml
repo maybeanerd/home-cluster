@@ -41,12 +41,12 @@ postgresql:
         username: immich
         database: immich
         password: immich
-      primary:
-        persistence:
-          enabled: true
-          accessMode: ReadWriteOnce
-          size: 1Gi
-          storageClass: nfs-client
+  primary:
+    persistence:
+      enabled: true
+      accessMode: ReadWriteOnce
+      size: 1Gi
+      storageClass: nfs-client
 
 redis:
   enabled: true
