@@ -1,0 +1,175 @@
+# Dependencies
+kube-prometheus-stack:
+  ## Configuration for prometheus-windows-exporter
+  ## ref: https://github.com/prometheus-community/helm-charts/tree/main/charts/prometheus-windows-exporter
+  ##
+  prometheus-windows-exporter:
+    ## Enable ServiceMonitor and set Kubernetes label to use as a job label
+    ##
+    prometheus:
+      monitor:
+        enabled: false
+
+  ## Configuration for alertmanager
+  ## ref: https://prometheus.io/docs/alerting/alertmanager/
+  ##
+  alertmanager:
+
+    ## Deploy alertmanager
+    ##
+    enabled: false
+
+  ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
+  ##
+  grafana:
+    # TODO maybe we want to use grafana
+    enabled: false
+    ingress:
+      ## If true, Grafana Ingress will be created
+      ##
+      enabled: false
+
+      ## IngressClassName for Grafana Ingress.
+      ## Should be provided if Ingress is enable.
+      ##
+      # ingressClassName: nginx
+
+      ## Annotations for Grafana Ingress
+      ##
+      annotations: {}
+        # kubernetes.io/ingress.class: nginx
+        # kubernetes.io/tls-acme: "true"
+
+      ## Labels to be added to the Ingress
+      ##
+      labels: {}
+
+      ## Hostnames.
+      ## Must be provided if Ingress is enable.
+      ##
+      # hosts:
+      #   - grafana.domain.com
+      hosts: []
+
+      ## Path for grafana ingress
+      path: /
+
+      ## TLS configuration for grafana Ingress
+      ## Secret must be manually created in the namespace
+      ##
+      tls: []
+      # - secretName: grafana-general-tls
+      #   hosts:
+      #   - grafana.example.com
+
+  ## Component scraping the kube api server
+  ##
+  kubeApiServer:
+    enabled: true
+
+  ## Component scraping the kubelet and kubelet-hosted cAdvisor
+  ##
+  kubelet:
+    enabled: false
+
+  ## Component scraping the kube controller manager
+  ##
+  kubeControllerManager:
+    enabled: true
+
+  ## Component scraping etcd
+  ##
+  kubeEtcd:
+    enabled: false
+
+  ## Component scraping kube scheduler
+  ##
+  kubeScheduler:
+    enabled: false
+
+  ## Component scraping kube proxy
+  ##
+  kubeProxy:
+    enabled: false
+
+  ## Component scraping kube state metrics
+  ##
+  kubeStateMetrics:
+    enabled: true
+
+  ## Deploy node exporter as a daemonset to all nodes
+  ##
+  nodeExporter:
+    enabled: true
+
+  ## Deploy a Prometheus instance
+  ##
+  prometheus:
+    enabled: true
+    ## Configuration for Prometheus service
+    ##
+    service:
+      ## Service type
+      ##
+      type: ClusterIP
+    ingress:
+      enabled: false
+      # TODO set up ingress
+
+      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
+      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
+      # ingressClassName: nginx
+
+      annotations: {}
+      labels: {}
+
+      ## Redirect ingress to an additional defined port on the service
+      # servicePort: 8081
+
+      ## Hostnames.
+      ## Must be provided if Ingress is enabled.
+      ##
+      # hosts:
+      #   - prometheus.domain.com
+      hosts: []
+
+      ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
+      ##
+      paths: []
+      # - /
+
+      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
+      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
+      # pathType: ImplementationSpecific
+
+      ## TLS configuration for Prometheus Ingress
+      ## Secret must be manually created in the namespace
+      ##
+      tls: []
+        # - secretName: prometheus-general-tls
+        #   hosts:
+        #     - prometheus.example.com
+    ## Settings affecting prometheusSpec
+    ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#prometheusspec
+    ##
+    prometheusSpec:
+      ## Resource limits & requests
+      ##
+      resources: {}
+      # requests:
+      #   memory: 400Mi
+
+      ## Prometheus StorageSpec for persistent data
+      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
+      ##
+      storageSpec:
+        ## Using PersistentVolumeClaim
+        ##
+        volumeClaimTemplate:
+          spec:
+            storageClassName: nfs-client
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 50Gi
+      #    selector: {}
