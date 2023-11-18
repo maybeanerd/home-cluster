@@ -78,6 +78,19 @@ server:
   image:
     repository: ghcr.io/immich-app/immich-server
     pullPolicy: IfNotPresent
+  ingress:
+    main:
+      enabled: true
+      annotations:
+        # proxy-body-size is set to 0 to remove the body limit on file uploads
+        nginx.ingress.kubernetes.io/proxy-body-size: "0"
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
+      hosts:
+        - host: immich.cluster.diluz.io
+          paths:
+            - path: /
+              pathType: Prefix
 
 microservices:
   enabled: true
@@ -106,36 +119,3 @@ machine-learning:
       accessMode: ReadWriteOnce
       size: 10Gi
       storageClass: nfs-client
-
-web:
-  enabled: true
-  image:
-    repository: ghcr.io/immich-app/immich-web
-    pullPolicy: IfNotPresent
-  persistence:
-    library:
-      enabled: false
-
-proxy:
-  enabled: true
-  image:
-    repository: ghcr.io/immich-app/immich-proxy
-    pullPolicy: IfNotPresent
-
-  persistence:
-    library:
-      enabled: false
-
-  ingress:
-    main:
-      enabled: true
-      annotations:
-        # proxy-body-size is set to 0 to remove the body limit on file uploads
-        nginx.ingress.kubernetes.io/proxy-body-size: "0"
-        kubernetes.io/ingress.class: traefik
-        kubernetes.io/tls-acme: "true"
-      hosts:
-        - host: immich.cluster.diluz.io
-          paths:
-            - path: /
-              pathType: Prefix
