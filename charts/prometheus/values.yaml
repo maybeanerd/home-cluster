@@ -191,8 +191,8 @@ kube-prometheus-stack:
         ## Label selector for pods to which this PodMonitor applies
         ##
         selector:
-           matchLabels:
-             app.kubernetes.io/name: argocd-application-controller
+          matchLabels:
+            app.kubernetes.io/name: argocd-application-controller
         ## PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
         ##
         # podTargetLabels: {}
