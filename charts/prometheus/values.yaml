@@ -179,7 +179,7 @@ kube-prometheus-stack:
     additionalPodMonitors:
         ## Name of the PodMonitor to create
         ##
-      - name: "argocd-application-controller"
+      - name: "argocd-application-controller-podmonitor"
         ## Additional labels to set used for the PodMonitorSelector. Together with standard labels from
         ## the chart
         ##
