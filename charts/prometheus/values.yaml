@@ -113,14 +113,15 @@ kube-prometheus-stack:
       ##
       type: ClusterIP
     ingress:
-      enabled: false
-      # TODO set up ingress
+      enabled: true
 
       # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
       # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
       # ingressClassName: nginx
 
-      annotations: {}
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
       labels: {}
 
       ## Redirect ingress to an additional defined port on the service
@@ -131,12 +132,14 @@ kube-prometheus-stack:
       ##
       # hosts:
       #   - prometheus.domain.com
-      hosts: []
+      hosts:
+        - prometheus.cluster.diluz.io
 
       ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
       ##
-      paths: []
-      # - /
+      paths:
+        - path: /
+          pathType: Prefix
 
       ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
       ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
