@@ -175,3 +175,49 @@ kube-prometheus-stack:
               requests:
                 storage: 50Gi
       #    selector: {}
+      additionalPodMonitors:
+          ## Name of the PodMonitor to create
+          ##
+        - name: "argocd-application-controller"
+
+          ## Additional labels to set used for the PodMonitorSelector. Together with standard labels from
+          ## the chart
+          ##
+          # additionalLabels: {}
+
+          ## Pod label for use in assembling a job name of the form <label value>-<port>
+          ## If no label is specified, the pod endpoint name is used.
+          ##
+          # jobLabel: ""
+
+          ## Label selector for pods to which this PodMonitor applies
+          ##
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: argocd-application-controller
+
+          ## PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
+          ##
+          # podTargetLabels: {}
+
+          ## SampleLimit defines per-scrape limit on number of scraped samples that will be accepted.
+          ##
+          # sampleLimit: 0
+
+          ## Namespaces from which pods are selected
+          ##
+          namespaceSelector:
+            ## Match any namespace
+            ##
+            # any: false
+
+            ## Explicit list of namespace names to select
+            ##
+            matchNames:
+              - argocd
+
+          ## Endpoints of the selected pods to be monitored
+          ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#podmetricsendpoint
+          ##
+          podMetricsEndpoints:
+            - port: metrics
