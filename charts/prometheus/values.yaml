@@ -175,7 +175,7 @@ kube-prometheus-stack:
               requests:
                 storage: 50Gi
       #    selector: {}
-      additionalPodMonitors: 
+      additionalPodMonitors:
           ## Name of the PodMonitor to create
           ##
         - name: "argocd-application-controller"
@@ -192,8 +192,8 @@ kube-prometheus-stack:
 
           ## Label selector for pods to which this PodMonitor applies
           ##
-          selector: 
-            matchLabels: 
+          selector:
+            matchLabels:
               app.kubernetes.io/name: argocd-application-controller
 
           ## PodTargetLabels transfers labels on the Kubernetes Pod onto the target.
