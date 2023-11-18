@@ -213,4 +213,4 @@ kube-prometheus-stack:
          ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#podmetricsendpoint
          ##
         podMetricsEndpoints:
-          - port: metrics
+          - port: 8082
