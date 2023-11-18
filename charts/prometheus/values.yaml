@@ -175,6 +175,7 @@ kube-prometheus-stack:
               requests:
                 storage: 50Gi
       #    selector: {}
+
     additionalPodMonitors:
         ## Name of the PodMonitor to create
         ##
