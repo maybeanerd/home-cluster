@@ -1,0 +1,8 @@
+# Followed guide https://medium.com/@randeniyamalitha08/enabling-argocd-metrics-and-monitoring-using-kube-prometheus-stack-ebece18c41d8
+# Essentially just added the following to the statefulset:
+template:
+  metadata:
+    annotations:
+      prometheus.io/path: /metrics
+      prometheus.io/port: "8082"
+      prometheus.io/scrape: "true"
