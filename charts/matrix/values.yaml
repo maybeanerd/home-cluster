@@ -810,7 +810,7 @@ matrix-synapse:
     hosts:
       - matrix.cluster.diluz.io
     paths:
-      - /
+      - path: /
 
     ## Hosts to add to the ingress configuration for handling Client-to-Server
     ## API request paths.
