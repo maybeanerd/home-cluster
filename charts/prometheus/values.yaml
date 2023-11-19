@@ -60,7 +60,7 @@ kube-prometheus-stack:
       - name: webhook_receiver
         webhook_configs:
         - url: '<INSERT-YOUR-WEBHOOK>'
-          send_resolved: false
+          send_resolved: true
       templates:
       - '/etc/alertmanager/config/*.tmpl'
 
