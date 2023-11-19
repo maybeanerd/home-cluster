@@ -3,11 +3,11 @@ matrix-synapse:
   ## The Matrix domain name, this is what will be used for the domain part in
   ## your MXIDs.
   ##
-  serverName: 'example.com'
+  serverName: 'matrix.cluster.diluz.io'
 
   ## The public Matrix server name, this will be used for any public URLs
   ## in config as well as for client API links in the ingress.
-  # publicServerName: 'matrix.example.com'
+  publicServerName: 'matrix.cluster.diluz.io'
 
   ## The source of the signing key used by Synapse in federation.
   ##
@@ -165,7 +165,7 @@ matrix-synapse:
     ## terminate the single previous pod, so that the new, incoming pod can attach to the PV
     ##
     strategy:
-      type: RollingUpdate
+      type: Recreate
 
     ## Annotations to apply to the main Synapse pod.
     ##
@@ -296,7 +296,7 @@ matrix-synapse:
       ## terminate the single previous pod, so that the new, incoming pod can attach to the PV
       ##
       strategy:
-        type: RollingUpdate
+        type: Recreate
 
       ## A specific name for this worker, can't be set globally.
       ## Note that this can only be set when replicaCount is 1
@@ -592,7 +592,7 @@ matrix-synapse:
   ## adding SRV-records to DNS.
   ##
   wellknown:
-    enabled: false
+    enabled: true
     replicaCount: 1
 
     # Lighttpd does not bind on IPv6 by default, although this is required in
@@ -694,7 +694,7 @@ matrix-synapse:
 
     auth:
       # XXX Change me!
-      password: synapse
+      password: password
 
       ## Or use existing secret with "password" key
       ## instead of static password
@@ -709,31 +709,9 @@ matrix-synapse:
         args: "--lc-collate=C --lc-ctype=C"
 
       persistence:
-        # storageClass: "-"
+        storageClass: nfs-client
+        accessMode: ReadWriteOnce
         size: 16Gi
-
-    ## Extra arguments for the database connection
-    ## ref: https://github.com/matrix-org/synapse/blob/develop/docs/postgres.md#synapse-config
-    ##
-    extraArgs: {}
-
-  ## An externally configured Postgres server to use for Synapse's database, note
-  ## that the database needs to have both COLLATE and CTYPE set to "C".
-  ##
-  externalPostgresql:
-    # host: postgres
-    port: 5432
-    username: synapse
-    # password: synapse
-
-    ## The name of an existing secret with postgresql credentials
-    # existingSecret: postgres-secrets
-
-    ## Password key to be retrieved from existing secret
-    # existingSecretPasswordKey: postgres-password
-
-    database: synapse
-    # sslmode: prefer
 
     ## Extra arguments for the database connection
     ## ref: https://github.com/matrix-org/synapse/blob/develop/docs/postgres.md#synapse-config
@@ -753,7 +731,7 @@ matrix-synapse:
     auth:
       enabled: true
       # XXX Change me!
-      password: synapse
+      password: password
 
       ## Or use existing secret with "redis-password" key
       ## instead of static password
@@ -771,33 +749,11 @@ matrix-synapse:
       service:
         port: 6379
 
-  ## An externally configured Redis server to use for workers/sharding.
-  ##
-  externalRedis:
-    # host: redis
-    port: 6379
-    # password: synapse
-
-    ## Database ID for non-default database
-    # dbid: 0
-
-    ## The name of an existing secret with redis credentials
-    # existingSecret: redis-secrets
-
-    ## Password key to be retrieved from existing secret
-    # existingSecretPasswordKey: redis-password
-
-  ## Persistence configuration for the media repository function.
-  ## This PVC will be mounted in either Synapse or a media_repo worker.
-  ##
-  ## NB; If you want to be able to scale this, you will have to set the
-  ## accessMode to RWX/ReadWriteMany.
-  ##
   persistence:
     enabled: true
     # existingClaim: synapse-data
 
-    # storageClass: "-"
+    storageClass: nfs-client
     accessMode: ReadWriteOnce
     size: 10Gi
 
@@ -846,16 +802,17 @@ matrix-synapse:
 
     ## Generate traefik-compatible regex paths instead of nginx-compatible ones.
     ##
-    traefikPaths: false
-
-    ## Annotations to apply to the created ingress resource.
+    traefikPaths: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    labels: {}
+    hosts:
+        - matrix.cluster.diluz.io
+    ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
-    annotations: {}
-    #  nginx.ingress.kubernetes.io/use-regex: "true"
-    #  # Sync proxy-body-size with Synapse's max_upload_size which is 10M by default
-    #  nginx.ingress.kubernetes.io/proxy-body-size: 10m
-    #  kubernetes.io/ingress.class: nginx
-    #  kubernetes.io/tls-acme: "true"
+    paths:
+        - /
 
     ## Hosts to add to the ingress configuration for handling Client-to-Server
     ## API request paths.
@@ -866,37 +823,12 @@ matrix-synapse:
     #  - matrix.example.com
 
     ## Additional hosts to add to the ingress configuration for handling
-    ## Server-to-Server API requests.
-    ##
-    ## NB; config.serverName is included if includeServerName is set. (default)
-    ##
-    hosts: []
-    #  - example.com
-
-    ## Additional hosts to add to the ingress configuration for handling
     ## well-known requests.
     ##
     ## NB; config.serverName is included if includeServerName is set. (default)
     ##
     wkHosts: []
     #  - example.com
-
-    ## Additional paths to add to the Server-to-Server ingress blocks, will be
-    ## inserted before the /_matrix catch-all path.
-    ##
-    paths: []
-    #  # K8s 1.19+
-    #  - path: /_matrix/media
-    #    pathType: Prefix
-    #    backend:
-    #      service:
-    #        name: matrix-media-repo
-    #        port: 8000
-    #  # K8s <1.19
-    #  - path: /_matrix/media
-    #    backend:
-    #      serviceName: matrix-media-repo
-    #      servicePort: 8000
 
     ## Additional paths to add to the Client-to-Server ingress blocks, will be
     ## inserted before the /_matrix and /_synapse catch-all paths.
@@ -925,18 +857,6 @@ matrix-synapse:
     ## set to false if the main domain is managed in some external way.
     ##
     includeServerName: true
-
-    ## TLS configuration to include in the ingress configuration
-    ##
-    tls: []
-    #  - secretName: chart-example-tls
-    #    hosts:
-    #      - example.com
-    #      - matrix.example.com
-
-    ## Set the name of the IngressClass cluster resource (optional)
-    ## https://kubernetes.io/docs/reference/kubernetes-api/service-resources/ingress-v1/#IngressSpec
-    # className: can-be-anything
 
   ## Specifies whether a service account should be created, and annotations to add.
   ##
