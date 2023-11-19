@@ -134,43 +134,17 @@ kube-prometheus-stack:
     #       {{ end }}
 
     ingress:
-      enabled: false
-
-      # For Kubernetes >= 1.18 you should specify the ingress-controller via the field ingressClassName
-      # See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#specifying-the-class-of-an-ingress
-      # ingressClassName: nginx
-
-      annotations: {}
-
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
       labels: {}
-
-      ## Override ingress to a different defined port on the service
-      # servicePort: 8081
-      ## Override ingress to a different service then the default, this is useful if you need to
-      ## point to a specific instance of the alertmanager (eg kube-prometheus-stack-alertmanager-0)
-      # serviceName: kube-prometheus-stack-alertmanager-0
-
-      ## Hosts must be provided if Ingress is enabled.
+      hosts:
+        - alerts.cluster.diluz.io
+      ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
       ##
-      hosts: []
-        # - alertmanager.domain.com
-
-      ## Paths to use for ingress rules - one path should match the alertmanagerSpec.routePrefix
-      ##
-      paths: []
-      # - /
-
-      ## For Kubernetes >= 1.18 you should specify the pathType (determines how Ingress paths should be matched)
-      ## See https://kubernetes.io/blog/2020/04/02/improvements-to-the-ingress-api-in-kubernetes-1.18/#better-path-matching-with-path-types
-      # pathType: ImplementationSpecific
-
-      ## TLS configuration for Alertmanager Ingress
-      ## Secret must be manually created in the namespace
-      ##
-      tls: []
-      # - secretName: alertmanager-general-tls
-      #   hosts:
-      #   - alertmanager.example.com
+      paths:
+        - /
 
     ## Configuration for Alertmanager secret
     ##
