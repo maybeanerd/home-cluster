@@ -808,11 +808,11 @@ matrix-synapse:
       kubernetes.io/tls-acme: "true"
     labels: {}
     hosts:
-        - matrix.cluster.diluz.io
+      - matrix.cluster.diluz.io
     ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
     ##
     paths:
-        - /
+      - /
 
     ## Hosts to add to the ingress configuration for handling Client-to-Server
     ## API request paths.
