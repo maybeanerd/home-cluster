@@ -811,6 +811,7 @@ matrix-synapse:
       - matrix.cluster.diluz.io
     paths:
       - path: /
+        pathType: Prefix
 
     ## Hosts to add to the ingress configuration for handling Client-to-Server
     ## API request paths.
