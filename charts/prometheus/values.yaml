@@ -220,7 +220,7 @@ kube-prometheus-stack:
         endpoints:
           ## Name of the endpoint's service port
           ## Mutually exclusive with targetPort
-          - port: "8082"
+          - port: "metrics"
 
           ## Name or number of the endpoint's target port
           ## Mutually exclusive with port
