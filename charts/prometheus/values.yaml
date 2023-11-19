@@ -805,7 +805,7 @@ kube-prometheus-stack:
                 storage: 50Gi
       #    selector: {}
 
-    additionalServiceMonitors: 
+    additionalServiceMonitors:
       ## Name of the ServiceMonitor to create
       ##
       - name: "argocd-metrics-service-monitor"
