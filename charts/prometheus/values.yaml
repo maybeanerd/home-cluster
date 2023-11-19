@@ -204,11 +204,11 @@ kube-prometheus-stack:
         namespaceSelector:
           ## Match any namespace
           ##
-          any: true
+          # any: false
           ## Explicit list of namespace names to select
           ##
-          # matchNames:
-          #   - argocd
+          matchNames:
+            - argocd
          ## Endpoints of the selected pods to be monitored
          ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#podmetricsendpoint
          ##
