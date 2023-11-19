@@ -128,94 +128,6 @@ kube-prometheus-stack:
     ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#alertmanagerspec
     ##
     alertmanagerSpec:
-      ## Standard object's metadata. More info: https://github.com/kubernetes/community/blob/master/contributors/devel/sig-architecture/api-conventions.md#metadata
-      ## Metadata Labels and Annotations gets propagated to the Alertmanager pods.
-      ##
-      podMetadata: {}
-
-      ## Image of Alertmanager
-      ##
-      image:
-        registry: quay.io
-        repository: prometheus/alertmanager
-        tag: v0.26.0
-        sha: ""
-
-      ## If true then the user will be responsible to provide a secret with alertmanager configuration
-      ## So when true the config part will be ignored (including templateFiles) and the one in the secret will be used
-      ##
-      useExistingSecret: false
-
-      ## Secrets is a list of Secrets in the same namespace as the Alertmanager object, which shall be mounted into the
-      ## Alertmanager Pods. The Secrets are mounted into /etc/alertmanager/secrets/.
-      ##
-      secrets: []
-
-      ## ConfigMaps is a list of ConfigMaps in the same namespace as the Alertmanager object, which shall be mounted into the Alertmanager Pods.
-      ## The ConfigMaps are mounted into /etc/alertmanager/configmaps/.
-      ##
-      configMaps: []
-
-      ## ConfigSecret is the name of a Kubernetes Secret in the same namespace as the Alertmanager object, which contains configuration for
-      ## this Alertmanager instance. Defaults to 'alertmanager-' The secret is mounted into /etc/alertmanager/config.
-      ##
-      # configSecret:
-
-      ## WebTLSConfig defines the TLS parameters for HTTPS
-      ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/api.md#alertmanagerwebspec
-      web: {}
-
-      ## AlertmanagerConfigs to be selected to merge and configure Alertmanager with.
-      ##
-      alertmanagerConfigSelector: {}
-      ## Example which selects all alertmanagerConfig resources
-      ## with label "alertconfig" with values any of "example-config" or "example-config-2"
-      # alertmanagerConfigSelector:
-      #   matchExpressions:
-      #     - key: alertconfig
-      #       operator: In
-      #       values:
-      #         - example-config
-      #         - example-config-2
-      #
-      ## Example which selects all alertmanagerConfig resources with label "role" set to "example-config"
-      # alertmanagerConfigSelector:
-      #   matchLabels:
-      #     role: example-config
-
-      ## Namespaces to be selected for AlertmanagerConfig discovery. If nil, only check own namespace.
-      ##
-      alertmanagerConfigNamespaceSelector: {}
-      ## Example which selects all namespaces
-      ## with label "alertmanagerconfig" with values any of "example-namespace" or "example-namespace-2"
-      # alertmanagerConfigNamespaceSelector:
-      #   matchExpressions:
-      #     - key: alertmanagerconfig
-      #       operator: In
-      #       values:
-      #         - example-namespace
-      #         - example-namespace-2
-
-      ## Example which selects all namespaces with label "alertmanagerconfig" set to "enabled"
-      # alertmanagerConfigNamespaceSelector:
-      #   matchLabels:
-      #     alertmanagerconfig: enabled
-
-      ## AlermanagerConfig to be used as top level configuration
-      ##
-      alertmanagerConfiguration: {}
-      ## Example with select a global alertmanagerconfig
-      # alertmanagerConfiguration:
-      #   name: global-alertmanager-Configuration
-
-      ## Defines the strategy used by AlertmanagerConfig objects to match alerts. eg:
-      ##
-      alertmanagerConfigMatcherStrategy: {}
-      ## Example with use OnNamespace strategy
-      # alertmanagerConfigMatcherStrategy:
-      #   type: OnNamespace
-
-
       ## Storage is the definition of how storage will be used by the Alertmanager instances.
       ## ref: https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/storage.md
       ##
@@ -236,11 +148,6 @@ kube-prometheus-stack:
       ## If set to true all actions on the underlying managed objects are not going to be performed, except for delete actions.
       ##
       paused: false
-
-      ## Define which Nodes the Pods are scheduled on.
-      ## ref: https://kubernetes.io/docs/user-guide/node-selection/
-      ##
-      nodeSelector: {}
 
       ## Define resources requests and limits for single Pods.
       ## ref: https://kubernetes.io/docs/user-guide/compute-resources/
