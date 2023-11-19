@@ -236,7 +236,7 @@ kube-prometheus-stack:
 
           ## HTTP path to scrape for metrics
           ##
-          #   path: /metrics
+            path: /metrics
 
           ## HTTP scheme to use for scraping
           ##
