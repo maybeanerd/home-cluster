@@ -809,8 +809,6 @@ matrix-synapse:
     labels: {}
     hosts:
       - matrix.cluster.diluz.io
-    ## Paths to use for ingress rules - one path should match the prometheusSpec.routePrefix
-    ##
     paths:
       - /
 
