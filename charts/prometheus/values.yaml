@@ -143,7 +143,7 @@ kube-prometheus-stack:
 
       ## The external URL the Alertmanager instances will be available under. This is necessary to generate correct URLs. This is necessary if Alertmanager is not served from root of a DNS name. string  false
       ##
-      externalUrl: 'alerts.cluster.diluz.io'
+      externalUrl: 'https://alerts.cluster.diluz.io'
 
       ## If set to true all actions on the underlying managed objects are not going to be performed, except for delete actions.
       ##
