@@ -10,6 +10,21 @@ kube-prometheus-stack:
       monitor:
         enabled: false
 
+  ## Provide custom recording or alerting rules to be deployed into the cluster.
+  ##
+  additionalPrometheusRulesMap:
+  rule-name:
+    groups:
+    - name: instatus_alerts
+      rules:
+      - alert: ImmichUnhealthy
+        expr: argocd_app_info{health_status!="Healthy",name="immich"}
+        for: 5m
+#        labels:
+#          severity: page
+#        annotations:
+#          summary: High request latency
+
   ## Configuration for alertmanager
   ## ref: https://prometheus.io/docs/alerting/alertmanager/
   ##
@@ -51,13 +66,16 @@ kube-prometheus-stack:
         group_wait: 30s
         group_interval: 5m
         repeat_interval: 12h
-        receiver: webhook_receiver
+        receiver: 'null'
         routes:
         - receiver: 'null'
           matchers:
             - alertname =~ "InfoInhibitor|Watchdog"
+        - receiver: 'webhook_receiver_immich'
+          matchers:
+            { "alertname": "ImmichUnhealthy" }
       receivers:
-      - name: webhook_receiver
+      - name: webhook_receiver_immich
         webhook_configs:
         - url: '<INSERT-YOUR-WEBHOOK>'
           send_resolved: true
