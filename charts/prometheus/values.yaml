@@ -13,17 +13,17 @@ kube-prometheus-stack:
   ## Provide custom recording or alerting rules to be deployed into the cluster.
   ##
   additionalPrometheusRulesMap:
-  rule-name:
-    groups:
-    - name: instatus_alerts
-      rules:
-      - alert: ImmichUnhealthy
-        expr: argocd_app_info{health_status!="Healthy",name="immich"}
-        for: 5m
-#        labels:
-#          severity: page
-#        annotations:
-#          summary: High request latency
+    rule-name:
+      groups:
+      - name: instatus_alerts
+        rules:
+        - alert: ImmichUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="immich"}
+          for: 5m
+#          labels:
+#            severity: page
+#          annotations:
+#            summary: High request latency
 
   ## Configuration for alertmanager
   ## ref: https://prometheus.io/docs/alerting/alertmanager/
