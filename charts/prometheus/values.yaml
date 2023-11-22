@@ -20,10 +20,27 @@ kube-prometheus-stack:
         - alert: ImmichUnhealthy
           expr: argocd_app_info{health_status!="Healthy",name="immich"}
           for: 5m
-#          labels:
-#            severity: page
-#          annotations:
-#            summary: High request latency
+        - alert: JellyfinUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="jellyfin"}
+          for: 5m
+        - alert: FirefishUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="firefish"}
+          for: 5m
+        - alert: VaultwardenUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="vaultwarden"}
+          for: 5m
+        - alert: HomeAssistantUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="home-assistant"}
+          for: 5m
+        - alert: PrometheusUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="prometheus"}
+          for: 5m
+        - alert: MatrixUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="matrix"}
+          for: 5m
+#        - alert: ArgoCDUnhealthy
+#          expr: TODO
+#          for: 5m
 
   ## Configuration for alertmanager
   ## ref: https://prometheus.io/docs/alerting/alertmanager/
@@ -203,7 +220,7 @@ kube-prometheus-stack:
   ## Component scraping the kube api server
   ##
   kubeApiServer:
-    enabled: true
+    enabled: false
 
   ## Component scraping the kubelet and kubelet-hosted cAdvisor
   ##
@@ -213,7 +230,7 @@ kube-prometheus-stack:
   ## Component scraping the kube controller manager
   ##
   kubeControllerManager:
-    enabled: true
+    enabled: false
 
   ## Component scraping etcd
   ##
@@ -233,7 +250,7 @@ kube-prometheus-stack:
   ## Component scraping kube state metrics
   ##
   kubeStateMetrics:
-    enabled: true
+    enabled: false
 
   ## Deploy node exporter as a daemonset to all nodes
   ##
