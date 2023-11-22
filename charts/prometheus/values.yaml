@@ -73,7 +73,7 @@ kube-prometheus-stack:
             - alertname =~ "InfoInhibitor|Watchdog"
         - receiver: 'webhook_receiver_immich'
           matchers:
-            { "alertname": "ImmichUnhealthy" }
+          - 'alertname = ImmichUnhealthy'
       receivers:
       - name: webhook_receiver_immich
         webhook_configs:
