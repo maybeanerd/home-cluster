@@ -197,7 +197,7 @@ kube-prometheus-stack:
   ## Using default values from https://github.com/grafana/helm-charts/blob/main/charts/grafana/values.yaml
   ##
   grafana:
-    enabled: true
+    enabled: false
     ingress:
       ## If true, Grafana Ingress will be created
       ##
