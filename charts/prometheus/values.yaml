@@ -106,9 +106,9 @@ kube-prometheus-stack:
           - receiver: webhook_receiver_prometheus
             matchers:
               - alertname = PrometheusUnhealthy
-          - receiver: webhook_receiver_matrix
-            matchers:
-              - alertname = MatrixUnhealthy
+#          - receiver: webhook_receiver_matrix
+#            matchers:
+#              - alertname = MatrixUnhealthy
           - receiver: webhook_receiver_argocd
             matchers:
               - alertname = ArgoCDUnhealthy
@@ -133,9 +133,9 @@ kube-prometheus-stack:
         - name: webhook_receiver_prometheus
           webhook_configs:
             - url: <INSERT-YOUR-WEBHOOK>
-        - name: webhook_receiver_matrix
-          webhook_configs:
-            - url: <INSERT-YOUR-WEBHOOK>
+#        - name: webhook_receiver_matrix
+#          webhook_configs:
+#            - url: <INSERT-YOUR-WEBHOOK>
         - name: webhook_receiver_argocd
           webhook_configs:
             - url: <INSERT-YOUR-WEBHOOK>
