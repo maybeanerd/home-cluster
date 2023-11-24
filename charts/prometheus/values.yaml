@@ -91,12 +91,55 @@ kube-prometheus-stack:
           - receiver: webhook_receiver_immich
             matchers:
               - alertname = ImmichUnhealthy
+          - receiver: webhook_receiver_jellyfin
+            matchers:
+              - alertname = JellyfinUnhealthy
+          - receiver: webhook_receiver_firefish
+            matchers:
+              - alertname = FirefishUnhealthy
+          - receiver: webhook_receiver_vaultwarden
+            matchers:
+              - alertname = VaultwardenUnhealthy
+          - receiver: webhook_receiver_homeassistant
+            matchers:
+              - alertname = HomeAssistantUnhealthy
+          - receiver: webhook_receiver_prometheus
+            matchers:
+              - alertname = PrometheusUnhealthy
+          - receiver: webhook_receiver_matrix
+            matchers:
+              - alertname = MatrixUnhealthy
+          - receiver: webhook_receiver_argocd
+            matchers:
+              - alertname = ArgoCDUnhealthy
+          
       receivers:
         - name: 'null'
         - name: webhook_receiver_immich
           webhook_configs:
             - url: <INSERT-YOUR-WEBHOOK>
-              send_resolved: true
+        - name: webhook_receiver_jellyfin
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_firefish
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_vaultwarden
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_homeassistant
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_prometheus
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_matrix
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_argocd
+          webhook_configs:
+            - url: <INSERT-YOUR-WEBHOOK>
+
       templates:
       - '/etc/alertmanager/config/*.tmpl'
 
