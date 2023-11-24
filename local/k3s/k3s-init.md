@@ -36,7 +36,14 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
     --server https://cube02:6443
 ```
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube02:6443 --token SECRET" sh -s -
+```
 
+## assign roles
+```bash
+kubectl label nodes cube04 kubernetes.io/role=worker
+```
 
 ## restore from etcd snapshot
 
