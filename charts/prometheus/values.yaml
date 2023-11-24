@@ -35,9 +35,9 @@ kube-prometheus-stack:
         - alert: PrometheusUnhealthy
           expr: argocd_app_info{health_status!="Healthy",name="prometheus"}
           for: 5m
-        - alert: MatrixUnhealthy
-          expr: argocd_app_info{health_status!="Healthy",name="matrix"}
-          for: 5m
+#        - alert: MatrixUnhealthy
+#          expr: argocd_app_info{health_status!="Healthy",name="matrix"}
+#          for: 5m
 #        - alert: ArgoCDUnhealthy
 #          expr: TODO
 #          for: 5m
