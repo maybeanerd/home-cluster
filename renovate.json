@@ -1,6 +1,12 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>T0TProduction/renovate-config"
+  "extends": ["local>T0TProduction/renovate-config"],
+  "packageRules": [
+    {
+      "matchPackagePrefixes": ["ghcr.io/immich-app/"],
+      "description": "Immich minor releases are unstable and could always be breaking",
+      "automerge": false,
+      "updateTypes": ["major", "minor"]
+    }
   ]
 }
