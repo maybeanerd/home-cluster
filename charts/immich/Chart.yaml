@@ -12,19 +12,6 @@ maintainers:
   - name: sebastian
     email: sebastian@diluz.io
 dependencies:
-  - name: common
-    repository: https://bjw-s.github.io/helm-charts
-    version: 1.5.1
-  - name: postgresql
-    version: 13.2.16
-    repository: https://charts.bitnami.com/bitnami
-    condition: postgresql.enabled
-  - name: redis
-    version: 18.4.0
-    repository: https://charts.bitnami.com/bitnami
-    condition: redis.enabled
-annotations:
-  artifacthub.io/category: storage
-  artifacthub.io/changes: |-
-    - kind: changed
-      description: Polish for better display on artifacthub
+  - name: immich
+    repository: https://immich-app.github.io/immich-charts
+    version: 0.2.0
