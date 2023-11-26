@@ -27,7 +27,7 @@ dependencies:
 #    repository: https://raw.githubusercontent.com/bitnami/charts/archive-full-index/bitnami
 #    condition: elasticsearch.enabled
   - name: postgresql
-    version: 13.2.16
+    version: 13.2.18
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
