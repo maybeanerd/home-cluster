@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: nykma/firefish
+  repository: registry.joinfirefish.org/firefish/firefish
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "v1.0.3"
+  tag: "beta-arm64"
 
 firefish:
   isManagedHosting: true
