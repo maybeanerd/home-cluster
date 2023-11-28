@@ -40,6 +40,13 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
 curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube02:6443 --token SECRET" sh -s -
 ```
 
+### set up mnt storage for k3s containerd
+https://github.com/k3s-io/k3s/issues/2068#issuecomment-1374672584
+
+```bash
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube02:6443 --token SECRET --kubelet-arg "root-dir=$KUBELET_DIR"" sh -s -
+```
+
 ## assign roles
 ```bash
 kubectl label nodes cube04 kubernetes.io/role=worker
