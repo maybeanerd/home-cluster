@@ -12,5 +12,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: matrix-synapse
-    version: 3.7.12
+    version: 3.7.13
     repository: https://ananace.gitlab.io/charts
