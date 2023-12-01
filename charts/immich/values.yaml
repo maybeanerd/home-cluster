@@ -18,7 +18,7 @@ env:
 
 image:
   repository: ghcr.io/immich-app/immich-server
-  tag: v1.88.2
+  tag: v1.89.0
 
 immich:
   persistence:
