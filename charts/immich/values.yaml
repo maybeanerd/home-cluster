@@ -45,10 +45,11 @@ postgresql:
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
-  initdbScripts:
-    set_up_extensions.sql: |
-      CREATE EXTENSION cube;
-      CREATE EXTENSION earthdistance;
+    initdb:
+      scripts:
+        set_up_extensions.sql: |
+          CREATE EXTENSION cube;
+          CREATE EXTENSION earthdistance;
 
 redis:
   enabled: true
