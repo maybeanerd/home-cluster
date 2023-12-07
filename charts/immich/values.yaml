@@ -39,18 +39,12 @@ postgresql:
         username: immich
         database: immich
         password: immich
-        postgresPassword: immich
   primary:
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
-    initdb:
-      scripts:
-        set_up_extensions.sql: |
-          CREATE EXTENSION cube;
-          CREATE EXTENSION earthdistance;
 
 redis:
   enabled: true
