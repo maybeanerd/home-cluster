@@ -39,6 +39,7 @@ postgresql:
         username: immich
         database: immich
         password: immich
+        postgresPassword: immich
   primary:
     persistence:
       enabled: true
