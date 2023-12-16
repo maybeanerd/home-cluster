@@ -11,14 +11,11 @@ env:
   DB_DATABASE_NAME: "{{ .Values.postgresql.global.postgresql.auth.database }}"
   # -- You should provide your own secret outside of this helm-chart and use `postgresql.global.postgresql.auth.existingSecret` to provide credentials to the postgresql instance
   DB_PASSWORD: "{{ .Values.postgresql.global.postgresql.auth.password }}"
-  TYPESENSE_ENABLED: "{{ .Values.typesense.enabled }}"
-  TYPESENSE_API_KEY: "{{ .Values.typesense.env.TYPESENSE_API_KEY }}"
-  TYPESENSE_HOST: '{{ printf "%s-typesense" .Release.Name }}'
   IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
 image:
   repository: ghcr.io/immich-app/immich-server
-  tag: v1.90.2
+  tag: v1.91.0
 
 immich:
   persistence:
@@ -33,6 +30,9 @@ immich:
 # Dependencies
 postgresql:
   enabled: true
+  image:
+    repository: tensorchord/pgvecto-rs
+    tag: pg16-v0.1.11
   global:
     postgresql:
       auth:
@@ -46,29 +46,18 @@ postgresql:
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
+    initdb:
+      scripts:
+        create-extensions.sql: |
+          CREATE EXTENSION cube;
+          CREATE EXTENSION earthdistance;
+          CREATE EXTENSION vectors;
 
 redis:
   enabled: true
   architecture: standalone
   auth:
     enabled: false
-
-typesense:
-  enabled: true
-  env:
-    TYPESENSE_DATA_DIR: /tsdata
-    TYPESENSE_API_KEY: typesense
-  persistence:
-    tsdata:
-      # Enabling typesense persistence is recommended to avoid slow reindexing
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 1Gi
-      storageClass: nfs-client
-  image:
-    repository: docker.io/typesense/typesense
-    tag: 0.25.1
-    pullPolicy: IfNotPresent
 
 # Immich components
 
@@ -93,14 +82,6 @@ server:
 
 microservices:
   enabled: true
-  env:
-    REVERSE_GEOCODING_DUMP_DIRECTORY: /geodata-cache
-  persistence:
-    geodata-cache:
-      enabled: true
-      accessMode: ReadWriteOnce
-      size: 1Gi
-      storageClass: nfs-client
   image:
     repository: ghcr.io/immich-app/immich-server
     pullPolicy: IfNotPresent
