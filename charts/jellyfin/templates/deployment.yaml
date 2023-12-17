@@ -39,11 +39,11 @@ spec:
               protocol: UDP
           {{- end }}
           livenessProbe:
-            timeoutSeconds: 600
+            timeoutSeconds: 6000
             tcpSocket:
               port: http
           readinessProbe:
-            timeoutSeconds: 600
+            timeoutSeconds: 6000
             tcpSocket:
               port: http 
           volumeMounts:
