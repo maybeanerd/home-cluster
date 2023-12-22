@@ -58,6 +58,8 @@ redis:
   architecture: standalone
   auth:
     enabled: false
+  volumePermissions: 
+    enabled: true 
 
 # Immich components
 
