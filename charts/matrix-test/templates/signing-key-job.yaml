@@ -139,7 +139,7 @@ metadata:
     helm.sh/hook: pre-install
     helm.sh/hook-delete-policy: never
     helm.sh/resource-policy: keep
-    argocd.argoproj.io/hook: Skip
+    argocd.argoproj.io/hook: PreSync
     argocd.argoproj.io/hook-delete-policy: Never
   name: {{ $secretName }}
   labels:
