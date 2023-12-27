@@ -1,0 +1,81 @@
+## This chart relies on the common library chart from bjw-s
+## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+## Refer there for more detail about the supported values
+
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          # -- image repository
+          repository: ghcr.io/advplyr/audiobookshelf
+          # -- image tag
+          tag: "2.2.15"
+          # -- image pull policy
+          pullPolicy: IfNotPresent
+
+        # -- environment variables.
+        env:
+        # -- Set the resource requests / limits for the container.
+        resources:
+          # limits:
+          #   cpu: 100m
+          #   memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+
+
+# -- Configures service settings for the chart.
+service:
+  main:
+    ports:
+      http:
+        port: 80
+
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: true
+
+# -- Configure persistence for the chart here.
+# Additional items can be added by adding a dictionary key similar to the 'config' key.
+# [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
+# @default -- See below
+persistence:
+  config:
+    enabled: true
+    type: persistentVolumeClaim
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  metadata:
+    enabled: true
+    type: persistentVolumeClaim
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  audiobooks:
+    enabled: true
+    type: persistentVolumeClaim
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+  podcasts:
+    enabled: true
+    type: persistentVolumeClaim
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 1Gi
+
+ingress:
+  # -- Enable and configure ingress settings for the chart under this key.
+  main:
+    enabled: true
+    hosts:
+      - host: audiobookshelf.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            service:
+              name: main
+              port: http

@@ -15,6 +15,7 @@ maintainers:
 dependencies:
   - name: common
     repository: https://library-charts.k8s-at-home.com
+    # TODO move to https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
     version: 4.5.2
   - name: postgresql
     version: 13.2.25
