@@ -10,7 +10,7 @@ controllers:
           # -- image repository
           repository: ghcr.io/advplyr/audiobookshelf
           # -- image tag
-          tag: "2.2.15"
+          tag: "2.7.0"
           # -- image pull policy
           pullPolicy: IfNotPresent
 
