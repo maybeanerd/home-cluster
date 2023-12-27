@@ -1,0 +1,80 @@
+{{- $any := false }}
+{{- range $worker, $config := .Values.workers }}
+  {{- if $config.enabled }}
+    {{- $any = true }}
+  {{- end }}
+{{- end }}
+
+{{- if $any }}
+{{- $wkName := include "matrix-synapse.workername" (dict "global" . "worker" "workers") -}}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $wkName }}
+  labels:
+    {{- include "matrix-synapse.labels" . | nindent 4 }}
+data:
+{{- $default := .Values.workers.default -}}
+{{- range $worker, $config := .Values.workers -}}
+  {{- if $config.enabled -}}
+    {{- $name := $worker | replace "_" "-" }}
+    {{- $app := $config.app | default $worker }}
+
+  {{ $name }}.worker: |
+    worker_app: "synapse.app.{{ (not (not $config.generic)) | ternary "generic_worker" $app }}"
+{{- if $config.name -}}
+{{-   if (gt ($config.replicaCount | int) 1) -}}
+{{-     fail "Replica count must be 1 if a worker has a unique name." -}}
+{{-   end }}
+    worker_name: {{ $config.name }}
+{{- end }}
+{{- $bindAddresses := $config.bindAddresses | default $.Values.config.bindAddresses | default (list "::") }}
+
+    worker_listeners:
+      - port: 9090
+        tls: false
+        bind_addresses: {{ toJson $bindAddresses }}
+        type: http
+
+        resources:
+          - names: [metrics]
+            compress: false
+    {{- if $config.listeners }}
+      {{- if has "replication" $config.listeners }}
+      {{-   if not $config.name }}
+      {{-     fail "Workers with replication listeners must have unique names." }}
+      {{-   end }}
+
+      - port: 9093
+        tls: false
+        bind_addresses: {{ toJson $bindAddresses }}
+        type: http
+        x_forwarded: true
+
+        resources:
+          - names: [replication]
+            compress: false
+      {{- end }}
+
+      - port: 8083
+        tls: false
+        bind_addresses: {{ toJson $bindAddresses }}
+        type: http
+        x_forwarded: true
+
+        resources:
+          - names:
+              {{- toYaml (without $config.listeners "replication") | nindent 14 }}
+            compress: false
+    {{- end }}
+
+    worker_log_config: /synapse/config/log.yaml
+    {{- if $config.extraConfig }}
+
+    # Extra config
+    {{ toYaml $config.extraConfig | nindent 4 }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}
