@@ -45,7 +45,7 @@ signingkey:
   ## might not be trusted any more by the wider network.
   ##
   job:
-    enabled: true
+    enabled: false
 
     ## Annotations to apply to the signing-key-job.
     ##
