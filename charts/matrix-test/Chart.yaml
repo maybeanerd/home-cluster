@@ -8,8 +8,8 @@ appVersion: 1.98.0
 type: application
 version: 3.7.14
 maintainers:
-  - name: Alexander Olofsson
-    email: ace@haxalot.com
+  - name: sebastian
+    email: sebastian@diluz.io
 
 dependencies:
   - name: postgresql
