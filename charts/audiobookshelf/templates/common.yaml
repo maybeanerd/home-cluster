@@ -1,4 +1,14 @@
-{{/* Make sure all variables are set properly */}}
-{{- include "common.values.setup" . }}
+---
+{{- include "bjw-s.common.loader.init" . }}
 
-{{ include "common.all" . }}
+{{- define "audiobookshelf.hardcodedValues" -}}
+# Set the nameOverride based on the release name if no override has been set
+{{ if not .Values.global.nameOverride }}
+global:
+  nameOverride: "{{ .Release.Name }}"
+{{ end }}
+{{- end -}}
+{{- $_ := mergeOverwrite .Values (include "audiobookshelf.hardcodedValues" . | fromYaml) -}}
+
+{{/* Render the templates */}}
+{{ include "bjw-s.common.loader.generate" . }}
