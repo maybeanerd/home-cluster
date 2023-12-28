@@ -135,7 +135,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  # annotations:
+  annotations:
     # add back
     # helm.sh/hook: pre-install
     # helm.sh/hook-delete-policy: never
