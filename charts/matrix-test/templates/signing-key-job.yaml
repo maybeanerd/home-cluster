@@ -154,7 +154,10 @@ spec:
   parallelism: 1
   completions: 1
   backoffLimit: 1
+{{- end }}
 ---
+# Create secret if signing key job is enabled, or if we're running in ArgoCD and we don't have an existing secret
+{{- if  or .Values.signingkey.job.enabled (and (not .Values.signingkey.existingSecret) $insideArgoCD) }}
 apiVersion: v1
 kind: Secret
 metadata:
