@@ -4,7 +4,7 @@
 {{- end }}
 {{- $name := include "matrix-synapse.workername" (dict "global" . "worker" "signingkey-job") }}
 {{- $secretName := include "matrix-synapse.workername" (dict "global" . "worker" "signingkey") }}
-{{- $insideArgoCD := ($.Capabilities.APIVersions.Has "argoproj.io/v1alpha1") }}
+{{- $insideArgoCD := (or .Values.argoCD (.Capabilities.APIVersions.Has "argoproj.io/v1alpha1")) }}
 ---
 apiVersion: v1
 kind: ServiceAccount
