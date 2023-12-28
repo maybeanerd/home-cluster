@@ -143,6 +143,7 @@ metadata:
   name: {{ $secretName }}
   labels:
     {{- include "matrix-synapse.labels" . | nindent 4 }}
+    app.kubernetes.io/component: signingkey-job
 {{ $secret := (lookup "v1" "Secret" .Release.Namespace $secretName) -}}
 {{ if $secret -}}
 data:
