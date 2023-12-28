@@ -12,9 +12,6 @@ metadata:
   labels:
     {{- include "matrix-synapse.labels" . | nindent 4 }}
     app.kubernetes.io/component: signingkey-job
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-delete-policy: hook-succeeded
 ---
 apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
@@ -23,9 +20,6 @@ metadata:
   labels:
     {{- include "matrix-synapse.labels" . | nindent 4 }}
     app.kubernetes.io/component: signingkey-job
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-delete-policy: hook-succeeded
 rules:
   - apiGroups:
       - ""
@@ -45,9 +39,6 @@ metadata:
   labels:
     {{- include "matrix-synapse.labels" . | nindent 4 }}
     app.kubernetes.io/component: signingkey-job
-  annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-delete-policy: hook-succeeded
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: Role
@@ -65,8 +56,6 @@ metadata:
     {{- include "matrix-synapse.labels" . | nindent 4 }}
     app.kubernetes.io/component: signingkey-job
   annotations:
-    helm.sh/hook: pre-install
-    helm.sh/hook-delete-policy: hook-succeeded
   {{- with .Values.signingkey.job.annotations }}
     {{- toYaml . | nindent 4 }}
   {{- end }}
@@ -135,7 +124,7 @@ spec:
 apiVersion: v1
 kind: Secret
 metadata:
-  annotations: []
+  # annotations:
     # add back
     # helm.sh/hook: pre-install
     # helm.sh/hook-delete-policy: never
