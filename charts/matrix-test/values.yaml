@@ -47,7 +47,7 @@ signingkey:
   ## ArgoCD specific:
   ## Set "enabled" to `true` ONCE, and then keep it `false` forever. Otherwise you run risk of losing your signing key.
   job:
-    enabled: false
+    enabled: true
 
     ## Annotations to apply to the signing-key-job.
     ##
