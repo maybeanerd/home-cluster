@@ -117,7 +117,7 @@ config:
   ## Registration configuration, note that registration with the
   ## container-internal register_new_matrix_user tool is always possible.
   ##
-  # enableRegistration: false
+  enableRegistration: false
 
   ## NB; this value will default to a random string if not specified.
   # registrationSharedSecret: ''
