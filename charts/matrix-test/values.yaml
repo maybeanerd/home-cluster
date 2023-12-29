@@ -722,7 +722,7 @@ postgresql:
 
   auth:
     # XXX Change me!
-    password: synapse
+    password: password
 
     ## Or use existing secret with "password" key
     ## instead of static password
@@ -737,7 +737,8 @@ postgresql:
       args: "--lc-collate=C --lc-ctype=C"
 
     persistence:
-      # storageClass: "-"
+      storageClass: nfs-client
+      accessMode: ReadWriteOnce
       size: 16Gi
 
   ## Extra arguments for the database connection
@@ -781,7 +782,7 @@ redis:
   auth:
     enabled: true
     # XXX Change me!
-    password: synapse
+    password: password
 
     ## Or use existing secret with "redis-password" key
     ## instead of static password
@@ -825,7 +826,7 @@ persistence:
   enabled: true
   # existingClaim: synapse-data
 
-  # storageClass: "-"
+  storageClass: nfs-client
   accessMode: ReadWriteOnce
   size: 10Gi
 
@@ -874,11 +875,13 @@ ingress:
 
   ## Generate traefik-compatible regex paths instead of nginx-compatible ones.
   ##
-  traefikPaths: false
+  traefikPaths: true
 
   ## Annotations to apply to the created ingress resource.
   ##
-  annotations: {}
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
   #  nginx.ingress.kubernetes.io/use-regex: "true"
   #  # Sync proxy-body-size with Synapse's max_upload_size which is 10M by default
   #  nginx.ingress.kubernetes.io/proxy-body-size: 10m
