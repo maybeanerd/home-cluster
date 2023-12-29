@@ -720,19 +720,17 @@ wellknown:
 postgresql:
   enabled: true
 
-  global:
-    postgresql:
-      auth:
-        # XXX Change me!
-        password: password
+  auth:
+    # XXX Change me!
+    password: password
 
-        ## Or use existing secret with "password" key
-        ## instead of static password
-        ##
-        # existingSecret: postgresql-secret
+    ## Or use existing secret with "password" key
+    ## instead of static password
+    ##
+    # existingSecret: postgresql-secret
 
-        username: synapse
-        database: synapse
+    username: synapse
+    database: synapse
 
   primary:
     initdb:
