@@ -120,7 +120,7 @@ config:
   enableRegistration: false
 
   ## NB; this value will default to a random string if not specified.
-  # registrationSharedSecret: ''
+  registrationSharedSecret: '<changeme>'
 
   ## NB; Strongly recommended to set this to a secure value.
   # macaroonSecretKey: ''
