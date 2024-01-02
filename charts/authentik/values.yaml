@@ -10,7 +10,7 @@ authentik:
 ingress:
   enabled: true
   # Specify kubernetes ingress controller class name
-  ingressClassName:  traefik
+  ingressClassName: traefik
   annotations:
     kubernetes.io/ingress.class: traefik
     kubernetes.io/tls-acme: "true"
