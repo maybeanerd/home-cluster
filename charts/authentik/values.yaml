@@ -1,34 +1,34 @@
 authentik:
-    secret_key: "PleaseGenerateA50CharKey"
-    # This sends anonymous usage-data, stack traces on errors and
-    # performance data to sentry.io, and is fully opt-in
-    error_reporting:
-        enabled: true
-    postgresql:
-        password: "ThisIsNotASecurePassword"
+  secret_key: "PleaseGenerateA50CharKey"
+  # This sends anonymous usage-data, stack traces on errors and
+  # performance data to sentry.io, and is fully opt-in
+  error_reporting:
+    enabled: true
+  postgresql:
+    password: "ThisIsNotASecurePassword"
 
 ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
-    hosts:
-        # Specify external host name
-        - host: auth.cluster.diluz.io
-          paths:
-              - path: "/"
-                pathType: Prefix
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+  hosts:
+    # Specify external host name
+    - host: auth.cluster.diluz.io
+      paths:
+        - path: "/"
+          pathType: Prefix
 
 postgresql:
-    enabled: true
-    postgresqlPassword: "ThisIsNotASecurePassword"
-    primary:
-      persistence:
-        storageClass: nfs-client
-        accessMode: ReadWriteOnce
-        size: 20Gi
+  enabled: true
+  postgresqlPassword: "ThisIsNotASecurePassword"
+  primary:
+    persistence:
+      storageClass: nfs-client
+      accessMode: ReadWriteOnce
+      size: 20Gi
 redis:
-    enabled: true
+  enabled: true
 
 # add this block under the `authentik:` block in your values.yaml file
 # authentik:
