@@ -158,16 +158,31 @@ config:
 ## Specify arbitrary Synapse configuration here;
 ## Ref: https://github.com/matrix-org/synapse/blob/develop/docs/sample_config.yaml
 ##
-extraConfig: {}
-#  old_signing_keys:
-#    "ed25519:id": { key: "base64string", expired_ts: 123456789123 }
-#  use_presence: false
-#  enable_search: false
-#  federation_domain_whitelist:
-#    - lon.example.com
-#    - nyc.example.com
-#    - syd.example.com
-#  dynamic_thumbnails: true
+extraConfig:
+  #  old_signing_keys:
+  #    "ed25519:id": { key: "base64string", expired_ts: 123456789123 }
+  #  use_presence: false
+  #  enable_search: false
+  #  federation_domain_whitelist:
+  #    - lon.example.com
+  #    - nyc.example.com
+  #    - syd.example.com
+  #  dynamic_thumbnails: true
+  oidc_providers:
+    - idp_id: authentik
+      idp_name: authentik
+      discover: true
+      issuer: "https://auth.cluster.diluz.io/application/o/matrix/"
+      client_id: "your client id" # FILL WITH ENV VAR
+      client_secret: "your client secret" # FILL WITH ENV VAR
+      scopes:
+        - "openid"
+        - "profile"
+        - "email"
+      user_mapping_provider:
+        config:
+          localpart_template: "{{ user.preferred_username }}"
+          display_name_template: "{{ user.preferred_username|capitalize }}" # TO BE FILLED: If your users have names in Authentik and you want those in Synapse, this should be replaced with user.name|capitalize.
 
 ## Specify additional loggers configutation here;
 ## Ref: https://matrix-org.github.io/synapse/latest/structured_logging.html
