@@ -32,6 +32,9 @@ kube-prometheus-stack:
         - alert: PrometheusUnhealthy
           expr: argocd_app_info{health_status!="Healthy",name="prometheus"}
           for: 5m
+        - alert: AudiobookshelfUnhealthy
+          expr: argocd_app_info{health_status!="Healthy",name="audiobookshelf"}
+          for: 5m
 #        - alert: MatrixUnhealthy
 #          expr: argocd_app_info{health_status!="Healthy",name="matrix"}
 #          for: 5m
@@ -100,13 +103,17 @@ kube-prometheus-stack:
           - receiver: webhook_receiver_prometheus
             matchers:
               - alertname = PrometheusUnhealthy
-#          - receiver: webhook_receiver_matrix
-#            matchers:
-#              - alertname = MatrixUnhealthy
           - receiver: webhook_receiver_argocd
             matchers:
               - alertname = ArgoCDUnhealthy
-          
+          - receiver: webhook_receiver_audiobookshelf
+            matchers:
+              - alertname = AudiobookshelfUnhealthy
+
+#          - receiver: webhook_receiver_matrix
+#            matchers:
+#              - alertname = MatrixUnhealthy
+
       receivers:
         - name: 'null'
         - name: webhook_receiver_immich
@@ -124,12 +131,16 @@ kube-prometheus-stack:
         - name: webhook_receiver_prometheus
           webhook_configs:
             - url: <INSERT-YOUR-WEBHOOK>
-#        - name: webhook_receiver_matrix
-#          webhook_configs:
-#            - url: <INSERT-YOUR-WEBHOOK>
         - name: webhook_receiver_argocd
           webhook_configs:
             - url: <INSERT-YOUR-WEBHOOK>
+        - name: webhook_receiver_audiobookshelf
+          webhook_configs:
+            - url: <INSERT-ABS-WEBHOOK>
+
+#        - name: webhook_receiver_matrix
+#          webhook_configs:
+#            - url: <INSERT-YOUR-WEBHOOK>
 
       templates:
       - '/etc/alertmanager/config/*.tmpl'
