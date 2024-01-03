@@ -39,15 +39,22 @@ spec:
               protocol: UDP
           {{- end }}
           livenessProbe:
-            periodSeconds: 100
-            timeoutSeconds: 600
+            periodSeconds: 10
+            timeoutSeconds: 60
             tcpSocket:
               port: http
           readinessProbe:
-            periodSeconds: 100
-            timeoutSeconds: 600
+            periodSeconds: 10
+            timeoutSeconds: 60
             tcpSocket:
               port: http 
+          startupProbe:
+            periodSeconds: 10
+            timeoutSeconds: 60
+            tcpSocket:
+              port: http
+            # 60 * 10 secs = 10min to allow initial setup and DB jobs to run
+            failureThreshold: 60
           volumeMounts:
             - mountPath: /config
               name: config
