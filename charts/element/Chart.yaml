@@ -1,0 +1,20 @@
+---
+apiVersion: v2
+name: element-web
+description: |
+  All-in-one secure chat app for teams, friends and organisations.
+  Keeps conversations in your control, safe from data-mining and ads.
+  Talk to everyone through the open global Matrix network, protected by proper
+  end-to-end encryption.
+icon: https://element.io/images/logo-mark-primary.svg
+type: application
+version: 0.1.0
+sources:
+  - https://gitlab.com/ananace/charts/-/tree/master/charts/element-web
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
+dependencies:
+  - name: element-web
+    version: 1.3.9
+    repository: https://ananace.gitlab.io/charts
