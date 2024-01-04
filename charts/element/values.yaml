@@ -90,10 +90,7 @@ element-web:
       kubernetes.io/ingress.class: traefik
       kubernetes.io/tls-acme: "true"
     hosts:
-      - host: element.cluster.diluz.io
-        paths:
-          - path: /
-            pathType: Prefix
+      - element.cluster.diluz.io
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
