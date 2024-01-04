@@ -19,8 +19,8 @@ element-web:
   ## Ref: https://github.com/vector-im/element-web/blob/develop/config.sample.json
   ##
   defaultServer:
-    url: ''
-    name: ''
+    url: 'matrix-test.cluster.diluz.io'
+    name: 'diluz.io Matrix (test)'
     # identity_url: 'https://vector.im'
 
   ## Element configuration
@@ -85,12 +85,15 @@ element-web:
   ## Ingress configuration.
   ##
   ingress:
-    enabled: false
-    annotations: {}
-      # kubernetes.io/ingress.class: nginx
-      # kubernetes.io/tls-acme: "true"
+    enabled: true
+    annotations:
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
     hosts:
-      - chart-example.local
+      - host: element.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
     tls: []
     #  - secretName: chart-example-tls
     #    hosts:
@@ -102,13 +105,13 @@ element-web:
 
   ## Resource configuration for the application.
   ##
-  resources: {}
+  resources:
     # limits:
     #   cpu: 100m
     #   memory: 128Mi
-    # requests:
-    #   cpu: 100m
-    #   memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
 
   ## Configure auto-scaling for the application.
   ##
