@@ -23,11 +23,12 @@ authentik:
   postgresql:
     enabled: true
     postgresqlPassword: "ThisIsNotASecurePassword"
-    primary:
-      persistence:
-        storageClass: nfs-client
-        accessMode: ReadWriteOnce
-        size: 20Gi
+    # Different to how it is documented, we need to apply this on "top level" of the postgresql block, not inside postgresql.primary
+    persistence:
+      enabled: true
+      storageClass: nfs-client
+      accessMode: ReadWriteOnce
+      size: 20Gi
   redis:
     enabled: true
     master:
