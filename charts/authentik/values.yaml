@@ -29,9 +29,8 @@ authentik:
       storageClass: nfs-client
       accessMode: ReadWriteOnce
       size: 20Gi
-    primary:
-      startupProbe:
-        enabled: true
+    startupProbe:
+      enabled: true
   redis:
     enabled: true
     master:
