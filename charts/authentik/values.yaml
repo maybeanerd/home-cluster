@@ -1,7 +1,3 @@
-primary:
-  persistence:
-    enabled: false
-
 authentik:
   authentik:
     secret_key: "PleaseGenerateA50CharKey"
@@ -29,6 +25,7 @@ authentik:
     postgresqlPassword: "ThisIsNotASecurePassword"
     primary:
       persistence:
+        enabled: true
         storageClass: nfs-client
         accessMode: ReadWriteOnce
         size: 20Gi
