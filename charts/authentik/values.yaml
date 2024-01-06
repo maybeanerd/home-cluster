@@ -23,6 +23,11 @@ authentik:
   postgresql:
     enabled: true
     postgresqlPassword: "ThisIsNotASecurePassword"
+    persistence:
+        enabled: true
+        storageClass: nfs-client
+        accessMode: ReadWriteOnce
+        size: 20Gi
     primary:
       persistence:
         enabled: true
