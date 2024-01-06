@@ -30,8 +30,9 @@ authentik:
         size: 20Gi
   redis:
     enabled: true
-    persistence:
-      enabled: false
+    master:
+      persistence:
+        enabled: false
 
   # add this block under the `authentik:` block in your values.yaml file
   # authentik:
