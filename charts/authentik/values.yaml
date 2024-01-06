@@ -1,7 +1,6 @@
-postgresql:
-  primary:
-    persistence:
-      enabled: false
+primary:
+  persistence:
+    enabled: false
 
 authentik:
   authentik:
