@@ -182,7 +182,7 @@ extraConfig:
       user_mapping_provider:
         config:
           localpart_template: "{{ user.preferred_username }}"
-          display_name_template: "{{ user.preferred_username|capitalize }}" # TO BE FILLED: If your users have names in Authentik and you want those in Synapse, this should be replaced with user.name|capitalize.
+          display_name_template: "{{ user.preferred_username }}" # If your users have names in Authentik and you want those in Synapse, this should be replaced with user.name|capitalize.
 
 ## Specify additional loggers configutation here;
 ## Ref: https://matrix-org.github.io/synapse/latest/structured_logging.html
