@@ -394,13 +394,13 @@ workers:
 
     ## Resources to apply to the worker.
     ##
-    resources: {}
+    resources:
     #   limits:
     #     cpu: 100m
     #     memory: 128Mi
-    #   requests:
-    #     cpu: 100m
-    #     memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
 
     ## Liveness probe configuration to use
     ##
@@ -443,7 +443,7 @@ workers:
   ## Proper load balancing with the K8s Ingress resource may not be possible.
   ##
   generic_worker:
-    enabled: false
+    enabled: true
     generic: true
     listeners: [client, federation]
     csPaths:
@@ -584,7 +584,7 @@ workers:
   ## This worker handles sending federation traffic to other Synapse servers.
   ##
   federation_sender:
-    enabled: false
+    enabled: true
 
   ## Specialized workers can also be run as multiple separate instances,
   ## make sure to read the relevant documentation.
@@ -597,7 +597,7 @@ workers:
   ## NB; Running multiple instances will conflict with background jobs.
   ##
   media_repository:
-    enabled: false
+    enabled: true
     listeners: [media]
     csPaths:
       - "/_matrix/media/.*"
