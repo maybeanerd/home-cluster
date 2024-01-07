@@ -59,3 +59,33 @@ k3s server \
   --cluster-reset \
   --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube03-1699182003
 ```
+
+### set up mnt storage for rpi with external drive on mnt/tardis
+
+```bash
+# uninstall
+/usr/local/bin/k3s-agent-uninstall.sh
+rm -r /mnt/tardis/k3s-containerd/run/
+rm -r /mnt/tardis/k3s-containerd/var-lib-kubelet/
+rm -r /mnt/tardis/k3s-containerd/var-lib/
+rm -r /var/lib/rancher/
+
+# set up
+systemctl stop k3s-agent
+systemctl stop containerd
+/usr/local/bin/k3s-killall.sh
+# create dirs
+mkdir -p /mnt/tardis/k3s-containerd/run/
+mkdir -p /mnt/tardis/k3s-containerd/var-lib-kubelet/
+mkdir -p /mnt/tardis/k3s-containerd/var-lib/
+# Move files to new location
+mv /run/k3s/ /mnt/tardis/k3s-containerd/run/
+mv /var/lib/kubelet/pods/ /mnt/tardis/k3s-containerd/var-lib-kubelet/
+mv /var/lib/rancher/ /mnt/tardis/k3s-containerd/var-lib/
+# Create symbolic links (adjusted)
+ln -s /mnt/tardis/k3s-containerd/run/k3s/ /run/k3s
+ln -s /mnt/tardis/k3s-containerd/var-lib-kubelet/pods/ /var/lib/kubelet/pods
+ln -s /mnt/tardis/k3s-containerd/var-lib/rancher/ /var/lib/rancher
+# Start K3s agent
+systemctl start k3s-agent
+```
