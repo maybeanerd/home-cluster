@@ -34,7 +34,6 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
     --server https://cube02:6443
 ```
 
-
 ## agents:
 
 ```bash
