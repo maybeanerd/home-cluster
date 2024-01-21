@@ -13,6 +13,11 @@ curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET s
 
 # Restart nodes in attempt to revive cluster
 
+## Kill all k3s related processes
+```bash
+/usr/local/bin/k3s-killall.sh
+```
+
 ## main server/cube02:
 
 ```bash
