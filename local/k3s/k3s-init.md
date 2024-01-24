@@ -61,7 +61,7 @@ kubectl label nodes cube04 kubernetes.io/role=worker
 ```bash	
 k3s server \
   --cluster-reset \
-  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube03-1699182003
+  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube02-1706094002
 ```
 
 ### set up mnt storage for rpi with external drive on mnt/tardis
