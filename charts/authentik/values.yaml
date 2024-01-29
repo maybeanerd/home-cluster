@@ -7,6 +7,15 @@ authentik:
       enabled: true
     postgresql:
       password: "ThisIsNotASecurePassword"
+    resources:
+      server:
+        requests:
+          cpu: 200m
+          memory: 128Mi
+      worker:        
+        requests:
+          cpu: 100m
+          memory: 128Mi
 
   ingress:
     enabled: true
