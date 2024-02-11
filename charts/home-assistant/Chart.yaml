@@ -5,7 +5,7 @@ description: |
     Powered by a worldwide community of tinkerers and DIY enthusiasts.
     Perfect to run on a Raspberry Pi or a local server.
 type: application
-version: 0.1.0
+version: 0.1.1
 # renovate datasource=docker depName=homeassistant/home-assistant
 appVersion: 2024.2.1
 icon: https://design.home-assistant.io/images/logo-variants.png

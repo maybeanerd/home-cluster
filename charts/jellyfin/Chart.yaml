@@ -1,7 +1,7 @@
 apiVersion: v2
 description: Jellyfin Media Server
 name: jellyfin
-version: 0.1.0
+version: 0.1.1
 # renovate datasource=docker depName=jellyfin/jellyfin
 appVersion: 10.8.13
 type: application
