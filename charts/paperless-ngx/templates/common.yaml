@@ -21,17 +21,6 @@ env:
       name: {{ $.Release.Name }}-postgresql
       key: {{ if not .auth.password }}postgres-{{ end }}password
   {{- end }}
-  {{- else if .Values.mariadb.enabled }}
-  {{- with .Values.mariadb}}
-  PAPERLESS_DBENGINE: mariadb
-  PAPERLESS_DBHOST: {{ $.Release.Name }}-mariadb
-  PAPERLESS_DBNAME: {{ .auth.database }}
-  PAPERLESS_DBUSER: {{ .auth.username }}
-  PAPERLESS_DBPASS:
-    secretKeyRef:
-      name: {{ $.Release.Name }}-mariadb
-      key: mariadb-password
-  {{- end }}
   {{- end }}
 
   {{- if .Values.redis.enabled }}
