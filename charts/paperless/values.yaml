@@ -16,6 +16,9 @@ controllers:
 
         # -- environment variables.
         env:
+          # -- Set the container timezone
+          PAPERLESS_TIME_ZONE: CET
+          PAPERLESS_SECRET_KEY: <REPLACE_ME>
         # -- Set the resource requests / limits for the container.
         resources:
           # limits:
@@ -24,12 +27,6 @@ controllers:
           requests:
             cpu: 100m
             memory: 128Mi
-
-# -- Environment variables [[ref]](https://docs.paperless-ngx.com/configuration/)
-env:
-  # -- Set the container timezone
-  TZ: CET
-  PAPERLESS_SECRET_KEY: <REPLACE_ME>
 
 # -- Configures service settings for the chart.
 service:
