@@ -17,8 +17,8 @@ image:
 # @default -- See [values.yaml](./values.yaml)
 env:
   # -- Set the container timezone
-  TZ: UTC
-  # PAPERLESS_SECRET_KEY: ""
+  TZ: CET
+  PAPERLESS_SECRET_KEY: <REPLACE_ME>
 
 service:
   # -- Configures service settings for the chart.
@@ -32,17 +32,15 @@ ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See [values.yaml](./values.yaml)
   main:
-    enabled: false
+    enabled: true
     annotations:
-      nginx.ingress.kubernetes.io/proxy-body-size: 64m
-    # hosts:
-    #   - host: chart-example.local
-    #     paths:
-    #       - path: /
-    # tls:
-    #   - secretName: chart-example.local
-    #     hosts:
-    #       - chart-example.local
+      kubernetes.io/ingress.class: traefik
+      kubernetes.io/tls-acme: "true"
+    hosts:
+      - host: paperless.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
 
 persistence:
   # -- Configure data volume settings for the chart under this key.
@@ -51,68 +49,52 @@ persistence:
     enabled: false
     retain: true
     mountPath: /usr/src/paperless/data
-    # storageClass: ""
-    # accessMode: ReadWriteOnce
-    # size: 1Gi
+    storageClass: nfs-client
+    accessMode: ReadWriteOnce
+    size: 1Ti
   # -- Configure media volume settings for the chart under this key.
   # @default -- See [values.yaml](./values.yaml)
   media:
     enabled: false
     retain: true
     mountPath: /usr/src/paperless/media
-    # storageClass: ""
-    # accessMode: ReadWriteOnce
-    # size: 8Gi
+    storageClass: nfs-client
+    accessMode: ReadWriteOnce
+    size: 1Ti
   # -- Configure export volume settings for the chart under this key.
   # @default -- See [values.yaml](./values.yaml)
   export:
     enabled: true
     retain: true
     mountPath: /usr/src/paperless/export
-    # storageClass: ""
-    # accessMode: ReadWriteOnce
-    # size: 1Gi
+    storageClass: nfs-client
+    accessMode: ReadWriteOnce
+    size: 1Gi
   # -- Configure consume volume settings for the chart under this key.
   # @default -- See [values.yaml](./values.yaml)
   consume:
     enabled: true
     retain: true
     mountPath: /usr/src/paperless/consume
-    # storageClass: ""
-    # accessMode: ReadWriteOnce
-    # size: 4Gi
+    storageClass: nfs-client
+    accessMode: ReadWriteOnce
+    size: 10Gi
 
 # -- Enable and configure postgresql database subchart under this key.
 #    If enabled, the app's db envs will be set for you.
 #    [[ref]](https://github.com/bitnami/charts/tree/main/bitnami/postgresql)
 # @default -- See [values.yaml](./values.yaml)
 postgresql:
-  enabled: false
+  enabled: true
   auth:
     database: paperless
-    postgresPassword: changeme
+    postgresPassword: <REPLACE_ME>
   primary:
     persistence:
-      enabled: false
-      # storageClass: ""
-      # size: 8Gi
-
-# -- Enable and configure mariadb database subchart under this key.
-#    If enabled, the app's db envs will be set for you.
-#    [[ref]](https://github.com/bitnami/charts/tree/main/bitnami/mariadb)
-# @default -- See [values.yaml](./values.yaml)
-mariadb:
-  enabled: false
-  auth:
-    database: paperless
-    username: paperless
-    password: changeme
-    rootPassword: changeme
-  primary:
-    persistence:
-      enabled: false
-      # storageClass: ""
-      # size: 8Gi
+      enabled: true
+      storageClass: nfs-client
+      accessMode: ReadWriteOnce
+      size: 10Gi
 
 # -- Enable and configure redis subchart under this key.
 #    If enabled, the app's Redis env will be set for you.
