@@ -1,28 +1,38 @@
-#
-# IMPORTANT NOTE
-#
-# This chart inherits from our common library chart. You can check the default values/options here:
-# https://github.com/bjw-s/helm-charts/blob/a081de5/charts/library/common/values.yaml
-#
+## This chart relies on the common library chart from bjw-s
+## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+## Refer there for more detail about the supported values
 
-image:
-  # -- Image repository
-  repository: ghcr.io/paperless-ngx/paperless-ngx
-  # -- Image pull policy
-  pullPolicy: IfNotPresent
-  # -- Image tag
-  tag: 2.5.0
+controllers:
+  main:
+    containers:
+      main:
+        image:
+          # -- image repository
+          repository: ghcr.io/paperless-ngx/paperless-ngx
+          # -- image tag
+          tag: 2.5.0
+          # -- image pull policy
+          pullPolicy: IfNotPresent
+
+        # -- environment variables.
+        env:
+        # -- Set the resource requests / limits for the container.
+        resources:
+          # limits:
+          #   cpu: 100m
+          #   memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
 
 # -- Environment variables [[ref]](https://docs.paperless-ngx.com/configuration/)
-# @default -- See [values.yaml](./values.yaml)
 env:
   # -- Set the container timezone
   TZ: CET
   PAPERLESS_SECRET_KEY: <REPLACE_ME>
 
+# -- Configures service settings for the chart.
 service:
-  # -- Configures service settings for the chart.
-  # @default -- See [values.yaml](./values.yaml)
   main:
     ports:
       http:
@@ -33,14 +43,14 @@ ingress:
   # @default -- See [values.yaml](./values.yaml)
   main:
     enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
     hosts:
       - host: paperless.cluster.diluz.io
         paths:
           - path: /
             pathType: Prefix
+            service:
+              name: main
+              port: http
 
 persistence:
   # -- Configure data volume settings for the chart under this key.

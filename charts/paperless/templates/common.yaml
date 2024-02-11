@@ -1,3 +1,5 @@
+{{- include "bjw-s.common.loader.init" . }}
+
 {{/* Append the hardcoded settings */}}
 {{- define "healthchecks.harcodedValues" -}}
 env:
@@ -36,4 +38,4 @@ env:
 {{- $_ := merge .Values (include "healthchecks.harcodedValues" . | fromYaml) -}}
 
 {{/* Render the templates */}}
-{{ include "bjw-s.common.loader.all" . }}
+{{ include "bjw-s.common.loader.generate" . }}
