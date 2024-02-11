@@ -19,8 +19,8 @@ element-web:
   ## Ref: https://github.com/vector-im/element-web/blob/develop/config.sample.json
   ##
   defaultServer:
-    url: 'https://matrix-test.cluster.diluz.io'
-    name: 'diluz.io Matrix (test)'
+    url: 'https://matrix.cluster.diluz.io'
+    name: 'Matrix on diluz.io'
     # identity_url: 'https://vector.im'
 
   ## Element configuration

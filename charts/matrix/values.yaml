@@ -22,7 +22,7 @@ matrix-synapse:
     ## might not be trusted any more by the wider network.
     ##
     job:
-      enabled: true
+      enabled: false
 
       ## Annotations to apply to the signing-key-job.
       ##
@@ -47,13 +47,13 @@ matrix-synapse:
 
     ## Resources to apply to the signing key generation job
     ##
-    resources: {}
+    resources:
     #  limits:
     #    cpu: 100m
     #    memory: 250Mi
-    #  requests:
-    #    cpu: 100m
-    #    memory: 250Mi
+      requests:
+        cpu: 200m
+        memory: 250Mi
 
   ## Matrix configuration values that affect other parts of the chart, for any
   ## value not handled by this block, you will want to instead set it in
