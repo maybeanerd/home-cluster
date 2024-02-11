@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power audiobookshelf running on kubernetes
 name: audiobookshelf
-version: 0.1.0
+version: 0.1.1
 # renovate datasource=docker depName=ghcr.io/advplyr/audiobookshelf
 appVersion: 2.7.2
 home: https://www.audiobookshelf.org/
