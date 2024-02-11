@@ -1,27 +1,26 @@
----
 apiVersion: v2
-description: Paperless - Index and archive all of your scanned paper documents
 name: paperless
+description: "A community-supported supercharged version of paperless: scan, index and archive all your physical documents"
+icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/b948750/src-ui/src/assets/logo-notext.svg
+type: application
 version: 0.1.0
-kubeVersion: ">=1.16.0-0"
-keywords:
-  - paperless
-icon: https://avatars.githubusercontent.com/u/47271576?s=200&v=4
-sources:
-  - https://github.com/paperless-ngx/paperless-ngx
-maintainers:
-  - name: sebastian
-    email: sebastian@diluz.io
+# renovate datasource=docker depName=ghcr.io/paperless-ngx/paperless-ngx
+appVersion: 2.5.0
+kubeVersion: ">=1.22.0-0"
 dependencies:
   - name: common
-    repository: https://library-charts.k8s-at-home.com
-    # TODO move to https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
-    version: 4.5.2
+    repository: https://bjw-s.github.io/helm-charts
+    version: 1.5.1
   - name: postgresql
     version: 13.2.25
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
-    version: 18.6.1
     repository: https://charts.bitnami.com/bitnami
+    version: 18.6.4
     condition: redis.enabled
+sources:
+  - https://github.com/paperless-ngx/paperless-ngx
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
