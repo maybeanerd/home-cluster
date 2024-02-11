@@ -32,7 +32,7 @@ matrix-synapse:
 
       generateImage:
         repository: matrixdotorg/synapse
-        tag: v1.100.0
+        # tag: latest
         pullPolicy: IfNotPresent
 
       publishImage:
