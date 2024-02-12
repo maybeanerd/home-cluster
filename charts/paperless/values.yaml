@@ -31,7 +31,7 @@ controllers:
             cpu: 100m
             memory: 128Mi
       gotenberg:
-        image: 
+        image:
           # -- image repository
           repository: gotenberg/gotenberg
           # -- image tag
@@ -50,7 +50,7 @@ controllers:
             cpu: 100m
             memory: 128Mi
       tika:
-        image: 
+        image:
           # -- image repository
           repository: ghcr.io/paperless-ngx/tika
           # -- image tag
