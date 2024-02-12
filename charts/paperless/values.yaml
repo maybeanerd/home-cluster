@@ -19,6 +19,7 @@ controllers:
           # -- Set the container timezone
           PAPERLESS_TIME_ZONE: CET
           PAPERLESS_SECRET_KEY: <REPLACE_ME>
+          PAPERLESS_URL: https://paperless.cluster.diluz.io
           PAPERLESS_TIKA_ENABLED: 1
           PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
           PAPERLESS_TIKA_ENDPOINT: http://tika:9998
