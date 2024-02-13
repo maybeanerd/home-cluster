@@ -4,7 +4,7 @@ name: matrix-synapse
 description: Matrix reference homeserver
 icon: https://matrix.org/images/matrix-logo.svg
 type: application
-version: 0.1.1
+version: 0.1.2
 sources:
   - https://gitlab.com/ananace/charts/-/tree/master/charts/matrix-synapse
 maintainers:
@@ -12,5 +12,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: matrix-synapse
-    version: 3.8.1
+    version: 3.8.2
     repository: https://ananace.gitlab.io/charts
