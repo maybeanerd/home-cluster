@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power Immich (immich.app) running on kubernetes
 name: immich
-version: 0.1.6
+version: 0.1.7
 # renovate datasource=docker depName=ghcr.io/immich-app/immich-server
 appVersion: v1.91.4
 home: https://immich.app/
@@ -22,7 +22,7 @@ dependencies:
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
-    version: 18.12.1
+    version: 18.13.0
     repository: https://charts.bitnami.com/bitnami
     condition: redis.enabled
 annotations:
