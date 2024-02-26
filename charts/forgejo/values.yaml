@@ -45,6 +45,9 @@ forgejo:
       service:
         # Don't allow registration
         DISABLE_REGISTRATION: true
+      openid:
+        # Allow users to sign up with Authentik
+        ENABLE_OPENID_SIGNUP: true
       cache:
         ADAPTER: memory
       queue:
