@@ -1,0 +1,41 @@
+forgejo:
+  redis-cluster:
+    enabled: false
+  postgresql:
+    enabled: true
+    primary:
+      persistence:
+        enabled: true
+        claimName: nfs-client
+  postgresql-ha:
+    enabled: false
+
+  persistence:
+    enabled: true
+    storageClass: nfs-client
+
+  gitea:
+    admin:
+      username: "maybeanerd"
+      password: "<<CHANGE_ME>>"
+      email: "forgejo@diluz.io"
+    config:
+      database:
+        DB_TYPE: postgres
+      session:
+        PROVIDER: db
+      server:
+        START_SSH_SERVER: false
+      cache:
+        ADAPTER: memory
+      queue:
+        TYPE: level
+      indexer:
+        ISSUE_INDEXER_TYPE: bleve
+        REPO_INDEXER_ENABLED: true
+    # oauth:
+    # - name: 'Authentik'
+    #   provider: 'openidConnect'
+    #   key: 'hello'
+    #   secret: 'world'
+    #   autoDiscoverUrl: 'https://gitea.example.com/.well-known/openid-configuration'
