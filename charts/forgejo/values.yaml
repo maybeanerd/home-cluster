@@ -46,7 +46,9 @@ forgejo:
         ROOT_URL: "https://code.cluster.diluz.io"
       service:
         # Don't allow registration
-        DISABLE_REGISTRATION: true
+        # DISABLE_REGISTRATION: true
+        # Allow only registration over Authentik
+        ALLOW_ONLY_EXTERNAL_REGISTRATION: true
       openid:
         # Allow users to sign up with Authentik
         ENABLE_OPENID_SIGNUP: true
