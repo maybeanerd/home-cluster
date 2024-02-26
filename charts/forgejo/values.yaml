@@ -6,7 +6,7 @@ forgejo:
     primary:
       persistence:
         enabled: true
-        claimName: nfs-client
+        storageClass: nfs-client
   postgresql-ha:
     enabled: false
 
