@@ -12,6 +12,9 @@ forgejo:
   postgresql-ha:
     enabled: false
 
+  strategy:
+    type: Recreate
+
   persistence:
     enabled: true
     storageClass: nfs-client
