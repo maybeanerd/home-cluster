@@ -49,9 +49,9 @@ forgejo:
       indexer:
         ISSUE_INDEXER_TYPE: bleve
         REPO_INDEXER_ENABLED: true
-    oauth:
-      - name: "Authentik"
-        provider: "openidConnect"
-        key: "<<CHANGE_ME>>"
-        secret: "<<CHANGE_ME>>"
-        autoDiscoverUrl: "https://auth.cluster.diluz.io/application/o/forgejo/.well-known/openid-configuration"
+    # oauth:
+    #   - name: "Authentik"
+    #     provider: "openidConnect"
+    #     key: "<<CHANGE_ME>>"
+    #     secret: "<<CHANGE_ME>>"
+    #     autoDiscoverUrl: "https://auth.cluster.diluz.io/application/o/forgejo/.well-known/openid-configuration"
