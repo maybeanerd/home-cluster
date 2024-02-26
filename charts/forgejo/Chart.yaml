@@ -15,4 +15,4 @@ maintainers:
 dependencies:
   - name: forgejo
     version: 4.0.1
-    repository: oci://codeberg.org/forgejo-contrib/forgejo
+    repository: oci://code.forgejo.org/forgejo-contrib/forgejo
