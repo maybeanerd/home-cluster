@@ -48,6 +48,8 @@ forgejo:
       openid:
         # Allow users to sign up with Authentik
         ENABLE_OPENID_SIGNUP: true
+      oauth2_client:
+        ENABLE_AUTO_REGISTRATION: true
       cache:
         ADAPTER: memory
       queue:
