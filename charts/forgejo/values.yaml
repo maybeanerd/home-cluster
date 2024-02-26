@@ -7,6 +7,8 @@ forgejo:
       persistence:
         enabled: true
         storageClass: nfs-client
+    startupProbe:
+      enabled: true
   postgresql-ha:
     enabled: false
 
