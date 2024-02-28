@@ -1,0 +1,153 @@
+{{ if and .Values.runner.config.create (not .Values.runner.config.existingSecret ) }}
+{{ $name := (print ( include "forgejo-runner.fullname" . ) "-config-generate") }}
+{{ $secretName := (print ( include "forgejo-runner.fullname" . ) "-config") }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $name }}
+  labels:
+    app.kubernetes.io/component: config-generate-job
+    {{- include "forgejo-runner.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $name }}
+  labels:
+    app.kubernetes.io/component: config-generate-job
+    {{- include "forgejo-runner.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    resourceNames:
+      - {{ $secretName }}
+    verbs:
+      - get
+      - update
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $name }}
+  labels:
+    app.kubernetes.io/component: config-generate-job
+    {{- include "forgejo-runner.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $name }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ $name }}
+    namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $secretName }}
+  annotations:
+    helm.sh/resource-policy: keep
+type: Opaque
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ $name }}
+  labels:
+    app.kubernetes.io/component: config-generate-job
+    {{- include "forgejo-runner.labels" . | nindent 4 }}
+  annotations:
+    config-hash: {{ toYaml .Values.runner.config | sha256sum }}
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+stringData:
+  CONFIG_NAME: {{ .Values.runner.config.name | quote }}
+  CONFIG_INSTANCE: {{ .Values.runner.config.instance | quote }}
+  CONFIG_TOKEN: {{ .Values.runner.config.token | quote }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $name }}
+  labels:
+    {{- include "forgejo-runner.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": "pre-install,pre-upgrade"
+    "helm.sh/hook-delete-policy": "before-hook-creation,hook-succeeded"
+spec:
+  template:
+    metadata:
+      annotations:
+        config-hash: {{ toYaml .Values.runner.config | sha256sum }}
+    spec:
+      restartPolicy: "Never"
+      serviceAccount: {{ $name }}
+      containers:
+        - name: upload-config
+          image: "{{ .Values.kubectl.image.registry }}/{{ .Values.kubectl.image.repository }}:{{ .Values.kubectl.image.tag }}"
+          command:
+            - sh
+            - -c
+            - | 
+              # check if key already exists
+              key=$(kubectl get secret {{ $secretName }} -o jsonpath="{.data['.runner']}" 2> /dev/null)
+              [ $? -ne 0 ] && echo "Failed to get existing secret" && exit 1
+              [ -n "$key" ] && echo "Config already created, exiting." && exit 0
+              # wait for config
+              while [ ! -f /data/.runner ]; do
+                echo "Waiting for config.."
+                sleep 5;
+              done
+              # update secret
+              kubectl patch secret {{ $secretName }} -p "{\"data\":{\".runner\":\"$(base64 /data/.runner | tr -d '\n')\"}}"
+              [ $? -ne 0 ] && echo "Failed to update secret." && exit 1
+              echo "Config successfully created."
+          volumeMounts:
+            - mountPath: /data/
+              name: data
+              readOnly: true
+        - name: generate-config
+          image: "{{ .Values.image.registry }}/{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          command:
+            - sh 
+            - -c
+            - |
+              if [[ -s /current/.runner ]]; then
+                echo "runner-config exists already";
+                cp /current/.runner /data/.runner;
+                exit 0;
+              fi
+              cd /data;
+              /bin/forgejo-runner register --no-interactive --token "${CONFIG_TOKEN}" --name "${CONFIG_NAME}" --instance "${CONFIG_INSTANCE}" 2>&1 | tee /tmp/reg.log;
+              cat /tmp/reg.log | grep 'Runner registered successfully';
+          envFrom:
+            - secretRef:
+                name: {{ $name }}
+          volumeMounts:
+            - mountPath: /data/
+              name: data
+            - name: runner-data
+              mountPath: /current
+      volumes:
+        - name: data
+          emptyDir: {}
+        - name: runner-data
+          secret:
+            secretName: {{ $secretName }}
+  parallelism: 1
+  completions: 1
+  backoffLimit: 1
+{{ end }}
