@@ -30,6 +30,12 @@ forgejo:
           - path: /
             pathType: Prefix
 
+  deployment:
+    resources:
+      requests:
+        memory: "256Mi"
+        cpu: "200m"
+
   gitea:
     admin:
       username: "maybeanerd"
