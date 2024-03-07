@@ -30,7 +30,7 @@ dind:
     registry: docker.io
     repository: library/docker
     pullPolicy: IfNotPresent
-    tag: 25.0.3-dind
+    tag: 25.0.4-dind
 kubectl:
   image:
     registry: docker.io
