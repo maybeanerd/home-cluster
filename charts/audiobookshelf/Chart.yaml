@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power audiobookshelf running on kubernetes
 name: audiobookshelf
-version: 0.1.1
+version: 0.1.2
 # renovate datasource=docker depName=ghcr.io/advplyr/audiobookshelf
 appVersion: 2.7.2
 home: https://www.audiobookshelf.org/
@@ -15,4 +15,4 @@ maintainers:
 dependencies:
   - name: common
     repository: https://bjw-s.github.io/helm-charts
-    version: 2.4.0
+    version: 2.6.0
