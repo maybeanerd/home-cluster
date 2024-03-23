@@ -38,7 +38,7 @@ controllers:
           # -- image repository
           repository: gotenberg/gotenberg
           # -- image tag
-          tag: 8.2.2
+          tag: 8.3.0
           # -- image pull policy
           pullPolicy: IfNotPresent
 
