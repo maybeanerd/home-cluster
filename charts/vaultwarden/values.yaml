@@ -12,8 +12,8 @@ image:
 env:
   SIGNUPS_ALLOWED: false
   INVITATIONS_ALLOWED: true
+  DOMAIN: https://vaultwarden.cluster.diluz.io
   # SERVER_ADMIN_EMAIL
-  # DOMAIN
   # YUBICO_CLIENT_ID
   # YUBICO_SECRET_KEY
   # DATA_FOLDER
