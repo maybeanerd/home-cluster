@@ -8,5 +8,6 @@
       "automerge": false,
       "updateTypes": ["major", "minor"]
     }
-  ]
+  ],
+  "bumpVersion": "patch"
 }
