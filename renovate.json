@@ -7,6 +7,12 @@
       "description": "Immich minor releases are unstable and could always be breaking",
       "automerge": false,
       "updateTypes": ["major", "minor"]
+    },
+   {
+      "matchPackagePrefixes": ["jellyfin/jellyfin"],
+      "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
+      "automerge": false,
+      "updateTypes": ["major", "minor"]
     }
   ],
   "bumpVersion": "patch"
