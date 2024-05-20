@@ -8,7 +8,7 @@ services:
     environment:
       - SHARED_SECRET=${SHARED_SECRET}
       - ZONE=cluster.diluz.io
-      - RECORD_TTL=3600
+      - RECORD_TTL=300
     restart: always
     volumes:
       - dyndns-cache:/var/cache/bind
