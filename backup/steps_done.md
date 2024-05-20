@@ -19,3 +19,14 @@ borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./clu
 TODO
 
 https://community.hetzner.com/tutorials/install-and-configure-borgbackup#step-25---more-borg-commands-including-list-archives-restore-backups
+
+
+### First full backup steps
+- k3s etcd snapshots, done
+- nas
+  - its about 700GB
+  - do we need everything?
+- cubes
+  - everything except jellyfin media
+  - clean up immich first? might want to do a clean setup for that
+  - how will DBs deal with this. rather just backups of snapshots/db backups?
