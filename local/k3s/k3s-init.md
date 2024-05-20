@@ -1,11 +1,11 @@
 # Setup k3s
 Based on this https://docs.turingpi.com/docs/turing-pi2-kubernetes-installation
-## Install on main node (cube02):
+## Install on main node (cube01):
     
 ```bash
 curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 --disable servicelb --token SECRET --node-ip 10.0.0.61 --disable-cloud-controller --disable local-storage
 ```
-## Install on other nodes (cube02, cube03, cube04):
+## Install on other nodes (cube01, cube03, cube04):
     
 ```bash
 curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET sh -
@@ -18,7 +18,7 @@ curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET s
 /usr/local/bin/k3s-killall.sh
 ```
 
-## main server/cube02:
+## main server/cube01:
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
@@ -31,24 +31,24 @@ To reset traefik, start with `--disable traefik` and then again without it once 
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
-    --server https://cube02:6443 --disable=servicelb --write-kubeconfig-mode 644
+    --server https://cube01:6443 --disable=servicelb --write-kubeconfig-mode 644
 ```
 
 ## agents:
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
-    --server https://cube02:6443
+    --server https://cube01:6443
 ```
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube02:6443 --token SECRET" sh -s -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube01:6443 --token SECRET" sh -s -
 ```
 
 ### set up mnt storage for k3s containerd
 https://github.com/k3s-io/k3s/issues/2068#issuecomment-1374672584
 
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube02:6443 --token SECRET --kubelet-arg "root-dir=$KUBELET_DIR"" sh -s -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube01:6443 --token SECRET --kubelet-arg "root-dir=$KUBELET_DIR"" sh -s -
 ```
 
 ## assign roles
@@ -61,7 +61,7 @@ kubectl label nodes cube04 kubernetes.io/role=worker
 ```bash	
 k3s server \
   --cluster-reset \
-  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube02-1706094002
+  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube01-1706094002
 ```
 
 ### set up mnt storage for rpi with external drive on mnt/tardis
