@@ -54,13 +54,15 @@ postgresql:
       auth:
         username: immich
         database: immich
-        password: immich
+        password: TODOCHANGEME
   primary:
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
+    startupProbe:
+      enabled: true
     initdb:
       scripts:
         create-extensions.sql: |
@@ -71,6 +73,9 @@ postgresql:
 redis:
   enabled: true
   architecture: standalone
+  master:
+    persistence:
+      enabled: false
   auth:
     enabled: false
 
