@@ -2,9 +2,8 @@
 apiVersion: v2
 description: A chart to power Immich (immich.app) running on kubernetes
 name: immich
-version: 0.1.19
-# renovate datasource=docker depName=ghcr.io/immich-app/immich-server
-appVersion: v1.91.4
+version: 0.6.0
+appVersion: v1.100.0
 home: https://immich.app/
 icon: https://raw.githubusercontent.com/immich-app/immich/main/design/immich-logo.svg
 sources:
@@ -13,20 +12,27 @@ sources:
 maintainers:
   - name: sebastian
     email: sebastian@diluz.io
+  - name: PixelJonas
+    email: 5434875+PixelJonas@users.noreply.github.com
+  - name: bo0tzz
+    email: immich@bo0tzz.me
 dependencies:
   - name: common
     repository: https://bjw-s.github.io/helm-charts
     version: 1.5.1
   - name: postgresql
-    version: 13.4.4
-    repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
-  - name: redis
-    version: 18.19.4
     repository: https://charts.bitnami.com/bitnami
+    version: 13.2.24
+  - name: redis
     condition: redis.enabled
+    repository: https://charts.bitnami.com/bitnami
+    version: 18.4.0
 annotations:
   artifacthub.io/category: storage
   artifacthub.io/changes: |-
     - kind: changed
-      description: Polish for better display on artifacthub
+      description: Bumped pgvecto-rs to pg14-v0.2.0
+      links:
+        - name: Release Notes Breaking Changes
+          url: https://github.com/immich-app/immich/releases/tag/v1.95.1
