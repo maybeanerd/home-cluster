@@ -7,12 +7,13 @@ authentik:
       enabled: true
     postgresql:
       password: "ThisIsNotASecurePassword"
-    resources:
-      server:
+    server:
+      resources:
         requests:
           cpu: 200m
           memory: 128Mi
-      worker:        
+    worker:
+      resources:
         requests:
           cpu: 100m
           memory: 128Mi
@@ -31,36 +32,19 @@ authentik:
 
   postgresql:
     enabled: true
-    postgresqlPassword: "ThisIsNotASecurePassword"
-    # Different to how it is documented, we need to apply this on "top level" of the postgresql block, not inside postgresql.primary
-    persistence:
-      enabled: true
-      storageClass: nfs-client
-      accessMode: ReadWriteOnce
-      size: 20Gi
-    startupProbe:
-      enabled: true
+    auth:
+      # TODO override in consumer (e.g. in argoCD directly)
+      password: "ThisIsNotASecurePassword"
+    primary:
+      persistence:
+        enabled: true
+        storageClass: nfs-client
+        accessMode: ReadWriteOnce
+        size: 20Gi
+      startupProbe:
+        enabled: true
   redis:
     enabled: true
     master:
       persistence:
         enabled: false
-
-  # add this block under the `authentik:` block in your values.yaml file
-  # authentik:
-  # email:
-      # -- SMTP Server emails are sent from, fully optional
-      # host: ""
-      # port: 587
-      # -- SMTP credentials, when left empty, no authentication will be done
-      # username: ""
-      # -- SMTP credentials, when left empty, no authentication will be done
-      # password: ""
-      # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
-      # use_tls: false
-      # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
-      # use_ssl: false
-      # -- Connection timeout
-      # timeout: 30
-      # -- Email from address, can either be in the format "foo@bar.baz" or "authentik <foo@bar.baz>"
-      # from: ""
