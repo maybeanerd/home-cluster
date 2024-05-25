@@ -17,18 +17,14 @@ authentik:
         requests:
           cpu: 100m
           memory: 128Mi
-
-  ingress:
-    enabled: true
-    annotations:
-      kubernetes.io/ingress.class: traefik
-      kubernetes.io/tls-acme: "true"
-    hosts:
-      # Specify external host name
-      - host: auth.cluster.diluz.io
-        paths:
-          - path: "/"
-            pathType: Prefix
+  server:
+    ingress:
+      enabled: true
+      annotations:
+        kubernetes.io/ingress.class: traefik
+        kubernetes.io/tls-acme: "true"
+      hosts:
+        - auth.cluster.diluz.io
 
   postgresql:
     enabled: true
