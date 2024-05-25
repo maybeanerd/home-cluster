@@ -15,7 +15,7 @@ env:
 
 image:
   repository: ghcr.io/immich-app/immich-server
-  tag: v1.100.0
+  tag: v1.105.1
 
 immich:
   metrics:
@@ -24,7 +24,8 @@ immich:
   persistence:
     # Main data store for all photos shared between different components.
     library:
-      existingClaim: immich-library  # Which is exactly what we specify below and create with library-pvc.yaml
+      # existingClaim is exactly what we specify below and create with library-pvc.yaml
+      existingClaim: immich-library
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Ti
@@ -32,7 +33,8 @@ immich:
   # configuration is immich-config.json converted to yaml
   # ref: https://immich.app/docs/install/config-file/
   #
-  configuration: {}
+  configuration:
+    {}
     # trash:
     #   enabled: false
     #   days: 30
