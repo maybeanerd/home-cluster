@@ -151,6 +151,8 @@ postgresql:
       storageClass: nfs-client
       accessMode: ReadWriteOnce
       size: 10Gi
+    startupProbe:
+      enabled: true
 
 # -- Enable and configure redis subchart under this key.
 #    If enabled, the app's Redis env will be set for you.
