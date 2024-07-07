@@ -153,6 +153,7 @@ postgresql:
       size: 10Gi
     startupProbe:
       enabled: true
+      failureThreshold: 60 # Give DB time to revive itself from interruption ; Default is 15
 
 # -- Enable and configure redis subchart under this key.
 #    If enabled, the app's Redis env will be set for you.
