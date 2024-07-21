@@ -16,6 +16,7 @@ borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./clu
 borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_k3s /var/lib/rancher/k3s/server/db/snapshots
 
 #### NAS
+This is 200GB+ of files, figure out if we really want all of this backed up remotely
 borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_nas /data/raid/nas
 
 ### Cubes (kubernetes persistent volumes)
