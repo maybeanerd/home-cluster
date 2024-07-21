@@ -20,7 +20,7 @@ This is 200GB+ of files, figure out if we really want all of this backed up remo
 borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_nas /data/raid/nas
 
 ### Cubes (kubernetes persistent volumes)
-borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_cubes /data/raid/cubes --exclude /data/raid/cubes/jellyfin-jellyfin-media-pvc-29eeb2d3-e6b4-43c0-8067-7152203615f0 --exclude /data/raid/cubes/immich-immich-machine-learning-cache-pvc-e7659a22-496f-4cab-a554-3a4fdf2677d6 --exclude /data/raid/cubes/paperless-paperless-consume-pvc-1eebc996-fa85-4438-8173-1bb29399e34c --exclude /data/raid/cubes/kube-system-traefik-pvc-aeb1e86f-9595-4ee9-8f93-33b33d7269b4
+borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_cubes /data/raid/cubes --exclude /data/raid/cubes/jellyfin-jellyfin-media-pvc-29eeb2d3-e6b4-43c0-8067-7152203615f0 --exclude /data/raid/cubes/immich-immich-machine-learning-cache-pvc-e7659a22-496f-4cab-a554-3a4fdf2677d6 --exclude /data/raid/cubes/paperless-paperless-consume-pvc-1eebc996-fa85-4438-8173-1bb29399e34c --exclude /data/raid/cubes/kube-system-traefik-pvc-aeb1e86f-9595-4ee9-8f93-33b33d7269b4 --exclude /data/raid/cubes/audiobookshelf-audiobookshelf-audiobooks-pvc-fd18bca7-a973-451d-98f8-1de0de0a440d --exclude /data/raid/cubes/audiobookshelf-audiobookshelf-podcasts-pvc-596128f3-5a0d-402a-b08f-699454e0b4dc
 
 for testing, add `--dry-run`
 
