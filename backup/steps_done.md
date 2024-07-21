@@ -42,3 +42,5 @@ copy to tmp folder
 
 ### borg backup of vaultwarden
 borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_VW_initial /data/raid/cubes/vaultwarden-vaultwarden-pvc-37c8a00f-c75d-44cc-a09d-fc6a6ff76bda
+### outcome
+both seemed to work perfectly!
