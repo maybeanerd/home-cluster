@@ -12,7 +12,7 @@ borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./clu
   - exclude: /data/raid/cubes/jellyfin-jellyfin-media-pvc-29eeb2d3-e6b4-43c0-8067-7152203615f0
 
 ### command to come out of this:
-borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_05_20_initial /var/lib/rancher/k3s/server/db/snapshots /data/raid/nas /data/raid/cubes --exclude /data/raid/cubes/jellyfin-jellyfin-media-pvc-29eeb2d3-e6b4-43c0-8067-7152203615f0 /data/raid/cubes/immich-immich-machine-learning-cache-pvc-e7659a22-496f-4cab-a554-3a4fdf2677d6 /data/raid/cubes/paperless-paperless-consume-pvc-1eebc996-fa85-4438-8173-1bb29399e34c /data/raid/cubes/kube-system-traefik-pvc-aeb1e86f-9595-4ee9-8f93-33b33d7269b4
+borg create --stats --progress ssh://uXXXXXX@uXXXXXX.your-storagebox.de:23/./cluster-backup::2024_07_21_initial_full /var/lib/rancher/k3s/server/db/snapshots /data/raid/nas /data/raid/cubes --exclude /data/raid/cubes/jellyfin-jellyfin-media-pvc-29eeb2d3-e6b4-43c0-8067-7152203615f0 --exclude /data/raid/cubes/immich-immich-machine-learning-cache-pvc-e7659a22-496f-4cab-a554-3a4fdf2677d6 --exclude /data/raid/cubes/paperless-paperless-consume-pvc-1eebc996-fa85-4438-8173-1bb29399e34c --exclude /data/raid/cubes/kube-system-traefik-pvc-aeb1e86f-9595-4ee9-8f93-33b33d7269b4
 
 for testing, add `--dry-run`
 
