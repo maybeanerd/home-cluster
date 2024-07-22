@@ -15,8 +15,9 @@ export BORG_PASSPHRASE='SECRET'
 ##
 ## Set some variables
 ##
-
-export LOG='/var/log/borg/backup.log'
+RED="\033[0;31m"
+NOCOLOR="\033[0m"
+LOG='/var/log/borg/backup.log'
 export BACKUP_USER='uXXXXXX'
 export REPOSITORY_DIR='cluster-backup'
 
@@ -50,12 +51,12 @@ echo "###### Backup started: $(date) ######"
 ## be in a backup and are excluded by default.
 ##
 
-echo "Backing up k3s ..."
+echo "${RED}Backing up k3s${NOCOLOR}"
 borg create --stats                                 \
     $REPOSITORY::'k3s-{now:%Y-%m-%d_%H:%M}'         \
     /var/lib/rancher/k3s/server/db/snapshots
 
-echo "Backing up cube PVCs ..."
+echo "${RED}Backing up cube PVCs${NOCOLOR}"
 borg create --stats                   \
     $REPOSITORY::'cubes-{now:%Y-%m-%d_%H:%M}'                                                                       \
     /data/raid/cubes                                                                                                \
@@ -65,5 +66,12 @@ borg create --stats                   \
     --exclude /data/raid/cubes/kube-system-traefik-pvc-aeb1e86f-9595-4ee9-8f93-33b33d7269b4                         \
     --exclude /data/raid/cubes/audiobookshelf-audiobookshelf-audiobooks-pvc-fd18bca7-a973-451d-98f8-1de0de0a440d    \
     --exclude /data/raid/cubes/audiobookshelf-audiobookshelf-podcasts-pvc-596128f3-5a0d-402a-b08f-699454e0b4dc
+
+
+echo -e "${RED}Pruning repository${NOCOLOR}"
+borg prune --list --show-rc --keep-daily 7 --keep-weekly 4 --keep-monthly 6 --keep-yearly 3 $REPOSITORY
+
+echo -e "${RED}Compacting repository${NOCOLOR}"
+borg compact $REPOSITORY
 
 echo "###### Backup ended: $(date) ######"
