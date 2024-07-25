@@ -30,9 +30,9 @@ immich:
       accessMode: ReadWriteOnce
       size: 1Ti
       storageClass: nfs-client
-    external-library:
-      # existingClaim is exactly what we specify below and create with external-library-pvc.yaml
-      existingClaim: immich-external-library
+    external:
+      # existingClaim is exactly what we specify below and create with external-pvc.yaml
+      existingClaim: immich-external
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Ti
