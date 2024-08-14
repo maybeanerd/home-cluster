@@ -55,7 +55,7 @@ postgresql:
   enabled: true
   image:
     repository: tensorchord/pgvecto-rs
-    tag: pg14-v0.2.1
+    tag: pg14-v0.3.0
   global:
     postgresql:
       auth:
