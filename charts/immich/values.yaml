@@ -70,6 +70,14 @@ postgresql:
       storageClass: nfs-client
     startupProbe:
       enabled: true
+    containerSecurityContext:
+      enabled: true
+      seLinuxOptions: {}
+      runAsUser: 1001
+      runAsGroup: 0
+      runAsNonRoot: true
+      privileged: false
+      readOnlyRootFilesystem: false
     initdb:
       scripts:
         create-extensions.sql: |
