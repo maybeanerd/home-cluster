@@ -1,0 +1,19 @@
+services:
+  mage:
+    image: ghcr.io/maybeanerd/mage:v1.4.53V1-test-1
+    ports:
+      - '17171:17171'
+      - '17179:17179'
+    extra_hosts:
+      - 'mage.diluz.io:0.0.0.0'
+    environment:
+      - XMAGE_DOCKER_SERVER_ADDRESS=mage.diluz.io
+      - XMAGE_DOCKER_SERVER_NAME=mage.diluz.io
+      - XMAGE_DOCKER_MAX_SECONDS_IDLE=6000
+      - XMAGE_DOCKER_AUTHENTICATION_ACTIVATED=false
+    volumes:
+      - xmage-db:/xmage/db
+      - xmage-saved:/xmage/saved
+volumes:
+  xmage-db:
+  xmage-saved:
