@@ -7,10 +7,10 @@ services:
     extra_hosts:
       - 'mage.diluz.io:0.0.0.0'
     environment:
-      - XMAGE_DOCKER_SERVER_ADDRESS=mage.diluz.io
-      - XMAGE_DOCKER_SERVER_NAME=mage.diluz.io
-      - XMAGE_DOCKER_MAX_SECONDS_IDLE=6000
-      - XMAGE_DOCKER_AUTHENTICATION_ACTIVATED=false
+      - MAGE__SERVER_ADDRESS=mage.diluz.io
+      - MAGE__SERVER_NAME=mage.diluz.io
+      - MAGE__MAX_SECONDS_IDLE=6000
+      - MAGE__AUTHENTICATION_ACTIVATED=false
     volumes:
       - xmage-db:/xmage/db
       - xmage-saved:/xmage/saved
