@@ -1,6 +1,6 @@
 services:
   mage:
-    image: ghcr.io/maybeanerd/mage:v1.4.53V1-test-2
+    image: ghcr.io/maybeanerd/mage:v1.4.53V1-test-3
     ports:
       - '17171:17171'
       - '17179:17179'
