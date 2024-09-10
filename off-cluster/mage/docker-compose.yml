@@ -1,6 +1,6 @@
 services:
   mage:
-    image: ghcr.io/maybeanerd/mage:v1.4.53V1-test-6
+    image: ghcr.io/maybeanerd/mage:1.4.54V2-rc.1
     ports:
       - '17171:17171'
       - '17179:17179'
@@ -10,7 +10,7 @@ services:
       - MAGE_SERVER_ADDRESS=mage.diluz.io
       - MAGE_SERVER_NAME=mage.diluz.io
       - MAGE_MAX_SECONDS_IDLE=6000
-      - MAGE_AUTHENTICATION_ACTIVATED=false
+      - MAGE_AUTHENTICATION_ACTIVATED=true
     volumes:
       - xmage-db:/xmage/db
       - xmage-saved:/xmage/saved
