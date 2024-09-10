@@ -10,7 +10,7 @@ services:
       - MAGE_SERVER_ADDRESS=mage.diluz.io
       - MAGE_SERVER_NAME=mage.diluz.io
       - MAGE_MAX_SECONDS_IDLE=6000
-      - MAGE_AUTHENTICATION_ACTIVATED=true
+      - MAGE_AUTHENTICATION_ACTIVATED=false
     volumes:
       - xmage-db:/xmage/db
       - xmage-saved:/xmage/saved
