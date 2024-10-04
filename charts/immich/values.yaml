@@ -76,7 +76,8 @@ postgresql:
           CREATE EXTENSION cube;
           CREATE EXTENSION earthdistance;
           CREATE EXTENSION vectors;
-
+    containerSecurityContext:
+      readOnlyRootFilesystem: false
 redis:
   enabled: true
   architecture: standalone
