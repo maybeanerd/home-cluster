@@ -79,7 +79,7 @@ postgresql:
     containerSecurityContext:
       readOnlyRootFilesystem: false
     configuration: |
-      logging_collector = false
+      logging_collector = FALSE
 redis:
   enabled: true
   architecture: standalone
