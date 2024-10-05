@@ -80,7 +80,7 @@ postgresql:
           CREATE EXTENSION vectors;
     containerSecurityContext:
       readOnlyRootFilesystem: false
-    configuration: |
+    extendedConfiguration: |
       logging_collector = FALSE
 redis:
   enabled: true
