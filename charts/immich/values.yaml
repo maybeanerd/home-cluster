@@ -78,7 +78,7 @@ postgresql:
           CREATE EXTENSION vectors;
     containerSecurityContext:
       readOnlyRootFilesystem: false
-    extendedConfiguration: |
+    configuration: |
       logging_collector = false
 redis:
   enabled: true
