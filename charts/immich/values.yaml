@@ -70,6 +70,8 @@ postgresql:
       storageClass: nfs-client
     startupProbe:
       enabled: true
+      # Give DB time to revive itself from interruption ; Default is 15
+      failureThreshold: 256
     initdb:
       scripts:
         create-extensions.sql: |
