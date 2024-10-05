@@ -155,7 +155,8 @@ postgresql:
       enabled: true
       # Give DB time to revive itself from interruption ; Default is 15
       failureThreshold: 256
-
+    containerSecurityContext:
+      readOnlyRootFilesystem: false
 # -- Enable and configure redis subchart under this key.
 #    If enabled, the app's Redis env will be set for you.
 #    [[ref]](https://github.com/bitnami/charts/tree/main/bitnami/redis)
