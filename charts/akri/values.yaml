@@ -1,0 +1,5 @@
+akri:
+  kubernetesDistro: k3s
+  udev:
+    discovery:
+      enabled: true
