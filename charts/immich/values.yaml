@@ -81,7 +81,7 @@ postgresql:
     containerSecurityContext:
       readOnlyRootFilesystem: false
     extendedConfiguration: |
-      logging_collector = FALSE
+      logging_collector = off
 redis:
   enabled: true
   architecture: standalone
