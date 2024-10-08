@@ -65,10 +65,13 @@ postgresql:
   primary:
     customLivenessProbe:
       tcpSocket:
-        port: postgresql
+        port: tcp-postgresql
     customReadinessProbe:
       tcpSocket:
-        port: postgresql
+        port: tcp-postgresql
+    customStartupProbe:
+      tcpSocket:
+        port: tcp-postgresql
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
