@@ -63,6 +63,12 @@ postgresql:
         database: immich
         password: TODOCHANGEME
   primary:
+    customLivenessProbe:
+      tcpSocket:
+        port: postgresql
+    customReadinessProbe:
+      tcpSocket:
+        port: postgresql
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
