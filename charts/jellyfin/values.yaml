@@ -38,6 +38,15 @@ service:
   # loadBalancerSourceRanges: []
   ## Set the externalTrafficPolicy in the Service to either Cluster or Local
   # externalTrafficPolicy: Cluster
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
 
 ingress:
   enabled: true
@@ -86,7 +95,8 @@ persistence:
     accessMode: ReadWriteOnce
     size: 1Ti
     storageClass: nfs-client
-  extraExistingClaimMounts: []
+  extraExistingClaimMounts:
+    []
     # - name: external-mount
     #   mountPath: /srv/external-mount
     ## A manually managed Persistent Volume and Claim
@@ -112,11 +122,13 @@ tolerations: []
 
 affinity: {}
 
-extraVolumes: []
+extraVolumes:
+  []
   # - name: renderD129
   #  hostPath:
   #    path: /dev/dri/renderD129
 
-extraVolumeMounts: []
+extraVolumeMounts:
+  []
   # - mountPath: /dev/dri/renderD129
   #  name: renderD129
