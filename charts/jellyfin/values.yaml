@@ -38,16 +38,6 @@ service:
   # loadBalancerSourceRanges: []
   ## Set the externalTrafficPolicy in the Service to either Cluster or Local
   # externalTrafficPolicy: Cluster
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/role
-                operator: In
-                values:
-                  - worker
 
 ingress:
   enabled: true
@@ -121,8 +111,16 @@ nodeSelector: {}
 
 tolerations: []
 
-affinity: {}
-
+affinity:
+  nodeAffinity:
+    preferredDuringSchedulingIgnoredDuringExecution:
+      - weight: 1
+        preference:
+          matchExpressions:
+            - key: kubernetes.io/role
+              operator: In
+              values:
+                - worker
 extraVolumes:
   []
   # - name: renderD129
