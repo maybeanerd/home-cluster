@@ -12,11 +12,29 @@ authentik:
         requests:
           cpu: 200m
           memory: 128Mi
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
     worker:
       resources:
         requests:
           cpu: 100m
           memory: 128Mi
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
   server:
     ingress:
       enabled: true
@@ -39,6 +57,15 @@ authentik:
         size: 20Gi
       startupProbe:
         enabled: true
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
   redis:
     enabled: true
     master:

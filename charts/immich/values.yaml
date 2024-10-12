@@ -91,6 +91,15 @@ postgresql:
       readOnlyRootFilesystem: false
     extendedConfiguration: |
       logging_collector = off
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - preference:
+              matchExpressions:
+                - key: kubernetes.io/role
+                  operator: In
+                  values:
+                    - worker
 redis:
   enabled: true
   architecture: standalone
@@ -120,6 +129,15 @@ server:
           paths:
             - path: /
               pathType: Prefix
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
 
 machine-learning:
   enabled: true
@@ -134,3 +152,12 @@ machine-learning:
       accessMode: ReadWriteOnce
       size: 10Gi
       storageClass: nfs-client
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
