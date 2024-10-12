@@ -41,7 +41,8 @@ service:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-        - preference:
+        - weight: 1
+          preference:
             matchExpressions:
               - key: kubernetes.io/role
                 operator: In

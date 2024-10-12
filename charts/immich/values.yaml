@@ -94,7 +94,8 @@ postgresql:
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
-          - preference:
+          - weight: 1
+            preference:
               matchExpressions:
                 - key: kubernetes.io/role
                   operator: In
@@ -132,7 +133,8 @@ server:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-        - preference:
+        - weight: 1
+          preference:
             matchExpressions:
               - key: kubernetes.io/role
                 operator: In
@@ -155,7 +157,8 @@ machine-learning:
   affinity:
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
-        - preference:
+        - weight: 1
+          preference:
             matchExpressions:
               - key: kubernetes.io/role
                 operator: In
