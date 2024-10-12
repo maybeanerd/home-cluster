@@ -17,16 +17,16 @@ authentik:
         requests:
           cpu: 100m
           memory: 128Mi
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-                - key: kubernetes.io/role
-                  operator: In
-                  values:
-                    - worker
+    #  affinity:
+    #    nodeAffinity:
+    #      preferredDuringSchedulingIgnoredDuringExecution:
+    #        - weight: 1
+    #          preference:
+    #            matchExpressions:
+    #              - key: kubernetes.io/role
+    #                operator: In
+    #                values:
+    #                  - worker
   server:
     ingress:
       enabled: true
