@@ -27,6 +27,7 @@ authentik:
                   operator: In
                   values:
                     - worker
+
   server:
     ingress:
       enabled: true
