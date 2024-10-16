@@ -3,7 +3,7 @@ name: paperless
 description: "A community-supported supercharged version of paperless: scan, index and archive all your physical documents"
 icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/b948750/src-ui/src/assets/logo-notext.svg
 type: application
-version: 0.1.36
+version: 0.1.37
 # renovate datasource=docker depName=ghcr.io/paperless-ngx/paperless-ngx
 appVersion: 2.5.0
 kubeVersion: ">=1.22.0-0"
@@ -12,7 +12,7 @@ dependencies:
     repository: https://bjw-s.github.io/helm-charts
     version: 2.6.0
   - name: postgresql
-    version: 16.0.1
+    version: 16.0.3
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
   - name: redis
