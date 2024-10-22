@@ -33,7 +33,7 @@ controllers:
           # S3_REGION: us-east-1 # unused
           S3_BUCKET: hollo
           S3_URL_BASE: http://localhost:9000/hollo/
-          S3_ENDPOINT_URL: http://minio:9000
+          S3_ENDPOINT_URL: http://hollo-minio:9000
           S3_FORCE_PATH_STYLE: true
           AWS_ACCESS_KEY_ID: minioadmin
           AWS_SECRET_ACCESS_KEY: minioadmin
@@ -56,7 +56,11 @@ controllers:
         env:
           MINIO_ROOT_USER: minioadmin
           MINIO_ROOT_PASSWORD: minioadmin
-        command: ["server", "/data", "--console-address", ":9001"]
+        command:
+          - /bin/bash
+          - -c
+        args:
+          - minio server /data --console-address :9090
 
         resources:
           # limits:
