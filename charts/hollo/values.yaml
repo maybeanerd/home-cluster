@@ -1,6 +1,18 @@
 ---
 # yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.5.1/charts/other/app-template/values.schema.json
 
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
+
 controllers:
   main:
     strategy: Recreate
@@ -44,12 +56,48 @@ controllers:
             cpu: 100m
             memory: 128Mi
 
+      minio:
+        image:
+          repository: minio/minio
+          tag: RELEASE.2024-10-13T13-34-11Z
+          pullPolicy: IfNotPresent
+        env:
+          - name: MINIO_ROOT_USER
+            value: minioadmin
+          - name: MINIO_ROOT_PASSWORD
+            value: minioadmin
+        command: ["server", "/data", "--console-address", ":9001"]
+
+        resources:
+          # limits:
+          #   cpu: 100m
+          #   memory: 128Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
 service:
   main:
     controller: main
     ports:
       http:
         port: 3000
+  minio:
+    controller: minio
+    ports:
+      http:
+        port: 9000
+
+persistence:
+  minio:
+    enabled: true
+    type: persistentVolumeClaim
+    storageClass: "nfs-client"
+    accessMode: ReadWriteOnce
+    size: 100Gi
+    advancedMounts:
+      main:
+        minio:
+          - path: /data
 
 ingress:
   main:
