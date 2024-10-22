@@ -89,8 +89,8 @@ persistence:
     accessMode: ReadWriteOnce
     size: 100Gi
     advancedMounts:
-      main:
-        minio:
+      minio:
+        main:
           - path: /data
 
 ingress:
