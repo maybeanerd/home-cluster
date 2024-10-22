@@ -32,7 +32,7 @@ controllers:
           BEHIND_PROXY: true
           # S3_REGION: us-east-1 # unused
           S3_BUCKET: hollo
-          S3_URL_BASE: http://localhost:9000/hollo/
+          S3_URL_BASE: http://hollo-minio:9000/hollo/
           S3_ENDPOINT_URL: http://hollo-minio:9000
           S3_FORCE_PATH_STYLE: true
           AWS_ACCESS_KEY_ID: minioadmin
