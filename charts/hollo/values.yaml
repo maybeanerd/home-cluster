@@ -28,7 +28,7 @@ controllers:
         env:
           DATABASE_URL: "postgres://hollo:ThisIsNotASecurePassword@postgres:5432/hollo"
           SECRET_KEY: CREATE_YOUR_SECRET_KEY
-          LOG_LEVEL: info # defaults to info
+          LOG_LEVEL: info #  defaults to info
           BEHIND_PROXY: true
           # S3_REGION: us-east-1 # unused
           S3_BUCKET: hollo
