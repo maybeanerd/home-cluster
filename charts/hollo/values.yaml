@@ -80,6 +80,8 @@ service:
     ports:
       http:
         port: 9000
+      webui:
+        port: 9090
 
 persistence:
   minio:
@@ -103,6 +105,15 @@ ingress:
             service:
               identifier: main
               port: http
+  minio:
+    hosts:
+      - host: hollo-minio.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: minio
+              port: webui
 
 postgresql:
   enabled: true
