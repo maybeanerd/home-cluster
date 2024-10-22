@@ -36,7 +36,7 @@ controllers:
           S3_ENDPOINT_URL: http://hollo-minio:9000
           S3_FORCE_PATH_STYLE: true
           AWS_ACCESS_KEY_ID: minioadmin
-          AWS_SECRET_ACCESS_KEY: minioadmin
+          AWS_SECRET_ACCESS_KEY: ThisIsNotASecurePassword
         resources:
           # limits:
           #   cpu: 100m
@@ -55,7 +55,7 @@ controllers:
           pullPolicy: IfNotPresent
         env:
           MINIO_ROOT_USER: minioadmin
-          MINIO_ROOT_PASSWORD: minioadmin
+          MINIO_ROOT_PASSWORD: ThisIsNotASecurePassword
         command:
           - /bin/bash
           - -c
