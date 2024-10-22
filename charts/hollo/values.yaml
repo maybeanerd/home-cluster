@@ -44,8 +44,11 @@ controllers:
           requests:
             cpu: 100m
             memory: 128Mi
+  minio:
+    strategy: Recreate
 
-      minio:
+    containers:
+      main:
         image:
           repository: minio/minio
           tag: RELEASE.2024-10-13T13-34-11Z
