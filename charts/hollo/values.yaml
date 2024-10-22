@@ -26,15 +26,15 @@ controllers:
 
         # TODO
         env:
-          DATABASE_URL: "postgres://user:password@postgres:5432/database"
+          DATABASE_URL: "postgres://hollo:ThisIsNotASecurePassword@postgres:5432/hollo"
           SECRET_KEY: CREATE_YOUR_SECRET_KEY
-          LOG_LEVEL: error
+          LOG_LEVEL: info # defaults to info
           BEHIND_PROXY: true
-          S3_REGION: us-east-1
+          # S3_REGION: us-east-1 # unused
           S3_BUCKET: hollo
           S3_URL_BASE: http://localhost:9000/hollo/
           S3_ENDPOINT_URL: http://minio:9000
-          S3_FORCE_PATH_STYLE: "true"
+          S3_FORCE_PATH_STYLE: true
           AWS_ACCESS_KEY_ID: minioadmin
           AWS_SECRET_ACCESS_KEY: minioadmin
         resources:
@@ -103,8 +103,10 @@ ingress:
 postgresql:
   enabled: true
   auth:
+    username: "hollo"
     # TODO override in consumer (e.g. in argoCD directly)
     password: "ThisIsNotASecurePassword"
+    database: "hollo"
   primary:
     persistence:
       enabled: true
