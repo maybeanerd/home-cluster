@@ -26,28 +26,17 @@ controllers:
 
         # TODO
         env:
-          - name: DATABASE_URL
-            value: "postgres://user:password@postgres:5432/database"
-          - name: SECRET_KEY
-            value: "${SECRET_KEY}"
-          - name: LOG_LEVEL
-            value: "${LOG_LEVEL}"
-          - name: BEHIND_PROXY
-            value: "${BEHIND_PROXY}"
-          - name: S3_REGION
-            value: us-east-1
-          - name: S3_BUCKET
-            value: hollo
-          - name: S3_URL_BASE
-            value: http://localhost:9000/hollo/
-          - name: S3_ENDPOINT_URL
-            value: http://minio:9000
-          - name: S3_FORCE_PATH_STYLE
-            value: "true"
-          - name: AWS_ACCESS_KEY_ID
-            value: minioadmin
-          - name: AWS_SECRET_ACCESS_KEY
-            value: minioadmin
+          DATABASE_URL: "postgres://user:password@postgres:5432/database"
+          SECRET_KEY: "${SECRET_KEY}"
+          LOG_LEVEL: "${LOG_LEVEL}"
+          BEHIND_PROXY: "${BEHIND_PROXY}"
+          S3_REGION: us-east-1
+          S3_BUCKET: hollo
+          S3_URL_BASE: http://localhost:9000/hollo/
+          S3_ENDPOINT_URL: http://minio:9000
+          S3_FORCE_PATH_STYLE: "true"
+          AWS_ACCESS_KEY_ID: minioadmin
+          AWS_SECRET_ACCESS_KEY: minioadmin
         resources:
           # limits:
           #   cpu: 100m
@@ -62,10 +51,8 @@ controllers:
           tag: RELEASE.2024-10-13T13-34-11Z
           pullPolicy: IfNotPresent
         env:
-          - name: MINIO_ROOT_USER
-            value: minioadmin
-          - name: MINIO_ROOT_PASSWORD
-            value: minioadmin
+          MINIO_ROOT_USER: minioadmin
+          MINIO_ROOT_PASSWORD: minioadmin
         command: ["server", "/data", "--console-address", ":9001"]
 
         resources:
