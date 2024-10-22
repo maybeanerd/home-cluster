@@ -26,7 +26,7 @@ controllers:
 
         # TODO
         env:
-          DATABASE_URL: "postgres://hollo:ThisIsNotASecurePassword@postgres:5432/hollo"
+          DATABASE_URL: "postgres://hollo:ThisIsNotASecurePassword@hollo-postgresql:5432/hollo"
           SECRET_KEY: CREATE_YOUR_SECRET_KEY
           LOG_LEVEL: info
           BEHIND_PROXY: true
