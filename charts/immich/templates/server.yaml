@@ -67,7 +67,7 @@ probes:
       initialDelaySeconds: 0
       periodSeconds: 10
       timeoutSeconds: 1
-      failureThreshold: 30
+      failureThreshold: 256
 
 persistence:
 {{- if .Values.immich.configuration }}
