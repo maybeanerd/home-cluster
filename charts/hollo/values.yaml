@@ -21,7 +21,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/dahlia/hollo
-          tag: 0.2.0
+          tag: 0.2.1
           pullPolicy: IfNotPresent
 
         # TODO
