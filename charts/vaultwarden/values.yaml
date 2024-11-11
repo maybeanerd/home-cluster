@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: vaultwarden/server
-  tag: 1.32.3
+  tag: 1.32.4
   pullPolicy: IfNotPresent
 
 env:
