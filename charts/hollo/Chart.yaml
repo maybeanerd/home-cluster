@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power hollo running on kubernetes
 name: hollo
-version: 0.1.6
+version: 0.1.7
 home: https://docs.hollo.social
 icon: https://github.com/dahlia/hollo/raw/main/logo-white.svg
 sources:
@@ -15,6 +15,6 @@ dependencies:
     repository: https://bjw-s.github.io/helm-charts
     version: 3.5.1
   - name: postgresql
-    version: 16.2.0
+    version: 16.2.1
     repository: https://charts.bitnami.com/bitnami
     condition: postgresql.enabled
