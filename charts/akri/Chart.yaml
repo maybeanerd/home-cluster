@@ -1,9 +1,9 @@
 apiVersion: v2
 name: akri-expose-usb
-version: 0.1.0
+version: 0.1.1
 dependencies:
   - name: akri
-    version: 0.12.20
+    version: 0.13.8
     repository: https://project-akri.github.io/akri/
 maintainers:
   - name: sebastian
