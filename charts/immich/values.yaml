@@ -62,6 +62,8 @@ postgresql:
         username: immich
         database: immich
         password: TODOCHANGEME
+    security:
+      allowInsecureImages: true
   primary:
     customLivenessProbe:
       tcpSocket:
