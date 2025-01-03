@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 description: A chart to power 5e tools running on kubernetes
-name: 5e-tools
+name: dnd5e-tools
 version: 0.1.0
 maintainers:
   - name: sebastian
