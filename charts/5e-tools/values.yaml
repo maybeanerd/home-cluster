@@ -1,10 +1,20 @@
 ---
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.1.0/charts/other/app-template/values.schema.json
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
 
 controllers:
   main:
     strategy: Recreate
-
+    pod:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
     containers:
       main:
         image:
@@ -14,7 +24,6 @@ controllers:
           tag: 2.5.10
           # -- image pull policy
           pullPolicy: IfNotPresent
-
         # -- environment variables.
         # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
         env: []
