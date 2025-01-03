@@ -4,7 +4,17 @@
 controllers:
   main:
     strategy: Recreate
-
+    pod:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
     containers:
       main:
         image:
@@ -14,7 +24,6 @@ controllers:
           tag: 2.5.10
           # -- image pull policy
           pullPolicy: IfNotPresent
-
         # -- environment variables.
         # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
         env: []
