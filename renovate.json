@@ -1,18 +1,30 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["local>maybeanerd/renovate-config"],
+  "extends": [
+    "local>maybeanerd/renovate-config"
+  ],
   "packageRules": [
     {
-      "matchPackagePrefixes": ["ghcr.io/immich-app/"],
       "description": "Immich minor releases are unstable and could always be breaking",
       "automerge": false,
-      "updateTypes": ["major", "minor"]
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/immich-app/{/,}**"
+      ]
     },
-   {
-      "matchPackagePrefixes": ["jellyfin/jellyfin"],
+    {
       "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
       "automerge": false,
-      "updateTypes": ["major", "minor"]
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchPackageNames": [
+        "jellyfin/jellyfin{/,}**"
+      ]
     }
   ],
   "bumpVersion": "patch"
