@@ -10,7 +10,7 @@ controllers:
           # -- image repository
           repository: ghcr.io/paperless-ngx/paperless-ngx
           # -- image tag
-          tag: 2.14.5
+          tag: 2.14.6
           # -- image pull policy
           pullPolicy: IfNotPresent
 
