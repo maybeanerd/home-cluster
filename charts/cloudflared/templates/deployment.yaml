@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: cloudflared
-        image: cloudflare/cloudflared:2025.1.0
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         args:
         - tunnel
         # Points cloudflared to the config file, which configures what
@@ -83,7 +83,13 @@ data:
     # E.g. `cloudflared tunnel route dns example-tunnel tunnel.example.com`.
     ingress:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
-    - hostname: auth.diluz.io
-      service: http://authentik-server.authentik.svc.cluster.local:80
+    {{- range .Values.services }}
+    ## temporarily provide alternatives to .cluster.diluz.io for testing all services
+    - hostname: {{ .subdomain }}.clustert.diluz.io
+      service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
+    - hostname: {{ .subdomain }}.cluster.diluz.io
+      service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
+    {{- end }}
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
-    - service: http_status:404
+    - service: http://error-pages.error-pages.svc.cluster.local:8080
+ 
