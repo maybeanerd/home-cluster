@@ -88,15 +88,7 @@ ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   # @default -- See [values.yaml](./values.yaml)
   main:
-    enabled: true
-    hosts:
-      - host: paperless.cluster.diluz.io
-        paths:
-          - path: /
-            pathType: Prefix
-            service:
-              name: main
-              port: http
+    enabled: false
 
 persistence:
   # -- Configure data volume settings for the chart under this key.
