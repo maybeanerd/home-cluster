@@ -6,7 +6,7 @@ services:
     servicename: authentik-server
     namespace: authentik
     serviceport: 80
-  - subdomain: argo
+  - subdomain: argocd
     servicename: argocd-server
     namespace: argocd
     serviceport: 80
