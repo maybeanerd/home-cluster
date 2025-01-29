@@ -46,12 +46,7 @@ authentik:
     #                  - worker
   server:
     ingress:
-      enabled: true
-      annotations:
-        kubernetes.io/ingress.class: traefik
-        kubernetes.io/tls-acme: "true"
-      hosts:
-        - auth.cluster.diluz.io
+      enabled: false
 
   postgresql:
     enabled: true
