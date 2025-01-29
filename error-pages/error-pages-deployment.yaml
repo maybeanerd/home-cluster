@@ -21,29 +21,32 @@ spec:
         app: error-pages
     spec:
       containers:
-      - name: error-pages
-        image: tarampampam/error-pages:2.20.0
-        imagePullPolicy: IfNotPresent
-        env:
-        - name: TEMPLATE_NAME
-          value: "app-down"
-        - name: SHOW_DETAILS
-          value: "true"
-        ports:
-        - containerPort: 8080
-        securityContext:
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          allowPrivilegeEscalation: false
-          # Run the container as nobody:nogroup
-          runAsUser: 65534
-          runAsGroup: 65534
-          capabilities:
-            drop:
-            - NET_RAW
-        resources:
-          requests:
-            cpu: 50m
-            memory: 16Mi
-          limits:
-            memory: 32M
+        - name: error-pages
+          image: tarampampam/error-pages:3.3.1
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: TEMPLATE_NAME
+              value: "app-down"
+            - name: SHOW_DETAILS
+              value: "true"
+            - name: DEFAULT_ERROR_PAGE
+              value: "404"
+          ports:
+            - containerPort: 8080
+          securityContext:
+            readOnlyRootFilesystem: true
+            runAsNonRoot: true
+            allowPrivilegeEscalation: false
+            # Run the container as nobody:nogroup
+            runAsUser: 65534
+            runAsGroup: 65534
+            capabilities:
+              drop:
+                - NET_RAW
+          resources:
+            requests:
+              cpu: 50m
+              memory: 16Mi
+            limits:
+              memory: 32M
+              cpu: 100m
