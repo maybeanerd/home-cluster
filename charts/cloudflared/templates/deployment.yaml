@@ -84,9 +84,6 @@ data:
     ingress:
     # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
     {{- range .Values.services }}
-    ## temporarily provide alternatives to .cluster.diluz.io for testing all services
-    - hostname: {{ .subdomain }}.clustert.diluz.io
-      service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
     - hostname: {{ .subdomain }}.cluster.diluz.io
       service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
     {{- end }}
