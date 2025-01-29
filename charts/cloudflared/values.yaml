@@ -21,7 +21,7 @@ services:
   - subdomain: immich
     servicename: immich-server
     namespace: immich
-    serviceport: 80
+    serviceport: 2283
   - subdomain: jellyfin
     servicename: jellyfin
     namespace: jellyfin
