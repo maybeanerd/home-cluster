@@ -77,16 +77,11 @@ data:
     # The `ingress` block tells cloudflared which local service to route incoming
     # requests to. For more about ingress rules, see
     # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
-    #
-    # Remember, these rules route traffic from cloudflared to a local service. To route traffic
-    # from the internet to cloudflared, run `cloudflared tunnel route dns <tunnel> <hostname>`.
-    # E.g. `cloudflared tunnel route dns example-tunnel tunnel.example.com`.
     ingress:
-    # The first rule proxies traffic to the httpbin sample Service defined in app.yaml
     {{- range .Values.services }}
     - hostname: {{ .subdomain }}.cluster.diluz.io
       service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
     {{- end }}
-    # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
+    # This rule matches any traffic which didn't match a previous rule and responds with a 404 errorpage.
     - service: http://error-pages.error-pages.svc.cluster.local:8080
  
