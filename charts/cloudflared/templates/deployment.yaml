@@ -91,5 +91,5 @@ data:
       service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
     {{- end }}
     # This rule matches any traffic which didn't match a previous rule, and responds with HTTP 404.
-    - service: http://error-pages.error-pages.svc.cluster.local:8080
+    - service: http://error-pages.error-pages.svc.cluster.local:8080/404
  
