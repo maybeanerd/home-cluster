@@ -1,0 +1,33 @@
+services:
+  - subdomain: auth
+    servicename: authentik-server
+    namespace: authentik
+    serviceport: 80
+  - subdomain: argo
+    servicename: argocd-server
+    namespace: argocd
+    serviceport: 80
+  - subdomain: audiobookshelf
+    servicename: audiobookshelf
+    namespace: audiobookshelf
+    serviceport: 80
+  - subdomain: home
+    servicename: home-assistant
+    namespace: home-assistant
+    serviceport: 8123
+  - subdomain: immich
+    servicename: immich-server
+    namespace: immich
+    serviceport: 80
+  - subdomain: jellyfin
+    servicename: jellyfin
+    namespace: jellyfin
+    serviceport: 8096
+  - subdomain: status
+    servicename: uptime-kuma
+    namespace: uptime-kuma
+    serviceport: 3001
+  - subdomain: vaultwarden
+    servicename: vaultwarden
+    namespace: vaultwarden
+    serviceport: 80
