@@ -1,6 +1,6 @@
 image:
   repository: cloudflare/cloudflared
-  tag: 2025.1.0
+  tag: 2025.1.1
 services:
   - subdomain: auth
     servicename: authentik-server
