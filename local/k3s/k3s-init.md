@@ -18,11 +18,16 @@ curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET s
 /usr/local/bin/k3s-killall.sh
 ```
 
+## Uninstall k3s on servers besides the one that is being restored:
+```bash
+/usr/local/bin/k3s-uninstall.sh
+```
+
 ## main server/cube01:
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
-    --cluster-init --disable=servicelb --write-kubeconfig-mode 644
+    --cluster-init --disable=servicelb --disable traefik --write-kubeconfig-mode 644
 ```
 
 To reset traefik, start with `--disable traefik` and then again without it once it's entirely gone. Also do this on all other nodes
@@ -31,7 +36,7 @@ To reset traefik, start with `--disable traefik` and then again without it once 
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
-    --server https://cube01:6443 --disable=servicelb --write-kubeconfig-mode 644
+    --server https://cube01:6443 --disable=servicelb --disable traefik --write-kubeconfig-mode 644
 ```
 
 ## agents:
