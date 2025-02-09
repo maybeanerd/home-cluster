@@ -3,3 +3,8 @@ akri:
   udev:
     discovery:
       enabled: true
+  # Admission Controllers (Webhooks)
+  webhookConfiguration:
+    # Disabled since the helm hooks it includes bring argo to fail
+    # If we end up having problems with configs, it might be worth getting this ro run
+    enabled: false
