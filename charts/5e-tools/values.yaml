@@ -21,7 +21,7 @@ controllers:
           # -- image repository
           repository: ghcr.io/5etools-mirror-3/5etools-src
           # -- image tag
-          tag: 2.7.0
+          tag: 2.7.1
           # -- image pull policy
           pullPolicy: IfNotPresent
         # -- environment variables.
