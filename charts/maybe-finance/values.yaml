@@ -6,6 +6,17 @@ replicaCount: 1
 controllers:
   main:
     strategy: Recreate
+    pod:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
 
     containers:
       main:
@@ -82,3 +93,13 @@ postgresql:
       failureThreshold: 256
     containerSecurityContext:
       readOnlyRootFilesystem: false
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: kubernetes.io/role
+                  operator: In
+                  values:
+                    - worker
