@@ -30,7 +30,7 @@ controllers:
           - name: SECRET_KEY_BASE
             value: "TODOREPLACEME"
           - name: DB_HOST
-            value: postgresql
+            value: maybefinance-postgresql
           - name: POSTGRES_DB
             value: maybe_production
           - name: POSTGRES_USER
