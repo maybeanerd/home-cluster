@@ -36,5 +36,5 @@ services:
     serviceport: 80
   - subdomain: cash
     servicename: maybefinance
-    namespace: maybe-finance
+    namespace: maybefinance
     serviceport: 3000
