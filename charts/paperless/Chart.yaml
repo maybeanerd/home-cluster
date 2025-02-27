@@ -3,7 +3,7 @@ name: paperless
 description: "A community-supported supercharged version of paperless: scan, index and archive all your physical documents"
 icon: https://raw.githubusercontent.com/paperless-ngx/paperless-ngx/b948750/src-ui/src/assets/logo-notext.svg
 type: application
-version: 0.1.78
+version: 0.1.79
 # renovate datasource=docker depName=ghcr.io/paperless-ngx/paperless-ngx
 appVersion: 2.5.0
 kubeVersion: ">=1.22.0-0"
@@ -17,7 +17,7 @@ dependencies:
     condition: postgresql.enabled
   - name: redis
     repository: https://charts.bitnami.com/bitnami
-    version: 20.9.0
+    version: 20.10.0
     condition: redis.enabled
 sources:
   - https://github.com/paperless-ngx/paperless-ngx
