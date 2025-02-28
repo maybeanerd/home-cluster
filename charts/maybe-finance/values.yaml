@@ -24,7 +24,7 @@ controllers:
           # -- image repository
           repository: ghcr.io/maybe-finance/maybe
           # -- image tag
-          tag: 0.4.2
+          tag: 0.4.3
           # -- image pull policy
           pullPolicy: IfNotPresent
 
