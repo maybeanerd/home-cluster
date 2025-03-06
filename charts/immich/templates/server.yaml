@@ -2,6 +2,9 @@
 global:
   nameOverride: server
 
+controller:
+  strategy: RollingUpdate
+
 env:
   {{ if .Values.immich.metrics.enabled }}
       IMMICH_TELEMETRY_INCLUDE: all
