@@ -97,8 +97,8 @@ resources:
   #  cpu: 100m
   #  memory: 128Mi
   requests:
-    cpu: 1000m
-    memory: 1024Mi
+    cpu: 4000m
+    memory: 4096Mi
 
 nodeSelector: {}
 
