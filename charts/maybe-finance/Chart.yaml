@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to deploy Maybe Finance on Kubernetes
 name: maybe-finance
-version: 0.1.1
+version: 0.1.2
 home: https://github.com/maybe-finance/maybe
 sources:
   - https://github.com/maybe-finance/maybe
@@ -15,4 +15,4 @@ dependencies:
     version: 3.6.0
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
-    version: 16.4.16
+    version: 16.5.0
