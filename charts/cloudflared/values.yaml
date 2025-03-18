@@ -34,7 +34,3 @@ services:
     servicename: vaultwarden
     namespace: vaultwarden
     serviceport: 80
-  - subdomain: cash
-    servicename: maybefinance
-    namespace: maybefinance
-    serviceport: 3000
