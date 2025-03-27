@@ -37,4 +37,4 @@ services:
   - subdomain: roundcube
     servicename: roundcube
     namespace: roundcube
-    serviceport: 8000
+    serviceport: 9000
