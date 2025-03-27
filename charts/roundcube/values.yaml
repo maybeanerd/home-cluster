@@ -24,7 +24,7 @@ controllers:
           # -- image repository
           repository: roundcube/roundcubemail
           # -- image tag
-          tag: 1.6.10-fpm
+          tag: 1.6.10-apache
           # -- image pull policy
           pullPolicy: IfNotPresent
 
@@ -67,7 +67,7 @@ service:
     controller: main
     ports:
       http:
-        port: 80
+        port: 9002
 
 # -- Configure persistence settings for the chart under this key.
 # persistence:
