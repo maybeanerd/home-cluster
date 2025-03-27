@@ -67,7 +67,7 @@ service:
     controller: main
     ports:
       http:
-        port: 9009
+        port: 80
 
 # -- Configure persistence settings for the chart under this key.
 # persistence:
