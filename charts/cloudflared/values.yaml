@@ -34,3 +34,7 @@ services:
     servicename: vaultwarden
     namespace: vaultwarden
     serviceport: 80
+  - subdomain: roundcube
+    servicename: roundcube
+    namespace: roundcube
+    serviceport: 8000
