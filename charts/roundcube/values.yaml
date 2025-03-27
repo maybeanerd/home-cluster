@@ -24,7 +24,7 @@ controllers:
           # -- image repository
           repository: roundcube/roundcubemail
           # -- image tag
-          tag: 1.6.10
+          tag: 1.6.10-fpm
           # -- image pull policy
           pullPolicy: IfNotPresent
 
