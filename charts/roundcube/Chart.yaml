@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to deploy Roundcube on Kubernetes
 name: roundcube
-version: 0.1.1
+version: 0.1.2
 home: https://github.com/roundcube/roundcubemail-docker
 sources:
   - https://github.com/roundcube/roundcubemail-docker
@@ -12,7 +12,7 @@ maintainers:
 dependencies:
   - name: common
     repository: https://bjw-s.github.io/helm-charts
-    version: 3.6.0
+    version: 3.7.3
   - name: postgresql
     repository: https://charts.bitnami.com/bitnami
     version: 16.6.0
