@@ -40,7 +40,14 @@ service:
   # externalTrafficPolicy: Cluster
 
 ingress:
-  enabled: false
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+  path: /
+  hosts:
+    - jellyfin.cluster.diluz.io
+  pathType: Prefix
 
 persistence:
   config:
