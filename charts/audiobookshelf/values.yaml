@@ -25,6 +25,7 @@ controllers:
             cpu: 100m
             memory: 128Mi
 
+
 # -- Configures service settings for the chart.
 service:
   main:
@@ -69,4 +70,12 @@ persistence:
 ingress:
   # -- Enable and configure ingress settings for the chart under this key.
   main:
-    enabled: false
+    enabled: true
+    hosts:
+      - host: audiobookshelf.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            service:
+              name: main
+              port: http
