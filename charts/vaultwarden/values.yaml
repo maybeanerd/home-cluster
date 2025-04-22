@@ -39,14 +39,7 @@ service:
   port: 80
 
 ingress:
-  enabled: true
-  annotations:
-    kubernetes.io/ingress.class: traefik
-    kubernetes.io/tls-acme: "true"
-  path: /
-  hosts:
-    - vaultwarden.cluster.diluz.io
-  pathType: Prefix
+  enabled: false
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
