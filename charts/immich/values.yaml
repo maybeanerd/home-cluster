@@ -15,7 +15,7 @@ env:
 
 image:
   repository: ghcr.io/immich-app/immich-server
-  tag: v1.132.0
+  tag: v1.131.3
 
 immich:
   metrics:
