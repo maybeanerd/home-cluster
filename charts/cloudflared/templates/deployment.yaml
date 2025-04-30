@@ -78,9 +78,11 @@ data:
     # requests to. For more about ingress rules, see
     # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
     ingress:
-    {{- range .Values.services }}
-    - hostname: {{ .subdomain }}.cluster.diluz.io
+    {{- range .Values.regions }}
+    {{- range .services }}
+    - hostname: {{ .subdomain }}.{{ $.basePath }}
       service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
+    {{- end }}
     {{- end }}
     # This rule matches any traffic which didn't match a previous rule and responds with a 404 errorpage.
     - service: http://error-pages.error-pages.svc.cluster.local:8080
