@@ -1,0 +1,70 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+    containers:
+      main:
+        image:
+          repository: ghcr.io/maybeanerd/celeryband
+          tag: 0.0.1
+          pullPolicy: IfNotPresent
+        env:
+          - name: NUXT_SESSION_PASSWORD
+            value: TODO_PROVIDE_A_SECURE_SECRET
+          - name: OBFUSCATION_SALT
+            value: TODO_PROVIDE_A_SECURE_SALT
+          - name: ROLES
+            value: software engineer,product manager,designer
+          - name: SENIORITY_LEVELS
+            value: junior,professional,senior,staff,principal
+          - name: DEPARTMENTS
+            value: student platform,martech,salestech,epos,edu platform
+          - name: CURRENCY
+            value: €
+          - name: ACCEPTED_DOMAIN
+            value: iu.org
+          - name: SMTP_HOST
+            value: smtp.servivum.com
+          - name: SMTP_PORT
+            value: 587
+          - name: SMTP_USERNAME
+            value: TODO_PROVIDE_SMTP_USERNAME
+          - name: SMTP_PASSWORD
+            value: TODO_PROVIDE_SMTP_PASSWORD
+        resources:
+          requests:
+            cpu: 50m
+            memory: 128Mi
+          limits:
+            cpu: 200m
+            memory: 512Mi
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 3000
+
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
+
+persistence:
+  data:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: "nfs-client"
+    size: 1Gi
+    globalMounts:
+      - path: /app/data
