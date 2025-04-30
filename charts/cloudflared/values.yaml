@@ -1,40 +1,44 @@
 image:
   repository: cloudflare/cloudflared
   tag: 2025.4.2
-services:
-  - subdomain: auth
-    servicename: authentik-server
-    namespace: authentik
-    serviceport: 80
-  - subdomain: argocd
-    servicename: argocd-server
-    namespace: argocd
-    serviceport: 80
-  - subdomain: audiobookshelf
-    servicename: audiobookshelf
-    namespace: audiobookshelf
-    serviceport: 80
-  - subdomain: home
-    servicename: home-assistant
-    namespace: home-assistant
-    serviceport: 8123
-  - subdomain: immich
-    servicename: immich-server
-    namespace: immich
-    serviceport: 2283
-  - subdomain: jellyfin
-    servicename: jellyfin
-    namespace: jellyfin
-    serviceport: 8096
-  - subdomain: status
-    servicename: uptime-kuma
-    namespace: uptime-kuma
-    serviceport: 3001
-  - subdomain: vaultwarden
-    servicename: vaultwarden
-    namespace: vaultwarden
-    serviceport: 80
-  - subdomain: celeryband
-    servicename: celeryband-iu
-    namespace: celeryband-iu
-    serviceport: 3000
+regions:
+  - basePath: cluster.diluz.io
+    services:
+      - subdomain: auth
+        servicename: authentik-server
+        namespace: authentik
+        serviceport: 80
+      - subdomain: argocd
+        servicename: argocd-server
+        namespace: argocd
+        serviceport: 80
+      - subdomain: audiobookshelf
+        servicename: audiobookshelf
+        namespace: audiobookshelf
+        serviceport: 80
+      - subdomain: home
+        servicename: home-assistant
+        namespace: home-assistant
+        serviceport: 8123
+      - subdomain: immich
+        servicename: immich-server
+        namespace: immich
+        serviceport: 2283
+      - subdomain: jellyfin
+        servicename: jellyfin
+        namespace: jellyfin
+        serviceport: 8096
+      - subdomain: status
+        servicename: uptime-kuma
+        namespace: uptime-kuma
+        serviceport: 3001
+      - subdomain: vaultwarden
+        servicename: vaultwarden
+        namespace: vaultwarden
+        serviceport: 80
+  - basePath: celery.band
+    services:
+      - subdomain: iu
+        servicename: celeryband-iu
+        namespace: celeryband-iu
+        serviceport: 3000
