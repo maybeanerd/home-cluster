@@ -79,8 +79,9 @@ data:
     # https://developers.cloudflare.com/cloudflare-one/connections/connect-apps/configuration/ingress
     ingress:
     {{- range .Values.regions }}
+    {{- $basePath := .basePath }}
     {{- range .services }}
-    - hostname: {{ .subdomain }}.{{ $.basePath }}
+    - hostname: {{ .subdomain }}.{{ $basePath }}
       service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
     {{- end }}
     {{- end }}
