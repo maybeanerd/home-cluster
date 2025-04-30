@@ -48,6 +48,18 @@ service:
       http:
         port: 3000
 
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
+
 persistence:
   data:
     type: persistentVolumeClaim
