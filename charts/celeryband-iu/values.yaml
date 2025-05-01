@@ -26,7 +26,7 @@ controllers:
           - name: ACCEPTED_DOMAIN
             value: iu.org
           - name: SERVER_URL
-            value: https://celeryband.cluster.diluz.io
+            value: https://iu.celery.band
           - name: SMTP_HOST
             value: smtp.servivum.com
           - name: SMTP_PORT
