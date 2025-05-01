@@ -36,10 +36,6 @@ regions:
         servicename: vaultwarden
         namespace: vaultwarden
         serviceport: 80
-      - subdomain: celeryband
-        servicename: celeryband-iu
-        namespace: celeryband-iu
-        serviceport: 3000
   - basePath: celery.band
     services:
       - subdomain: iu
