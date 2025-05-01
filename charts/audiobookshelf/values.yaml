@@ -1,5 +1,5 @@
-## This chart relies on the common library chart from bjw-s
-## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+## This chart relies on the common library chart from bjw-s-labs
+## You can find it at https://github.com/bjw-s-labs/helm-charts/tree/main/charts/library/common
 ## Refer there for more detail about the supported values
 
 controllers:
@@ -38,7 +38,7 @@ serviceAccount:
 
 # -- Configure persistence for the chart here.
 # Additional items can be added by adding a dictionary key similar to the 'config' key.
-# [[ref]](https://bjw-s.github.io/helm-charts/docs/common-library/common-library-storage)
+# [[ref]](https://bjw-s-labs.github.io/helm-charts/docs/common-library/common-library-storage)
 # @default -- See below
 persistence:
   config:

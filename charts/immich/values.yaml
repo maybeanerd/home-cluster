@@ -1,5 +1,5 @@
-## This chart relies on the common library chart from bjw-s
-## You can find it at https://github.com/bjw-s/helm-charts/tree/main/charts/library/common
+## This chart relies on the common library chart from bjw-s-labs
+## You can find it at https://github.com/bjw-s-labs/helm-charts/tree/main/charts/library/common
 ## Refer there for more detail about the supported values
 
 # These entries are shared between all the Immich components
