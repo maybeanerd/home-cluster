@@ -42,3 +42,7 @@ regions:
         servicename: celeryband-iu
         namespace: celeryband-iu
         serviceport: 3000
+      - subdomain: test
+        servicename: celeryband-test
+        namespace: celeryband-test
+        serviceport: 3000
