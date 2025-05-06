@@ -36,10 +36,12 @@ controllers:
             memory: 128Mi
         probes:
           liveness:
+            enabled: true
             type: HTTP
             path: /
             port: http
           readiness:
+            enabled: true
             type: HTTP
             path: /
             port: http
@@ -69,3 +71,4 @@ persistence:
     accessMode: ReadWriteOnce
     storageClass: "nfs-client"
     size: 1Gi
+    nameOverride: vaultwarden # for backwards compatabiity from old chart
