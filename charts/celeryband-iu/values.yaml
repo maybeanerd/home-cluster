@@ -11,30 +11,18 @@ controllers:
           tag: 0.0.3
           pullPolicy: IfNotPresent
         env:
-          - name: NUXT_SESSION_PASSWORD
-            value: TODO_PROVIDE_A_SECURE_SECRET
-          - name: OBFUSCATION_SALT
-            value: TODO_PROVIDE_A_SECURE_SALT
-          - name: ROLES
-            value: software engineer,product manager,designer
-          - name: SENIORITY_LEVELS
-            value: junior,professional,senior,staff,principal
-          - name: DEPARTMENTS
-            value: student platform,martech,salestech,epos,edu platform
-          - name: CURRENCY
-            value: €
-          - name: ACCEPTED_DOMAIN
-            value: iu.org
-          - name: SERVER_URL
-            value: https://iu.celery.band
-          - name: SMTP_HOST
-            value: smtp.servivum.com
-          - name: SMTP_PORT
-            value: 587
-          - name: SMTP_USERNAME
-            value: TODO_PROVIDE_SMTP_USERNAME
-          - name: SMTP_PASSWORD
-            value: TODO_PROVIDE_SMTP_PASSWORD
+          NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
+          OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
+          ROLES: software engineer,product manager,designer
+          SENIORITY_LEVELS: junior,professional,senior,staff,principal
+          DEPARTMENTS: student platform,martech,salestech,epos,edu platform
+          CURRENCY: €
+          ACCEPTED_DOMAIN: iu.org
+          SERVER_URL: https://iu.celery.band
+          SMTP_HOST: smtp.servivum.com
+          SMTP_PORT: 587
+          SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
+          SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
         resources:
           requests:
             cpu: 50m
