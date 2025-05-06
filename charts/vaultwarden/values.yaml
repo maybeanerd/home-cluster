@@ -40,11 +40,17 @@ controllers:
             type: HTTP
             path: /
             port: 80
+            spec:
+              failureThreshold: 10
+              initialDelaySeconds: 5
           readiness:
             enabled: true
             type: HTTP
             path: /
             port: 80
+            spec:
+              failureThreshold: 10
+              initialDelaySeconds: 5
 
 service:
   main:
