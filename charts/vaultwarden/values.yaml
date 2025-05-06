@@ -71,4 +71,5 @@ persistence:
     accessMode: ReadWriteOnce
     storageClass: "nfs-client"
     size: 1Gi
-    nameOverride: vaultwarden # for backwards compatabiity from old chart
+    # for backwards compatabiity with old chart, enforce name
+    nameOverride: vaultwarden
