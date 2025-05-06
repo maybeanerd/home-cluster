@@ -1,45 +1,30 @@
-## This chart relies on the common library chart from bjw-s-labs
-## You can find it at https://github.com/bjw-s-labs/helm-charts/tree/main/charts/library/common
-## Refer there for more detail about the supported values
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
 
 controllers:
   main:
     containers:
       main:
         image:
-          # -- image repository
           repository: ghcr.io/advplyr/audiobookshelf
-          # -- image tag
           tag: 2.21.0
-          # -- image pull policy
           pullPolicy: IfNotPresent
-
-        # -- environment variables.
-        env:
-        # -- Set the resource requests / limits for the container.
+        env: []
         resources:
-          # limits:
-          #   cpu: 100m
-          #   memory: 128Mi
           requests:
             cpu: 100m
             memory: 128Mi
 
-# -- Configures service settings for the chart.
 service:
   main:
+    controller: main
     ports:
       http:
         port: 80
 
 serviceAccount:
-  # -- Specifies whether a service account should be created
   create: true
 
-# -- Configure persistence for the chart here.
-# Additional items can be added by adding a dictionary key similar to the 'config' key.
-# [[ref]](https://bjw-s-labs.github.io/helm-charts/docs/common-library/common-library-storage)
-# @default -- See below
 persistence:
   config:
     enabled: true
@@ -65,8 +50,3 @@ persistence:
     storageClass: "nfs-client"
     accessMode: ReadWriteOnce
     size: 1Gi
-
-ingress:
-  # -- Enable and configure ingress settings for the chart under this key.
-  main:
-    enabled: false
