@@ -1,71 +1,71 @@
-# Default values for vaultwarden.
-# This is a YAML-formatted file.
-# Declare variables to be passed into your templates.
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
 
-replicaCount: 1
-
-image:
-  repository: vaultwarden/server
-  tag: 1.33.2
-  pullPolicy: IfNotPresent
-
-env:
-  SIGNUPS_ALLOWED: false
-  INVITATIONS_ALLOWED: true
-  DOMAIN: https://vaultwarden.cluster.diluz.io
-  # SERVER_ADMIN_EMAIL
-  # YUBICO_CLIENT_ID
-  # YUBICO_SECRET_KEY
-  # DATA_FOLDER
-  # DATABASE_URL
-  # ATTACHMENTS_FOLDER
-  # ICON_CACHE_FOLDER
-  # ROCKET_LIMITS
-  # ROCKET_WORKERS
-  SMTP_HOST: smtp.servivum.com
-  SMTP_FROM: noreply@diluzio.dev
-  SMTP_PORT: 587
-  SMTP_SECURITY: starttls
-  SMTP_USERNAME: noreply@diluzio.dev
-  SMTP_PASSWORD: TODO_EMAIL_PASSWORD
-  # SHOW_PASSWORD_HINT
-  # WEB_VAULT_ENABLED
-
-nameOverride: ""
-fullnameOverride: ""
+controllers:
+  main:
+    strategy: Recreate
+    containers:
+      main:
+        image:
+          repository: vaultwarden/server
+          tag: 1.33.2
+          pullPolicy: IfNotPresent
+        env:
+          SIGNUPS_ALLOWED: false
+          INVITATIONS_ALLOWED: true
+          DOMAIN: https://vaultwarden.cluster.diluz.io
+          # SERVER_ADMIN_EMAIL
+          # YUBICO_CLIENT_ID
+          # YUBICO_SECRET_KEY
+          # DATA_FOLDER
+          # DATABASE_URL
+          # ATTACHMENTS_FOLDER
+          # ICON_CACHE_FOLDER
+          # ROCKET_LIMITS
+          # ROCKET_WORKERS
+          SMTP_HOST: smtp.servivum.com
+          SMTP_FROM: noreply@diluzio.dev
+          SMTP_PORT: 587
+          SMTP_SECURITY: starttls
+          SMTP_USERNAME: noreply@diluzio.dev
+          SMTP_PASSWORD: TODO_EMAIL_PASSWORD
+          # SHOW_PASSWORD_HINT
+          # WEB_VAULT_ENABLED
+        resources:
+          requests:
+            cpu: 100m
+            memory: 128Mi
+        probes:
+          liveness:
+            type: HTTP
+            path: /
+            port: http
+          readiness:
+            type: HTTP
+            path: /
+            port: http
 
 service:
-  type: ClusterIP
-  port: 80
+  main:
+    controller: main
+    ports:
+      http:
+        port: 80
 
-ingress:
-  enabled: false
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
 
-resources:
-  # We usually recommend not to specify default resources and to leave this as a conscious
-  # choice for the user. This also increases chances charts run on environments with little
-  # resources, such as Minikube. If you do want to specify resources, uncomment the following
-  # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
-  # limits:
-  #  cpu: 100m
-  #  memory: 128Mi
-  requests:
-    cpu: 100m
-    memory: 128Mi
-
-nodeSelector: {}
-
-tolerations: []
-
-affinity: {}
-
-podAnnotations: {}
-
-deploymentAnnotations: {}
-
-## Persist data to a persitent volume
 persistence:
-  enabled: true
-  accessMode: ReadWriteOnce
-  size: 1Gi
-  storageClass: nfs-client
+  data:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: "nfs-client"
+    size: 1Gi
