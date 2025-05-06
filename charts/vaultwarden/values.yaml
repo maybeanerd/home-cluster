@@ -39,12 +39,12 @@ controllers:
             enabled: true
             type: HTTP
             path: /
-            port: http
+            port: 80
           readiness:
             enabled: true
             type: HTTP
             path: /
-            port: http
+            port: 80
 
 service:
   main:
