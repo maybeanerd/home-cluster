@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power celeryband running on kubernetes
 name: celeryband-test
-version: 0.1.0
+version: 0.1.1
 home: https://github.com/maybeanerd/celeryband
 sources:
   - https://github.com/maybeanerd/celeryband
@@ -12,4 +12,4 @@ maintainers:
 dependencies:
   - name: common
     repository: https://bjw-s-labs.github.io/helm-charts
-    version: 3.6.0
+    version: 3.7.3
