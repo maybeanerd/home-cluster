@@ -8,7 +8,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/maybeanerd/celeryband
-          tag: 0.1.0
+          tag: 0.1.1
           pullPolicy: IfNotPresent
         env:
           NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
