@@ -13,9 +13,9 @@ controllers:
         env:
           NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
           OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
-          ROLES: software engineer,product manager,designer
+          ROLES: software engineer,engineering manager,product manager,designer
           SENIORITY_LEVELS: junior,professional,senior,staff,principal
-          DEPARTMENTS: student platform,martech,salestech,epos,edu platform
+          DEPARTMENTS: student experience platform,martech,salestech,epos,edu platform,core
           CURRENCY: €
           ACCEPTED_DOMAIN: iu.org
           SERVER_URL: https://iu.celery.band
