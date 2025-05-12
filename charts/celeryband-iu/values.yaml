@@ -3,7 +3,7 @@
 
 controllers:
   main:
-    strategy: Recreate
+    strategy: RollingUpdate
     containers:
       main:
         image:
