@@ -1,4 +1,14 @@
 authentik:
+  global:
+    affinity:
+      nodeAffinity:
+        # -- Default node affinity rules. Either `none`, `soft` or `hard`
+        type: soft
+        matchExpressions:
+          - key: kubernetes.io/role
+            operator: In
+            values:
+              - worker
   authentik:
     secret_key: "PleaseGenerateA50CharKey"
     # This sends anonymous usage-data, stack traces on errors and
@@ -34,15 +44,6 @@ authentik:
         requests:
           cpu: 100m
           memory: 128Mi
-    affinity:
-      nodeAffinity:
-        # -- Default node affinity rules. Either `none`, `soft` or `hard`
-        type: soft
-        matchExpressions:
-          - key: kubernetes.io/role
-            operator: In
-            values:
-              - worker
 
   server:
     ingress:
