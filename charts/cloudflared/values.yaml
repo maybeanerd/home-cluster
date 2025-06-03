@@ -37,7 +37,7 @@ regions:
         namespace: vaultwarden
         serviceport: 80
       - subdomain: grafana
-        servicename: grafana
+        servicename: prometheus-grafana
         namespace: prometheus
         serviceport: 80
   - basePath: celery.band
