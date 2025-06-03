@@ -7,7 +7,7 @@ version: 1.0.0
 sources:
   - https://prometheus-community.github.io/helm-charts
 maintainers:
-  - name: sebastian di luzio
+  - name: sebastian
     email: sebastian@diluz.io
 dependencies:
   - name: kube-prometheus-stack
