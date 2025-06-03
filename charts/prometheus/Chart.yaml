@@ -1,0 +1,15 @@
+---
+apiVersion: v2
+name: prometheus
+description: monitoring - metric collection tool
+type: application
+version: 1.0.0
+sources:
+  - https://prometheus-community.github.io/helm-charts
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
+dependencies:
+  - name: kube-prometheus-stack
+    version: 72.6.4
+    repository: https://prometheus-community.github.io/helm-charts
