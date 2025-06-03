@@ -50,7 +50,8 @@ kube-prometheus-stack:
         kubectl:
           registry: registry.k8s.io
           repository: kubectl
-          tag: "" # defaults to the Kubernetes version
+          # defaults to the Kubernetes version
+          tag: ""
           sha: ""
           pullPolicy: IfNotPresent
 
@@ -2904,7 +2905,8 @@ kube-prometheus-stack:
         image:
           registry: registry.k8s.io
           repository: ingress-nginx/kube-webhook-certgen
-          tag: v1.5.3 # latest tag: https://github.com/kubernetes/ingress-nginx/blob/main/images/kube-webhook-certgen/TAG
+          # latest tag: https://github.com/kubernetes/ingress-nginx/blob/main/images/kube-webhook-certgen/TAG
+          tag: v1.5.3
           sha: ""
           pullPolicy: IfNotPresent
         resources: {}
@@ -2947,7 +2949,7 @@ kube-prometheus-stack:
             drop:
               - ALL
 
-        # Security context for patch job container
+      # Security context for patch job container
       patchWebhookJob:
         securityContext:
           allowPrivilegeEscalation: false
@@ -2961,13 +2963,15 @@ kube-prometheus-stack:
         enabled: false
         # self-signed root certificate
         rootCert:
-          duration: "" # default to be 5y
+          # default to be 5y
+          duration: ""
           # -- Set the revisionHistoryLimit on the Certificate. See
           # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
           # Defaults to nil.
           revisionHistoryLimit:
         admissionCert:
-          duration: "" # default to be 1y
+          # default to be 1y
+          duration: ""
           # -- Set the revisionHistoryLimit on the Certificate. See
           # https://cert-manager.io/docs/reference/api-docs/#cert-manager.io/v1.CertificateSpec
           # Defaults to nil.
