@@ -15,7 +15,7 @@ controllers:
           OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
           ROLES: software engineer,engineering manager,product manager,designer
           SENIORITY_LEVELS: junior,professional,senior,staff,principal
-          DEPARTMENTS: student platform,martech,salestech,epos,edu platform,core
+          DEPARTMENTS: student platform,martech,salestech,epos,edu platform,core,synthetic teaching
           CURRENCY: €
           ACCEPTED_DOMAIN: iu.org
           SERVER_URL: https://iu.celery.band
