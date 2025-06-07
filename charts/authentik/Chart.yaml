@@ -11,5 +11,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: authentik
-    version: 2025.6.1
+    version: 2025.4.1
     repository: https://charts.goauthentik.io
