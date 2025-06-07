@@ -14,6 +14,17 @@
       "matchPackageNames": [
         "ghcr.io/immich-app/{/,}**"
       ]
+    }, 
+    {
+      "description": "Authentik chart minor releases could be breaking",
+      "automerge": false,
+      "matchUpdateTypes": [
+        "major",
+        "minor"
+      ],
+      "matchPackageNames": [
+        "charts.goauthentik.io/{/,}**"
+      ]
     },
     {
       "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
