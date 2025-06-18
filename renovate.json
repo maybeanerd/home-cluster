@@ -23,7 +23,7 @@
         "minor"
       ],
       "matchPackageNames": [
-        "charts.goauthentik.io/{/,}**"
+        "authentik"
       ]
     },
     {
