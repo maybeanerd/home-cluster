@@ -1,4 +1,5 @@
 {{- define "configYaml" -}}
+# name of the tunnel we want to connect to
 tunnel: cluster.diluz.io
 credentials-file: /etc/cloudflared/creds/credentials.json
 metrics: 0.0.0.0:2000
