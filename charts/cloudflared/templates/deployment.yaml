@@ -13,7 +13,7 @@ spec:
       labels:
         app: cloudflared
       annotations:
-        checksum/config: {{ $configYaml | sha256sum }}
+        checksum/config: {{ include "configYaml" | sha256sum }}
     spec:
       containers:
       - name: cloudflared
@@ -66,5 +66,5 @@ kind: ConfigMap
 metadata:
   name: cloudflared
 data:
-  config.yaml: {{ $configYaml | indent 4 }}
+  config.yaml: {{ include "configYaml" | indent 4 }}
  
