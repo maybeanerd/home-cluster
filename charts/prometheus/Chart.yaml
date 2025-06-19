@@ -3,7 +3,7 @@ apiVersion: v2
 name: prometheus
 description: monitoring - metric collection tool
 type: application
-version: 1.0.7
+version: 1.0.8
 sources:
   - https://prometheus-community.github.io/helm-charts
 maintainers:
@@ -11,5 +11,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: kube-prometheus-stack
-    version: 74.2.2
+    version: 75.3.5
     repository: https://prometheus-community.github.io/helm-charts
