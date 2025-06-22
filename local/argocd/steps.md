@@ -8,4 +8,4 @@ Then, adjusted the config by defining argocd-cmd-params-cm.yml and running 'kube
 
 Check patchnotes on https://argo-cd.readthedocs.io/en/stable/operator-manual/upgrading/overview/
 
-Then run 'kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/<version>/manifests/install.yaml' where <version> could also be 'stable'
+Then run 'kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/<version>/manifests/install.yaml' where version could also be 'stable'
