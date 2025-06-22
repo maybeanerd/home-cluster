@@ -1,7 +1,7 @@
 ---
 apiVersion: v2
 description: A chart to power Immich (immich.app) running on kubernetes
-name: immich-testing
+name: immich
 version: 0.3.91
 home: https://immich.app/
 icon: https://raw.githubusercontent.com/immich-app/immich/main/design/immich-logo.svg
