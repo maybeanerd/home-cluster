@@ -56,12 +56,11 @@ postgresql:
   image:
     repository: tensorchord/pgvecto-rs
     tag: pg14-v0.3.0
+  auth:
+    username: immich
+    database: immich
+    password: TODOCHANGEME
   global:
-    postgresql:
-      auth:
-        username: immich
-        database: immich
-        password: TODOCHANGEME
     security:
       allowInsecureImages: true
   primary:
