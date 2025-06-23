@@ -64,6 +64,8 @@ postgresql:
     security:
       allowInsecureImages: true
   primary:
+    configuration: |
+      include_dir = 'conf.d'
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
