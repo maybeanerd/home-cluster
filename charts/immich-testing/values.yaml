@@ -92,6 +92,7 @@ postgresql:
       readOnlyRootFilesystem: false
     extendedConfiguration: |
       logging_collector = off
+      log_destination = 'stderr'
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
