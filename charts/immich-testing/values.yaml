@@ -54,8 +54,8 @@ immich:
 postgresql:
   enabled: true
   image:
-    repository: tensorchord/pgvecto-rs
-    tag: pg14-v0.3.0
+    repository: ghcr.io/immich-app/postgres
+    tag: 14-vectorchord0.3.0-pgvectors0.3.0
   auth:
     username: immich
     database: immich
@@ -64,8 +64,6 @@ postgresql:
     security:
       allowInsecureImages: true
   primary:
-    configuration: |
-      include_dir = 'conf.d'
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
