@@ -55,7 +55,7 @@ postgresql:
   enabled: true
   image:
     repository: ghcr.io/immich-app/postgres
-    tag: 14-vectorchord0.3.0-pgvectors0.3.0
+    tag: 16-vectorchord0.3.0-pgvectors0.3.0
   auth:
     username: immich
     database: immich
@@ -64,6 +64,9 @@ postgresql:
     security:
       allowInsecureImages: true
   primary:
+    # TODO figure out if this is the correct place for envvars
+    env:
+      DB_STORAGE_TYPE: "HDD"
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
