@@ -55,7 +55,7 @@ postgresql:
   enabled: true
   image:
     repository: ghcr.io/immich-app/postgres
-    tag: 16-vectorchord0.3.0-pgvectors0.3.0
+    tag: 14-vectorchord0.3.0-pgvectors0.3.0
   auth:
     username: immich
     database: immich
