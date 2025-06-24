@@ -7,10 +7,10 @@
 env:
   REDIS_HOSTNAME: '{{ printf "%s-redis-master" .Release.Name }}'
   DB_HOSTNAME: "{{ .Release.Name }}-postgresql"
-  DB_USERNAME: "{{ .Values.postgresql.auth.username }}"
-  DB_DATABASE_NAME: "{{ .Values.postgresql.auth.database }}"
+  DB_USERNAME: "{{ .Values.postgresql.global.postgresql.auth.username }}"
+  DB_DATABASE_NAME: "{{ .Values.postgresql.global.postgresql.auth.database }}"
   # -- You should provide your own secret outside of this helm-chart and use `postgresql.global.postgresql.auth.existingSecret` to provide credentials to the postgresql instance
-  DB_PASSWORD: "{{ .Values.postgresql.auth.password }}"
+  DB_PASSWORD: "{{ .Values.postgresql.global.postgresql.auth.password }}"
   IMMICH_MACHINE_LEARNING_URL: '{{ printf "http://%s-machine-learning:3003" .Release.Name }}'
 
 image:
@@ -54,16 +54,23 @@ immich:
 postgresql:
   enabled: true
   image:
-    repository: ghcr.io/immich-app/postgres
+    registry: ghcr.io
+    repository: immich-app/postgres
     tag: 14-vectorchord0.3.0-pgvectors0.3.0
-  auth:
-    username: immich
-    database: immich
-    password: TODOCHANGEME
   global:
+    postgresql:
+      auth:
+        username: immich
+        database: immich
+        password: TODOCHANGEME
     security:
       allowInsecureImages: true
   primary:
+    extraEnvVars:
+      - name: DB_STORAGE_TYPE
+        value: "HDD"
+      - name: POSTGRES_DB
+        value: immich
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
@@ -73,15 +80,12 @@ postgresql:
     customStartupProbe:
       tcpSocket:
         port: tcp-postgresql
+      failureThreshold: 256
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
-    startupProbe:
-      enabled: true
-      # Give DB time to revive itself from interruption ; Default is 15
-      failureThreshold: 256
     initdb:
       scripts:
         create-extensions.sql: |
@@ -90,9 +94,6 @@ postgresql:
           CREATE EXTENSION vectors;
     containerSecurityContext:
       readOnlyRootFilesystem: false
-    extendedConfiguration: |
-      logging_collector = off
-      log_destination = 'stderr'
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
