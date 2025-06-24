@@ -79,7 +79,7 @@ postgresql:
     customStartupProbe:
       tcpSocket:
         port: tcp-postgresql
-        failureThreshold: 256
+      failureThreshold: 256
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
