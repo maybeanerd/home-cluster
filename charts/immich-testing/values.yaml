@@ -65,9 +65,9 @@ postgresql:
     security:
       allowInsecureImages: true
   primary:
-    # TODO figure out if this is the correct place for envvars
-    env:
-      DB_STORAGE_TYPE: "HDD"
+    extraEnvVars:
+      - name: DB_STORAGE_TYPE
+        value: "HDD"
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
