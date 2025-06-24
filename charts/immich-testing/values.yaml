@@ -79,15 +79,12 @@ postgresql:
     customStartupProbe:
       tcpSocket:
         port: tcp-postgresql
+        failureThreshold: 256
     persistence:
       enabled: true
       accessMode: ReadWriteOnce
       size: 1Gi
       storageClass: nfs-client
-    startupProbe:
-      enabled: true
-      # Give DB time to revive itself from interruption ; Default is 15
-      failureThreshold: 256
     initdb:
       scripts:
         create-extensions.sql: |
