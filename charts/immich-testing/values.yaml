@@ -68,6 +68,8 @@ postgresql:
     extraEnvVars:
       - name: DB_STORAGE_TYPE
         value: "HDD"
+      - name: POSTGRES_DB
+        value: immich
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
@@ -94,9 +96,6 @@ postgresql:
           CREATE EXTENSION vectors;
     containerSecurityContext:
       readOnlyRootFilesystem: false
-    extendedConfiguration: |
-      logging_collector = off
-      log_destination = 'stderr'
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
