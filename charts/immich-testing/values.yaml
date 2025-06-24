@@ -70,7 +70,7 @@ postgresql:
       - name: DB_STORAGE_TYPE
         value: "HDD"
       - name: POSTGRES_DB
-        value: immich
+        value: "{{ .Values.postgresql.global.postgresql.auth.database }}"
     customLivenessProbe:
       tcpSocket:
         port: tcp-postgresql
