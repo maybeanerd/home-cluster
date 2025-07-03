@@ -56,9 +56,6 @@ immich:
   # Immich components
 
   server:
-    ingress:
-      main:
-        enabled: false
     affinity:
       nodeAffinity:
         preferredDuringSchedulingIgnoredDuringExecution:
