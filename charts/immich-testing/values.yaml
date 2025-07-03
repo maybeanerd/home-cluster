@@ -28,6 +28,7 @@ immich:
           username: immich
           database: immich
           password: TODOCHANGEME
+    primary:
       persistence:
         enabled: true
         accessMode: ReadWriteOnce
