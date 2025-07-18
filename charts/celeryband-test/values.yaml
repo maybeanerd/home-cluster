@@ -19,6 +19,7 @@ controllers:
           CURRENCY: €
           ACCEPTED_DOMAIN: gmail.com
           SERVER_URL: https://test.celery.band
+          NUXT_PUBLIC_DISCLAIMER="This platform was not created on behalf of the Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency.
           SMTP_HOST: smtp.servivum.com
           SMTP_PORT: 587
           SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
