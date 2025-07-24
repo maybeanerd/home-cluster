@@ -1,0 +1,3 @@
+longhorn:
+  preUpgradeChecker:
+    jobEnabled: false
