@@ -4,6 +4,7 @@ longhorn:
   defaultSettings:
     defaultDataPath: /data/raid/longhorn
     defaultReplicaCount: 1
+    createDefaultDiskLabeledNodes: true
   persistence:
     defaultClassReplicaCount: 1
     defaultNodeSelector:
