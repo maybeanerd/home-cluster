@@ -7,11 +7,8 @@ longhorn:
     createDefaultDiskLabeledNodes: true
   persistence:
     defaultClassReplicaCount: 1
-    defaultNodeSelector:
-      enable: true
-      selector: "node.longhorn.io/create-default-disk=true"
   systemManagedComponentsNodeSelector:
-    node.longhorn.io/create-default-disk: "true"
+    node.longhorn.io/create-default-disk: "config"
   createDefaultDiskLabeledNodes: true
   longhornUI:
     replicas: 1
