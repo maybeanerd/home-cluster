@@ -44,10 +44,6 @@ regions:
         servicename: prometheus-grafana
         namespace: prometheus
         serviceport: 80
-      - subdomain: longhorn
-        servicename: longhorn-frontend
-        namespace: longhorn-system
-        serviceport: 80
   - basePath: celery.band
     services:
       - subdomain: iu
