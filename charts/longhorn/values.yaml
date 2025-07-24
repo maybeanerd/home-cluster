@@ -14,5 +14,5 @@ longhorn:
     replicas: 1
   service:
     ui:
-      type: LoadBalancer
+      type: NodePort
       nodePort: 32269
