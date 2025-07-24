@@ -45,9 +45,9 @@ regions:
         namespace: prometheus
         serviceport: 80
       - subdomain: longhorn
-        servicename: longhorn-ui
+        servicename: longhorn-frontend
         namespace: longhorn-system
-        serviceport: 8000
+        serviceport: 80
   - basePath: celery.band
     services:
       - subdomain: iu
