@@ -3,3 +3,4 @@ longhorn:
     jobEnabled: false
   defaultSettings:
     defaultDataPath: /data/raid/longhorn
+  createDefaultDiskLabeledNodes: true
