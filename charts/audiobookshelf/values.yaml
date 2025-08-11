@@ -7,7 +7,7 @@ controllers:
       main:
         image:
           repository: ghcr.io/advplyr/audiobookshelf
-          tag: 2.27.0
+          tag: 2.28.0
           pullPolicy: IfNotPresent
         env: []
         resources:
