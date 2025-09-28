@@ -2906,7 +2906,7 @@ kube-prometheus-stack:
           registry: registry.k8s.io
           repository: ingress-nginx/kube-webhook-certgen
           # latest tag: https://github.com/kubernetes/ingress-nginx/blob/main/images/kube-webhook-certgen/TAG
-          tag: v1.6.2
+          tag: v1.6.3
           sha: ""
           pullPolicy: IfNotPresent
         resources: {}
