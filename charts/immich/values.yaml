@@ -41,6 +41,7 @@ immich:
   # ref: https://immich.app/docs/install/config-file/
   #
   configuration:
+    {}
     # trash:
     #   enabled: false
     #   days: 30
