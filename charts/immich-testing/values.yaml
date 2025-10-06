@@ -10,16 +10,17 @@ immich:
       storageClass: nfs-client
       size: 10Gi
 
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/role
-                operator: In
-                values:
-                  - worker
+  defaultPodOptions:
+    affinity:
+      nodeAffinity:
+        preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 1
+            preference:
+              matchExpressions:
+                - key: kubernetes.io/role
+                  operator: In
+                  values:
+                    - worker
 
   postgresql:
     primary:
