@@ -10,27 +10,6 @@ immich:
       storageClass: nfs-client
       size: 10Gi
 
-  service:
-    server:
-      enabled: true
-      primary: true
-      controller: server
-      type: ClusterIP
-      ports:
-        http:
-          enabled: true
-          primary: true
-          port: 2283
-          protocol: HTTP
-        metrics-api:
-          enabled: false
-          port: 8081
-          protocol: HTTP
-        metrics-ms:
-          enabled: false
-          port: 8082
-          protocol: HTTP
-
   defaultPodOptions:
     affinity:
       nodeAffinity:
