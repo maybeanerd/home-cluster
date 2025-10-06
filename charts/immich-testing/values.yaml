@@ -1,38 +1,29 @@
 immich:
-  immich:
-    metrics:
-      # Enabling this will create the service monitors needed to monitor immich with the prometheus operator
-      enabled: false
-    persistence:
-      # Main data store for all photos shared between different components.
-      library:
-        # existingClaim is exactly what we specify below and create with library-pvc.yaml
-        existingClaim: immich-library
-        enabled: true
-        accessMode: ReadWriteOnce
-        size: 1Ti
-        storageClass: nfs-client
-      external:
-        # existingClaim is exactly what we specify below and create with external-pvc.yaml
-        existingClaim: immich-external
-        enabled: true
-        accessMode: ReadWriteOnce
-        size: 1Ti
-        storageClass: nfs-client
+  persistence:
+    external:
+      storageClass: nfs-client
+      size: 1Ti
+    library:
+      storageClass: nfs-client
+      size: 1Ti
+    machine-learning-cache:
+      storageClass: nfs-client
+      size: 10Gi
+
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
 
   postgresql:
-    enabled: true
-    global:
-      postgresql:
-        auth:
-          username: immich
-          database: immich
-          password: TODOCHANGEME
     primary:
       persistence:
-        enabled: true
-        accessMode: ReadWriteOnce
-        size: 1Gi
         storageClass: nfs-client
       affinity:
         nodeAffinity:
@@ -44,46 +35,3 @@ immich:
                     operator: In
                     values:
                       - worker
-      resources:
-        # limits:
-        #   cpu: 100m
-        #   memory: 128Mi
-        requests:
-          cpu: 300m
-          memory: 256Mi
-  redis:
-    enabled: true
-
-  # Immich components
-
-  server:
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-                - key: kubernetes.io/role
-                  operator: In
-                  values:
-                    - worker
-
-  machine-learning:
-    enabled: true
-    persistence:
-      cache:
-        enabled: true
-        type: pvc
-        accessMode: ReadWriteOnce
-        size: 10Gi
-        storageClass: nfs-client
-    affinity:
-      nodeAffinity:
-        preferredDuringSchedulingIgnoredDuringExecution:
-          - weight: 1
-            preference:
-              matchExpressions:
-                - key: kubernetes.io/role
-                  operator: In
-                  values:
-                    - worker
