@@ -31,6 +31,10 @@ immich:
                     - worker
 
   postgresql:
+    global:
+      postgresql:
+        auth:
+          password: TODOCHANGEME
     primary:
       persistence:
         storageClass: nfs-client
