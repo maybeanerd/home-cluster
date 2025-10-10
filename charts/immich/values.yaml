@@ -1,6 +1,6 @@
 immich:
   immich:
-    config:
+    configuration:
       image:
         preview:
           format: webp
