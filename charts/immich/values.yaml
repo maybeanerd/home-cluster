@@ -3,12 +3,15 @@ immich:
     external:
       storageClass: nfs-client
       size: 1Ti
+      accessMode: ReadWriteOnce
     library:
       storageClass: nfs-client
       size: 1Ti
+      accessMode: ReadWriteOnce
     machine-learning-cache:
       storageClass: nfs-client
       size: 10Gi
+      accessMode: ReadWriteOnce
 
   controllers:
     server:
