@@ -10,14 +10,6 @@ immich:
       storageClass: nfs-client
       size: 10Gi
 
-  controllers:
-    server:
-      containers:
-        main:
-          env:
-            # TODO replace with immich.config once we know the values to put there
-            IMMICH_CONFIG_FILE: null
-
   defaultPodOptions:
     affinity:
       nodeAffinity:
