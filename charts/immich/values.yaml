@@ -1,4 +1,60 @@
 immich:
+  immich:
+    config:
+      image:
+        preview:
+          format: webp
+        fullsize:
+          enabled: true
+          format: webp
+          quality: 80
+      library:
+        scan:
+          cronExpression: '0 4 * * *'
+      machineLearning:
+        availabilityChecks:
+          enabled: true
+          interval: 30000
+          timeout: 2000
+      metadata:
+        faces:
+          import: true
+      nightlyTasks:
+        clusterNewFaces: true
+        databaseCleanup: true
+        generateMemories: true
+        missingThumbnails: true
+        startTime: '03:00'
+        syncQuotaUsage: true
+      notifications:
+        smtp:
+          enabled: true
+          from: 'Immich <noreply@diluzio.dev>'
+          replyTo: ''
+          transport:
+            host: 'smtp.servivum.com'
+            ignoreCert: false
+            password: 'TODOCHANGEME'
+            port: 587
+            username: 'noreply@diluzio.dev'
+      oauth:
+        enabled: true
+        autoLaunch: true
+        autoRegister: true
+        buttonText: 'Login with Authentik'
+        clientId: 'x93MIUTyE80epWJKx2ie5yIqqxR2ODPD6aV2vwIS'
+        defaultStorageQuota: 50
+        issuerUrl: 'https://auth.cluster.diluz.io/application/o/immich/'
+        timeout: 30000
+      passwordLogin:
+        enabled: false
+      server:
+        externalDomain: 'https://immich.cluster.diluz.io'
+        loginPageMessage: ''
+        publicUsers: true # not in default
+      storageTemplate:
+        enabled: true
+
   persistence:
     external:
       storageClass: nfs-client
@@ -12,14 +68,6 @@ immich:
       storageClass: nfs-client
       size: 10Gi
       accessMode: ReadWriteOnce
-
-  controllers:
-    server:
-      containers:
-        main:
-          env:
-            # TODO replace with immich.config once we know the values to put there
-            IMMICH_CONFIG_FILE: null
 
   defaultPodOptions:
     affinity:
