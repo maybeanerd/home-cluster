@@ -51,7 +51,8 @@ immich:
       server:
         externalDomain: 'https://immich.cluster.diluz.io'
         loginPageMessage: ''
-        publicUsers: true # not in default
+        # not in default at all
+        publicUsers: true
       storageTemplate:
         enabled: true
 
