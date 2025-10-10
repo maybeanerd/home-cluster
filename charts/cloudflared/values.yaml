@@ -21,7 +21,7 @@ regions:
         namespace: home-assistant
         serviceport: 8123
       - subdomain: immich
-        servicename: immich
+        servicename: immich-server
         namespace: immich
         serviceport: 2283
       - subdomain: immich-testing
