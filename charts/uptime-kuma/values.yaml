@@ -29,7 +29,8 @@ controllers:
                 path: /
                 port: 3001
               periodSeconds: 10
-              failureThreshold: 360 # 60 minutes (10s * 360 = 3600s)
+              # 60 minutes (10s * 360 = 3600s)
+              failureThreshold: 360
 
 service:
   main:
