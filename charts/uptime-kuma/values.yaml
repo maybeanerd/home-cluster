@@ -31,6 +31,12 @@ controllers:
               periodSeconds: 10
               # 60 minutes (10s * 360 = 3600s)
               failureThreshold: 360
+          liveness:
+            enabled: true
+            spec:
+              httpGet:
+                path: /
+                port: 3001
 
 defaultPodOptions:
   affinity:
@@ -66,7 +72,7 @@ persistence:
   data:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     size: 1Gi
     globalMounts:
       - path: /app/data
