@@ -32,6 +32,18 @@ controllers:
               # 60 minutes (10s * 360 = 3600s)
               failureThreshold: 360
 
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
+
 service:
   main:
     controller: main
