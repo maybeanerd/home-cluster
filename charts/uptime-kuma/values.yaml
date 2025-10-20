@@ -8,16 +8,10 @@ controllers:
     containers:
       main:
         image:
-          # -- image repository
           repository: louislam/uptime-kuma
-          # -- image tag
-          # this example is not automatically updated, so be sure to use the latest image
           tag: 1.23.17
-          # -- image pull policy
           pullPolicy: IfNotPresent
 
-        # -- environment variables.
-        # See [image docs](https://github.com/dani-garcia/vaultwarden/blob/main/.env.template) for more details.
         env: []
         resources:
           # limits:
@@ -27,7 +21,16 @@ controllers:
             cpu: 50m
             memory: 128Mi
 
-# -- Configures service settings for the chart.
+        probes:
+          startup:
+            enabled: true
+            spec:
+              httpGet:
+                path: /
+                port: 3001
+              periodSeconds: 10
+              failureThreshold: 360 # 60 minutes (10s * 360 = 3600s)
+
 service:
   main:
     controller: main
@@ -36,7 +39,6 @@ service:
         port: 3001
 
 # ingress:
-# -- Enable and configure ingress settings for the chart under this key.
 #  main:
 #    hosts:
 #      - host: status.test.diluz.io
@@ -47,7 +49,6 @@ service:
 #              identifier: main
 #              port: http
 
-# -- Configure persistence settings for the chart under this key.
 persistence:
   data:
     type: persistentVolumeClaim
