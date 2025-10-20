@@ -54,7 +54,8 @@ spec:
             tcpSocket:
               port: http
             # 60 * 10 secs = 10min to allow initial setup and DB jobs to run
-            failureThreshold: 60
+            # allow for 24h+ for major version change migrations
+            failureThreshold: 2000
           volumeMounts:
             - mountPath: /config
               name: config
