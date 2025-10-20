@@ -55,7 +55,7 @@ spec:
               port: http
             # 60 * 10 secs = 10min to allow initial setup and DB jobs to run
             # allow for 24h+ for major version change migrations
-            failureThreshold: 2000
+            failureThreshold: 20000
           volumeMounts:
             - mountPath: /config
               name: config
