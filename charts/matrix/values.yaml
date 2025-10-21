@@ -1,0 +1,63 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-4.3.0/charts/other/app-template/values.schema.json
+
+controllers:
+  main:
+    strategy: Recreate
+    containers:
+      main:
+        image:
+          repository: matrixdotorg/synapse
+          # pinned to a recent Synapse release; update to exact version you prefer
+          tag: 1.88.2
+          pullPolicy: IfNotPresent
+        env:
+          SYNAPSE_SERVER_NAME: matrix.cluster.diluz.io
+          # SYNAPSE_REPORT_STATS
+          # SYNAPSE_CONFIG_PATH
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        probes:
+          liveness:
+            enabled: true
+            type: HTTP
+            path: /_matrix/client/versions
+            port: 8008
+            spec:
+              failureThreshold: 10
+              initialDelaySeconds: 5
+          readiness:
+            enabled: true
+            type: HTTP
+            path: /_matrix/client/versions
+            port: 8008
+            spec:
+              failureThreshold: 10
+              initialDelaySeconds: 5
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 8008
+
+defaultPodOptions:
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
+
+persistence:
+  data:
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    storageClass: 'nfs-client'
+    size: 5Gi
