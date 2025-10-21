@@ -56,5 +56,4 @@ persistence:
   data:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
     size: 5Gi
