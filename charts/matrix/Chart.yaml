@@ -9,3 +9,13 @@ dependencies:
   - name: common
     repository: https://bjw-s-labs.github.io/helm-charts
     version: 4.3.0
+
+  - name: postgresql
+    repository: https://charts.bitnami.com/bitnami
+    # adjust to desired Bitnami PostgreSQL chart version
+    version: 12.6.4
+
+  - name: redis
+    repository: https://charts.bitnami.com/bitnami
+    # adjust to desired Bitnami Redis chart version
+    version: 17.8.0
