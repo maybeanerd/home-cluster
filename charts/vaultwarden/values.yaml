@@ -19,11 +19,13 @@ controllers:
           DOMAIN: https://vaultwarden.cluster.diluz.io
           TRASH_AUTO_DELETE_DAYS: 30
 
-          # Push
-          # TODO: configure push
-          # PUSH_ENABLED=false
-          # PUSH_INSTALLATION_ID=CHANGEME
-          # PUSH_INSTALLATION_KEY=CHANGEME
+          #  Push (https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification)
+          #  TODO: configure push
+          #  PUSH_ENABLED=false
+          #  PUSH_INSTALLATION_ID=CHANGEME
+          #  PUSH_INSTALLATION_KEY=CHANGEME
+          #  PUSH_RELAY_URI:https://api.bitwarden.eu
+          #  PUSH_IDENTITY_URI:https://identity.bitwarden.eu
 
           # Advanced settings
           ADMIN_TOKEN: null
