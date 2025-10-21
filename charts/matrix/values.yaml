@@ -7,13 +7,10 @@ controllers:
       main:
         image:
           repository: matrixdotorg/synapse
-          # pinned to a recent Synapse release; update to exact version you prefer
           tag: 1.88.2
           pullPolicy: IfNotPresent
         env:
           SYNAPSE_SERVER_NAME: matrix.cluster.diluz.io
-          # SYNAPSE_REPORT_STATS
-          # SYNAPSE_CONFIG_PATH
         resources:
           requests:
             cpu: 100m
