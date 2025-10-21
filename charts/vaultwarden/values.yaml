@@ -10,26 +10,33 @@ controllers:
           tag: 1.34.3
           pullPolicy: IfNotPresent
         env:
+          # https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
+
+          # general
+          SIGNUPS_VERIFY: true
           SIGNUPS_ALLOWED: false
           INVITATIONS_ALLOWED: true
           DOMAIN: https://vaultwarden.cluster.diluz.io
-          # SERVER_ADMIN_EMAIL
-          # YUBICO_CLIENT_ID
-          # YUBICO_SECRET_KEY
-          # DATA_FOLDER
-          # DATABASE_URL
-          # ATTACHMENTS_FOLDER
-          # ICON_CACHE_FOLDER
-          # ROCKET_LIMITS
-          # ROCKET_WORKERS
+          TRASH_AUTO_DELETE_DAYS: 30
+
+          # Push (https://github.com/dani-garcia/vaultwarden/wiki/Enabling-Mobile-Client-push-notification)
+          # TODO: configure push
+          # PUSH_ENABLED: false
+          # PUSH_INSTALLATION_ID: CHANGEME
+          # PUSH_INSTALLATION_KEY: CHANGEME
+          # PUSH_RELAY_URI: https://api.bitwarden.eu
+          # PUSH_IDENTITY_URI: https://identity.bitwarden.eu
+
+          # Advanced settings
+          ADMIN_TOKEN: null
+
+          # email
           SMTP_HOST: smtp.servivum.com
           SMTP_FROM: noreply@diluzio.dev
           SMTP_PORT: 587
           SMTP_SECURITY: starttls
           SMTP_USERNAME: noreply@diluzio.dev
           SMTP_PASSWORD: TODO_EMAIL_PASSWORD
-          # SHOW_PASSWORD_HINT
-          # WEB_VAULT_ENABLED
         resources:
           requests:
             cpu: 100m
