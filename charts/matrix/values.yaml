@@ -1,0 +1,71 @@
+# yaml-language-server: $schema=values.schema.json
+
+matrix-stack:
+  # Global server name for Matrix federation
+  serverName: "cluster.diluz.io"
+
+  # Synapse homeserver configuration
+  synapse:
+    enabled: true
+
+    ingress:
+      host: "matrix.cluster.diluz.io"
+
+    media:
+      storage:
+        size: 100Gi
+        storageClassName: longhorn
+
+    resources:
+      requests:
+        cpu: 1000m
+        memory: 2Gi
+      limits:
+        memory: 4Gi
+
+  # Element Web client
+  elementWeb:
+    enabled: true
+
+    ingress:
+      host: "element.cluster.diluz.io"
+
+  # Element Admin interface
+  elementAdmin:
+    enabled: true
+
+    ingress:
+      host: "admin-matrix.cluster.diluz.io"
+
+  # Matrix Authentication Service
+  matrixAuthenticationService:
+    enabled: true
+
+    ingress:
+      host: "auth-matrix.cluster.diluz.io"
+
+  # Matrix RTC Backend (for Element Call)
+  matrixRTC:
+    enabled: true
+
+    ingress:
+      host: "rtc-matrix.cluster.diluz.io"
+
+  # Well-known delegation for federation
+  wellKnownDelegation:
+    enabled: true
+
+  # PostgreSQL database
+  postgres:
+    enabled: true
+
+    storage:
+      size: 5Gi
+      storageClassName: longhorn
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 1Gi
