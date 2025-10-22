@@ -39,8 +39,7 @@ matrix-stack:
   # Well-known delegation
   wellKnown:
     enabled: true
-    ingress:
-      host: "cluster.diluz.io"
+
   # PostgreSQL configuration
   postgresql:
     enabled: true
