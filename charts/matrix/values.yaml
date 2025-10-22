@@ -1,12 +1,16 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json
 matrix-stack:
+  # Global server name for Matrix federation
   serverName: "cluster.diluz.io"
 
-  # Synapse server configuration
+  # Synapse homeserver configuration
   synapse:
-    persistence:
-      enabled: true
-      size: 5Gi
-      storageClassName: longhorn
+    enabled: true
+
+    media:
+      storage:
+        size: 5Gi
+        storageClassName: longhorn
 
     resources:
       requests:
@@ -15,46 +19,37 @@ matrix-stack:
       limits:
         memory: 4Gi
 
-  # Element Web configuration
-  element:
+  # Element Web client
+  elementWeb:
     enabled: true
-    ingress:
-      host: "element.cluster.diluz.io"
 
-  # Element Admin configuration
+  # Element Admin interface
   elementAdmin:
     enabled: true
-    ingress:
-      host: "admin-matrix.cluster.diluz.io"
+
   # Matrix Authentication Service
   matrixAuthenticationService:
     enabled: true
-    ingress:
-      host: "auth-matrix.cluster.diluz.io"
+
   # Matrix RTC Backend (for Element Call)
-  matrixRtc:
-    enabled: true
-    ingress:
-      host: "rtc-matrix.cluster.diluz.io"
-  # Well-known delegation
-  wellKnown:
+  matrixRTC:
     enabled: true
 
-  # PostgreSQL configuration
-  postgresql:
+  # Well-known delegation for federation
+  wellKnownDelegation:
     enabled: true
-    auth:
-      database: synapse
-      username: synapse
-      # Password will be auto-generated
-    primary:
-      persistence:
-        enabled: true
-        size: 5Gi
-        storageClassName: longhorn
-      resources:
-        requests:
-          cpu: 100m
-          memory: 256Mi
-        limits:
-          memory: 1Gi
+
+  # PostgreSQL database
+  postgres:
+    enabled: true
+
+    storage:
+      size: 5Gi
+      storageClassName: longhorn
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 1Gi

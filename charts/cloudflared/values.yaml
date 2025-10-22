@@ -53,11 +53,11 @@ regions:
         namespace: matrix
         serviceport: 8090
       - subdomain: rtc-matrix
-        servicename: matrix-matrix-stack-rtc
+        servicename: matrix-matrix-stack-matrix-rtc
         namespace: matrix
         serviceport: 8443
       - subdomain: ""
-        servicename: matrix-matrix-stack-well-known
+        servicename: matrix-matrix-stack-wellknown-delegation
         namespace: matrix
         serviceport: 8080
   - basePath: celery.band
