@@ -8,6 +8,9 @@ matrix-stack:
   synapse:
     enabled: true
 
+    ingress:
+      host: "matrix.cluster.diluz.io"
+
     media:
       storage:
         size: 100Gi
@@ -24,17 +27,29 @@ matrix-stack:
   elementWeb:
     enabled: true
 
+    ingress:
+      host: "element.cluster.diluz.io"
+
   # Element Admin interface
   elementAdmin:
     enabled: true
+
+    ingress:
+      host: "admin-matrix.cluster.diluz.io"
 
   # Matrix Authentication Service
   matrixAuthenticationService:
     enabled: true
 
+    ingress:
+      host: "auth-matrix.cluster.diluz.io"
+
   # Matrix RTC Backend (for Element Call)
   matrixRTC:
     enabled: true
+
+    ingress:
+      host: "rtc-matrix.cluster.diluz.io"
 
   # Well-known delegation for federation
   wellKnownDelegation:
