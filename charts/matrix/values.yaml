@@ -1,12 +1,8 @@
 matrix-stack:
-  # Matrix server configuration
-  matrix:
-    serverName: "cluster.diluz.io"
-    hostname: "matrix.cluster.diluz.io"
+  serverName: "cluster.diluz.io"
 
-    ingress:
-      enabled: false
-
+  # Synapse server configuration
+  synapse:
     persistence:
       enabled: true
       size: 5Gi
@@ -22,43 +18,29 @@ matrix-stack:
   # Element Web configuration
   element:
     enabled: true
-    hostname: "element.cluster.diluz.io"
-
     ingress:
-      enabled: false
+      host: "element.cluster.diluz.io"
 
   # Element Admin configuration
   elementAdmin:
     enabled: true
-    hostname: "admin-matrix.cluster.diluz.io"
-
     ingress:
-      enabled: false
-
+      host: "admin-matrix.cluster.diluz.io"
   # Matrix Authentication Service
   matrixAuthenticationService:
     enabled: true
-    hostname: "auth-matrix.cluster.diluz.io"
-
     ingress:
-      enabled: false
-
+      host: "auth-matrix.cluster.diluz.io"
   # Matrix RTC Backend (for Element Call)
   matrixRtc:
     enabled: true
-    hostname: "rtc-matrix.cluster.diluz.io"
-
     ingress:
-      enabled: false
-
+      host: "rtc-matrix.cluster.diluz.io"
   # Well-known delegation
   wellKnown:
     enabled: true
-    hostname: "cluster.diluz.io"
-
     ingress:
-      enabled: false
-
+      host: "cluster.diluz.io"
   # PostgreSQL configuration
   postgresql:
     enabled: true
