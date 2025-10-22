@@ -36,6 +36,7 @@ regions:
         servicename: vaultwarden
         namespace: vaultwarden
         serviceport: 80
+        # Matrix
       - subdomain: matrix
         servicename: matrix-synapse
         namespace: matrix
