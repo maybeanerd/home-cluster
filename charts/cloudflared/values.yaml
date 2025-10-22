@@ -24,10 +24,6 @@ regions:
         servicename: immich-server
         namespace: immich
         serviceport: 2283
-      - subdomain: immich-testing
-        servicename: immich-testing-server
-        namespace: immich-testing
-        serviceport: 2283
       - subdomain: jellyfin
         servicename: jellyfin
         namespace: jellyfin
