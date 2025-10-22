@@ -10,7 +10,7 @@ matrix-stack:
 
     media:
       storage:
-        size: 5Gi
+        size: 100Gi
         storageClassName: longhorn
 
     resources:
