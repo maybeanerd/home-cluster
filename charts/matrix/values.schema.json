@@ -1,0 +1,9 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+        "matrix-stack": {
+            "$ref": "https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json"
+        }
+    }
+}

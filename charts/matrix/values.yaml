@@ -1,4 +1,5 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json
+# yaml-language-server: $schema=values.schema.json
+
 matrix-stack:
   # Global server name for Matrix federation
   serverName: "cluster.diluz.io"
