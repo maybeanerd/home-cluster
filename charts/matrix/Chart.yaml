@@ -8,4 +8,4 @@ maintainers:
 dependencies:
   - name: matrix-stack
     repository: oci://ghcr.io/element-hq/ess-helm
-    version: 25.10.3
+    version: 25.10.2
