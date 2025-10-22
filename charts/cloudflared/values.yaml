@@ -44,6 +44,22 @@ regions:
         servicename: matrix-matrix-stack-element
         namespace: matrix
         serviceport: 80
+      - subdomain: admin
+        servicename: matrix-matrix-stack-element-admin
+        namespace: matrix
+        serviceport: 80
+      - subdomain: auth-matrix
+        servicename: matrix-matrix-stack-mas
+        namespace: matrix
+        serviceport: 8090
+      - subdomain: rtc
+        servicename: matrix-matrix-stack-rtc
+        namespace: matrix
+        serviceport: 8443
+      - subdomain: ""
+        servicename: matrix-matrix-stack-well-known
+        namespace: matrix
+        serviceport: 8080
   - basePath: celery.band
     services:
       - subdomain: iu

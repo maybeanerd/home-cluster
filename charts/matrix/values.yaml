@@ -27,6 +27,38 @@ matrix-stack:
     ingress:
       enabled: false
 
+  # Element Admin configuration
+  elementAdmin:
+    enabled: true
+    hostname: "admin.cluster.diluz.io"
+
+    ingress:
+      enabled: false
+
+  # Matrix Authentication Service
+  matrixAuthenticationService:
+    enabled: true
+    hostname: "auth-matrix.cluster.diluz.io"
+
+    ingress:
+      enabled: false
+
+  # Matrix RTC Backend (for Element Call)
+  matrixRtc:
+    enabled: true
+    hostname: "rtc.cluster.diluz.io"
+
+    ingress:
+      enabled: false
+
+  # Well-known delegation
+  wellKnown:
+    enabled: true
+    hostname: "cluster.diluz.io"
+
+    ingress:
+      enabled: false
+
   # PostgreSQL configuration
   postgresql:
     enabled: true

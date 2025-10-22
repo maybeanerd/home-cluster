@@ -14,8 +14,13 @@ ingress:
 {{- range .Values.regions }}
 {{- $basePath := .basePath }}
 {{- range .services }}
+{{- if .subdomain }}
 - hostname: {{ .subdomain }}.{{ $basePath }}
   service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
+{{- else }}
+- hostname: {{ $basePath }}
+  service: http://{{ .servicename }}.{{ .namespace }}.svc.cluster.local:{{ .serviceport }}
+{{- end }}
 {{- end }}
 {{- end }}
 # This rule matches any traffic which didn't match a previous rule and responds with a 404 errorpage.
