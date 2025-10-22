@@ -30,7 +30,7 @@ matrix-stack:
   # Element Admin configuration
   elementAdmin:
     enabled: true
-    hostname: "admin.cluster.diluz.io"
+    hostname: "admin-matrix.cluster.diluz.io"
 
     ingress:
       enabled: false
@@ -46,7 +46,7 @@ matrix-stack:
   # Matrix RTC Backend (for Element Call)
   matrixRtc:
     enabled: true
-    hostname: "rtc.cluster.diluz.io"
+    hostname: "rtc-matrix.cluster.diluz.io"
 
     ingress:
       enabled: false

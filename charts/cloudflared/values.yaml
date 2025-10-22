@@ -44,7 +44,7 @@ regions:
         servicename: matrix-matrix-stack-element
         namespace: matrix
         serviceport: 80
-      - subdomain: admin
+      - subdomain: admin-matrix
         servicename: matrix-matrix-stack-element-admin
         namespace: matrix
         serviceport: 80
@@ -52,7 +52,7 @@ regions:
         servicename: matrix-matrix-stack-mas
         namespace: matrix
         serviceport: 8090
-      - subdomain: rtc
+      - subdomain: rtc-matrix
         servicename: matrix-matrix-stack-rtc
         namespace: matrix
         serviceport: 8443
