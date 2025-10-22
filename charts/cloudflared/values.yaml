@@ -37,27 +37,27 @@ regions:
         namespace: vaultwarden
         serviceport: 80
       - subdomain: matrix
-        servicename: matrix-matrix-stack-synapse
+        servicename: matrix-synapse
         namespace: matrix
         serviceport: 8008
       - subdomain: element
-        servicename: matrix-matrix-stack-element
+        servicename: matrix-element-web
         namespace: matrix
         serviceport: 80
       - subdomain: admin-matrix
-        servicename: matrix-matrix-stack-element-admin
+        servicename: matrix-element-admin
         namespace: matrix
         serviceport: 80
       - subdomain: auth-matrix
-        servicename: matrix-matrix-stack-mas
+        servicename: matrix-matrix-authentication-service
         namespace: matrix
         serviceport: 8090
       - subdomain: rtc-matrix
-        servicename: matrix-matrix-stack-matrix-rtc
+        servicename: matrix-matrix-rtc
         namespace: matrix
         serviceport: 8443
       - subdomain: ""
-        servicename: matrix-matrix-stack-wellknown-delegation
+        servicename: matrix-well-known
         namespace: matrix
         serviceport: 8080
   - basePath: celery.band
