@@ -1,59 +1,47 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-4.3.0/charts/other/app-template/values.schema.json
+matrix-stack:
+  # Matrix server configuration
+  matrix:
+    serverName: "cluster.diluz.io"
+    hostname: "matrix.cluster.diluz.io"
 
-controllers:
-  main:
-    strategy: Recreate
-    containers:
-      main:
-        image:
-          repository: matrixdotorg/synapse
-          tag: 1.88.2
-          pullPolicy: IfNotPresent
-        env:
-          SYNAPSE_SERVER_NAME: matrix.cluster.diluz.io
-        resources:
-          requests:
-            cpu: 100m
-            memory: 256Mi
-        probes:
-          liveness:
-            enabled: true
-            type: HTTP
-            path: /_matrix/client/versions
-            port: 8008
-            spec:
-              failureThreshold: 10
-              initialDelaySeconds: 5
-          readiness:
-            enabled: true
-            type: HTTP
-            path: /_matrix/client/versions
-            port: 8008
-            spec:
-              failureThreshold: 10
-              initialDelaySeconds: 5
+    ingress:
+      enabled: false
 
-service:
-  main:
-    controller: main
-    ports:
-      http:
-        port: 8008
+    persistence:
+      enabled: true
+      size: 5Gi
+      storageClassName: longhorn
 
-defaultPodOptions:
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/role
-                operator: In
-                values:
-                  - worker
+    resources:
+      requests:
+        cpu: 100m
+        memory: 512Mi
+      limits:
+        memory: 2Gi
 
-persistence:
-  data:
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    size: 5Gi
+  # Element Web configuration
+  element:
+    enabled: true
+    hostname: "element.cluster.diluz.io"
+
+    ingress:
+      enabled: false
+
+  # PostgreSQL configuration
+  postgresql:
+    enabled: true
+    auth:
+      database: synapse
+      username: synapse
+      # Password will be auto-generated
+    primary:
+      persistence:
+        enabled: true
+        size: 5Gi
+        storageClassName: longhorn
+      resources:
+        requests:
+          cpu: 100m
+          memory: 256Mi
+        limits:
+          memory: 1Gi

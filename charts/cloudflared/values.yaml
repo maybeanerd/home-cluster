@@ -36,6 +36,14 @@ regions:
         servicename: vaultwarden
         namespace: vaultwarden
         serviceport: 80
+      - subdomain: matrix
+        servicename: matrix-matrix-stack-synapse
+        namespace: matrix
+        serviceport: 8008
+      - subdomain: element
+        servicename: matrix-matrix-stack-element
+        namespace: matrix
+        serviceport: 80
   - basePath: celery.band
     services:
       - subdomain: iu
