@@ -56,7 +56,7 @@ regions:
         servicename: matrix-matrix-rtc
         namespace: matrix
         serviceport: 8443
-      - subdomain: ""
+      - subdomain: null
         servicename: matrix-well-known
         namespace: matrix
         serviceport: 8080
