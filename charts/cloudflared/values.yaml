@@ -38,7 +38,7 @@ regions:
         serviceport: 80
         # Matrix
       - subdomain: matrix
-        servicename: matrix-synapse
+        servicename: matrix-synapse-main
         namespace: matrix
         serviceport: 8008
       - subdomain: element
@@ -54,7 +54,7 @@ regions:
         namespace: matrix
         serviceport: 8090
       - subdomain: rtc-matrix
-        servicename: matrix-matrix-rtc
+        servicename: matrix-matrix-rtc-sfu
         namespace: matrix
         serviceport: 8443
       - subdomain: null
