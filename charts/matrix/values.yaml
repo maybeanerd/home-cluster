@@ -14,10 +14,10 @@ matrix-stack:
 
     resources:
       requests:
-        cpu: 100m
-        memory: 512Mi
-      limits:
+        cpu: 1000m
         memory: 2Gi
+      limits:
+        memory: 4Gi
 
   # Element Web configuration
   element:
