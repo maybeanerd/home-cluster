@@ -55,6 +55,8 @@ immich:
         publicUsers: true
       storageTemplate:
         enabled: true
+    database:
+      storageType: hdd
 
   persistence:
     external:
@@ -83,10 +85,8 @@ immich:
                     - worker
 
   postgresql:
-    global:
-      postgresql:
-        auth:
-          password: TODOCHANGEME
+    auth:
+      password: TODOCHANGEME
     primary:
       persistence:
         storageClass: nfs-client
