@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power uptime-kuma running on kubernetes
 name: uptime-kuma
-version: 0.1.1
+version: 0.1.2
 home: https://uptime.kuma.pet/
 icon: https://uptime.kuma.pet/img/icon.svg
 sources:
@@ -13,4 +13,4 @@ maintainers:
 dependencies:
   - name: common
     repository: https://bjw-s-labs.github.io/helm-charts
-    version: 3.7.3
+    version: 4.4.0
