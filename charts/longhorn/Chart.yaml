@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to power longhorn
 name: longhorn
-version: 0.1.4
+version: 0.1.5
 home: https://longhorn.io/
 icon: https://longhorn.io/img/logos/longhorn-horizontal-color.png
 maintainers:
@@ -11,4 +11,4 @@ maintainers:
 dependencies:
   - name: longhorn
     repository: https://charts.longhorn.io/
-    version: 1.10.2
+    version: 1.11.0
