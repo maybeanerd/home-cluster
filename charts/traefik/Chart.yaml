@@ -8,5 +8,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: traefik
-    repository: oci://ghcr.io/traefik/helm/traefik
+    repository: https://traefik.github.io/charts
     version: 39.0.0
