@@ -13,13 +13,13 @@ frpcConfig: |
   [[proxies]]
   name = "https"
   type = "https"
-  localIP = ""
+  localIP = "traefik.traefik.svc.cluster.local"
   localPort = 443
   customDomains = ["celery.band", "*.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
 
   [[proxies]]
   name = "http"
   type = "http"
-  localIP = ""
+  localIP = "traefik.traefik.svc.cluster.local"
   localPort = 80
   customDomains = ["celery.band", "*.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
