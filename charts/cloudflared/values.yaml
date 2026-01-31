@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: jellyfin
-        servicename: jellyfin
-        namespace: jellyfin
-        serviceport: 8096
       - subdomain: status
         servicename: uptime-kuma
         namespace: uptime-kuma

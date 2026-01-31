@@ -9,8 +9,8 @@ image:
   tag: 10.11.6
   pullPolicy: IfNotPresent
 
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 # Setting this to true enables DLNA which requires the pod to be attached to the
 # host network in order to be useful - this can break things like ingress to the service
@@ -40,7 +40,11 @@ service:
   # externalTrafficPolicy: Cluster
 
 ingress:
-  enabled: false
+  enabled: true
+  path: /
+  pathType: Prefix
+  hosts:
+    - jellyfin.cluster.diluz.io
 
 persistence:
   config:
@@ -79,8 +83,7 @@ persistence:
     accessMode: ReadWriteOnce
     size: 1Ti
     storageClass: nfs-client
-  extraExistingClaimMounts:
-    []
+  extraExistingClaimMounts: []
     # - name: external-mount
     #   mountPath: /srv/external-mount
     ## A manually managed Persistent Volume and Claim
@@ -114,13 +117,11 @@ affinity:
               operator: In
               values:
                 - worker
-extraVolumes:
-  []
+extraVolumes: []
   # - name: renderD129
   #  hostPath:
   #    path: /dev/dri/renderD129
 
-extraVolumeMounts:
-  []
+extraVolumeMounts: []
   # - mountPath: /dev/dri/renderD129
   #  name: renderD129
