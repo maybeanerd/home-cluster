@@ -13,7 +13,7 @@ spec:
       labels:
         app: frp
       annotations:
-        checksum/config: "{{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}"
+        checksum/config: "{{ .Values.frpcConfig | sha256sum }}"
     spec:
       containers:
       - name: frp
@@ -21,6 +21,9 @@ spec:
         args:
         - -c
         - /etc/frpc.toml
+        env:
+        - name: FRP_AUTH_TOKEN
+          value: "{{ .Values.authToken }}"
         livenessProbe:
           # TODO check if frp has a liveness endpoint
           #httpGet:
@@ -52,22 +55,5 @@ metadata:
   name: frp
 data:
   frpc.toml: |
-    serverAddr = "frp.diluz.io"
-    serverPort = 7000
-
-    auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
-
-    [[proxies]]
-    name = "https"
-    type = "https"
-    localIP = ""
-    localPort = 443
-    customDomains = ["myhost.xyz"]
-
-    [[proxies]]
-    name = "http"
-    type = "http"
-    localIP = ""
-    localPort = 80
-    customDomains = ["myhost.xyz"]
+{{ .Values.frpcConfig | indent 4 }}
  
