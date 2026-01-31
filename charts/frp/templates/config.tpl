@@ -2,7 +2,7 @@
 serverAddr = "frp.diluz.io"
 serverPort = 7000
 
-auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
+auth.token = "{{ "{{" }} .Envs.FRP_AUTH_TOKEN {{ "}}" }}"
 
 [[proxies]]
 name = "https"
