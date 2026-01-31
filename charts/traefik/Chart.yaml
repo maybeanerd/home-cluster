@@ -1,0 +1,12 @@
+---
+apiVersion: v2
+description: A chart to run traefik ingress
+name: traefik
+version: 0.1.0
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
+dependencies:
+  - name: traefik
+    repository: oci://ghcr.io/traefik/helm/traefik
+    version: 39.0.0
