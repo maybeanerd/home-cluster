@@ -20,6 +20,7 @@ traefik:
             name: traefik
             targetPort: 8080
             protocol: TCP
+            nodePort: 32080
   # always redirect http to https
   ports:
     web:
