@@ -2,7 +2,7 @@ services:
   frp:
     image: ghcr.io/fatedier/frps:v0.67.0
     restart: always
-    command: ['/usr/bin/frps', '-c', '/etc/frps.toml']
+    command: ['-c', '/etc/frps.toml']
     ports:
       - '7000:7000'
       - '80:80'
