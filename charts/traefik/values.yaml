@@ -39,12 +39,11 @@ traefik:
     kubernetesIngress:
       ingressClass: traefik
   # ACME/Let's Encrypt configuration with HTTP challenge
-  # Using staging server for testing - switch to production when verified working
   additionalArguments:
     - --certificatesresolvers.production.acme.email=cluster@diluz.io
-    - --certificatesresolvers.production.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
+    - --certificatesresolvers.production.acme.caServer=https://acme-v02.api.letsencrypt.org/directory
     - --certificatesresolvers.production.acme.httpChallenge.entryPoint=web
-    - --certificatesresolvers.production.acme.storage=/ssl-certs/acme-staging.json
+    - --certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json
     # Set production as default cert resolver for all TLS connections
     - --entrypoints.websecure.http.tls.certresolver=production
   # Persist certificates
@@ -65,7 +64,7 @@ traefik:
           [
             'sh',
             '-c',
-            'touch /ssl-certs/acme-staging.json; chmod -v 600 /ssl-certs/acme-staging.json',
+            'touch /ssl-certs/acme-production.json; chmod -v 600 /ssl-certs/acme-production.json',
           ]
         volumeMounts:
           - mountPath: /ssl-certs
