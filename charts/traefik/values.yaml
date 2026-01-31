@@ -5,6 +5,22 @@ traefik:
   ingressRoute:
     dashboard:
       enabled: true
+  extraObjects:
+    - apiVersion: v1
+      kind: Service
+      metadata:
+        name: traefik-dashboard
+      spec:
+        type: NodePort
+        selector:
+          app.kubernetes.io/name: traefik
+          app.kubernetes.io/instance: traefik-traefik
+        ports:
+          - port: 8080
+            name: traefik
+            targetPort: 8080
+            protocol: TCP
+            nodePort: 32080
   # always redirect http to https
   ports:
     web:
