@@ -1,3 +1,24 @@
 # yaml-language-server: $schema=values.schema.json
 
-traefik: {}
+traefik:
+  # enable traefik dashboard
+  ingressRoute:
+    dashboard:
+      enabled: true
+  # always redirect http to https
+  ports:
+    web:
+      http:
+        redirections:
+          entryPoint:
+            to: websecure
+            scheme: https
+            permanent: true
+  # enable ingressClass to let Traefik be default ingress controller
+  ingressClass:
+    name: traefik
+  providers:
+    kubernetesCRD:
+      ingressClass: traefik
+    kubernetesIngress:
+      ingressClass: traefik
