@@ -45,6 +45,8 @@ traefik:
     - --certificatesresolvers.production.acme.caServer=https://acme-staging-v02.api.letsencrypt.org/directory
     - --certificatesresolvers.production.acme.httpChallenge.entryPoint=web
     - --certificatesresolvers.production.acme.storage=/ssl-certs/acme-staging.json
+    # Set production as default cert resolver for all TLS connections
+    - --entrypoints.websecure.http.tls.certresolver=production
   # Persist certificates
   persistence:
     enabled: true
