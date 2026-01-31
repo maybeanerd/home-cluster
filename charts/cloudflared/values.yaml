@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: auth
-        servicename: authentik-server
-        namespace: authentik
-        serviceport: 80
       - subdomain: audiobookshelf
         servicename: audiobookshelf
         namespace: audiobookshelf
