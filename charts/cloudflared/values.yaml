@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: audiobookshelf
-        servicename: audiobookshelf
-        namespace: audiobookshelf
-        serviceport: 80
       - subdomain: home
         servicename: home-assistant
         namespace: home-assistant
