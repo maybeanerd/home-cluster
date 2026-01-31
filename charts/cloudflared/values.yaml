@@ -8,10 +8,6 @@ regions:
         servicename: authentik-server
         namespace: authentik
         serviceport: 80
-      - subdomain: argocd
-        servicename: argocd-server
-        namespace: argocd
-        serviceport: 80
       - subdomain: audiobookshelf
         servicename: audiobookshelf
         namespace: audiobookshelf
@@ -36,13 +32,3 @@ regions:
         servicename: vaultwarden
         namespace: vaultwarden
         serviceport: 80
-  - basePath: celery.band
-    services:
-      - subdomain: iu
-        servicename: celeryband-iu
-        namespace: celeryband-iu
-        serviceport: 3000
-      - subdomain: test
-        servicename: celeryband-test
-        namespace: celeryband-test
-        serviceport: 3000
