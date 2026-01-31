@@ -14,7 +14,7 @@ traefik:
         type: NodePort
         selector:
           app.kubernetes.io/name: traefik
-          app.kubernetes.io/instance: traefik-default
+          app.kubernetes.io/instance: traefik-traefik
         ports:
           - port: 8080
             name: traefik
