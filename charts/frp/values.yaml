@@ -3,9 +3,6 @@ image:
   tag: v0.67.0
 
 authToken: 'TODOCHANGEME'
-
-domains:
-  - celery.band
-  - 'traefik.celery.band'
-  - cluster.diluz.io
-  - 'status.cluster.diluz.io'
+serverAddr: 'frp.diluz.io'
+serverPort: 7000
+reverseProxyIp: 'traefik.traefik.svc.cluster.local'

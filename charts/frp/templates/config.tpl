@@ -1,20 +1,20 @@
 {{- define "frpcConfig" -}}
-serverAddr = "frp.diluz.io"
-serverPort = 7000
+serverAddr = "{{ .Values.serverAddr }}"
+serverPort = {{ .Values.serverPort }}
 
 auth.token = "{{ "{{" }} .Envs.FRP_AUTH_TOKEN {{ "}}" }}"
 
 [[proxies]]
-name = "https"
-type = "https"
-localIP = "traefik.traefik.svc.cluster.local"
-localPort = 443
-customDomains = [{{ range $index, $domain := .Values.domains }}{{ if $index }},{{ end }}{{ printf "%q" $domain }}{{ end }}]
+name = "traefik-http"
+type = "tcp"
+localIP = "{{ .Values.reverseProxyIp }}"
+localPort = 80
+remotePort = 80
 
 [[proxies]]
-name = "http"
-type = "http"
-localIP = "traefik.traefik.svc.cluster.local"
-localPort = 80
-customDomains = [{{ range $index, $domain := .Values.domains }}{{ if $index }},{{ end }}{{ printf "%q" $domain }}{{ end }}]
+name = "traefik-https"
+type = "tcp"
+localIP = "{{ .Values.reverseProxyIp }}"
+localPort = 443
+remotePort = 443
 {{- end }}
