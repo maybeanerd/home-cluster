@@ -12,13 +12,13 @@ traefik:
         name: traefik-dashboard
       spec:
         type: NodePort
-        #        selector:
-        #          app.kubernetes.io/name: traefik
-        #          app.kubernetes.io/instance: traefik-default
+        selector:
+          app.kubernetes.io/name: traefik
+          app.kubernetes.io/instance: traefik-default
         ports:
           - port: 8080
             name: traefik
-            targetPort: 8080
+            targetPort: 9000 # Internal dashboard port
             protocol: TCP
             nodePort: 32080
   # always redirect http to https
