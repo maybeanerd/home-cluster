@@ -65,6 +65,17 @@ service:
       http:
         port: 80
 
+ingress:
+  main:
+    hosts:
+      - host: vaultwarden.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
+
 defaultPodOptions:
   affinity:
     nodeAffinity:
@@ -81,5 +92,5 @@ persistence:
   data:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     size: 1Gi
