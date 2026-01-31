@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: home
-        servicename: home-assistant
-        namespace: home-assistant
-        serviceport: 8123
       - subdomain: immich
         servicename: immich-server
         namespace: immich
