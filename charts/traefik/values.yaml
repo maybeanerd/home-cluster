@@ -1,7 +1,10 @@
 # yaml-language-server: $schema=values.schema.json
 
 traefik:
-  # enable traefik dashboard for local access
+  # enable traefik dashboard
+  ingressRoute:
+    dashboard:
+      enabled: true
   extraObjects:
     - apiVersion: v1
       kind: Service
