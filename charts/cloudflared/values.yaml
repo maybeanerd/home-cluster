@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: status
-        servicename: uptime-kuma
-        namespace: uptime-kuma
-        serviceport: 3001
       - subdomain: vaultwarden
         servicename: vaultwarden
         namespace: vaultwarden
