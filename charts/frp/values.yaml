@@ -15,11 +15,11 @@ frpcConfig: |
   type = "https"
   localIP = ""
   localPort = 443
-  customDomains = ["myhost.xyz"]
+  customDomains = ["celery.band", "*.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
 
   [[proxies]]
   name = "http"
   type = "http"
   localIP = ""
   localPort = 80
-  customDomains = ["myhost.xyz"]
+  customDomains = ["celery.band", "*.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
