@@ -64,13 +64,6 @@ ingress:
   main:
     enabled: true
     hosts:
-      - host: traefik.celery.band
-        paths:
-          - path: /
-            pathType: Prefix
-            service:
-              identifier: main
-              port: http
       - host: celery.band
         paths:
           - path: /
