@@ -72,3 +72,14 @@ traefik:
   podSecurityContext:
     fsGroup: 65532
     fsGroupChangePolicy: 'OnRootMismatch'
+  # Prefer worker nodes
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker
