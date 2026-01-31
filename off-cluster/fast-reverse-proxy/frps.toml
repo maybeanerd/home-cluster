@@ -3,7 +3,7 @@ bindAddr = "0.0.0.0"
 bindPort = 7000
 
 # disable tls, will be handled by traefik
-transport.tls.enable = true
+transport.tls.enable = false
 
 # Token for authenticating with client
 auth.method = "token"
