@@ -37,7 +37,7 @@ spec:
           mountPath: /etc/frpc.toml
           readOnly: true
 
-      # Create a config.yaml file from the ConfigMap below.
+      volumes:
       - name: config
         configMap:
           name: frp
