@@ -57,16 +57,16 @@ service:
       http:
         port: 3001
 
-# ingress:
-#  main:
-#    hosts:
-#      - host: status.test.diluz.io
-#        paths:
-#          - path: /
-#            pathType: Prefix
-#            service:
-#              identifier: main
-#              port: http
+ingress:
+  main:
+    hosts:
+      - host: status.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              identifier: main
+              port: http
 
 persistence:
   data:

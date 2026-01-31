@@ -10,22 +10,22 @@ authentik:
             values:
               - worker
   authentik:
-    secret_key: "PleaseGenerateA50CharKey"
+    secret_key: 'PleaseGenerateA50CharKey'
     # This sends anonymous usage-data, stack traces on errors and
     # performance data to sentry.io, and is fully opt-in
     error_reporting:
       enabled: true
     postgresql:
-      password: "ThisIsNotASecurePassword"
+      password: 'ThisIsNotASecurePassword'
     email:
       # -- SMTP Server emails are sent from, fully optional
-      host: "smtp.servivum.com"
+      host: 'smtp.servivum.com'
       # -- SMTP server port
       port: 587
       # -- SMTP credentials, when left empty, no authentication will be done
-      username: "noreply@diluzio.dev"
+      username: 'noreply@diluzio.dev'
       # -- SMTP credentials, when left empty, no authentication will be done
-      password: "TODO_EMAIL_PASSWORD"
+      password: 'TODO_EMAIL_PASSWORD'
       # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
       use_tls: true
       # -- Enable either use_tls or use_ssl, they can't be enabled at the same time.
@@ -33,7 +33,7 @@ authentik:
       # -- Connection timeout
       timeout: 30
       # -- Email from address, can either be in the format "foo@bar.baz" or "authentik <foo@bar.baz>"
-      from: "auth.cluster.diluz.io <noreply@diluzio.dev>"
+      from: 'auth.cluster.diluz.io <noreply@diluzio.dev>'
     server:
       resources:
         requests:
@@ -47,13 +47,14 @@ authentik:
 
   server:
     ingress:
-      enabled: false
+      hosts:
+        - auth.cluster.diluz.io
 
   postgresql:
     enabled: true
     auth:
       # TODO override in consumer (e.g. in argoCD directly)
-      password: "ThisIsNotASecurePassword"
+      password: 'ThisIsNotASecurePassword'
     primary:
       persistence:
         enabled: true

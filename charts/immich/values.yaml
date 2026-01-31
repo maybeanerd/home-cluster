@@ -84,6 +84,15 @@ immich:
                   values:
                     - worker
 
+  ingress:
+    server:
+      enabled: true
+      hosts:
+        - host: immich.cluster.diluz.io
+          paths:
+            - path: /
+              pathType: Prefix
+
   postgresql:
     auth:
       password: TODOCHANGEME

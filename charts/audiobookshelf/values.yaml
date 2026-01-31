@@ -29,24 +29,36 @@ persistence:
   config:
     enabled: true
     type: persistentVolumeClaim
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     accessMode: ReadWriteOnce
     size: 1Gi
   metadata:
     enabled: true
     type: persistentVolumeClaim
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     accessMode: ReadWriteOnce
     size: 1Gi
   audiobooks:
     enabled: true
     type: persistentVolumeClaim
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     accessMode: ReadWriteOnce
     size: 1Gi
   podcasts:
     enabled: true
     type: persistentVolumeClaim
-    storageClass: "nfs-client"
+    storageClass: 'nfs-client'
     accessMode: ReadWriteOnce
     size: 1Gi
+
+ingress:
+  main:
+    enabled: true
+    hosts:
+      - host: audiobookshelf.cluster.diluz.io
+        paths:
+          - path: /
+            pathType: Prefix
+            service:
+              name: main
+              port: 80

@@ -10,8 +10,8 @@ image:
   tag: 2026.1.3
 
 imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: ''
+fullnameOverride: ''
 
 serviceAccount:
   # Specifies whether a service account should be created
@@ -20,16 +20,14 @@ serviceAccount:
   annotations: {}
   # The name of the service account to use.
   # If not set and create is true, a name is generated using the fullname template
-  name: "home-assistant-serviceaccount"
+  name: 'home-assistant-serviceaccount'
 
 podAnnotations: {}
 
-podSecurityContext:
-  {}
+podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext:
-  {}
+securityContext: {}
   # capabilities:
   #   drop:
   #   - ALL
@@ -48,7 +46,11 @@ hostNetwork: true
 dnsPolicy: ClusterFirstWithHostNet
 
 ingress:
-  enabled: false
+  enabled: true
+  path: /
+  pathType: Prefix
+  hosts:
+    - home.cluster.diluz.io
 
 resources:
   # We usually recommend not to specify default resources and to leave this as a conscious
