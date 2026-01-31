@@ -1,0 +1,13 @@
+# Bind address and port for frp server and client communication
+bindAddr = "0.0.0.0"
+bindPort = 7000
+
+# Token for authenticating with client
+auth.method = "token"
+auth.token = "TODOCHANGEME"
+
+# Configuration for frp server dashboard (optional)
+# webServer.addr = "0.0.0.0"
+# webServer.port = 7500
+# webServer.user = "admin"
+# webServer.password = ""

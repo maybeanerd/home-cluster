@@ -38,3 +38,48 @@ traefik:
       ingressClass: traefik
     kubernetesIngress:
       ingressClass: traefik
+  # ACME/Let's Encrypt configuration with HTTP challenge
+  additionalArguments:
+    - --certificatesresolvers.production.acme.email=cluster@diluz.io
+    - --certificatesresolvers.production.acme.caServer=https://acme-v02.api.letsencrypt.org/directory
+    - --certificatesresolvers.production.acme.httpChallenge.entryPoint=web
+    - --certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json
+    # Set production as default cert resolver for all TLS connections
+    - --entrypoints.websecure.http.tls.certresolver=production
+  # Persist certificates
+  persistence:
+    enabled: true
+    name: ssl-certs
+    storageClass: longhorn
+    accessMode: ReadWriteOnce
+    size: 1Gi
+    path: /ssl-certs
+  # Fix ACME file permissions (must be 0600 for ACME JSON)
+  # As described in https://github.com/traefik/traefik-helm-chart/blob/master/EXAMPLES.md#use-traefik-native-lets-encrypt-integration-without-cert-manager
+  deployment:
+    initContainers:
+      - name: volume-permissions
+        image: busybox:latest
+        command:
+          [
+            'sh',
+            '-c',
+            'touch /ssl-certs/acme-production.json; chmod -v 600 /ssl-certs/acme-production.json',
+          ]
+        volumeMounts:
+          - mountPath: /ssl-certs
+            name: ssl-certs
+  podSecurityContext:
+    fsGroup: 65532
+    fsGroupChangePolicy: 'OnRootMismatch'
+  # Prefer worker nodes
+  affinity:
+    nodeAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 1
+          preference:
+            matchExpressions:
+              - key: kubernetes.io/role
+                operator: In
+                values:
+                  - worker

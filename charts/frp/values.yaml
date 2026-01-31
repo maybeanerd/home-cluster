@@ -1,0 +1,8 @@
+image:
+  repository: ghcr.io/fatedier/frpc
+  tag: v0.67.0
+
+authToken: 'TODOCHANGEME'
+serverAddr: 'frp.diluz.io'
+serverPort: 7000
+reverseProxyIp: 'traefik.traefik.svc.cluster.local'

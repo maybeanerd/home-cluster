@@ -1,0 +1,62 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frp
+spec:
+  selector:
+    matchLabels:
+      app: frp
+  replicas: 1
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        app: frp
+      annotations:
+        checksum/config: {{ include "frpcConfig" . | sha256sum | quote }}
+    spec:
+      containers:
+      - name: frp
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+        - -c
+        - /etc/frpc.toml
+        env:
+        - name: FRP_AUTH_TOKEN
+          value: "{{ .Values.authToken }}"
+        livenessProbe:
+          # TODO check if frp has a liveness endpoint
+          #httpGet:
+          #  path: /ready
+          #  port: 2000
+          #failureThreshold: 1
+          #initialDelaySeconds: 10
+          #periodSeconds: 10
+        volumeMounts:
+        - name: config
+          mountPath: /etc/frpc.toml
+          subPath: frpc.toml
+          readOnly: true
+
+      volumes:
+      - name: config
+        configMap:
+          name: frp
+          items:
+          - key: frpc.toml
+            path: frpc.toml
+---
+# This ConfigMap is just a way to define the frp frpc.toml file in k8s.
+# It's useful to define it in k8s, rather than as a stand-alone file, because
+# this lets you use various k8s templating solutions (e.g. Helm charts) to
+# parameterize your config, instead of just using string literals.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frp
+data:
+  frpc.toml: |
+{{ include "frpcConfig" . | indent 4 }}
+ 

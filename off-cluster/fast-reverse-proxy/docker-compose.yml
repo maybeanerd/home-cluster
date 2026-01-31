@@ -1,0 +1,11 @@
+services:
+  frp:
+    image: ghcr.io/fatedier/frps:v0.67.0
+    restart: always
+    command: ['-c', '/etc/frps.toml']
+    ports:
+      - '7000:7000'
+      - '80:80'
+      - '443:443'
+    volumes:
+      - ./frps.toml:/etc/frps.toml:ro
