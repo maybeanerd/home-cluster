@@ -11,7 +11,3 @@ auth.token = "TODOCHANGEME"
 # webServer.port = 7500
 # webServer.user = "admin"
 # webServer.password = ""
-
-# Ports for virtual hosts (applications running in Kubernetes)
-vhostHTTPPort = 80
-vhostHTTPSPort = 443
