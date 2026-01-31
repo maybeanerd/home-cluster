@@ -1,0 +1,3 @@
+image:
+  repository: ghcr.io/fatedier/frpc
+  tag: v0.67.0

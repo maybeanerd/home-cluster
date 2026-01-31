@@ -1,0 +1,73 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frp
+spec:
+  selector:
+    matchLabels:
+      app: frp
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: frp
+      annotations:
+        checksum/config: "{{ include (print $.Template.BasePath "/configmap.yaml") . | sha256sum }}"
+    spec:
+      containers:
+      - name: frp
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        args:
+        - -c
+        - /etc/frpc.toml
+        livenessProbe:
+          # TODO check if frp has a liveness endpoint
+          #httpGet:
+          #  path: /ready
+          #  port: 2000
+          #failureThreshold: 1
+          #initialDelaySeconds: 10
+          #periodSeconds: 10
+        volumeMounts:
+        - name: config
+          mountPath: /etc/frpc.toml
+          readOnly: true
+
+      # Create a config.yaml file from the ConfigMap below.
+      - name: config
+        configMap:
+          name: frp
+          items:
+          - key: frpc.toml
+            path: frpc.toml
+---
+# This ConfigMap is just a way to define the frp frpc.toml file in k8s.
+# It's useful to define it in k8s, rather than as a stand-alone file, because
+# this lets you use various k8s templating solutions (e.g. Helm charts) to
+# parameterize your config, instead of just using string literals.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frp
+data:
+  frpc.toml: |
+    serverAddr = "frp.diluz.io"
+    serverPort = 7000
+
+    auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
+
+    [[proxies]]
+    name = "https"
+    type = "https"
+    localIP = ""
+    localPort = 443
+    customDomains = ["myhost.xyz"]
+
+    [[proxies]]
+    name = "http"
+    type = "http"
+    localIP = ""
+    localPort = 80
+    customDomains = ["myhost.xyz"]
+ 
