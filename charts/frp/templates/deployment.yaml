@@ -34,7 +34,8 @@ spec:
           #periodSeconds: 10
         volumeMounts:
         - name: config
-          mountPath: /etc
+          mountPath: /etc/frpc.toml
+          subPath: frpc.toml
           readOnly: true
 
       volumes:
