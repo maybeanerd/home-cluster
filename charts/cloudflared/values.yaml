@@ -4,10 +4,6 @@ image:
 regions:
   - basePath: cluster.diluz.io
     services:
-      - subdomain: immich
-        servicename: immich-server
-        namespace: immich
-        serviceport: 2283
       - subdomain: jellyfin
         servicename: jellyfin
         namespace: jellyfin
