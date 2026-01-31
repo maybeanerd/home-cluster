@@ -18,7 +18,7 @@ traefik:
         ports:
           - port: 8080
             name: traefik
-            targetPort: 9000 # Internal dashboard port
+            targetPort: 8080
             protocol: TCP
             nodePort: 32080
   # always redirect http to https
