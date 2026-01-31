@@ -15,7 +15,7 @@ spec:
       labels:
         app: frp
       annotations:
-        checksum/config: "{{ .Values.frpcConfig | sha256sum }}"
+        checksum/config: "{{ include \"frpcConfig\" . | sha256sum }}"
     spec:
       containers:
       - name: frp
@@ -58,5 +58,5 @@ metadata:
   name: frp
 data:
   frpc.toml: |
-{{ .Values.frpcConfig | indent 4 }}
+{{ include "frpcConfig" . | indent 4 }}
  

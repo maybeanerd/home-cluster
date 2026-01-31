@@ -4,22 +4,8 @@ image:
 
 authToken: 'TODOCHANGEME'
 
-frpcConfig: |
-  serverAddr = "frp.diluz.io"
-  serverPort = 7000
-
-  auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
-
-  [[proxies]]
-  name = "https"
-  type = "https"
-  localIP = "traefik.traefik.svc.cluster.local"
-  localPort = 443
-  customDomains = ["celery.band", "traefik.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
-
-  [[proxies]]
-  name = "http"
-  type = "http"
-  localIP = "traefik.traefik.svc.cluster.local"
-  localPort = 80
-  customDomains = ["celery.band", "traefik.celery.band", "cluster.diluz.io", "*.cluster.diluz.io"]
+domains:
+  - celery.band
+  - 'traefik.celery.band'
+  - cluster.diluz.io
+  - 'status.cluster.diluz.io'
