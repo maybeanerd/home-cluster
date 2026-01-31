@@ -47,6 +47,7 @@ authentik:
 
   server:
     ingress:
+      enabled: true
       hosts:
         - auth.cluster.diluz.io
 
