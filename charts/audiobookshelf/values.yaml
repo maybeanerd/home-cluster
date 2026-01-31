@@ -53,12 +53,11 @@ persistence:
 
 ingress:
   main:
-    enabled: true
     hosts:
       - host: audiobookshelf.cluster.diluz.io
         paths:
           - path: /
             pathType: Prefix
             service:
-              name: main
-              port: 80
+              identifier: main
+              port: http
