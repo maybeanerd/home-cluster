@@ -9,7 +9,7 @@ spec:
       app: frp
   replicas: 1
   strategy:
-    type: Recreate
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -26,14 +26,26 @@ spec:
         env:
         - name: FRP_AUTH_TOKEN
           value: "{{ .Values.authToken }}"
+        # Wait for initial connection
+        startupProbe:
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "frpc status -c /etc/frpc.toml | grep -q 'running'"
+          initialDelaySeconds: 5
+          periodSeconds: 10
+          # Allow up to 5 minutes to connect
+          failureThreshold: 30    
+        # Maintain connection
         livenessProbe:
-          # TODO check if frp has a liveness endpoint
-          #httpGet:
-          #  path: /ready
-          #  port: 2000
-          #failureThreshold: 1
-          #initialDelaySeconds: 10
-          #periodSeconds: 10
+          exec:
+            command:
+            - /bin/sh
+            - -c
+            - "frpc status -c /etc/frpc.toml | grep -q 'running'"
+          periodSeconds: 15
+          failureThreshold: 3
         volumeMounts:
         - name: config
           mountPath: /etc/frpc.toml
