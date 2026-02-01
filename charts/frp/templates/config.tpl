@@ -4,6 +4,10 @@ serverPort = {{ .Values.serverPort }}
 
 auth.token = "{{ "{{" }} .Envs.FRP_AUTH_TOKEN {{ "}}" }}"
 
+[webServer]
+addr = "127.0.0.1"
+port = 7400
+
 [[proxies]]
 name = "traefik-http"
 type = "tcp"
