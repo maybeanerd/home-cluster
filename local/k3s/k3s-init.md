@@ -27,7 +27,7 @@ curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET s
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
-    --cluster-init --disable=servicelb --write-kubeconfig-mode 644
+    --cluster-init --disable=servicelb --write-kubeconfig-mode 644 --disable traefik
 ```
 
 To reset traefik, start with `--disable traefik` and then again without it once it's entirely gone. Also do this on all other nodes
@@ -36,17 +36,17 @@ To reset traefik, start with `--disable traefik` and then again without it once 
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
-    --server https://cube01:6443 --disable=servicelb --write-kubeconfig-mode 644
+    --server https://cube01:6443 --disable=servicelb --write-kubeconfig-mode 644 --disable traefik
 ```
 
 ## agents:
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
-    --server https://cube01:6443
+    --server https://cube01:6443 --disable traefik
 ```
 ```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube01:6443 --token SECRET" sh -s -
+curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube01:6443 --token SECRET --disable traefik" sh -s -
 ```
 
 ### set up mnt storage for k3s containerd
