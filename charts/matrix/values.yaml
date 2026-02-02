@@ -40,9 +40,36 @@ matrix-stack:
   # Matrix Authentication Service
   matrixAuthenticationService:
     enabled: true
-
     ingress:
       host: "auth-matrix.cluster.diluz.io"
+    extraEnv:
+    - name: AUTHENTIK_CLIENT_SECRET
+      value: "TODOREPLACEME"
+    additional:
+      auth.yaml:
+        config: |
+          passwords:
+            # Users will only be able to log in using upstream OIDC providers
+            enabled: false
+          upstream_oauth2:
+            providers:
+              - id: 01HFRQFT5QFMJFGF01P7JAV2ME
+                human_name: Authentik
+                issuer: "https://auth.cluster.diluz.io/application/o/matrix/"
+                client_id: "P5QrehyycvxTxhNNmFGmwjCmgAPHYbjcahzhaIj4"
+                client_secret: ${AUTHENTIK_CLIENT_SECRET}
+                token_endpoint_auth_method: client_secret_basic
+                scope: "openid profile email"
+                claims_imports:
+                  localpart:
+                    action: require
+                    template: "{{ user.preferred_username }}"
+                  displayname:
+                    action: suggest
+                    template: "{{ user.name }}"
+                  email:
+                    action: require
+                    template: "{{ user.email }}"
 
   # Matrix RTC Backend (for Element Call)
   matrixRTC:
