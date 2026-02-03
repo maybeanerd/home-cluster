@@ -1,41 +1,24 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "local>maybeanerd/renovate-config"
-  ],
+  "extends": ["local>maybeanerd/renovate-config"],
   "packageRules": [
     {
-      "description": "Immich minor releases are unstable and could always be breaking",
+      "description": "Immich chart minor releases are unstable and could always be breaking for now",
       "automerge": false,
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "matchPackageNames": [
-        "ghcr.io/immich-app/{/,}**"
-      ]
-    }, 
+      "matchUpdateTypes": ["major", "minor"],
+      "matchPackageNames": ["ghcr.io/maybeanerd/immich-charts{/,}**"]
+    },
     {
       "description": "Authentik chart minor releases could be breaking",
       "automerge": false,
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "matchPackageNames": [
-        "authentik"
-      ]
+      "matchUpdateTypes": ["major", "minor"],
+      "matchPackageNames": ["authentik"]
     },
     {
       "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
       "automerge": false,
-      "matchUpdateTypes": [
-        "major",
-        "minor"
-      ],
-      "matchPackageNames": [
-        "jellyfin/jellyfin{/,}**"
-      ]
+      "matchUpdateTypes": ["major", "minor"],
+      "matchPackageNames": ["jellyfin/jellyfin{/,}**"]
     }
   ],
   "bumpVersion": "patch"
