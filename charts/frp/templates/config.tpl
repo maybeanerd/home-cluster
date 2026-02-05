@@ -21,4 +21,20 @@ type = "tcp"
 localIP = "{{ .Values.reverseProxyIp }}"
 localPort = 443
 remotePort = 443
+
+[[proxies]]
+name = "matrix-rtc-tcp"
+type = "tcp"
+localIP = "{{ .Values.reverseProxyIp }}"
+localPort = 7881
+remotePort = 7881
+
+{{- range $_, $v := parseNumberRangePair "50100-50200" "50100-50200" }}
+[[proxies]]
+name = "matrix-rtc-udp-{{ $v.First }}"
+type = "udp"
+localIP = "{{ .Values.reverseProxyIp }}"
+localPort = {{ $v.First }}
+remotePort = {{ $v.Second }}
+{{- end }}
 {{- end }}

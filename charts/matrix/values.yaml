@@ -2,14 +2,14 @@
 
 matrix-stack:
   # Global server name for Matrix federation
-  serverName: "cluster.diluz.io"
+  serverName: 'cluster.diluz.io'
 
   # Synapse homeserver configuration
   synapse:
     enabled: true
 
     ingress:
-      host: "matrix.cluster.diluz.io"
+      host: 'matrix.cluster.diluz.io'
 
     media:
       storage:
@@ -28,23 +28,23 @@ matrix-stack:
     enabled: true
 
     ingress:
-      host: "element.cluster.diluz.io"
+      host: 'element.cluster.diluz.io'
 
   # Element Admin interface
   elementAdmin:
     enabled: true
 
     ingress:
-      host: "admin-matrix.cluster.diluz.io"
+      host: 'admin-matrix.cluster.diluz.io'
 
   # Matrix Authentication Service
   matrixAuthenticationService:
     enabled: true
     ingress:
-      host: "auth-matrix.cluster.diluz.io"
+      host: 'auth-matrix.cluster.diluz.io'
     extraEnv:
-    - name: AUTHENTIK_CLIENT_SECRET
-      value: "TODOREPLACEME"
+      - name: AUTHENTIK_CLIENT_SECRET
+        value: 'TODOREPLACEME'
     additional:
       auth.yaml:
         config: |
@@ -74,10 +74,21 @@ matrix-stack:
   # Matrix RTC Backend (for Element Call)
   matrixRTC:
     enabled: true
-
     ingress:
-      host: "rtc-matrix.cluster.diluz.io"
-
+      host: 'rtc-matrix.cluster.diluz.io'
+    sfu:
+      additional:
+        config.yaml:
+          config: |
+            rtc:
+              tcp_port: 7881
+              port_range_start: 50100
+              port_range_end: 50200
+              # use_external_ip should be set to true for most cloud environments where
+              # the host has a public IP address, but is not exposed to the process.
+              # LiveKit will attempt to use STUN to discover the true IP, and advertise
+              # that IP with its clients
+              use_external_ip: true
   # Well-known delegation for federation
   wellKnownDelegation:
     enabled: true
