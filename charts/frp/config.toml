@@ -1,5 +1,5 @@
-serverAddr = "{{ .Values.serverAddr }}"
-serverPort = {{ .Values.serverPort }}
+serverAddr = "{{ .Envs.FRP_SERVER_ADDR }}"
+serverPort = {{ .Envs.FRP_SERVER_PORT }}
 
 auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
 
@@ -10,21 +10,21 @@ port = 7400
 [[proxies]]
 name = "traefik-http"
 type = "tcp"
-localIP = "{{ .Values.reverseProxyIp }}"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = 80
 remotePort = 80
 
 [[proxies]]
 name = "traefik-https"
 type = "tcp"
-localIP = "{{ .Values.reverseProxyIp }}"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = 443
 remotePort = 443
 
 [[proxies]]
 name = "matrix-rtc-tcp"
 type = "tcp"
-localIP = "{{ .Values.reverseProxyIp }}"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = 7881
 remotePort = 7881
 
@@ -32,7 +32,7 @@ remotePort = 7881
 [[proxies]]
 name = "matrix-rtc-udp-{{ $v.First }}"
 type = "udp"
-localIP = "{{ .Values.reverseProxyIp }}"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = {{ $v.First }}
 remotePort = {{ $v.Second }}
 {{- end }}

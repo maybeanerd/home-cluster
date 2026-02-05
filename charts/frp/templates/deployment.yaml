@@ -26,6 +26,12 @@ spec:
         env:
         - name: FRP_AUTH_TOKEN
           value: "{{ .Values.authToken }}"
+        - name: FRP_SERVER_ADDR
+          value: "{{ .Values.serverAddr }}"
+        - name: FRP_SERVER_PORT
+          value: "{{ .Values.serverPort }}"
+        - name: REVERSE_PROXY_IP
+          value: "{{ .Values.reverseProxyIp }}"
         # Wait for initial startup. It will not have connected, since the old pod is still connected.
         startupProbe:
           exec:
