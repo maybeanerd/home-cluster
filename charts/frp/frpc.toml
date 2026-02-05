@@ -32,7 +32,8 @@ remotePort = 7881
 [[proxies]]
 name = "matrix-rtc-udp-{{ $v.First }}"
 type = "udp"
-localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+# Use $. to go back to the global scope
+localIP = "{{ $.Envs.REVERSE_PROXY_IP }}"
 localPort = {{ $v.First }}
 remotePort = {{ $v.Second }}
 {{- end }}
