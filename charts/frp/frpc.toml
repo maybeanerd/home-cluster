@@ -1,0 +1,39 @@
+serverAddr = "{{ .Envs.FRP_SERVER_ADDR }}"
+serverPort = {{ .Envs.FRP_SERVER_PORT }}
+
+auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
+
+[webServer]
+addr = "127.0.0.1"
+port = 7400
+
+[[proxies]]
+name = "traefik-http"
+type = "tcp"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localPort = 80
+remotePort = 80
+
+[[proxies]]
+name = "traefik-https"
+type = "tcp"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localPort = 443
+remotePort = 443
+
+[[proxies]]
+name = "matrix-rtc-tcp"
+type = "tcp"
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localPort = 7881
+remotePort = 7881
+
+{{- range $_, $v := parseNumberRangePair "50100-50200" "50100-50200" }}
+[[proxies]]
+name = "matrix-rtc-udp-{{ $v.First }}"
+type = "udp"
+# Use $. to go back to the global scope
+localIP = "{{ $.Envs.REVERSE_PROXY_IP }}"
+localPort = {{ $v.First }}
+remotePort = {{ $v.Second }}
+{{- end }}
