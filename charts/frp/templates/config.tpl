@@ -29,7 +29,7 @@ localIP = "{{ .Values.reverseProxyIp }}"
 localPort = 7881
 remotePort = 7881
 
-{{ "{{- range $_, $v := parseNumberRangePair "50100-50200" "50100-50200" }}" }}
+{{ "{{- range $_, $v := parseNumberRangePair \"50100-50200\" \"50100-50200\" }}" }}
 [[proxies]]
 name = "matrix-rtc-udp-{{ $v.First }}"
 type = "udp"
