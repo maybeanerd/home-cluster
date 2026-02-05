@@ -62,7 +62,7 @@ matrix-stack:
                 scope: "openid profile email"
                 claims_imports:
                   localpart:
-                    action: require
+                    action: suggest
                     template: "{{ user.preferred_username }}"
                   displayname:
                     action: suggest
