@@ -15,7 +15,7 @@ spec:
       labels:
         app: frp
       annotations:
-        checksum/config: {{ .Files.Get "frpcConfig.toml" | sha256sum | quote }}
+        checksum/config: {{ .Files.Get "frpc.toml" | sha256sum | quote }}
     spec:
       containers:
       - name: frp
@@ -76,5 +76,5 @@ metadata:
   name: frp
 data:
   frpc.toml: |
-{{ .Files.Get "frpcConfig.toml" | indent 4 }}
+{{ .Files.Get "frpc.toml" | indent 4 }}
  
