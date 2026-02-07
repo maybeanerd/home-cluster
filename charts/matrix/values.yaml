@@ -7,35 +7,36 @@ matrix-stack:
   # Synapse homeserver configuration
   synapse:
     enabled: true
-
     ingress:
       host: 'matrix.cluster.diluz.io'
-
     media:
       storage:
         size: 100Gi
         storageClassName: longhorn
-
     resources:
       requests:
         cpu: 1000m
         memory: 2Gi
       limits:
         memory: 4Gi
+    nodeSelector:
+      kubernetes.io/role: worker
 
   # Element Web client
   elementWeb:
     enabled: true
-
     ingress:
       host: 'element.cluster.diluz.io'
+    nodeSelector:
+      kubernetes.io/role: worker
 
   # Element Admin interface
   elementAdmin:
     enabled: true
-
     ingress:
       host: 'admin-matrix.cluster.diluz.io'
+    nodeSelector:
+      kubernetes.io/role: worker
 
   # Matrix Authentication Service
   matrixAuthenticationService:
@@ -70,6 +71,8 @@ matrix-stack:
                   email:
                     action: require
                     template: "{{ user.email }}"
+    nodeSelector:
+      kubernetes.io/role: worker
 
   # Matrix RTC Backend (for Element Call)
   matrixRTC:
@@ -89,6 +92,9 @@ matrix-stack:
               # LiveKit will attempt to use STUN to discover the true IP, and advertise
               # that IP with its clients
               use_external_ip: true
+    nodeSelector:
+      kubernetes.io/role: worker
+
   # Well-known delegation for federation
   wellKnownDelegation:
     enabled: true
@@ -107,3 +113,5 @@ matrix-stack:
         memory: 1Gi
       limits:
         memory: 2Gi
+    nodeSelector:
+      kubernetes.io/role: worker
