@@ -51,7 +51,7 @@ traefik:
     enabled: true
     name: ssl-certs
     storageClass: longhorn
-    accessMode: ReadWriteOnce
+    accessMode: ReadWriteMany
     size: 1Gi
     path: /ssl-certs
   # Fix ACME file permissions (must be 0600 for ACME JSON)
