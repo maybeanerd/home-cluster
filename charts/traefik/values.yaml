@@ -72,8 +72,8 @@ traefik:
   podSecurityContext:
     fsGroup: 65532
     fsGroupChangePolicy: 'OnRootMismatch'
-  # Prefer worker nodes
   affinity:
+    # Prefer worker nodes
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
         - weight: 1
@@ -83,3 +83,15 @@ traefik:
                 operator: In
                 values:
                   - worker
+    # keep all pods on the same node (for RWO volumes)
+    podAffinity:
+      preferredDuringSchedulingIgnoredDuringExecution:
+        - weight: 100
+          podAffinityTerm:
+            labelSelector:
+              matchExpressions:
+                - key: app.kubernetes.io/name
+                  operator: In
+                  values:
+                    - traefik
+            topologyKey: kubernetes.io/hostname
