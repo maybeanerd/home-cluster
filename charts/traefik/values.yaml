@@ -72,8 +72,8 @@ traefik:
   podSecurityContext:
     fsGroup: 65532
     fsGroupChangePolicy: 'OnRootMismatch'
-  # Prefer worker nodes
   affinity:
+    # Prefer worker nodes
     nodeAffinity:
       preferredDuringSchedulingIgnoredDuringExecution:
         - weight: 1
