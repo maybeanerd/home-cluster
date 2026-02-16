@@ -25,15 +25,12 @@ remotePort = 443
 name = "matrix-rtc-tcp"
 type = "tcp"
 localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
-localPort = 7881
-remotePort = 7881
+localPort = 30881
+remotePort = 30881
 
-{{- range $_, $v := parseNumberRangePair "50100-50200" "50100-50200" }}
 [[proxies]]
-name = "matrix-rtc-udp-{{ $v.First }}"
+name = "matrix-rtc-udp"
 type = "udp"
-# Use $. to go back to the global scope
-localIP = "{{ $.Envs.REVERSE_PROXY_IP }}"
-localPort = {{ $v.First }}
-remotePort = {{ $v.Second }}
-{{- end }}
+localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localPort = 30882
+remotePort = 30882

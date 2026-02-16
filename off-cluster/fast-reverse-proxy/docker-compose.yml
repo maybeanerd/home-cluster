@@ -7,7 +7,7 @@ services:
       - '7000:7000'
       - '80:80'
       - '443:443'
-      - '7881:7881'
-      - '50100-50200:50100-50200/udp'
+      - '30881:30881' # Matrix RTC TCP
+      - '30882:30882/udp' # Matrix RTC UDP (Muxed)
     volumes:
       - ./frps.toml:/etc/frps.toml:ro
