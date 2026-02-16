@@ -6,4 +6,3 @@ authToken: 'TODOCHANGEME'
 serverAddr: 'frp.diluz.io'
 serverPort: 7000
 reverseProxyIp: 'traefik.traefik.svc.cluster.local'
-matrixRtcIp: 'matrix-matrix-rtc-sfu.matrix.svc.cluster.local'
