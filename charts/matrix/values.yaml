@@ -80,13 +80,8 @@ matrix-stack:
     ingress:
       host: 'rtc-matrix.cluster.diluz.io'
     sfu:
-      additional:
-        config.yaml:
-          config: |
-            rtc:
-              tcp_port: 30881
-              udp_port: 30882
-              external_ip: 46.225.62.164
+      manualIP: '46.225.62.164'
+      useStunToDiscoverPublicIP: false
     nodeSelector:
       kubernetes.io/role: worker
 
