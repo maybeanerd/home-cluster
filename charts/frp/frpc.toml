@@ -24,13 +24,13 @@ remotePort = 443
 [[proxies]]
 name = "matrix-rtc-tcp"
 type = "tcp"
-localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localIP = "{{ .Envs.MATRIX_RTC_IP }}"
 localPort = 30881
 remotePort = 30881
 
 [[proxies]]
 name = "matrix-rtc-udp"
 type = "udp"
-localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
+localIP = "{{ .Envs.MATRIX_RTC_IP }}"
 localPort = 30882
 remotePort = 30882
