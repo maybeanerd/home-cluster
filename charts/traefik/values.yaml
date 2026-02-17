@@ -21,8 +21,8 @@ traefik:
             targetPort: 8080
             protocol: TCP
             nodePort: 32080
+  # always redirect http to https
   ports:
-    # always redirect http to https
     web:
       http:
         redirections:
@@ -30,15 +30,6 @@ traefik:
             to: websecure
             scheme: https
             permanent: true
-    # Expose UDP and TCP for matrix
-    matrix-rtc-tcp:
-      port: 30881
-      exposedPort: 30881
-      protocol: TCP
-    matrix-rtc-udp:
-      port: 30882
-      exposedPort: 30882
-      protocol: UDP
   # enable ingressClass to let Traefik be default ingress controller
   ingressClass:
     name: traefik
