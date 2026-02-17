@@ -32,6 +32,8 @@ spec:
           value: "{{ .Values.serverPort }}"
         - name: REVERSE_PROXY_IP
           value: "{{ .Values.reverseProxyIp }}"
+        - name: MATRIX_RTC_IP
+          value: "{{ .Values.matrixRtcIp }}"
         # Wait for initial startup. It will not have connected, since the old pod is still connected.
         startupProbe:
           exec:
