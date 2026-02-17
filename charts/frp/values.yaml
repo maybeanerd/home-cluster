@@ -8,3 +8,4 @@ serverPort: 7000
 reverseProxyIp: 'traefik.traefik.svc.cluster.local'
 matrixRtcTcpIp: 'matrix-matrix-rtc-sfu-tcp.matrix.svc.cluster.local'
 matrixRtcUdpIp: 'matrix-matrix-rtc-sfu-muxed-udp.matrix.svc.cluster.local'
+matrixRtcTurnIp: 'matrix-matrix-rtc-sfu-turn.matrix.svc.cluster.local'

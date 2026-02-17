@@ -46,6 +46,8 @@ spec:
           value: "{{ .Values.matrixRtcTcpIp }}"
         - name: MATRIX_RTC_UDP_IP
           value: "{{ .Values.matrixRtcUdpIp }}"
+        - name: MATRIX_RTC_TURN_IP
+          value: "{{ .Values.matrixRtcTurnIp }}"
         # Wait for initial startup. It will not have connected, since the old pod is still connected.
         startupProbe:
           exec:
