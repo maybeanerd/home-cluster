@@ -85,6 +85,9 @@ matrix-stack:
       exposedServices:
         turn:
           enabled: true
+          # These are also the default values, but the schema wants them to be explicitly set when the TURN server is enabled
+          portType: NodePort
+          port: 31478
       nodeSelector:
         kubernetes.io/role: worker
     nodeSelector:
