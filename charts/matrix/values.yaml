@@ -82,12 +82,18 @@ matrix-stack:
     sfu:
       manualIP: '46.225.62.164'
       useStunToDiscoverPublicIP: false
+      nodeSelector:
+        kubernetes.io/role: worker
     nodeSelector:
       kubernetes.io/role: worker
 
   # Well-known delegation for federation
   wellKnownDelegation:
     enabled: true
+
+  haproxy:
+    nodeSelector:
+      kubernetes.io/role: worker
 
   # PostgreSQL database
   postgres:
