@@ -9,5 +9,6 @@ services:
       - '443:443'
       - '30881:30881' # Matrix RTC TCP
       - '30882:30882/udp' # Matrix RTC UDP (Muxed)
+      - '31478:31478/udp' # Matrix RTC TURN
     volumes:
       - ./frps.toml:/etc/frps.toml:ro

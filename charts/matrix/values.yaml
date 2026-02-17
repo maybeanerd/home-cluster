@@ -82,6 +82,9 @@ matrix-stack:
     sfu:
       manualIP: '46.225.62.164'
       useStunToDiscoverPublicIP: false
+      exposedServices:
+        turn:
+          enabled: true
       nodeSelector:
         kubernetes.io/role: worker
     nodeSelector:

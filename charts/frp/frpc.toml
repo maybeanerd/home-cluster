@@ -34,3 +34,10 @@ type = "udp"
 localIP = "{{ .Envs.MATRIX_RTC_UDP_IP }}"
 localPort = 30882
 remotePort = 30882
+
+[[proxies]]
+name = "matrix-rtc-turn"
+type = "udp"
+localIP = "{{ .Envs.MATRIX_RTC_TURN_IP }}"
+localPort = 31478
+remotePort = 31478
