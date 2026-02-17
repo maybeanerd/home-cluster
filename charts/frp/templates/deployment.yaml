@@ -17,6 +17,16 @@ spec:
       annotations:
         checksum/config: {{ .Files.Get "frpc.toml" | sha256sum | quote }}
     spec:
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
       containers:
       - name: frp
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
