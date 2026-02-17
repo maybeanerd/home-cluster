@@ -10,5 +10,6 @@ services:
       - '30881:30881' # Matrix RTC TCP
       - '30882:30882/udp' # Matrix RTC UDP (Muxed)
       - '31478:31478/udp' # Matrix RTC TURN
+      - '30000-30100:30000-30100/udp' # Matrix RTC TURN relay range
     volumes:
       - ./frps.toml:/etc/frps.toml:ro

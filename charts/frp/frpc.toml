@@ -41,3 +41,12 @@ type = "udp"
 localIP = "{{ .Envs.MATRIX_RTC_TURN_IP }}"
 localPort = 31478
 remotePort = 31478
+
+{{- range $_, $v := parseNumberRange "30000-30100" }}
+[[proxies]]
+name = "matrix-rtc-media-{{ $v }}"
+type = "udp"
+localIP = "{{ $.Envs.MATRIX_RTC_TURN_IP }}"
+localPort = {{ $v }}
+remotePort = {{ $v }}
+{{- end }}
