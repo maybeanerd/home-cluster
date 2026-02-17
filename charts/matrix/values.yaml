@@ -82,6 +82,15 @@ matrix-stack:
     sfu:
       manualIP: '46.225.62.164'
       useStunToDiscoverPublicIP: false
+      additional:
+        config.yaml:
+          config: |
+            rtc:
+              port_range_start: 30000
+              port_range_end: 30100
+            turn:
+              relay_range_start: 30000
+              relay_range_end: 30100
       exposedServices:
         turn:
           enabled: true
