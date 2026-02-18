@@ -3,6 +3,8 @@ kind: Setting
 metadata:
   name: backup-target
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 value: "s3://{{ .Values.backups.s3.bucket }}@{{ .Values.backups.s3.region }}/"
 ---
 apiVersion: longhorn.io/v1beta2
@@ -10,6 +12,8 @@ kind: Setting
 metadata:
   name: backup-target-credential-secret
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 value: "hetzner-s3-backup-secret"
 ---
 apiVersion: longhorn.io/v1beta2
@@ -17,6 +21,8 @@ kind: Setting
 metadata:
   name: recurring-job-selector
   namespace: {{ .Release.Namespace }}
+  annotations:
+    argocd.argoproj.io/sync-options: Replace=true
 # This tells Longhorn to apply the 'daily-s3' job to ALL volumes by default
 value: '[{"name":"daily-s3", "isGroup":true}]'
 ---
