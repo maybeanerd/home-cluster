@@ -3,12 +3,12 @@ longhorn:
     jobEnabled: false
   defaultSettings:
     defaultDataPath: /data/raid/longhorn
-    defaultReplicaCount: "1"
+    defaultReplicaCount: '1'
     createDefaultDiskLabeledNodes: true
   persistence:
     defaultClassReplicaCount: 1
   systemManagedComponentsNodeSelector:
-    node.longhorn.io/create-default-disk: "config"
+    node.longhorn.io/create-default-disk: 'config'
   createDefaultDiskLabeledNodes: true
   longhornUI:
     replicas: 1
@@ -16,3 +16,9 @@ longhorn:
     ui:
       type: NodePort
       nodePort: 32269
+
+backups:
+  s3:
+    endpoint: 'https://fsn1.your-objectstorage.com'
+    accessKey: 'TODO_HETZNER_KEY'
+    secretKey: 'TODO_HETZNER_SECRET'

@@ -1,0 +1,36 @@
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-s3
+  namespace: {{ .Release.Namespace }}
+spec:
+  concurrency: 1
+  cron: "0 3 * * *"
+  groups:
+  - default
+  name: daily-s3
+  retain: 14
+  task: backup
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hetzner-s3-backup-secret
+  namespace: {{ .Release.Namespace }}
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: {{ .Values.backups.s3.accessKey | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
+  AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
+  VIRTUAL_HOSTED_STYLE: "true"
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-system-backup
+  namespace: {{ .Release.Namespace }}
+spec:
+  cron: "0 4 * * *"   # Runs at 4 AM (after your volume backups at 3 AM)
+  task: "system-backup"
+  retain: 7           # Keeps 1 week of system state
+  concurrency: 1
