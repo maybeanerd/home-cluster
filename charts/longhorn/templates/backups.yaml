@@ -23,3 +23,14 @@ stringData:
   AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
   AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
   VIRTUAL_HOSTED_STYLE: "true"
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-system-backup
+  namespace: {{ .Release.Namespace }}
+spec:
+  cron: "0 4 * * *"   # Runs at 4 AM (after your volume backups at 3 AM)
+  task: "system-backup"
+  retain: 7           # Keeps 1 week of system state
+  concurrency: 1
