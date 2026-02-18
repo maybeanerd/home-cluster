@@ -1,0 +1,47 @@
+apiVersion: longhorn.io/v1beta2
+kind: Setting
+metadata:
+  name: backup-target
+  namespace: {{ .Release.Namespace }}
+value: "s3://{{ .Values.backups.s3.bucket }}@{{ .Values.backups.s3.region }}/"
+---
+apiVersion: longhorn.io/v1beta2
+kind: Setting
+metadata:
+  name: backup-target-credential-secret
+  namespace: {{ .Release.Namespace }}
+value: "hetzner-s3-backup-secret"
+---
+apiVersion: longhorn.io/v1beta2
+kind: Setting
+metadata:
+  name: recurring-job-selector
+  namespace: {{ .Release.Namespace }}
+# This tells Longhorn to apply the 'daily-s3' job to ALL volumes by default
+value: '[{"name":"daily-s3", "isGroup":true}]'
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-s3
+  namespace: {{ .Release.Namespace }}
+spec:
+  concurrency: 1
+  cron: "0 3 * * *"
+  groups:
+  - default
+  name: daily-s3
+  retain: 14
+  task: backup
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hetzner-s3-backup-secret
+  namespace: {{ .Release.Namespace }}
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: {{ .Values.backups.s3.accessKey | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
+  AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
+  VIRTUAL_HOSTED_STYLE: "true"
