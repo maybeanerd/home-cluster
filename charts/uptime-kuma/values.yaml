@@ -9,7 +9,7 @@ controllers:
       main:
         image:
           repository: louislam/uptime-kuma
-          tag: 2.1.1
+          tag: 2.1.3
           pullPolicy: IfNotPresent
 
         env: []
