@@ -168,6 +168,7 @@ controllers:
           tag: v26.02
         env:
           TZ: UTC
+          CHOWN: 'false'
           MAUTRIX_AS_TOKEN:
             secretKeyRef:
               name: matrix-whatsapp-bridge
@@ -181,6 +182,11 @@ controllers:
           runAsUser: 1337
           runAsGroup: 1337
           fsGroup: 1337
+          readOnlyRootFilesystem: false
+    pod:
+      securityContext:
+        fsGroup: 1337
+        fsGroupChangePolicy: 'OnRootMismatch'
 
 service:
   whatsapp:
