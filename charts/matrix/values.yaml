@@ -221,6 +221,10 @@ configMaps:
           as_token: ${MAUTRIX_AS_TOKEN}
           hs_token: ${MAUTRIX_HS_TOKEN}
 
+        network:
+          address: 0.0.0.0
+          port: 29318
+
         encryption:
           allow: true
           default: true
