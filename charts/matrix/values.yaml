@@ -141,14 +141,13 @@ matrix-stack:
       kubernetes.io/role: worker
 
 # Using the common chart for resources outside of the matrix stack
-global:
-  nameOverride: 'integration'
 
 controllers:
   whatsapp:
     type: deployment
     containers:
       app:
+        nameOverride: 'whatsapp-bridge'
         image:
           repository: dock.mau.dev/mautrix/whatsapp
           tag: v0.11.0
