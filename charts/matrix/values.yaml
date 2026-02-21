@@ -27,11 +27,11 @@ matrix-stack:
       whatsapp-bridge:
         config: |
           app_service_config_files:
-            - /data/registrations/whatsapp-registration.ya
+            - /data/registrations/whatsapp-registration.yaml
     extraVolumes:
       - name: whatsapp-registration
         secret:
-          secretName: whatsapp-registration
+          secretName: whatsapp-bridge-credentials
     extraVolumeMounts:
       - name: whatsapp-registration
         mountPath: /data/registrations/whatsapp-registration.yaml
@@ -250,7 +250,7 @@ app-template:
     registration:
       enabled: true
       type: secret
-      name: '{{ printf "%s-registration" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+      name: '{{ printf "%s-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
       globalMounts:
         - path: /data/registration.yaml
           subPath: registration.yaml
