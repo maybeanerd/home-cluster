@@ -168,7 +168,7 @@ controllers:
           runAsGroup: 1337
           fsGroup: 1337
   placeholder:
-    enabled: false
+    enabled: true
 
 service:
   whatsapp:
