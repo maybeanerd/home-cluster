@@ -159,6 +159,7 @@ global:
   # This stops the library from collapsing 'matrix-whatsapp' to 'matrix'
   # It ensures the suffix is always appended.
   nameOverride: ''
+  fullnameOverride: ''
 
 controllers:
   whatsapp:
