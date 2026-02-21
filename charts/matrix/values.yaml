@@ -31,7 +31,7 @@ matrix-stack:
     extraVolumes:
       - name: whatsapp-registration
         secret:
-          secretName: whatsapp-credentials
+          secretName: matrix-whatsapp-credentials
     extraVolumeMounts:
       - name: whatsapp-registration
         mountPath: /data/registrations/whatsapp-registration.yaml
@@ -141,118 +141,118 @@ matrix-stack:
       kubernetes.io/role: worker
 
 # Using the common chart for resources outside of the matrix stack
-app-template:
-  controllers:
-    whatsapp:
-      type: deployment
-      containers:
-        app:
-          image:
-            repository: dock.mau.dev/mautrix/whatsapp
-            tag: v0.11.0
-          env:
-            TZ: UTC
-            MAUTRIX_AS_TOKEN:
-              secretKeyRef:
-                name: &mautrixTokenSecretName '{{ printf "%s-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
-                key: as_token
-            MAUTRIX_HS_TOKEN:
-              secretKeyRef:
-                name: *mautrixTokenSecretName
-                key: hs_token
-          # The bridge requires UID 1337 for /data access by default
-          securityContext:
-            runAsUser: 1337
-            runAsGroup: 1337
-            fsGroup: 1337
 
-  service:
-    app:
-      controller: whatsapp
-      ports:
-        http:
-          port: 29318
+controllers:
+  whatsapp:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: dock.mau.dev/mautrix/whatsapp
+          tag: v0.11.0
+        env:
+          TZ: UTC
+          MAUTRIX_AS_TOKEN:
+            secretKeyRef:
+              name: &mautrixTokenSecretName '{{ printf "%s-whatsapp-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+              key: as_token
+          MAUTRIX_HS_TOKEN:
+            secretKeyRef:
+              name: *mautrixTokenSecretName
+              key: hs_token
+        # The bridge requires UID 1337 for /data access by default
+        securityContext:
+          runAsUser: 1337
+          runAsGroup: 1337
+          fsGroup: 1337
 
-  secrets:
-    credentials:
-      enabled: true
-      stringData:
-        as_token: &asToken 'TODOREPLACEME'
-        hs_token: &hsToken 'TODOREPLACEME'
-        registration.yaml: |
-          id: whatsapp
-          as_token: *asToken
-          hs_token: *hsToken
-          namespaces:
-            users:
-              - exclusive: true
-                regex: '@whatsapp_.*:cluster\.diluz\.io'
-            aliases:
-              - exclusive: true
-                regex: '#whatsapp_.*:cluster\.diluz\.io'
-          url: http://whatsapp.matrix.svc.cluster.local:29318
-          sender_localpart: whatsappbot
-          rate_limited: false
+service:
+  app:
+    controller: whatsapp
+    ports:
+      http:
+        port: 29318
 
-  configMaps:
-    whatsapp-config:
-      enabled: true
-      data:
-        config.yaml: |
-          homeserver:
-            address: http://synapse.matrix.svc.cluster.local:8008
-            domain: cluster.diluz.io
+secrets:
+  whatsapp-credentials:
+    enabled: true
+    stringData:
+      as_token: &asToken 'TODOREPLACEME'
+      hs_token: &hsToken 'TODOREPLACEME'
+      registration.yaml: |
+        id: whatsapp
+        as_token: *asToken
+        hs_token: *hsToken
+        namespaces:
+          users:
+            - exclusive: true
+              regex: '@whatsapp_.*:cluster\.diluz\.io'
+          aliases:
+            - exclusive: true
+              regex: '#whatsapp_.*:cluster\.diluz\.io'
+        url: http://whatsapp.matrix.svc.cluster.local:29318
+        sender_localpart: whatsappbot
+        rate_limited: false
 
-          appservice:
-            id: whatsapp
-            bot_username: whatsappbot
-            address: http://whatsapp.matrix.svc.cluster.local:29318
-            database:
-              type: sqlite3-fk-wal
-              uri: /data/mautrix-whatsapp.db
-            as_token: ${MAUTRIX_AS_TOKEN}
-            hs_token: ${MAUTRIX_HS_TOKEN}
-
-          encryption:
-            allow: true
-            default: true
-            require: true
-            key_sharing:
-              allow: true
-            # Delete keys after sending to prevent long-term storage of decrypted messages
-            ratchet_keys: true
-            delete_keys:
-              delete_outbound_on_ack: true
-              delete_prev_on_new_session: true
-
-          bridge:
-            permissions:
-              "cluster.diluz.io": full
-            # Disable automatic update checks
-            update_notifications: false
-
-          logging:
-            print_level: info
-
-  persistence:
+configMaps:
+  whatsapp-config:
+    enabled: true
     data:
-      enabled: true
-      type: pvc
-      accessMode: ReadWriteOnce
-      size: 2Gi
-      globalMounts:
-        - path: /data
-    whatsapp-config:
-      enabled: true
-      type: configMap
-      name: '{{ printf "%s-whatsapp-config" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
-      globalMounts:
-        - path: /data/config.yaml
-          subPath: config.yaml
-    registration:
-      enabled: true
-      type: secret
-      name: '{{ printf "%s-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
-      globalMounts:
-        - path: /data/registration.yaml
-          subPath: registration.yaml
+      config.yaml: |
+        homeserver:
+          address: http://synapse.matrix.svc.cluster.local:8008
+          domain: cluster.diluz.io
+
+        appservice:
+          id: whatsapp
+          bot_username: whatsappbot
+          address: http://whatsapp.matrix.svc.cluster.local:29318
+          database:
+            type: sqlite3-fk-wal
+            uri: /data/mautrix-whatsapp.db
+          as_token: ${MAUTRIX_AS_TOKEN}
+          hs_token: ${MAUTRIX_HS_TOKEN}
+
+        encryption:
+          allow: true
+          default: true
+          require: true
+          key_sharing:
+            allow: true
+          # Delete keys after sending to prevent long-term storage of decrypted messages
+          ratchet_keys: true
+          delete_keys:
+            delete_outbound_on_ack: true
+            delete_prev_on_new_session: true
+
+        bridge:
+          permissions:
+            "cluster.diluz.io": full
+          # Disable automatic update checks
+          update_notifications: false
+
+        logging:
+          print_level: info
+
+persistence:
+  data:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    globalMounts:
+      - path: /data
+  whatsapp-config:
+    enabled: true
+    type: configMap
+    name: '{{ printf "%s-whatsapp-config" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+    globalMounts:
+      - path: /data/config.yaml
+        subPath: config.yaml
+  registration:
+    enabled: true
+    type: secret
+    name: '{{ printf "%s-whatsapp-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+    globalMounts:
+      - path: /data/registration.yaml
+        subPath: registration.yaml
