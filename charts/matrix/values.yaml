@@ -167,7 +167,7 @@ controllers:
           fsGroup: 1337
 
 service:
-  app:
+  whatsapp:
     controller: whatsapp
     ports:
       http:
@@ -235,7 +235,7 @@ configMaps:
           print_level: info
 
 persistence:
-  data:
+  whatsapp-data:
     enabled: true
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
@@ -249,7 +249,7 @@ persistence:
     globalMounts:
       - path: /data/config.yaml
         subPath: config.yaml
-  registration:
+  whatsapp-registration:
     enabled: true
     type: secret
     name: '{{ printf "%s-whatsapp-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
