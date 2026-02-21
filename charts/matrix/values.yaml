@@ -31,7 +31,7 @@ matrix-stack:
     extraVolumes:
       - name: whatsapp-registration
         secret:
-          secretName: whatsapp-bridge-credentials
+          secretName: whatsapp-credentials
     extraVolumeMounts:
       - name: whatsapp-registration
         mountPath: /data/registrations/whatsapp-registration.yaml
@@ -190,7 +190,7 @@ app-template:
             aliases:
               - exclusive: true
                 regex: '#whatsapp_.*:cluster\.diluz\.io'
-          url: http://whatsapp.default.svc.cluster.local:29318
+          url: http://whatsapp.matrix.svc.cluster.local:29318
           sender_localpart: whatsappbot
           rate_limited: false
 
@@ -200,11 +200,13 @@ app-template:
       data:
         config.yaml: |
           homeserver:
-            address: http://synapse.matrix-stack.svc.cluster.local:8008
+            address: http://synapse.matrix.svc.cluster.local:8008
             domain: cluster.diluz.io
 
           appservice:
-            address: http://whatsapp.default.svc.cluster.local:29318
+            id: whatsapp
+            bot_username: whatsappbot
+            address: http://whatsapp.matrix.svc.cluster.local:29318
             database:
               type: sqlite3-fk-wal
               uri: /data/mautrix-whatsapp.db
@@ -243,7 +245,7 @@ app-template:
     whatsapp-config:
       enabled: true
       type: configMap
-      name: '{{ printf "%s-config" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+      name: '{{ printf "%s-whatsapp-config" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
       globalMounts:
         - path: /data/config.yaml
           subPath: config.yaml
