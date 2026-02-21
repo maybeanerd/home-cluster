@@ -164,11 +164,11 @@ controllers:
               name: matrix-whatsapp-bridge
               key: hs_token
         # The bridge requires UID 1337 for /data access by default
-        securityContext:
-          runAsUser: 1337
-          runAsGroup: 1337
-          fsGroup: 1337
-          readOnlyRootFilesystem: false
+        # securityContext:
+        #   runAsUser: 1337
+        #  runAsGroup: 1337
+        #  fsGroup: 1337
+        #  readOnlyRootFilesystem: false
     pod:
       securityContext:
         fsGroup: 1337
