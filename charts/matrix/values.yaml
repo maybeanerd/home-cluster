@@ -247,14 +247,14 @@ persistence:
   whatsapp-config:
     enabled: true
     type: configMap
-    name: '{{ printf "%s-whatsapp-config" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+    name: matrix-whatsapp-bridge
     globalMounts:
       - path: /data/config.yaml
         subPath: config.yaml
   whatsapp-registration:
     enabled: true
     type: secret
-    name: '{{ printf "%s-whatsapp-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+    name: matrix-whatsapp-bridge
     globalMounts:
       - path: /data/registration.yaml
         subPath: registration.yaml
