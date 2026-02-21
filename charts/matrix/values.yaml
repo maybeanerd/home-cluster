@@ -141,6 +141,10 @@ matrix-stack:
       kubernetes.io/role: worker
 
 # Using the common chart for resources outside of the matrix stack
+global:
+  # This stops the library from collapsing 'matrix-whatsapp' to 'matrix'
+  # It ensures the suffix is always appended.
+  nameOverride: ''
 
 controllers:
   whatsapp:
