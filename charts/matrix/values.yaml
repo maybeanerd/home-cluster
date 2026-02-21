@@ -143,6 +143,7 @@ matrix-stack:
 # Using the common chart for resources outside of the matrix stack
 global:
   nameOverride: 'whatsapp-bridge'
+  fullnameOverride: 'matrix-bridge'
 
 controllers:
   whatsapp:
