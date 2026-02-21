@@ -9,3 +9,6 @@ dependencies:
   - name: matrix-stack
     repository: oci://ghcr.io/element-hq/ess-helm
     version: 26.2.2
+  - name: common
+    repository: https://bjw-s-labs.github.io/helm-charts
+    version: 4.6.2
