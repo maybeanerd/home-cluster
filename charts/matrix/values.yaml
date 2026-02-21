@@ -142,10 +142,7 @@ matrix-stack:
 
 # Using the common chart for resources outside of the matrix stack
 global:
-  # This stops the library from collapsing 'matrix-whatsapp' to 'matrix'
-  # It ensures the suffix is always appended.
-  nameOverride: ''
-  fullnameOverride: ''
+  nameOverride: 'integration'
 
 controllers:
   whatsapp:
