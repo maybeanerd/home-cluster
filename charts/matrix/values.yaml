@@ -156,11 +156,11 @@ controllers:
           TZ: UTC
           MAUTRIX_AS_TOKEN:
             secretKeyRef:
-              name: &mautrixTokenSecretName '{{ printf "%s-whatsapp-credentials" (include "bjw-s.common.lib.chart.names.fullname" $) }}'
+              name: matrix-whatsapp-bridge
               key: as_token
           MAUTRIX_HS_TOKEN:
             secretKeyRef:
-              name: *mautrixTokenSecretName
+              name: matrix-whatsapp-bridge
               key: hs_token
         # The bridge requires UID 1337 for /data access by default
         securityContext:
