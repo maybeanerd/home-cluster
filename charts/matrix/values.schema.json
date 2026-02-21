@@ -1,9 +1,14 @@
 {
-    "$schema": "https://json-schema.org/draft/2020-12/schema",
-    "type": "object",
-    "properties": {
-        "matrix-stack": {
-            "$ref": "https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json"
-        }
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "allOf": [
+    {
+      "$ref": "https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-4.6.2/charts/other/app-template/values.schema.json"
     }
+  ],
+  "properties": {
+    "matrix-stack": {
+      "$ref": "https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json"
+    }
+  }
 }

@@ -22,6 +22,22 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
+    # Define configs for bridges
+    additional:
+      whatsapp-bridge:
+        config: |
+          app_service_config_files:
+            - /data/registrations/whatsapp-registration.yaml
+    extraVolumes:
+      - name: whatsapp-registration
+        secret:
+          secretName: matrix-whatsapp-credentials
+    extraVolumeMounts:
+      - name: whatsapp-registration
+        mountPath: /data/registrations/whatsapp-registration.yaml
+        subPath: registration.yaml
+        readOnly: true
+
   # Element Web client
   elementWeb:
     enabled: true
@@ -123,3 +139,126 @@ matrix-stack:
         memory: 2Gi
     nodeSelector:
       kubernetes.io/role: worker
+
+# Using the common chart for resources outside of the matrix stack
+global:
+  nameOverride: 'whatsapp-bridge'
+
+controllers:
+  whatsapp:
+    type: deployment
+    containers:
+      app:
+        image:
+          repository: dock.mau.dev/mautrix/whatsapp
+          tag: v26.02
+        env:
+          TZ: UTC
+          CHOWN: 'false'
+          MAUTRIX_AS_TOKEN:
+            secretKeyRef:
+              name: matrix-whatsapp-bridge
+              key: as_token
+          MAUTRIX_HS_TOKEN:
+            secretKeyRef:
+              name: matrix-whatsapp-bridge
+              key: hs_token
+    pod:
+      securityContext:
+        fsGroup: 1337
+        fsGroupChangePolicy: 'OnRootMismatch'
+
+service:
+  whatsapp:
+    controller: whatsapp
+    ports:
+      http:
+        port: 29318
+
+secrets:
+  whatsapp-credentials:
+    enabled: true
+    stringData:
+      as_token: &asToken 'TODOREPLACEME'
+      hs_token: &hsToken 'TODOREPLACEME'
+      registration.yaml: |
+        id: whatsapp
+        as_token: *asToken
+        hs_token: *hsToken
+        namespaces:
+          users:
+            - exclusive: true
+              regex: '@whatsapp_.*:cluster\.diluz\.io'
+          aliases:
+            - exclusive: true
+              regex: '#whatsapp_.*:cluster\.diluz\.io'
+        url: http://whatsapp.matrix.svc.cluster.local:29318
+        sender_localpart: whatsappbot
+        rate_limited: false
+
+configMaps:
+  whatsapp-config:
+    enabled: true
+    data:
+      config.yaml: |
+        homeserver:
+          address: http://synapse.matrix.svc.cluster.local:8008
+          domain: cluster.diluz.io
+
+        appservice:
+          id: whatsapp
+          bot_username: whatsappbot
+          address: http://whatsapp.matrix.svc.cluster.local:29318
+          database:
+            type: sqlite3-fk-wal
+            uri: /data/mautrix-whatsapp.db
+          as_token: ${MAUTRIX_AS_TOKEN}
+          hs_token: ${MAUTRIX_HS_TOKEN}
+
+        network:
+          address: 0.0.0.0
+          port: 29318
+
+        encryption:
+          allow: true
+          default: true
+          require: true
+          key_sharing:
+            allow: true
+          # Delete keys after sending to prevent long-term storage of decrypted messages
+          ratchet_keys: true
+          delete_keys:
+            delete_outbound_on_ack: true
+            delete_prev_on_new_session: true
+
+        bridge:
+          permissions:
+            "cluster.diluz.io": full
+          # Disable automatic update checks
+          update_notifications: false
+
+        logging:
+          print_level: info
+
+persistence:
+  whatsapp-data:
+    enabled: true
+    type: persistentVolumeClaim
+    accessMode: ReadWriteOnce
+    size: 2Gi
+    globalMounts:
+      - path: /data
+  whatsapp-config:
+    enabled: true
+    type: configMap
+    name: matrix-whatsapp-bridge
+    globalMounts:
+      - path: /data/config.yaml
+        subPath: config.yaml
+  whatsapp-registration:
+    enabled: true
+    type: secret
+    name: matrix-whatsapp-bridge
+    globalMounts:
+      - path: /data/registration.yaml
+        subPath: registration.yaml
