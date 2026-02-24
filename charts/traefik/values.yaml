@@ -5,6 +5,10 @@ traefik:
   ingressRoute:
     dashboard:
       enabled: true
+      matchRule: Host(`traefik.cluster.diluz.io`)
+      entryPoints: ['websecure']
+      middlewares:
+        - name: authentik-admin
   extraObjects:
     - apiVersion: v1
       kind: Service
@@ -21,6 +25,29 @@ traefik:
             targetPort: 8080
             protocol: TCP
             nodePort: 32080
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
+      metadata:
+        name: authentik-admin
+        # TODO make this actually validate for being an admin user, currently it just checks for any valid user
+        spec:
+          forwardAuth:
+            # This address should point to the cluster endpoint provided by the kubernetes service, not the Ingress.
+            address: http://authentik-server.authentik.svc.cluster.local:9000/outpost.goauthentik.io/auth/traefik
+            trustForwardHeader: true
+            authResponseHeaders:
+              - X-authentik-username
+              - X-authentik-groups
+              - X-authentik-entitlements
+              # - X-authentik-email
+              # - X-authentik-name
+              # - X-authentik-uid
+              # - X-authentik-jwt
+              # - X-authentik-meta-jwks
+              # - X-authentik-meta-outpost
+              # - X-authentik-meta-provider
+              # - X-authentik-meta-app
+              # - X-authentik-meta-version
   # always redirect http to https
   ports:
     web:
@@ -36,6 +63,7 @@ traefik:
   providers:
     kubernetesCRD:
       ingressClass: traefik
+      allowCrossNamespace: true
     kubernetesIngress:
       ingressClass: traefik
   # ACME/Let's Encrypt configuration with HTTP challenge
