@@ -12,9 +12,6 @@ longhorn:
   createDefaultDiskLabeledNodes: true
   longhornUI:
     replicas: 1
-  service:
-    ui:
-      type: ClusterIP
   ingress:
     enabled: true
     host: longhorn.cluster.diluz.io
