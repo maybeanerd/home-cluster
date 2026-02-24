@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: hetzner-s3-backup-secret
+  namespace: {{ .Release.Namespace }}
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: {{ .Values.backups.s3.accessKey | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
+  AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
+  VIRTUAL_HOSTED_STYLE: "true"
+---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
@@ -11,18 +23,6 @@ spec:
   name: daily-s3
   retain: 14
   task: backup
----
-apiVersion: v1
-kind: Secret
-metadata:
-  name: hetzner-s3-backup-secret
-  namespace: {{ .Release.Namespace }}
-type: Opaque
-stringData:
-  AWS_ACCESS_KEY_ID: {{ .Values.backups.s3.accessKey | quote }}
-  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
-  AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
-  VIRTUAL_HOSTED_STYLE: "true"
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob

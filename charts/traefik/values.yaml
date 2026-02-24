@@ -5,22 +5,32 @@ traefik:
   ingressRoute:
     dashboard:
       enabled: true
+      matchRule: Host(`traefik.cluster.diluz.io`)
+      entryPoints: ['websecure']
+      middlewares:
+        - name: authentik-admin
   extraObjects:
-    - apiVersion: v1
-      kind: Service
+    - apiVersion: traefik.io/v1alpha1
+      kind: Middleware
       metadata:
-        name: traefik-dashboard
+        name: authentik-admin
       spec:
-        type: NodePort
-        selector:
-          app.kubernetes.io/name: traefik
-          app.kubernetes.io/instance: traefik-traefik
-        ports:
-          - port: 8080
-            name: traefik
-            targetPort: 8080
-            protocol: TCP
-            nodePort: 32080
+        forwardAuth:
+          address: http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/traefik
+          trustForwardHeader: true
+          authResponseHeaders:
+            - X-authentik-username
+            - X-authentik-groups
+            - X-authentik-entitlements
+            # - X-authentik-email
+            # - X-authentik-name
+            # - X-authentik-uid
+            # - X-authentik-jwt
+            # - X-authentik-meta-jwks
+            # - X-authentik-meta-outpost
+            # - X-authentik-meta-provider
+            # - X-authentik-meta-app
+            # - X-authentik-meta-version
   # always redirect http to https
   ports:
     web:
@@ -36,6 +46,7 @@ traefik:
   providers:
     kubernetesCRD:
       ingressClass: traefik
+      allowCrossNamespace: true
     kubernetesIngress:
       ingressClass: traefik
   # ACME/Let's Encrypt configuration with HTTP challenge

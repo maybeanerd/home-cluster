@@ -12,10 +12,11 @@ longhorn:
   createDefaultDiskLabeledNodes: true
   longhornUI:
     replicas: 1
-  service:
-    ui:
-      type: NodePort
-      nodePort: 32269
+  ingress:
+    enabled: true
+    host: longhorn.cluster.diluz.io
+    annotations:
+      traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik-admin@kubernetescrd
 
 backups:
   s3:
