@@ -14,8 +14,7 @@ longhorn:
     replicas: 1
   service:
     ui:
-      type: NodePort
-      nodePort: 32269
+      type: ClusterIP
   ingress:
     enabled: true
     host: longhorn.cluster.diluz.io
