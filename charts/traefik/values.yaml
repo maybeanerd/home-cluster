@@ -14,10 +14,8 @@ traefik:
       kind: Middleware
       metadata:
         name: authentik-admin
-        # TODO make this actually validate for being an admin user, currently it just checks for any valid user
       spec:
         forwardAuth:
-          # This address should point to the cluster endpoint provided by the kubernetes service, not the Ingress.
           address: http://authentik-server.authentik.svc.cluster.local/outpost.goauthentik.io/auth/traefik
           trustForwardHeader: true
           authResponseHeaders:

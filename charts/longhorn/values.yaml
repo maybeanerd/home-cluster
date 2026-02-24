@@ -16,7 +16,6 @@ longhorn:
     enabled: true
     host: longhorn.cluster.diluz.io
     annotations:
-      # Tell Traefik to use your authentik middleware
       traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik-admin@kubernetescrd
 
 backups:
