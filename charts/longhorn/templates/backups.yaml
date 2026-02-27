@@ -34,5 +34,5 @@ spec:
   task: "system-backup"
   retain: 7           # Keeps 1 week of system state
   concurrency: 1
-parameters:
+  parameters:
     volumeBackupPolicy: "disabled"
