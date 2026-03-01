@@ -76,6 +76,11 @@ authentik:
                       - worker
   redis:
     enabled: true
+    # temporarily override image since old ones were deleted
+    image:
+      registry: docker.io
+      repository: bitnami/redis
+      tag: latest
     master:
       persistence:
         enabled: false
