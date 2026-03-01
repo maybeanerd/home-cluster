@@ -80,7 +80,7 @@ authentik:
     image:
       registry: docker.io
       repository: bitnami/redis
-      tag: 8.2.1-debian-12-r0
+      tag: latest
     master:
       persistence:
         enabled: false
