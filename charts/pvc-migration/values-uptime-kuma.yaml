@@ -1,0 +1,8 @@
+---
+# Example values for uptime-kuma migration
+enabled: true
+migrations:
+  - sourcePvc: uptime-kuma-data
+    destPvc: uptime-kuma-data-longhorn
+    size: 1Gi
+    storageClass: longhorn

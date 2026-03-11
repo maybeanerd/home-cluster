@@ -1,0 +1,26 @@
+---
+# Set to false to disable the chart after migration is complete
+enabled: true
+
+# List of PVC migrations to perform
+migrations: []
+  # - sourcePvc: uptime-kuma-data
+  #   destPvc: uptime-kuma-data-longhorn
+  #   size: 1Gi
+  #   storageClass: longhorn
+  #   accessMode: ReadWriteOnce  # optional, default below
+
+# Defaults applied to each migration when not specified
+defaults:
+  storageClass: longhorn
+  accessMode: ReadWriteOnce
+
+# Job configuration
+job:
+  image: alpine:3.19
+  # Alternative: eeacms/rsync (has rsync pre-installed)
+  #   image: eeacms/rsync
+  #   command: ["rsync", "-av", "--delete", "/source/.", "/dest/"]
+  ttlSecondsAfterFinished: 86400  # Cleanup after 24h
+  # Optional: override command (e.g. for eeacms/rsync which has rsync pre-installed)
+  # command: ["rsync", "-av", "--delete", "/source/.", "/dest/"]
