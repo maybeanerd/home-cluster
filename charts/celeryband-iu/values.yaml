@@ -3,8 +3,6 @@
 
 controllers:
   main:
-    # TODO revert this scale down
-    replicas: 0
     strategy: RollingUpdate
     containers:
       main:
@@ -61,12 +59,6 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /app/data
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: celeryband-iu-data
-      destPvc: celeryband-iu-data-longhorn
 
 ingress:
   main:
