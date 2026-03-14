@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: homeassistant/home-assistant
@@ -85,9 +85,3 @@ persistence:
   claimName: home-assisstant-longhorn
   size: 5Gi
   storageClass: longhorn
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: home-assistant
-      destPvc: home-assisstant-longhorn

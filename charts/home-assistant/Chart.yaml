@@ -12,7 +12,3 @@ icon: https://design.home-assistant.io/images/logo-variants.png
 maintainers:
   - name: sebastian
     email: sebastian@diluz.io
-dependencies:
-  - name: pvc-migration
-    version: 0.1.0
-    repository: file://../pvc-migration
