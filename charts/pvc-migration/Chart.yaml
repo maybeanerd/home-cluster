@@ -1,6 +1,6 @@
 ---
 apiVersion: v2
-description: Reusable chart to migrate PVCs from NFS to Longhorn (or other storage classes)
+description: Reusable chart to migrate PVCs from their current volume clas to Longhorn (or other storage classes)
 name: pvc-migration
 version: 0.1.0
 maintainers:
