@@ -2,7 +2,7 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 0
+replicaCount: 1
 
 image:
   repository: jellyfin/jellyfin
@@ -125,9 +125,3 @@ extraVolumes: []
 extraVolumeMounts: []
   # - mountPath: /dev/dri/renderD129
   #  name: renderD129
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: jellyfin-config
-      destPvc: jellyfin-config-longhorn
