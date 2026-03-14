@@ -61,7 +61,7 @@ persistence:
       - path: /app/data
 
 pvc-migration:
-  enabled: true
+  enabled: false
   migrations:
     - sourcePvc: celeryband-test-data
       destPvc: celeryband-test-data-longhorn
