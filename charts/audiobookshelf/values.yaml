@@ -3,8 +3,6 @@
 
 controllers:
   main:
-    # TODO revert this scale down
-    replicas: 0
     containers:
       main:
         image:
@@ -71,15 +69,3 @@ ingress:
             service:
               identifier: main
               port: http
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: audiobookshelf-config
-      destPvc: audiobookshelf-config-longhorn
-    - sourcePvc: audiobookshelf-metadata
-      destPvc: audiobookshelf-metadata-longhorn
-    - sourcePvc: audiobookshelf-audiobooks
-      destPvc: audiobookshelf-audiobooks-longhorn
-    - sourcePvc: audiobookshelf-podcasts
-      destPvc: audiobookshelf-podcasts-longhorn
