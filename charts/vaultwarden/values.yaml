@@ -3,6 +3,8 @@
 controllers:
   main:
     strategy: Recreate
+    # TODO revert this scale down
+    replicas: 0
     containers:
       main:
         image:
@@ -89,8 +91,16 @@ defaultPodOptions:
                   - worker
 
 persistence:
-  data:
+  data-longhorn:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
-    size: 1Gi
+    storageClass: "longhorn"
+    size: 20Gi
+    globalMounts:
+      - path: /data
+
+pvc-migration:
+  enabled: true
+  migrations:
+    - sourcePvc: vaultwarden-data
+      destPvc: vaultwarden-data-longhorn
