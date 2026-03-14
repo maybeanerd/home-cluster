@@ -1,0 +1,47 @@
+{{- if .Values.enabled }}
+{{- range $migration := .Values.migrations }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ include "pvc-migration.jobName" (list $ $migration) }}
+  namespace: {{ $.Release.Namespace | quote }}
+  labels:
+    {{- include "pvc-migration.labels" $ | nindent 4 }}
+    app.kubernetes.io/component: migration-job
+spec:
+  ttlSecondsAfterFinished: {{ $.Values.job.ttlSecondsAfterFinished }}
+  backoffLimit: 3
+  template:
+    metadata:
+      labels:
+        {{- include "pvc-migration.labels" $ | nindent 8 }}
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: rsync
+          image: {{ $.Values.job.image | quote }}
+          {{- if $.Values.job.command }}
+          command: {{ $.Values.job.command | toJson }}
+          {{- else }}
+          command:
+            - sh
+            - -c
+            - |
+              apk add --no-cache rsync
+              rsync -av --delete /source/. /dest/
+          {{- end }}
+          volumeMounts:
+            - name: source
+              mountPath: /source
+            - name: dest
+              mountPath: /dest
+      volumes:
+        - name: source
+          persistentVolumeClaim:
+            claimName: {{ $migration.sourcePvc | quote }}
+        - name: dest
+          persistentVolumeClaim:
+            claimName: {{ $migration.destPvc | quote }}
+{{- end }}
+{{- end }}

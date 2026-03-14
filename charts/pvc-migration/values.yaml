@@ -1,0 +1,14 @@
+---
+# Set to false to disable the chart after migration is complete
+enabled: true
+
+# List of PVC migrations to perform
+migrations: []
+  # - sourcePvc: serviceToMigrate-data
+  #   destPvc: serviceToMigrate-data-longhorn
+
+# Job configuration
+job:
+  image: alpine:3.19
+  # Cleanup after 24h
+  ttlSecondsAfterFinished: 86400
