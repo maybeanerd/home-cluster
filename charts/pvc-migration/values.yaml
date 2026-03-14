@@ -10,4 +10,5 @@ migrations: []
 # Job configuration
 job:
   image: alpine:3.19
-  ttlSecondsAfterFinished: 86400 # Cleanup after 24h
+  # Cleanup after 24h
+  ttlSecondsAfterFinished: 86400
