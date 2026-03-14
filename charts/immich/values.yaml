@@ -10,7 +10,7 @@ immich:
           quality: 80
       library:
         scan:
-          cronExpression: '0 4 * * *'
+          cronExpression: "0 4 * * *"
       machineLearning:
         availabilityChecks:
           enabled: true
@@ -24,33 +24,33 @@ immich:
         databaseCleanup: true
         generateMemories: true
         missingThumbnails: true
-        startTime: '03:00'
+        startTime: "03:00"
         syncQuotaUsage: true
       notifications:
         smtp:
           enabled: true
-          from: 'Immich <noreply@diluzio.dev>'
-          replyTo: ''
+          from: "Immich <noreply@diluzio.dev>"
+          replyTo: ""
           transport:
-            host: 'smtp.servivum.com'
+            host: "smtp.servivum.com"
             ignoreCert: false
-            password: 'TODOCHANGEME'
+            password: "TODOCHANGEME"
             port: 587
-            username: 'noreply@diluzio.dev'
+            username: "noreply@diluzio.dev"
       oauth:
         enabled: true
         autoLaunch: true
         autoRegister: true
-        buttonText: 'Login with Authentik'
-        clientId: 'x93MIUTyE80epWJKx2ie5yIqqxR2ODPD6aV2vwIS'
+        buttonText: "Login with Authentik"
+        clientId: "x93MIUTyE80epWJKx2ie5yIqqxR2ODPD6aV2vwIS"
         defaultStorageQuota: 50
-        issuerUrl: 'https://auth.cluster.diluz.io/application/o/immich/'
+        issuerUrl: "https://auth.cluster.diluz.io/application/o/immich/"
         timeout: 30000
       passwordLogin:
         enabled: false
       server:
-        externalDomain: 'https://immich.cluster.diluz.io'
-        loginPageMessage: ''
+        externalDomain: "https://immich.cluster.diluz.io"
+        loginPageMessage: ""
         # not in default at all
         publicUsers: true
       storageTemplate:
@@ -64,14 +64,11 @@ immich:
       size: 1Ti
       accessMode: ReadWriteOnce
     library:
-      storageClass: nfs-client
-      size: 1Ti
-      accessMode: ReadWriteOnce
+      existingClaim: data-immich-library-longhorn
     machine-learning-cache:
-      storageClass: nfs-client
-      size: 10Gi
+      storageClass: longhorn
+      size: 20Gi
       accessMode: ReadWriteOnce
-
   defaultPodOptions:
     affinity:
       nodeAffinity:
@@ -98,8 +95,8 @@ immich:
       password: TODOCHANGEME
     primary:
       persistence:
-        storageClass: nfs-client
-        size: 1Gi
+        enabled: true
+        existingClaim: "data-immich-postgresql-longhorn"
       affinity:
         nodeAffinity:
           preferredDuringSchedulingIgnoredDuringExecution:
@@ -110,3 +107,11 @@ immich:
                     operator: In
                     values:
                       - worker
+
+pvc-migration:
+  enabled: true
+  migrations:
+    - sourcePvc: immich-library
+      destPvc: data-immich-library-longhorn
+    - sourcePvc: data-immich-postgresql-0
+      destPvc: data-immich-postgresql-longhorn
