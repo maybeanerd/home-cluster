@@ -107,11 +107,3 @@ immich:
                     operator: In
                     values:
                       - worker
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: immich-library
-      destPvc: data-immich-library-longhorn
-    - sourcePvc: data-immich-postgresql-0
-      destPvc: data-immich-postgresql-longhorn
