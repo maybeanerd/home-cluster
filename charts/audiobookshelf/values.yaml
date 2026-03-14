@@ -3,6 +3,8 @@
 
 controllers:
   main:
+    # TODO revert this scale down
+    replicas: 0
     containers:
       main:
         image:
@@ -26,30 +28,38 @@ serviceAccount:
   create: true
 
 persistence:
-  config:
+  config-longhorn:
     enabled: true
+    globalMounts:
+      - path: /config
     type: persistentVolumeClaim
-    storageClass: 'nfs-client'
+    storageClass: "longhorn"
     accessMode: ReadWriteOnce
     size: 1Gi
-  metadata:
+  metadata-longhorn:
     enabled: true
+    globalMounts:
+      - path: /metadata
     type: persistentVolumeClaim
-    storageClass: 'nfs-client'
+    storageClass: "longhorn"
     accessMode: ReadWriteOnce
     size: 1Gi
-  audiobooks:
+  audiobooks-longhorn:
     enabled: true
+    globalMounts:
+      - path: /audiobooks
     type: persistentVolumeClaim
-    storageClass: 'nfs-client'
+    storageClass: "longhorn"
     accessMode: ReadWriteOnce
-    size: 1Gi
-  podcasts:
+    size: 300Gi
+  podcasts-longhorn:
     enabled: true
+    globalMounts:
+      - path: /podcasts
     type: persistentVolumeClaim
-    storageClass: 'nfs-client'
+    storageClass: "longhorn"
     accessMode: ReadWriteOnce
-    size: 1Gi
+    size: 200Gi
 
 ingress:
   main:
@@ -61,3 +71,15 @@ ingress:
             service:
               identifier: main
               port: http
+
+pvc-migration:
+  enabled: true
+  migrations:
+    - sourcePvc: audiobookshelf-config
+      destPvc: audiobookshelf-config-longhorn
+    - sourcePvc: audiobookshelf-metadata
+      destPvc: audiobookshelf-metadata-longhorn
+    - sourcePvc: audiobookshelf-audiobooks
+      destPvc: audiobookshelf-audiobooks-longhorn
+    - sourcePvc: audiobookshelf-podcasts
+      destPvc: audiobookshelf-podcasts-longhorn
