@@ -4,7 +4,8 @@
 controllers:
   main:
     strategy: Recreate
-
+    # TODO revert this scale down
+    replicas: 0
     containers:
       main:
         image:
@@ -69,10 +70,16 @@ ingress:
               port: http
 
 persistence:
-  data:
+  data-longhorn:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
-    size: 1Gi
+    storageClass: "longhorn"
+    size: 20Gi
     globalMounts:
       - path: /app/data
+
+pvc-migration:
+  enabled: true
+  migrations:
+    - sourcePvc: uptime-kuma-data
+      destPvc: uptime-kuma-data-longhorn
