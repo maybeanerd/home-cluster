@@ -82,9 +82,3 @@ authentik:
     master:
       persistence:
         enabled: false
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: data-authentik-postgresql-0
-      destPvc: data-authentik-postgresql-longhorn

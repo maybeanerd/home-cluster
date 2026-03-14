@@ -13,6 +13,3 @@ dependencies:
   - name: authentik
     version: 2025.4.1
     repository: https://charts.goauthentik.io
-  - name: pvc-migration
-    version: 0.1.0
-    repository: file://../pvc-migration
