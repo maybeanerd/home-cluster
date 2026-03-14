@@ -3,7 +3,6 @@
 
 controllers:
   main:
-    strategy: RollingUpdate
     containers:
       main:
         image:
@@ -19,7 +18,7 @@ controllers:
           CURRENCY: €
           ACCEPTED_DOMAIN: iu.org
           SERVER_URL: https://iu.celery.band
-          NUXT_PUBLIC_DISCLAIMER: 'This platform was not created on behalf of the IU Group or any of its affiliates. It is not officially affiliated with IU International University or the IU Group and is not an authorized source of information from these institutions. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency.'
+          NUXT_PUBLIC_DISCLAIMER: "This platform was not created on behalf of the IU Group or any of its affiliates. It is not officially affiliated with IU International University or the IU Group and is not an authorized source of information from these institutions. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
           SMTP_HOST: smtp.servivum.com
           SMTP_PORT: 587
           SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
@@ -52,10 +51,10 @@ defaultPodOptions:
                   - worker
 
 persistence:
-  data:
+  data-longhorn:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
+    storageClass: "longhorn"
     size: 1Gi
     globalMounts:
       - path: /app/data

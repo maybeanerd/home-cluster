@@ -89,8 +89,10 @@ defaultPodOptions:
                   - worker
 
 persistence:
-  data:
+  data-longhorn:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
-    size: 1Gi
+    storageClass: "longhorn"
+    size: 20Gi
+    globalMounts:
+      - path: /data

@@ -2,7 +2,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ include "home-assistant.fullname" . }}
+  name: {{ .Values.persistence.claimName | quote }}
   labels:
     {{- include "home-assistant.labels" . | nindent 4 }}
 spec:

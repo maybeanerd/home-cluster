@@ -1,6 +1,6 @@
 ---
-# Set to false to disable the chart after migration is complete
-enabled: true
+# Set to true to enable the chart for migration to run
+enabled: false
 
 # List of PVC migrations to perform
 migrations: []

@@ -4,7 +4,6 @@
 controllers:
   main:
     strategy: Recreate
-
     containers:
       main:
         image:
@@ -69,10 +68,10 @@ ingress:
               port: http
 
 persistence:
-  data:
+  data-longhorn:
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
-    storageClass: 'nfs-client'
-    size: 1Gi
+    storageClass: "longhorn"
+    size: 20Gi
     globalMounts:
       - path: /app/data
