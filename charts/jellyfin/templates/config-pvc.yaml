@@ -3,7 +3,7 @@
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: {{ template "jellyfin.fullname" . }}-config
+  name: {{ template "jellyfin.fullname" . }}-config-longhorn
   labels:
     app.kubernetes.io/name: {{ include "jellyfin.name" . }}
     helm.sh/chart: {{ include "jellyfin.chart" . }}

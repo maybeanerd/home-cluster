@@ -8,3 +8,7 @@ type: application
 maintainers:
   - name: sebastian
     email: sebastian@diluz.io
+dependencies:
+  - name: pvc-migration
+    version: 0.1.0
+    repository: file://../pvc-migration

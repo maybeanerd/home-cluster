@@ -2,15 +2,15 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
+replicaCount: 0
 
 image:
   repository: jellyfin/jellyfin
   tag: 10.11.6
   pullPolicy: IfNotPresent
 
-nameOverride: ''
-fullnameOverride: ''
+nameOverride: ""
+fullnameOverride: ""
 
 # Setting this to true enables DLNA which requires the pod to be attached to the
 # host network in order to be useful - this can break things like ingress to the service
@@ -63,8 +63,8 @@ persistence:
     # subPath: some-subpath
     enabled: true
     accessMode: ReadWriteOnce
-    size: 1Gi
-    storageClass: nfs-client
+    size: 5Gi
+    storageClass: longhorn
   media:
     ## Directory where media is persisted
     ## If defined, storageClassName: <storageClass>
@@ -125,3 +125,9 @@ extraVolumes: []
 extraVolumeMounts: []
   # - mountPath: /dev/dri/renderD129
   #  name: renderD129
+
+pvc-migration:
+  enabled: true
+  migrations:
+    - sourcePvc: jellyfin-config
+      destPvc: jellyfin-config-longhorn
