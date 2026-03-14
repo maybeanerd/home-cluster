@@ -47,7 +47,7 @@ spec:
             periodSeconds: 10
             timeoutSeconds: 60
             tcpSocket:
-              port: http 
+              port: http
           startupProbe:
             periodSeconds: 10
             timeoutSeconds: 60
@@ -81,7 +81,7 @@ spec:
       - name: config
       {{- if .Values.persistence.config.enabled }}
         persistentVolumeClaim:
-          claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-config{{- end }}
+          claimName: {{ if .Values.persistence.config.existingClaim }}{{ .Values.persistence.config.existingClaim }}{{- else }}{{ template "jellyfin.fullname" . }}-config-longhorn{{- end }}
       {{- else }}
         emptyDir: {}
       {{- end }}

@@ -1,0 +1,23 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "data-immich-library-longhorn"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  storageClassName: "longhorn"
+  resources:
+    requests:
+      storage: "2Ti"
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: "data-immich-postgresql-longhorn"
+spec:
+  accessModes:
+    - "ReadWriteOnce"
+  storageClassName: "longhorn"
+  resources:
+    requests:
+      storage: "20Gi"
