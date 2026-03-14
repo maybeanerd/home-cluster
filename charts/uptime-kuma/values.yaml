@@ -4,8 +4,6 @@
 controllers:
   main:
     strategy: Recreate
-    # TODO revert this scale down
-    replicas: 0
     containers:
       main:
         image:
@@ -77,9 +75,3 @@ persistence:
     size: 20Gi
     globalMounts:
       - path: /app/data
-
-pvc-migration:
-  enabled: true
-  migrations:
-    - sourcePvc: uptime-kuma-data
-      destPvc: uptime-kuma-data-longhorn
