@@ -6,14 +6,6 @@ enabled: true
 migrations: []
   # - sourcePvc: serviceToMigrate-data
   #   destPvc: serviceToMigrate-data-longhorn
-  #   size: 1Gi
-  #   storageClass: longhorn # optional
-  #   accessMode: ReadWriteOnce  # optional
-
-# Defaults applied to each migration when not specified
-defaults:
-  storageClass: longhorn
-  accessMode: ReadWriteOnce
 
 # Job configuration
 job:
