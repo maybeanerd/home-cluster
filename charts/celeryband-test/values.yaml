@@ -60,12 +60,6 @@ persistence:
     globalMounts:
       - path: /app/data
 
-pvc-migration:
-  enabled: false
-  migrations:
-    - sourcePvc: celeryband-test-data
-      destPvc: celeryband-test-data-longhorn
-
 ingress:
   main:
     enabled: true
