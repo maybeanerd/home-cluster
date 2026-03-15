@@ -134,8 +134,8 @@ authentik:
     # temporarily override image since old ones were deleted
     image:
       registry: docker.io
-      repository: bitnami/redis
-      tag: latest
+      repository: library/redis
+      tag: "8.2.1"
     master:
       persistence:
         enabled: false
