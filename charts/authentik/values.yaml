@@ -60,7 +60,7 @@ authentik:
     image:
       registry: docker.io
       repository: library/postgres
-      tag: "15.17-bookworm"
+      tag: "18.3-bookworm"
     auth:
       password: "TODO CHANGEME"
     primary:
