@@ -10,3 +10,6 @@ dependencies:
   - name: immich
     repository: oci://ghcr.io/maybeanerd/immich-charts
     version: 0.13.5
+  - name: pvc-migration
+    version: 0.1.0
+    repository: file://../pvc-migration
