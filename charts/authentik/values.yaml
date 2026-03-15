@@ -1,5 +1,8 @@
 authentik:
   global:
+    # To override bitnami images
+    security:
+      allowInsecureImages: true
     affinity:
       nodeAffinity:
         # -- Default node affinity rules. Either `none`, `soft` or `hard`
