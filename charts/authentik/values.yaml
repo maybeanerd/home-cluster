@@ -1,5 +1,8 @@
 authentik:
   global:
+    # To override bitnami images
+    security:
+      allowInsecureImages: true
     affinity:
       nodeAffinity:
         # -- Default node affinity rules. Either `none`, `soft` or `hard`
@@ -53,9 +56,13 @@ authentik:
 
   postgresql:
     enabled: true
+    # Overrides since the bitnami images have been removed
+    image:
+      registry: docker.io
+      repository: library/postgres
+      tag: "15.17-bookworm"
     auth:
-      # TODO override in consumer (e.g. in argoCD directly)
-      password: "ThisIsNotASecurePassword"
+      password: "TODO CHANGEME"
     primary:
       persistence:
         enabled: true
@@ -72,6 +79,56 @@ authentik:
                     operator: In
                     values:
                       - worker
+      # From upstream authentik chart, TODO remove once on latest chart version
+      args:
+        - -c
+        - config_file=/bitnami/postgresql/conf/postgresql.conf
+        - -c
+        - hba_file=/bitnami/postgresql/conf/pg_hba.conf
+      configuration: |
+        listen_addresses = '*'
+        port = '5432'
+        wal_level = 'replica'
+        fsync = 'on'
+        hot_standby = 'on'
+        log_connections = 'false'
+        log_disconnections = 'false'
+        log_hostname = 'false'
+        client_min_messages = 'error'
+        include_dir = 'conf.d'
+      pgHbaConfiguration: |
+        host     all             all             0.0.0.0/0               scram-sha-256
+        host     all             all             ::/0                    scram-sha-256
+        local    all             all                                     scram-sha-256
+        host     all             all        127.0.0.1/32                 scram-sha-256
+        host     all             all        ::1/128                      scram-sha-256
+      extendedConfiguration: |
+        max_connections = 500
+      extraEnvVars:
+        - name: POSTGRES_DB
+          value: '{{ (include "postgresql.v1.database" .) }}'
+      resourcesPreset: "none"
+      containerSecurityContext:
+        readOnlyRootFilesystem: true
+      extraVolumeMounts:
+        - name: postgresql-socket
+          mountPath: /var/run/postgresql
+      extraVolumes:
+        - name: postgresql-socket
+          emptyDir: {}
+
+    readReplicas:
+      resourcesPreset: "none"
+    backup:
+      resourcesPreset: "none"
+    passwordUpdateJob:
+      resourcesPreset: "none"
+    volumePermissions:
+      resourcesPreset: "none"
+      image:
+        repository: debian
+        tag: 13-slim
+
   redis:
     enabled: true
     # temporarily override image since old ones were deleted
