@@ -18,7 +18,7 @@ metadata:
 spec:
   concurrency: 1
   # 3 AM every day
-  cron: "0 3 * * 1-5"
+  cron: "0 3 * * 5"
   groups:
   - default
   name: daily-s3
@@ -32,7 +32,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   # 4 AM, after volume backups
-  cron: "0 4 * * 1-5"
+  cron: "0 4 * * 5"
   task: "system-backup"
   retain: 7           # Keeps 1 week of system state
   concurrency: 1
