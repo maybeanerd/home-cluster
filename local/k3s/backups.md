@@ -8,9 +8,9 @@ kubectl create secret generic k3s-etcd-s3-config \
   --from-literal=etcd-s3-access-key="<YOUR_ACCESS_KEY>" \
   --from-literal=etcd-s3-secret-key="<YOUR_SECRET_KEY>" \
   --from-literal=etcd-s3-bucket="<YOUR_BUCKET_NAME>" \
-  --from-literal=etcd-s3-region="fsn1"
-  
-  
+  --from-literal=etcd-s3-region="fsn1" \
+  --from-literal=etcd-s3-folder="k3s-etcd-backups"
+
 ## Use secret to upload backups to s3
   
 sudo nano /etc/rancher/k3s/config.yaml
