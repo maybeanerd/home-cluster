@@ -89,6 +89,10 @@ matrix-stack:
               relay_range_start: 30000
               relay_range_end: 30100
       exposedServices:
+        rtcTcp:
+          port: 30881
+        rtcMuxedUdp:
+          port: 30882
         turn:
           enabled: true
           # These are also the default values, but the schema wants them to be explicitly set when the TURN server is enabled
