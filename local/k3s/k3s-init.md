@@ -43,10 +43,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
 
 ```bash
 curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
-    --server https://cube01:6443 --disable traefik
-```
-```bash
-curl -sfL https://get.k3s.io | INSTALL_K3S_EXEC="agent --server https://cube01:6443 --token SECRET --disable traefik" sh -s -
+    --server https://cube01:6443
 ```
 
 ### set up mnt storage for k3s containerd
@@ -66,7 +63,7 @@ kubectl label nodes cube04 kubernetes.io/role=worker
 ```bash	
 k3s server \
   --cluster-reset \
-  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube01-1706094002
+  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube01-1773835204
 ```
 
 ### set up mnt storage for rpi with external drive on mnt/tardis
