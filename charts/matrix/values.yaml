@@ -90,12 +90,18 @@ matrix-stack:
               relay_range_end: 30100
       exposedServices:
         rtcTcp:
+          enabled: true
+          # These are also the default values, but the schema wants them to be explicitly set
+          portType: NodePort
           port: 30881
         rtcMuxedUdp:
+          enabled: true
+          # These are also the default values, but the schema wants them to be explicitly set
+          portType: NodePort
           port: 30882
         turn:
           enabled: true
-          # These are also the default values, but the schema wants them to be explicitly set when the TURN server is enabled
+          # These are also the default values, but the schema wants them to be explicitly set
           portType: NodePort
           port: 31478
       nodeSelector:
