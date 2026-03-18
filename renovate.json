@@ -15,6 +15,12 @@
       "matchPackageNames": ["authentik"]
     },
     {
+      "description": "Matrix/ESS chart minor releases could be breaking",
+      "automerge": false,
+      "matchUpdateTypes": ["major", "minor"],
+      "matchPackageNames": ["matrix-stack"]
+    },
+    {
       "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
       "automerge": false,
       "matchUpdateTypes": ["major", "minor"],
