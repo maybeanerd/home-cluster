@@ -3,7 +3,7 @@
   "type": "object",
   "properties": {
     "traefik": {
-      "$ref": "https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/master/traefik/values.schema.json"
+      "$ref": "https://raw.githubusercontent.com/traefik/traefik-helm-chart/refs/heads/v39.0/traefik/values.schema.json"
     }
   }
 }
