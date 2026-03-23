@@ -46,7 +46,6 @@ traefik:
   providers:
     kubernetesCRD:
       ingressClass: traefik
-      allowCrossNamespace: true
     kubernetesIngress:
       ingressClass: traefik
   # ACME/Let's Encrypt configuration with HTTP challenge
