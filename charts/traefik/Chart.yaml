@@ -9,4 +9,4 @@ maintainers:
 dependencies:
   - name: traefik
     repository: https://traefik.github.io/charts
-    version: 39.0.5
+    version: 39.0.6
