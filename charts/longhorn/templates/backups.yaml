@@ -38,3 +38,60 @@ spec:
   retain: 14
   parameters:
     volumeBackupPolicy: "if-not-present"
+
+# Manager Restarts
+# Backups often error out when the previous one failed to connect to our flakey s3 and therefore kept some phantom locks. restarting the managers solves this issue, so we do it before creating backups
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: longhorn-restarter-sa
+  namespace: longhorn-system
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: longhorn-restarter-role
+  namespace: longhorn-system
+rules:
+  - apiGroups: ["apps"]
+    resources: ["daemonsets"]
+    resourceNames: ["longhorn-manager"]
+    verbs: ["get", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: longhorn-restarter-binding
+  namespace: longhorn-system
+subjects:
+  - kind: ServiceAccount
+    name: longhorn-restarter-sa
+    namespace: longhorn-system
+roleRef:
+  kind: Role
+  name: longhorn-restarter-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: longhorn-manager-restarter
+  namespace: longhorn-system
+spec:
+  # 2 AM, before backups
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: longhorn-restarter-sa
+          containers:
+          - name: kubectl
+            image: bitnami/kubectl:latest
+            command:
+            - /bin/sh
+            - -c
+            - kubectl rollout restart ds/longhorn-manager -n longhorn-system
+          restartPolicy: OnFailure
+
