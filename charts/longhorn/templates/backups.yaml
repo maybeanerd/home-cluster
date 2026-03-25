@@ -13,6 +13,21 @@ stringData:
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
+  name: daily-volume-backup
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: backup
+  name: daily-volume-backup
+  # 3 AM every day
+  cron: "0 3 * * *"
+  concurrency: 1
+  retain: 14
+  groups:
+    - default
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
   name: daily-system-backup
   namespace: {{ .Release.Namespace }}
 spec:
@@ -22,4 +37,61 @@ spec:
   concurrency: 1
   retain: 14
   parameters:
-    volumeBackupPolicy: "always"
+    volumeBackupPolicy: "if-not-present"
+
+
+# Manager Restarts
+# Backups often error out when the previous one failed to connect to our flakey s3 and therefore kept some phantom locks. restarting the managers solves this issue, so we do it before creating backups
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: longhorn-restarter-sa
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: longhorn-restarter-role
+  namespace: {{ .Release.Namespace }}
+rules:
+  - apiGroups: ["apps"]
+    resources: ["daemonsets"]
+    resourceNames: ["longhorn-manager"]
+    verbs: ["get", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: longhorn-restarter-binding
+  namespace: {{ .Release.Namespace }}
+subjects:
+  - kind: ServiceAccount
+    name: longhorn-restarter-sa
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: longhorn-restarter-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: longhorn-manager-restarter
+  namespace: longhorn-system
+spec:
+  # 2 AM, before backups
+  schedule: "0 2 * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: longhorn-restarter-sa
+          containers:
+            - name: kubectl
+              image: bitnami/kubectl:latest
+              command:
+                - /bin/sh
+                - -c
+                - kubectl rollout restart ds/longhorn-manager -n longhorn-system
+          restartPolicy: OnFailure

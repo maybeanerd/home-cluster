@@ -1,0 +1,15 @@
+{
+  "file_types": {
+    "Helm": [
+      "**/charts/**/*.yaml",
+      "**/charts/**/*.yml",
+      "**/charts/**/*.tpl"
+    ]
+  },
+  "languages": {
+    "Helm": {
+      "formatter": "language_server",
+      "format_on_save": "on"
+    }
+  }
+}
