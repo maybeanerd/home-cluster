@@ -1,6 +1,10 @@
 {
   "file_types": {
-    "Helm": ["charts/**/*.yaml", "charts/**/*.yml"]
+    "Helm": [
+      "**/charts/**/*.yaml",
+      "**/charts/**/*.yml",
+      "**/charts/**/*.tpl"
+    ]
   },
   "languages": {
     "Helm": {
