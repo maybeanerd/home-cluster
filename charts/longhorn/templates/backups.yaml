@@ -10,6 +10,21 @@ stringData:
   AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
   VIRTUAL_HOSTED_STYLE: "true"
 ---
+ apiVersion: longhorn.io/v1beta2 
+  kind: RecurringJob 
+ metadata: 
+   name: daily-volume-backup
+   namespace: {{ .Release.Namespace }} 
+ spec: 
+   task: backup 
+   name: daily-volume-backup
+   # 3 AM every day 
+   cron: "0 3 * * *" 
+   concurrency: 1 
+   retain: 14 
+   groups: 
+     - default
+---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
 metadata:
@@ -22,4 +37,4 @@ spec:
   concurrency: 1
   retain: 14
   parameters:
-    volumeBackupPolicy: "always"
+    volumeBackupPolicy: "if-not-present"
