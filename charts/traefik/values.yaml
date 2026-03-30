@@ -40,6 +40,15 @@ traefik:
             to: websecure
             scheme: https
             permanent: true
+    websecure:
+      http:
+        tls:
+          # Default acme config
+          certResolver: production
+      transport:
+        respondingTimeouts:
+          # Allow upload request to take up to 10 minutes
+          readTimeout: 600s
   # enable ingressClass to let Traefik be default ingress controller
   ingressClass:
     name: traefik
@@ -50,13 +59,14 @@ traefik:
     kubernetesIngress:
       ingressClass: traefik
   # ACME/Let's Encrypt configuration with HTTP challenge
-  additionalArguments:
-    - --certificatesresolvers.production.acme.email=cluster@diluz.io
-    - --certificatesresolvers.production.acme.caServer=https://acme-v02.api.letsencrypt.org/directory
-    - --certificatesresolvers.production.acme.httpChallenge.entryPoint=web
-    - --certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json
-    # Set production as default cert resolver for all TLS connections
-    - --entrypoints.websecure.http.tls.certresolver=production
+  certificatesResolvers:
+    production:
+      acme:
+        email: cluster@diluz.io
+        storage: /ssl-certs/acme-production.json
+        caServer: https://acme-v02.api.letsencrypt.org/directory
+        httpChallenge:
+          entryPoint: web
   # Persist certificates
   persistence:
     enabled: true
