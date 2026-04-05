@@ -64,6 +64,8 @@ spec:
             {{- end }}
             - mountPath: /media
               name: media
+            - mountPath: /cache
+              name: cache
             {{- if .Values.persistence.media.subPath }}
               subPath: {{ .Values.persistence.media.subPath }}
             {{- end }}
@@ -92,6 +94,16 @@ spec:
       {{- else }}
         emptyDir: {}
       {{- end }}
+      # TODO: maybe just give a size restriction on emptyDir instead?
+      - name: cache
+        ephemeral:
+          volumeClaimTemplate:
+            spec:
+              accessModes: [ "ReadWriteOnce" ]
+              storageClassName: "longhorn"
+              resources:
+                requests:
+                  storage: 50Gi
       {{- range .Values.persistence.extraExistingClaimMounts }}
       - name: {{ .name }}
         persistentVolumeClaim:
