@@ -3,7 +3,7 @@
     "type": "object",
     "properties": {
         "matrix-stack": {
-            "$ref": "https://raw.githubusercontent.com/element-hq/ess-helm/main/charts/matrix-stack/values.schema.json"
+            "$ref": "https://raw.githubusercontent.com/element-hq/ess-helm/refs/tags/26.3.2/charts/matrix-stack/values.schema.json"
         }
     }
 }
