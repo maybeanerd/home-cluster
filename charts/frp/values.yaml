@@ -1,6 +1,6 @@
 image:
   repository: ghcr.io/fatedier/frpc
-  tag: v0.68.0
+  tag: v0.68.1
 
 authToken: 'TODOCHANGEME'
 serverAddr: 'frp.diluz.io'
