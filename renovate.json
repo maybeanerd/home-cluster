@@ -27,5 +27,6 @@
       "matchPackageNames": ["jellyfin/jellyfin{/,}**"]
     }
   ],
-  "bumpVersion": "patch"
+  "bumpVersion": "patch",
+  "minimumReleaseAgeBehaviour": "timestamp-optional"
 }
