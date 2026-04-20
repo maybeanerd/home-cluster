@@ -25,6 +25,11 @@
       "automerge": false,
       "matchUpdateTypes": ["major", "minor"],
       "matchPackageNames": ["jellyfin/jellyfin{/,}**"]
+    },
+    {
+      "description": "Group fast reverse proxy updates of client and server",
+      "groupName": "fatedier/frp",
+      "matchPackageNames": ["fatedier/frp**"]
     }
   ],
   "bumpVersion": "patch",
