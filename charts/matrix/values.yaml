@@ -83,7 +83,7 @@ matrix-stack:
       # temporary override until upstream bumps version/releases latest where version bump is included
       image:
         repository: livekit/livekit-server
-        tag: "v1.10.1"
+        tag: "v1.11.0"
       manualIP: '46.225.62.164'
       useStunToDiscoverPublicIP: false
       additional:
