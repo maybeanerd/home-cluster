@@ -77,13 +77,13 @@ matrix-stack:
   # Matrix RTC Backend (for Element Call)
   matrixRTC:
     enabled: true
-    image:
-      # temporary override until upstream bumps version/releases latest where version bump is included
-      repository: livekit/livekit-server
-      tag: "v1.10.1"
     ingress:
       host: 'rtc-matrix.cluster.diluz.io'
     sfu:
+      # temporary override until upstream bumps version/releases latest where version bump is included
+      image:
+        repository: livekit/livekit-server
+        tag: "v1.10.1"
       manualIP: '46.225.62.164'
       useStunToDiscoverPublicIP: false
       additional:
