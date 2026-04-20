@@ -79,6 +79,7 @@ matrix-stack:
     enabled: true
     image:
       # temporary override until upstream bumps version/releases latest where version bump is included
+      repository: livekit/livekit-server
       tag: "v1.10.1"
     ingress:
       host: 'rtc-matrix.cluster.diluz.io'
