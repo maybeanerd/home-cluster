@@ -2,6 +2,7 @@ version: "3.9"
 services:
   main:
     image: ghcr.io/maybeanerd/magibot:latest
+    restart: always
     volumes:
       - joinsounds:/app/joinsounds
     environment:
