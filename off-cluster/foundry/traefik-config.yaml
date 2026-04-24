@@ -1,0 +1,15 @@
+http:
+  routers:
+    my-local-app:
+      rule: "Host(`dnd.diluz.io`)"
+      service: my-local-service
+      entryPoints:
+        - websecure
+      tls:
+        certResolver: production
+
+  services:
+    my-local-service:
+      loadBalancer:
+        servers:
+          - url: "http://docker.internal:30000"
