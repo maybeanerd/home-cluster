@@ -12,4 +12,4 @@ http:
     my-local-service:
       loadBalancer:
         servers:
-          - url: "http://docker.internal:30000"
+          - url: "http://host.docker.internal:30000"
