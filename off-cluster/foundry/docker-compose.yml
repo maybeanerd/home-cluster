@@ -3,7 +3,6 @@ services:
     image: traefik:v3
     container_name: traefik
     restart: always
-    network_mode: host
     command:
       - "--log.level=DEBUG"
       # Providers
