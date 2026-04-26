@@ -26,6 +26,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    network_mode: bridge
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./dynamic.yml:/etc/traefik/dynamic.yml:ro
