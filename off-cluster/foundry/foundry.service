@@ -1,0 +1,19 @@
+[Unit]
+Description=Foundry VTT (via mise)
+After=network.target
+
+[Service]
+User=root
+Group=root
+# mise needs the HOME env variable to find its installs
+Environment=HOME=/root
+WorkingDirectory=/root/foundry/foundryvtt
+# Using absolute path to mise to execute the node process
+ExecStart=/root/.local/bin/mise exec -- node /root/foundry/foundryvtt/resources/app/main.js --dataPath=/root/foundry/foundrydata
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=foundryvtt
+
+[Install]
+WantedBy=multi-user.target
