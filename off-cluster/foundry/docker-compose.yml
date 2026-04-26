@@ -18,11 +18,9 @@ services:
 
       # ACME / Let's Encrypt
       - "--certificatesresolvers.production.acme.email=dnd-server@diluz.io"
-      #- "--certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json"
-      - "--certificatesresolvers.production.acme.storage=/ssl-certs/acme-staging.json"
+      - "--certificatesresolvers.production.acme.storage=/ssl-certs/acme-production.json"
       - "--certificatesresolvers.production.acme.httpchallenge.entrypoint=web"
-      #- "--certificatesresolvers.production.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
-      - "--certificatesresolvers.production.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory"
+      - "--certificatesresolvers.production.acme.caserver=https://acme-v02.api.letsencrypt.org/directory"
     ports:
       - "80:80"
       - "443:443"
