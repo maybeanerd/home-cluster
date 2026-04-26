@@ -11,6 +11,9 @@ services:
       # Entry Points & Auto-Redirect
       - "--entrypoints.web.address=:80"
       - "--entrypoints.websecure.address=:443"
+      - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
+      - "--entrypoints.web.http.redirections.entrypoint.scheme=https"
+      - "--entrypoints.web.http.redirections.entrypoint.priority=10"
 
       # ACME / Let's Encrypt
       - "--certificatesresolvers.production.acme.email=dnd-server@diluz.io"
@@ -20,6 +23,10 @@ services:
     ports:
       - "80:80"
       - "443:443"
+    dns:
+      - 8.8.8.8
+      - 1.1.1.1
+    network_mode: bridge
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock:ro
       - ./dynamic.yml:/etc/traefik/dynamic.yml:ro
