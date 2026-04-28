@@ -158,6 +158,22 @@ matrix-stack:
 global:
   nameOverride: 'matrix-addons'
 
+extraValues:
+  asToken: "TODOREPLACEME"
+  hsToken: "TODOREPLACEME"
+  registration:
+        id: whatsapp
+        namespaces:
+          users:
+            - exclusive: true
+              regex: '@whatsapp_.*:cluster\.diluz\.io'
+          aliases:
+            - exclusive: true
+              regex: '#whatsapp_.*:cluster\.diluz\.io'
+        url: http://whatsapp.matrix.svc.cluster.local:29318
+        sender_localpart: whatsappbot
+        rate_limited: false
+
 controllers:
   whatsapp:
     type: deployment
@@ -171,11 +187,11 @@ controllers:
           CHOWN: 'false'
           MAUTRIX_AS_TOKEN:
             secretKeyRef:
-              name: whatsapp-credentials
+              name: matrix-whatsapp-bridge-secrets
               key: as_token
           MAUTRIX_HS_TOKEN:
             secretKeyRef:
-              name: whatsapp-credentials
+              name: matrix-whatsapp-bridge-secrets
               key: hs_token
     pod:
       securityContext:
@@ -188,27 +204,6 @@ service:
     ports:
       http:
         port: 29318
-
-secrets:
-  whatsapp-credentials:
-    enabled: true
-    stringData:
-      as_token: &asToken 'TODOREPLACEME'
-      hs_token: &hsToken 'TODOREPLACEME'
-      registration.yaml: |
-        id: whatsapp
-        as_token: *asToken
-        hs_token: *hsToken
-        namespaces:
-          users:
-            - exclusive: true
-              regex: '@whatsapp_.*:cluster\.diluz\.io'
-          aliases:
-            - exclusive: true
-              regex: '#whatsapp_.*:cluster\.diluz\.io'
-        url: http://whatsapp.matrix.svc.cluster.local:29318
-        sender_localpart: whatsappbot
-        rate_limited: false
 
 configMaps:
   whatsapp-config:
