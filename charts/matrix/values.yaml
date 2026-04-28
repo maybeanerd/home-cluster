@@ -171,11 +171,11 @@ controllers:
           CHOWN: 'false'
           MAUTRIX_AS_TOKEN:
             secretKeyRef:
-              name: matrix-whatsapp-bridge
+              name: whatsapp-credentials
               key: as_token
           MAUTRIX_HS_TOKEN:
             secretKeyRef:
-              name: matrix-whatsapp-bridge
+              name: whatsapp-credentials
               key: hs_token
     pod:
       securityContext:
@@ -265,14 +265,14 @@ persistence:
   whatsapp-config:
     enabled: true
     type: configMap
-    name: matrix-whatsapp-bridge
+    name: whatsapp-bridge-config
     globalMounts:
       - path: /data/config.yaml
         subPath: config.yaml
   whatsapp-registration:
     enabled: true
     type: secret
-    name: matrix-whatsapp-bridge
+    name: whatsapp-bridge-registration
     globalMounts:
       - path: /data/registration.yaml
         subPath: registration.yaml
