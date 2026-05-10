@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  gitlab-runner:
+    image: "gitlab/gitlab-runner:v18.11.0"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - runner-config:/etc/gitlab-runner
+    restart: always
+volumes:
+  runner-config:
