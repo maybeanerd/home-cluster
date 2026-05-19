@@ -25,14 +25,13 @@ nextcloud:
   externalDatabase:
     enabled: true
     type: "postgresql"
-    host: "TODO"
-    user: TODO
-    password: TODO
     existingSecret:
-      enabled: false # prob want to use this
-      secretName: TODO
-      usernameKey: TODO
-      passwordKey: TODO
+      enabled: true
+      secretName: nextcloud-cluster-app
+      hostKey: host
+      usernameKey: username
+      passwordKey: password
+      databaseKey: dbname
   persistence:
     enabled: true
     storageClass: longhorn
