@@ -1,0 +1,10 @@
+cluster:
+  cluster:
+    instances: 2
+    storage:
+      size: "20Gi"
+      storageClass: "longhorn"
+    walStorage:
+      enabled: true
+      size: "3Gi"
+      storageClass:	"longhorn"
