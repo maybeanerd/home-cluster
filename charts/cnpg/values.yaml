@@ -1,9 +1,9 @@
 cluster:
   cluster:
     storage:
-      size: "8Gi"
+      size: "20Gi"
       storageClass: "longhorn"
     walStorage:
       enabled: true
-      size: "1Gi"
+      size: "3Gi"
       storageClass:	"longhorn"
