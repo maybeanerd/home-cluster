@@ -35,11 +35,11 @@ nextcloud:
   persistence:
     enabled: true
     storageClass: longhorn
-    size: 10GB
+    size: 10Gi
     nextcloudData:
       enabled: true
       storageClass: longhorn
-      size: 100GB
+      size: 100Gi
 
 cluster:
   cluster:
