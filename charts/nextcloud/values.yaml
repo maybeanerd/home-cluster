@@ -5,7 +5,7 @@ nextcloud:
     enabled: true
   nextcloud:
     host: "nextcloud.cluster.diluz.io"
-    usesrname: maybeanerd
+    username: maybeanerd
     password: "TODOCHANGEME"
 # mail
   # enabled 	Whether to enable/disable email settings 	false
