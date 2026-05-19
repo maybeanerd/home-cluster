@@ -42,6 +42,9 @@ nextcloud:
       size: 100Gi
   startupProbe:
     enabled: true
+  nginx:
+    # To handle e.g. port 80 for healthchecks
+    enabled: true
 
 cluster:
   cluster:
