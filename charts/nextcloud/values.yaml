@@ -48,7 +48,8 @@ nextcloud:
 
 cluster:
   cluster:
-    instances: 1 # TODO figure out if 2 is the minimum when wanting easy updates etc
+    # TODO figure out if 2 is the minimum when wanting easy updates etc
+    instances: 1
     storage:
       size: "10Gi"
       storageClass: "longhorn"
