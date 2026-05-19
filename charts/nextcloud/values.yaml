@@ -1,10 +1,54 @@
+nextcloud:
+  image:
+    flavor: "fpm"
+  ingress:
+    enabled: true
+  nextcloud:
+    host: "nextcloud.cluster.diluz.io"
+    usesrname: maybeanerd
+    password: "TODOCHANGEME"
+# mail
+  # enabled 	Whether to enable/disable email settings 	false
+  # fromAddress 	nextcloud mail send from field 	nil
+  # domain 	nextcloud mail domain 	nil
+  # smtp
+     # host 	SMTP hostname 	nil
+     # secure 	SMTP connection ssl or empty 	''
+     # port 	Optional SMTP port 	nil
+     # authtype 	SMTP authentication method 	LOGIN
+     # name 	SMTP username, ONLY the part before the domain name. i.e. 'postmaster' NOT 'postmaster@example.com' 	''
+     # password
+  cronjob:
+    enabled: true
+  internalDatabase:
+    enabled: false
+  externalDatabase:
+    enabled: true
+    type: "postgresql"
+    host: "TODO"
+    user: TODO
+    password: TODO
+    existingSecret:
+      enabled: false # prob want to use this
+      secretName: TODO
+      usernameKey: TODO
+      passwordKey: TODO
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 10GB
+    nextcloudData:
+      enabled: true
+      storageClass: longhorn
+      size: 100GB
+
 cluster:
   cluster:
     instances: 2
     storage:
-      size: "20Gi"
+      size: "10Gi"
       storageClass: "longhorn"
     walStorage:
       enabled: true
-      size: "3Gi"
+      size: "1Gi"
       storageClass:	"longhorn"
