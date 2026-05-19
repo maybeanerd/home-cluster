@@ -40,6 +40,8 @@ nextcloud:
       enabled: true
       storageClass: longhorn
       size: 100Gi
+  startupProbe:
+    enabled: true
 
 cluster:
   cluster:
