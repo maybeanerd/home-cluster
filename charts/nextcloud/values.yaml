@@ -42,6 +42,20 @@ nextcloud:
       size: 100Gi
   startupProbe:
     enabled: true
+    httpGet: null
+    exec:
+      command:
+        - php-fpm-healthcheck
+  livenessProbe:
+    httpGet: null
+    exec:
+      command:
+        - php-fpm-healthcheck
+  readinessProbe:
+    httpGet: null
+    exec:
+      command:
+        - php-fpm-healthcheck
 
 cluster:
   cluster:
