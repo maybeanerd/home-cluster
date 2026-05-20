@@ -55,5 +55,5 @@ cluster:
       storageClass: "longhorn"
     walStorage:
       enabled: true
-      size: "1Gi"
+      size: "3Gi"
       storageClass: "longhorn"
