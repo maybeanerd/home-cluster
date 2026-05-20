@@ -7,17 +7,17 @@ nextcloud:
     host: "nextcloud.cluster.diluz.io"
     username: maybeanerd
     password: "TODOCHANGEME"
-# mail
-  # enabled 	Whether to enable/disable email settings 	false
-  # fromAddress 	nextcloud mail send from field 	nil
-  # domain 	nextcloud mail domain 	nil
-  # smtp
-     # host 	SMTP hostname 	nil
-     # secure 	SMTP connection ssl or empty 	''
-     # port 	Optional SMTP port 	nil
-     # authtype 	SMTP authentication method 	LOGIN
-     # name 	SMTP username, ONLY the part before the domain name. i.e. 'postmaster' NOT 'postmaster@example.com' 	''
-     # password
+    mail:
+      enabled: true
+      fromAddress: noreply
+      domain: diluzio.dev
+      smtp:
+        host: smtp.servivum.com
+        secure: nil
+        port: 587
+        authtype: STARTTLS
+        name: noreply@diluzio.dev
+        password: TODOREPLACEME
   cronjob:
     enabled: true
   internalDatabase:
