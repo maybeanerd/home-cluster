@@ -9,14 +9,14 @@ nextcloud:
     password: "TODOCHANGEME"
     mail:
       enabled: true
-      fromAddress: 	noreply
-      domain: 	diluzio.dev
+      fromAddress: noreply
+      domain: diluzio.dev
       smtp:
-        host: 	 smtp.servivum.com
-        secure: 	nil
-        port: 	587
-        authtype: 	LOGIN # TODO
-        name: 	noreply@diluzio.dev
+        host: smtp.servivum.com
+        secure: nil
+        port: 587
+        authtype: STARTTLS
+        name: noreply@diluzio.dev
         password: TODOREPLACEME
   cronjob:
     enabled: true
