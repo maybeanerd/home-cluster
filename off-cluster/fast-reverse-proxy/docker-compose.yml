@@ -1,6 +1,6 @@
 services:
   frp:
-    image: ghcr.io/fatedier/frps:v0.68.1
+    image: ghcr.io/fatedier/frps:v0.69.0
     restart: always
     command: ['-c', '/etc/frps.toml']
     ports:
