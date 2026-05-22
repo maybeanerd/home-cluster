@@ -20,6 +20,13 @@ nextcloud:
         password: TODOREPLACEME
   cronjob:
     enabled: true
+  redis:
+    enabled: true
+    architecture: standalone
+    auth:
+      enabled: false
+    global:
+      storageClass: longhorn
   internalDatabase:
     enabled: false
   externalDatabase:
