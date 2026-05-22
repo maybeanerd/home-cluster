@@ -46,7 +46,7 @@ nextcloud:
     nextcloudData:
       enabled: true
       storageClass: longhorn
-      size: 100Gi
+      size: 1000Gi
   nginx:
     # To handle e.g. port 80 for healthchecks
     enabled: true
