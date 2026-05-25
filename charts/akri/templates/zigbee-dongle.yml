@@ -1,0 +1,12 @@
+apiVersion: akri.sh/v0
+kind: Configuration
+metadata:
+  name: zigbee-dongle
+spec:
+  capacity: 1
+  discoveryHandler:
+    discoveryDetails: |
+      groupRecursive: true # Recommended unless using very exact udev rules
+      udevRules:
+        - ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60"
+    name: udev
