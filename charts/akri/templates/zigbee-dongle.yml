@@ -8,5 +8,5 @@ spec:
     discoveryDetails: |
       groupRecursive: true # Recommended unless using very exact udev rules
       udevRules:
-      - ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60"
+        - ATTRS{idVendor}=="10c4", ATTRS{idProduct}=="ea60"
     name: udev
