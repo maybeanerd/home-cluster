@@ -60,15 +60,16 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
-  limits: {}
+    akri.sh/zigbee-dongle: "1"
+  limits:
+    akri.sh/zigbee-dongle: "1"
 
 # Ensure access to the zigbee dongle usb device
 podSecurityContext:
   supplementalGroups:
     - 20
 
-nodeSelector:
-  kubernetes.io/hostname: cube04
+nodeSelector: {}
 
 tolerations: []
 
