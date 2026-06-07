@@ -52,6 +52,21 @@ spec:
                 echo "$(date): THIS IS NOT DRY RUN - live unmounts will happen"
               fi
 
+              # --- debug: print hash -> PVC mapping once on startup ---
+              echo "$(date): --- Volume hash map ---"
+              for hash_dir in "$KUBELET_PLUGINS"/*/; do
+                [ -d "$hash_dir" ] || continue
+                hash=$(basename "$hash_dir")
+                vol_data="${hash_dir}vol_data.json"
+                if [ -f "$vol_data" ]; then
+                  pvc=$(grep -o '"volumeHandle":"[^"]*"' "$vol_data" 2>/dev/null | cut -d'"' -f4)
+                  echo "$(date): $hash -> $pvc"
+                else
+                  echo "$(date): $hash -> NO vol_data.json"
+                fi
+              done
+              echo "$(date): --- End volume hash map ---"
+
               while true; do
                 echo "$(date): Starting stale mount cleanup pass"
                 FOUND=0
@@ -64,16 +79,30 @@ spec:
                     continue
                   fi
 
-                  # extract the CSI volume hash
                   hash=$(echo "$mountdir" | awk -F'/' '{print $(NF-1)}')
+                  vol_data="$KUBELET_PLUGINS/$hash/vol_data.json"
 
-                  # if any active pod references this hash it's a live volume
+                  # no vol_data.json means kubelet never finished setup or already cleaned up
+                  if [ ! -f "$vol_data" ]; then
+                    FOUND=1
+                    echo "$(date): No vol_data.json for hash $hash - definitely orphaned"
+                    if [ "$DRY_RUN" = "true" ]; then
+                      echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
+                    else
+                      echo "$(date): THIS IS NOT DRY RUN - would call umount -l on: $mountdir"
+                    fi
+                    continue
+                  fi
+
+                  # vol_data.json exists - cross-check against active pods
+                  pvc=$(grep -o '"volumeHandle":"[^"]*"' "$vol_data" 2>/dev/null | cut -d'"' -f4)
                   if grep -qr "$hash" "$KUBELET_PODS"/*/volumes/kubernetes.io~csi/*/vol_data.json 2>/dev/null; then
-                    echo "$(date): Hash $hash referenced by active pod, skipping"
+                    echo "$(date): Hash $hash ($pvc) referenced by active pod, skipping"
                     continue
                   fi
 
                   FOUND=1
+                  echo "$(date): Hash $hash ($pvc) not referenced by any active pod - stale"
                   if [ "$DRY_RUN" = "true" ]; then
                     echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
                   else
