@@ -31,7 +31,7 @@ spec:
           volumeMounts:
             - name: kubelet-plugins
               mountPath: /host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
-              mountPropagation: Bidirectional
+              mountPropagation: HostToContainer
             - name: proc
               mountPath: /host/proc
               readOnly: true
