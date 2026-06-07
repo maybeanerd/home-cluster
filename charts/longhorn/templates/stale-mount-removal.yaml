@@ -67,6 +67,13 @@ spec:
               done
               echo "$(date): --- End volume hash map ---"
 
+              # --- debug: print all pod vol_data.json files once on startup ---
+              echo "$(date): --- Pod volume map ---"
+              find "$KUBELET_PODS"/*/volumes/kubernetes.io~csi/ -name "vol_data.json" 2>/dev/null | while read f; do
+                echo "$(date): $f -> $(cat "$f" 2>/dev/null)"
+              done
+              echo "$(date): --- End pod volume map ---"
+
               while true; do
                 echo "$(date): Starting stale mount cleanup pass"
                 FOUND=0
@@ -94,8 +101,14 @@ spec:
                     continue
                   fi
 
-                  # vol_data.json exists - cross-check against active pods
                   pvc=$(grep -o '"volumeHandle":"[^"]*"' "$vol_data" 2>/dev/null | cut -d'"' -f4)
+
+                  # debug: show what we are grepping against
+                  echo "$(date): DEBUG - checking hash $hash ($pvc) against pod volumes:"
+                  find "$KUBELET_PODS"/*/volumes/kubernetes.io~csi/ -name "vol_data.json" 2>/dev/null | while read f; do
+                    echo "$(date): DEBUG - $f -> $(cat "$f" 2>/dev/null)"
+                  done
+
                   if grep -qr "$hash" "$KUBELET_PODS"/*/volumes/kubernetes.io~csi/*/vol_data.json 2>/dev/null; then
                     echo "$(date): Hash $hash ($pvc) referenced by active pod, skipping"
                     continue
