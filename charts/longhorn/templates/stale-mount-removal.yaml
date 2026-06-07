@@ -42,9 +42,9 @@ spec:
               KUBELET_PLUGINS=/host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
 
               if [ "$DRY_RUN" = "true" ]; then
-                echo "$(date): Running in DRY RUN mode - no mounts will be removed"
+                echo "$(date): Running in DRY RUN mode"
               else
-                echo "$(date): Running in LIVE mode - stale mounts will be removed"
+                echo "$(date): THIS IS NOT DRY RUN - would execute live code here"
               fi
 
               while true; do
@@ -60,8 +60,7 @@ spec:
                       if [ "$DRY_RUN" = "true" ]; then
                         echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
                       else
-                        echo "$(date): Unmounting stale mount: $mountdir"
-                        nsenter --mount=/host/proc/1/ns/mnt -- umount -l "$mountdir"
+                        echo "$(date): THIS IS NOT DRY RUN - would call umount -l on: $mountdir"
                       fi
                     else
                       echo "$(date): Mount in use, skipping: $mountdir"
