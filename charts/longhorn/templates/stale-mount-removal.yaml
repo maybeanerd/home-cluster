@@ -1,0 +1,85 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: longhorn-stale-mount-cleanup
+  labels:
+    app: longhorn-stale-mount-cleanup
+spec:
+  selector:
+    matchLabels:
+      app: longhorn-stale-mount-cleanup
+  template:
+    metadata:
+      labels:
+        app: longhorn-stale-mount-cleanup
+    spec:
+      hostPID: true
+      tolerations:
+        - operator: Exists
+      containers:
+        - name: cleanup
+          image: alpine:3.19
+          securityContext:
+            privileged: false
+            capabilities:
+              add:
+                - SYS_ADMIN
+                - SYS_PTRACE
+          env:
+            - name: DRY_RUN
+              value: "true"
+          volumeMounts:
+            - name: kubelet-plugins
+              mountPath: /host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
+              mountPropagation: Bidirectional
+            - name: proc
+              mountPath: /host/proc
+              readOnly: true
+          command:
+            - /bin/sh
+            - -c
+            - |
+              KUBELET_PLUGINS=/host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
+
+              if [ "$DRY_RUN" = "true" ]; then
+                echo "$(date): Running in DRY RUN mode - no mounts will be removed"
+              else
+                echo "$(date): Running in LIVE mode - stale mounts will be removed"
+              fi
+
+              while true; do
+                echo "$(date): Starting stale mount cleanup pass"
+                FOUND=0
+
+                for mountdir in "$KUBELET_PLUGINS"/*/globalmount; do
+                  [ -d "$mountdir" ] || continue
+
+                  if grep -q "$mountdir" /host/proc/mounts; then
+                    if ! nsenter --mount=/host/proc/1/ns/mnt -- fuser "$mountdir" > /dev/null 2>&1; then
+                      FOUND=1
+                      if [ "$DRY_RUN" = "true" ]; then
+                        echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
+                      else
+                        echo "$(date): Unmounting stale mount: $mountdir"
+                        nsenter --mount=/host/proc/1/ns/mnt -- umount -l "$mountdir"
+                      fi
+                    else
+                      echo "$(date): Mount in use, skipping: $mountdir"
+                    fi
+                  fi
+                done
+
+                if [ "$FOUND" = "0" ]; then
+                  echo "$(date): No stale mounts found"
+                fi
+
+                echo "$(date): Cleanup pass complete, sleeping 30m"
+                sleep 1800
+              done
+      volumes:
+        - name: kubelet-plugins
+          hostPath:
+            path: /var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
+        - name: proc
+          hostPath:
+            path: /proc
