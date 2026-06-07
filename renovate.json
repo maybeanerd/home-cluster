@@ -1,31 +1,8 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": ["local>maybeanerd/renovate-config"],
+  "dependencyDashboardApproval": false,
   "packageRules": [
-    {
-      "description": "Immich chart minor releases are unstable and could always be breaking for now",
-      "automerge": false,
-      "matchUpdateTypes": ["major", "minor"],
-      "matchPackageNames": ["ghcr.io/maybeanerd/immich-charts{/,}**"]
-    },
-    {
-      "description": "Authentik chart minor releases could be breaking",
-      "automerge": false,
-      "matchUpdateTypes": ["major", "minor"],
-      "matchPackageNames": ["authentik"]
-    },
-    {
-      "description": "Matrix/ESS chart minor releases could be breaking",
-      "automerge": false,
-      "matchUpdateTypes": ["major", "minor"],
-      "matchPackageNames": ["matrix-stack"]
-    },
-    {
-      "description": "Jellyfin minor versions are actually their major version releases and can include breaking changes",
-      "automerge": false,
-      "matchUpdateTypes": ["major", "minor"],
-      "matchPackageNames": ["jellyfin/jellyfin{/,}**"]
-    },
     {
       "description": "Group fast reverse proxy updates of client and server",
       "groupName": "fatedier/frp",
