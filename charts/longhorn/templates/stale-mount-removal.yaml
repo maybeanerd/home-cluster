@@ -32,6 +32,10 @@ spec:
             - name: kubelet-plugins
               mountPath: /host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
               mountPropagation: HostToContainer
+            - name: kubelet-pods
+              mountPath: /host/var/lib/kubelet/pods
+              mountPropagation: HostToContainer
+              readOnly: true
             - name: proc
               mountPath: /host/proc
               readOnly: true
@@ -40,11 +44,12 @@ spec:
             - -c
             - |
               KUBELET_PLUGINS=/host/var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
+              KUBELET_PODS=/host/var/lib/kubelet/pods
 
               if [ "$DRY_RUN" = "true" ]; then
                 echo "$(date): Running in DRY RUN mode"
               else
-                echo "$(date): THIS IS NOT DRY RUN - would execute live code here"
+                echo "$(date): THIS IS NOT DRY RUN - live unmounts will happen"
               fi
 
               while true; do
@@ -54,17 +59,25 @@ spec:
                 for mountdir in "$KUBELET_PLUGINS"/*/globalmount; do
                   [ -d "$mountdir" ] || continue
 
-                  if grep -q "$mountdir" /host/proc/mounts; then
-                    if ! nsenter --mount=/host/proc/1/ns/mnt -- fuser "$mountdir" > /dev/null 2>&1; then
-                      FOUND=1
-                      if [ "$DRY_RUN" = "true" ]; then
-                        echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
-                      else
-                        echo "$(date): THIS IS NOT DRY RUN - would call umount -l on: $mountdir"
-                      fi
-                    else
-                      echo "$(date): Mount in use, skipping: $mountdir"
-                    fi
+                  # only care about dirs that are actually mounted
+                  if ! grep -q "$mountdir" /host/proc/mounts; then
+                    continue
+                  fi
+
+                  # extract the CSI volume hash
+                  hash=$(echo "$mountdir" | awk -F'/' '{print $(NF-1)}')
+
+                  # if any active pod references this hash it's a live volume
+                  if grep -qr "$hash" "$KUBELET_PODS"/*/volumes/kubernetes.io~csi/*/vol_data.json 2>/dev/null; then
+                    echo "$(date): Hash $hash referenced by active pod, skipping"
+                    continue
+                  fi
+
+                  FOUND=1
+                  if [ "$DRY_RUN" = "true" ]; then
+                    echo "$(date): [DRY RUN] Would unmount stale mount: $mountdir"
+                  else
+                    echo "$(date): THIS IS NOT DRY RUN - would call umount -l on: $mountdir"
                   fi
                 done
 
@@ -79,6 +92,9 @@ spec:
         - name: kubelet-plugins
           hostPath:
             path: /var/lib/kubelet/plugins/kubernetes.io/csi/driver.longhorn.io
+        - name: kubelet-pods
+          hostPath:
+            path: /var/lib/kubelet/pods
         - name: proc
           hostPath:
             path: /proc
