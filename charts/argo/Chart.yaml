@@ -12,5 +12,5 @@ maintainers:
     email: sebastian@diluz.io
 dependencies:
   - name: argo-cd
-    repository: https://github.com/argoproj/argo-helm
+    repository: https://argoproj.github.io/argo-helm
     version: 8.0.17
