@@ -2,7 +2,7 @@
 apiVersion: v2
 description: A chart to install argocd
 name: argo
-version: 0.1.0
+version: 0.1.1
 home: https://argo-cd.readthedocs.io/en/stable/
 icon: https://argo-cd.readthedocs.io/en/stable/assets/logo.png
 sources:
@@ -13,4 +13,4 @@ maintainers:
 dependencies:
   - name: argo-cd
     repository: https://argoproj.github.io/argo-helm
-    version: 8.0.17
+    version: 8.6.4
