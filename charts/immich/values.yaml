@@ -130,6 +130,7 @@ immichframe:
                 timeoutSeconds: 1
                 failureThreshold: 3
           env:
+            # https://github.com/immichframe/ImmichFrame/blob/main/docker/example.env
             TZ: "Europe/Berlin"
             ImmichServerUrl: "https://immich.cluster.diluz.io"
             ApiKey: "TODOCHANGEME"
