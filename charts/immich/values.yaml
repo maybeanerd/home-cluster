@@ -118,12 +118,23 @@ immichframe:
             repository: ghcr.io/immichframe/immichframe
             tag: v1.0.33.0
             pullPolicy: IfNotPresent
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8080
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 1
+                failureThreshold: 3
           env:
             TZ: "Europe/Berlin"
             ImmichServerUrl: "https://immich.cluster.diluz.io"
             ApiKey: "TODOCHANGEME"
             AuthenticationSecret: "TODOCHANGEME"
-            Albums: "fab42b63-cdc9-462c-80df-40fdd80e2a4f,1ab57e8f-39bb-4eda-84b8-bb9781e73274"
+            Albums: "ce727154-095e-40d8-b8be-7757792b959a,fab42b63-cdc9-462c-80df-40fdd80e2a4f,1ab57e8f-39bb-4eda-84b8-bb9781e73274"
             ShowMemories: false
             ShowFavorites: false
             ImageZoom: false
