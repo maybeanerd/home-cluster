@@ -123,8 +123,10 @@ immichframe:
             ImmichServerUrl: "https://immich.cluster.diluz.io"
             ApiKey: "TODOCHANGEME"
             AuthenticationSecret: "TODOCHANGEME"
+            Albums: "fab42b63-cdc9-462c-80df-40fdd80e2a4f,1ab57e8f-39bb-4eda-84b8-bb9781e73274"
             ShowMemories: false
             ShowFavorites: false
+            ImageZoom: false
             Interval: 45
             ShowClock: true
             ShowProgressBar: true
