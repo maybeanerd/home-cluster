@@ -123,16 +123,16 @@ immichframe:
             ImmichServerUrl: "https://immich.cluster.diluz.io"
             ApiKey: "TODOCHANGEME"
             AuthenticationSecret: "TODOCHANGEME"
-            ShowMemories: false"
-            ShowFavorites: "false"
-            Interval: "45"
-            ShowClock: "true"
-            ShowProgressBar: "true"
-            ShowPhotoDate: "true"
-            ShowImageDesc: "true"
-            ShowPeopleDesc: "true"
-            ShowAlbumName: "true"
-            ShowImageLocation: "true"
+            ShowMemories: false
+            ShowFavorites: false
+            Interval: 45
+            ShowClock: true
+            ShowProgressBar: true
+            ShowPhotoDate: true
+            ShowImageDesc: true
+            ShowPeopleDesc: true
+            ShowAlbumName: true
+            ShowImageLocation: true
 
   service:
     main:
