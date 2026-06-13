@@ -114,21 +114,16 @@ immichframe:
         main:
           image:
             repository: ghcr.io/immichframe/immichframe
-            # TODO pin version
-            tag: latest
+            tag: v1.0.33.0
             pullPolicy: IfNotPresent
           env:
             TZ: "Europe/Berlin"
-            # ImmichFrame reads config from /app/Config/Settings.yaml,
-            # or falls back to env vars. Using env vars here for simplicity:
             ImmichServerUrl: "https://immich.cluster.diluz.io"
-            # Create a k8s secret for this and reference it, or set directly:
             ApiKey: "TODOCHANGEME"
-            ShowMemories: "false"
+            AuthenticationSecret: "TODOCHANGEME"
+            ShowMemories: false"
             ShowFavorites: "false"
             Interval: "45"
-            TransitionDuration: "2"
-            ImageZoom: "true"
             ShowClock: "true"
             ShowProgressBar: "true"
             ShowPhotoDate: "true"
