@@ -154,10 +154,11 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
-# Using the common chart for resources outside of the matrix stack
-global:
-  nameOverride: 'matrix-addons'
+whatsapp-bridge:
+  global:
+    fullnameOverride: whatsapp-bridge
 
+# TODO move all these into app template values
 extraValues:
   asToken: "TODOREPLACEME"
   hsToken: "TODOREPLACEME"
