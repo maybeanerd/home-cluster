@@ -9,6 +9,7 @@ dependencies:
   - name: matrix-stack
     repository: oci://ghcr.io/element-hq/ess-helm
     version: 26.4.0
-  - name: common
+  - name: app-template
     repository: https://bjw-s-labs.github.io/helm-charts
-    version: 4.6.2
+    version: 5.0.1
+    alias: whatsapp-bridge
