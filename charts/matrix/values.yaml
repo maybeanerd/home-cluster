@@ -31,7 +31,7 @@ matrix-stack:
     extraVolumes:
       - name: whatsapp-registration
         secret:
-          secretName: matrix-whatsapp-credentials
+          secretName: whatsappbridge-secrets
     extraVolumeMounts:
       - name: whatsapp-registration
         mountPath: /data/registrations/whatsapp-registration.yaml
