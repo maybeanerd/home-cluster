@@ -221,7 +221,7 @@ whatsappbridge:
               username: whatsappbot
             as_token: ${MAUTRIX_AS_TOKEN}
             hs_token: ${MAUTRIX_HS_TOKEN}
-            username_template: whatsapp_{{.}}
+            username_template: whatsapp_{{`{{.}}`}}
 
           database:
             type: sqlite3-fk-wal
