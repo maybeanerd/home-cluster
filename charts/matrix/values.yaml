@@ -158,17 +158,17 @@ whatsappbridge:
     asToken: "TODOREPLACEME"
     hsToken: "TODOREPLACEME"
     registration:
-          id: whatsapp
-          namespaces:
-            users:
-              - exclusive: true
-                regex: '@whatsapp_.*:cluster\.diluz\.io'
-            aliases:
-              - exclusive: true
-                regex: '#whatsapp_.*:cluster\.diluz\.io'
-          url: http://whatsapp.matrix.svc.cluster.local:29318
-          sender_localpart: whatsappbot
-          rate_limited: false
+      id: whatsapp
+      namespaces:
+        users:
+          - exclusive: true
+            regex: '@whatsapp_.*:cluster\.diluz\.io'
+        aliases:
+          - exclusive: true
+            regex: '#whatsapp_.*:cluster\.diluz\.io'
+      url: http://whatsapp.matrix.svc.cluster.local:29318
+      sender_localpart: whatsappbot
+      rate_limited: false
 
   controllers:
     whatsapp:
