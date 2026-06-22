@@ -28,11 +28,6 @@ matrix-stack:
         config: |
           app_service_config_files:
             - /data/registrations/whatsapp-registration.yaml
-      experimental-features.yaml:
-        config: |
-          experimental_features:
-            msc3202_transaction_extensions: true
-            msc2409_to_device_messages_enabled: true
     extraVolumes:
       - name: whatsapp-registration
         secret:
