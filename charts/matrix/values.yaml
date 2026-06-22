@@ -204,6 +204,7 @@ whatsappbridge:
   configMaps:
     whatsapp-config:
       enabled: true
+      fullnameOverride: whatsapp-config
       data:
         config.yaml: |
           homeserver:
