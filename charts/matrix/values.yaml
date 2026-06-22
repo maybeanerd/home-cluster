@@ -150,6 +150,10 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
+whatsapp-bridge:
+  global:
+    fullnameOverride: whatsapp-bridge
+
 extraValues:
   asToken: "TODOREPLACEME"
   hsToken: "TODOREPLACEME"
@@ -165,10 +169,6 @@ extraValues:
         url: http://whatsapp.matrix.svc.cluster.local:29318
         sender_localpart: whatsappbot
         rate_limited: false
-
-whatsapp-bridge:
-  global:
-    fullnameOverride: whatsapp-bridge
 
 controllers:
   whatsapp:
