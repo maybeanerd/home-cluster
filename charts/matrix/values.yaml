@@ -166,7 +166,7 @@ whatsappbridge:
         aliases:
           - exclusive: true
             regex: '#whatsapp_.*:cluster\.diluz\.io'
-      url: http://whatsapp.matrix.svc.cluster.local:29318
+      url: http://whatsappbridge.matrix.svc.cluster.local:29318
       sender_localpart: whatsappbot
       rate_limited: false
 
@@ -213,7 +213,7 @@ whatsappbridge:
             software: standard
 
           appservice:
-            address: http://whatsapp.matrix.svc.cluster.local:29318
+            address: http://whatsappbridge.matrix.svc.cluster.local:29318
             hostname: 0.0.0.0
             port: 29318
             id: whatsapp
