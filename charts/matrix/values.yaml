@@ -181,11 +181,11 @@ whatsappbridge:
           env:
             TZ: UTC
             CHOWN: 'false'
-            MAUTRIX_BRIDGE_APPSERVICE__AS_TOKEN:
+            BRIDGE_APPSERVICE__AS_TOKEN:
               secretKeyRef:
                 name: whatsappbridge-secrets
                 key: as_token
-            MAUTRIX_BRIDGE_APPSERVICE__HS_TOKEN:
+            BRIDGE_APPSERVICE__HS_TOKEN:
               secretKeyRef:
                 name: whatsappbridge-secrets
                 key: hs_token
@@ -243,7 +243,7 @@ whatsappbridge:
             os_name: Mautrix-WhatsApp bridge
             browser_name: unknown
 
-          env_config_prefix: MAUTRIX_BRIDGE
+          env_config_prefix: BRIDGE_
 
           logging:
             min_level: info
