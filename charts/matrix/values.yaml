@@ -24,7 +24,7 @@ matrix-stack:
 
     # Define configs for bridges
     additional:
-      whatsapp-bridge:
+      whatsappbridge:
         config: |
           app_service_config_files:
             - /data/registrations/whatsapp-registration.yaml
@@ -150,9 +150,9 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
-whatsapp-bridge:
+whatsapp:
   global:
-    fullnameOverride: whatsapp-bridge
+    fullnameOverride: whatsappbridge
 
 extraValues:
   asToken: "TODOREPLACEME"
@@ -183,11 +183,11 @@ controllers:
           CHOWN: 'false'
           MAUTRIX_AS_TOKEN:
             secretKeyRef:
-              name: whatsapp-bridge-secrets
+              name: whatsappbridge-secrets
               key: as_token
           MAUTRIX_HS_TOKEN:
             secretKeyRef:
-              name: whatsapp-bridge-secrets
+              name: whatsappbridge-secrets
               key: hs_token
     pod:
       securityContext:
