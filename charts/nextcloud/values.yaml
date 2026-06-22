@@ -1,0 +1,64 @@
+nextcloud:
+  image:
+    flavor: "fpm"
+  ingress:
+    enabled: true
+  nextcloud:
+    host: "nextcloud.cluster.diluz.io"
+    username: maybeanerd
+    password: "TODOCHANGEME"
+    mail:
+      enabled: true
+      fromAddress: noreply
+      domain: diluzio.dev
+      smtp:
+        host: smtp.servivum.com
+        secure: nil
+        port: 587
+        authtype: STARTTLS
+        name: noreply@diluzio.dev
+        password: TODOREPLACEME
+  cronjob:
+    enabled: true
+  redis:
+    enabled: true
+    architecture: standalone
+    auth:
+      enabled: false
+    global:
+      storageClass: longhorn
+  internalDatabase:
+    enabled: false
+  externalDatabase:
+    enabled: true
+    type: "postgresql"
+    existingSecret:
+      enabled: true
+      secretName: nextcloud-cluster-app
+      hostKey: host
+      usernameKey: username
+      passwordKey: password
+      databaseKey: dbname
+  persistence:
+    enabled: true
+    storageClass: longhorn
+    size: 10Gi
+    nextcloudData:
+      enabled: true
+      storageClass: longhorn
+      size: 2Ti
+  nginx:
+    # To handle e.g. port 80 for healthchecks
+    enabled: true
+
+cluster:
+  cluster:
+    # TODO figure out if 2 is the minimum when wanting easy updates etc
+    instances: 1
+    storage:
+      size: "10Gi"
+      storageClass: "longhorn"
+    walStorage:
+      enabled: true
+      size: "3Gi"
+      storageClass: "longhorn"

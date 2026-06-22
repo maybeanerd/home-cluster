@@ -7,16 +7,10 @@ kubectl annotate nodes cube03 \
 
 ## Reach the UI
 
-we expose it using nodePort, so if the pod is running on cube03, you can access it via:
-
-http://cube03:32269
-
+We expose it using an ingress.
 
 ## list nodes that have longhorn disks
 
 kubectl -n longhorn-system get nodes.longhorn.io
 
-
 docs: https://longhorn.io/docs/1.9.1/nodes-and-volumes/nodes/default-disk-and-node-config/
-
-TODO: ensure only cube03 has a disk configured, and it maps to the raid path

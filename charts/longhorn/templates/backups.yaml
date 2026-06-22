@@ -37,7 +37,7 @@ spec:
   concurrency: 1
   retain: 14
   parameters:
-    volumeBackupPolicy: "if-not-present"
+    volumeBackupPolicy: "disabled"
 
 
 # Manager Restarts

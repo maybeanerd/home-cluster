@@ -43,7 +43,7 @@ immich:
         autoRegister: true
         buttonText: "Login with Authentik"
         clientId: "x93MIUTyE80epWJKx2ie5yIqqxR2ODPD6aV2vwIS"
-        defaultStorageQuota: 50
+        defaultStorageQuota: 10
         issuerUrl: "https://auth.cluster.diluz.io/application/o/immich/"
         timeout: 30000
       passwordLogin:
@@ -107,3 +107,62 @@ immich:
                     operator: In
                     values:
                       - worker
+immichframe:
+  global:
+    fullnameOverride: immichframe
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/immichframe/immichframe
+            tag: v1.0.33.0
+            pullPolicy: IfNotPresent
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8080
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 1
+                failureThreshold: 3
+          env:
+            # https://github.com/immichframe/ImmichFrame/blob/main/docker/example.env
+            TZ: "Europe/Berlin"
+            ImmichServerUrl: "https://immich.cluster.diluz.io"
+            ApiKey: "TODOCHANGEME"
+            AuthenticationSecret: "TODOCHANGEME"
+            Albums: "ce727154-095e-40d8-b8be-7757792b959a,fab42b63-cdc9-462c-80df-40fdd80e2a4f,1ab57e8f-39bb-4eda-84b8-bb9781e73274"
+            ShowMemories: false
+            ShowFavorites: false
+            ImageZoom: false
+            Interval: 45
+            ShowClock: true
+            ShowProgressBar: true
+            ShowPhotoDate: true
+            ShowImageDesc: true
+            ShowPeopleDesc: true
+            ShowAlbumName: true
+            ShowImageLocation: true
+
+  service:
+    main:
+      controller: main
+      ports:
+        http:
+          port: 8080
+
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: immichframe.cluster.diluz.io
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: main
+                port: http

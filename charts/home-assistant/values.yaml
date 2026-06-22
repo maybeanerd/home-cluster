@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: homeassistant/home-assistant
   pullPolicy: IfNotPresent
-  tag: 2026.4.4
+  tag: 2026.6.3
 
 imagePullSecrets: []
 nameOverride: ""
@@ -23,9 +23,6 @@ serviceAccount:
   name: "home-assistant-serviceaccount"
 
 podAnnotations: {}
-
-podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -63,21 +60,20 @@ resources:
   requests:
     cpu: 100m
     memory: 128Mi
+    akri.sh/zigbee-dongle: "1"
+  limits:
+    akri.sh/zigbee-dongle: "1"
+
+# Ensure access to the zigbee dongle usb device
+podSecurityContext:
+  supplementalGroups:
+    - 20
 
 nodeSelector: {}
 
 tolerations: []
 
-affinity:
-  nodeAffinity:
-    preferredDuringSchedulingIgnoredDuringExecution:
-      - weight: 1
-        preference:
-          matchExpressions:
-            - key: kubernetes.io/role
-              operator: In
-              values:
-                - worker
+affinity: {}
 
 persistence:
   enabled: true
@@ -85,3 +81,15 @@ persistence:
   claimName: home-assisstant-longhorn
   size: 5Gi
   storageClass: longhorn
+
+  # Inject the physical host file
+  additionalVolumes:
+    - name: usb-zigbee
+      hostPath:
+        path: /dev/ttyUSB0
+        type: CharDevice
+
+  # Map that host file into the Home Assistant container
+  additionalMounts:
+    - name: usb-zigbee
+      mountPath: /dev/ttyUSB0
