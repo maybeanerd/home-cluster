@@ -235,6 +235,7 @@ whatsappbridge:
             default: true
             require: true
             allow_key_sharing: true
+            msc4190: true
             delete_keys:
               delete_outbound_on_ack: true
               delete_prev_on_new_session: true
