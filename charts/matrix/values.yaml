@@ -150,118 +150,118 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
-whatsapp:
+whatsappbridge:
   global:
     fullnameOverride: whatsappbridge
 
-extraValues:
-  asToken: "TODOREPLACEME"
-  hsToken: "TODOREPLACEME"
-  registration:
-        id: whatsapp
-        namespaces:
-          users:
-            - exclusive: true
-              regex: '@whatsapp_.*:cluster\.diluz\.io'
-          aliases:
-            - exclusive: true
-              regex: '#whatsapp_.*:cluster\.diluz\.io'
-        url: http://whatsapp.matrix.svc.cluster.local:29318
-        sender_localpart: whatsappbot
-        rate_limited: false
-
-controllers:
-  whatsapp:
-    type: deployment
-    containers:
-      app:
-        image:
-          repository: dock.mau.dev/mautrix/whatsapp
-          tag: v26.02
-        env:
-          TZ: UTC
-          CHOWN: 'false'
-          MAUTRIX_AS_TOKEN:
-            secretKeyRef:
-              name: whatsappbridge-secrets
-              key: as_token
-          MAUTRIX_HS_TOKEN:
-            secretKeyRef:
-              name: whatsappbridge-secrets
-              key: hs_token
-    pod:
-      securityContext:
-        fsGroup: 1337
-        fsGroupChangePolicy: 'OnRootMismatch'
-
-service:
-  whatsapp:
-    controller: whatsapp
-    ports:
-      http:
-        port: 29318
-
-configMaps:
-  whatsapp-config:
-    enabled: true
-    data:
-      config.yaml: |
-        homeserver:
-          address: http://synapse.matrix.svc.cluster.local:8008
-          domain: cluster.diluz.io
-
-        appservice:
+  extraValues:
+    asToken: "TODOREPLACEME"
+    hsToken: "TODOREPLACEME"
+    registration:
           id: whatsapp
-          bot_username: whatsappbot
-          address: http://whatsapp.matrix.svc.cluster.local:29318
-          database:
-            type: sqlite3-fk-wal
-            uri: /data/mautrix-whatsapp.db
-          as_token: ${MAUTRIX_AS_TOKEN}
-          hs_token: ${MAUTRIX_HS_TOKEN}
+          namespaces:
+            users:
+              - exclusive: true
+                regex: '@whatsapp_.*:cluster\.diluz\.io'
+            aliases:
+              - exclusive: true
+                regex: '#whatsapp_.*:cluster\.diluz\.io'
+          url: http://whatsapp.matrix.svc.cluster.local:29318
+          sender_localpart: whatsappbot
+          rate_limited: false
 
-        network:
-          address: 0.0.0.0
+  controllers:
+    whatsapp:
+      type: deployment
+      containers:
+        app:
+          image:
+            repository: dock.mau.dev/mautrix/whatsapp
+            tag: v26.02
+          env:
+            TZ: UTC
+            CHOWN: 'false'
+            MAUTRIX_AS_TOKEN:
+              secretKeyRef:
+                name: whatsappbridge-secrets
+                key: as_token
+            MAUTRIX_HS_TOKEN:
+              secretKeyRef:
+                name: whatsappbridge-secrets
+                key: hs_token
+      pod:
+        securityContext:
+          fsGroup: 1337
+          fsGroupChangePolicy: 'OnRootMismatch'
+
+  service:
+    whatsapp:
+      controller: whatsapp
+      ports:
+        http:
           port: 29318
 
-        encryption:
-          allow: true
-          default: true
-          require: true
-          key_sharing:
+  configMaps:
+    whatsapp-config:
+      enabled: true
+      data:
+        config.yaml: |
+          homeserver:
+            address: http://synapse.matrix.svc.cluster.local:8008
+            domain: cluster.diluz.io
+
+          appservice:
+            id: whatsapp
+            bot_username: whatsappbot
+            address: http://whatsapp.matrix.svc.cluster.local:29318
+            database:
+              type: sqlite3-fk-wal
+              uri: /data/mautrix-whatsapp.db
+            as_token: ${MAUTRIX_AS_TOKEN}
+            hs_token: ${MAUTRIX_HS_TOKEN}
+
+          network:
+            address: 0.0.0.0
+            port: 29318
+
+          encryption:
             allow: true
-          # Delete keys after sending to prevent long-term storage of decrypted messages
-          ratchet_keys: true
-          delete_keys:
-            delete_outbound_on_ack: true
-            delete_prev_on_new_session: true
+            default: true
+            require: true
+            key_sharing:
+              allow: true
+            # Delete keys after sending to prevent long-term storage of decrypted messages
+            ratchet_keys: true
+            delete_keys:
+              delete_outbound_on_ack: true
+              delete_prev_on_new_session: true
 
-        bridge:
-          permissions:
-            "cluster.diluz.io": full
-          # Disable automatic update checks
-          update_notifications: false
+          bridge:
+            permissions:
+              "cluster.diluz.io": full
+            # Disable automatic update checks
+            update_notifications: false
 
-        logging:
-          print_level: info
+          logging:
+            print_level: info
 
-persistence:
-  data:
-    enabled: true
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    size: 2Gi
-    globalMounts:
-      - path: /data
-  config:
-    enabled: true
-    type: configMap
-    globalMounts:
-      - path: /data/config.yaml
-        subPath: config.yaml
-  registration:
-    enabled: true
-    type: secret
-    globalMounts:
-      - path: /data/registration.yaml
-        subPath: registration.yaml
+  persistence:
+    data:
+      enabled: true
+      type: persistentVolumeClaim
+      accessMode: ReadWriteOnce
+      size: 2Gi
+      globalMounts:
+        - path: /data
+    config:
+      enabled: true
+      type: configMap
+      globalMounts:
+        - path: /data/config.yaml
+          subPath: config.yaml
+    registration:
+      enabled: true
+      type: secret
+      globalMounts:
+        - path: /data/registration.yaml
+          subPath: registration.yaml
