@@ -218,7 +218,7 @@ whatsappbridge:
             port: 29318
             id: whatsapp
             bot:
-                username: whatsappbot
+              username: whatsappbot
             as_token: ${MAUTRIX_AS_TOKEN}
             hs_token: ${MAUTRIX_HS_TOKEN}
             username_template: whatsapp_{{.}}
@@ -229,7 +229,7 @@ whatsappbridge:
 
           bridge:
             permissions:
-                "cluster.diluz.io": user
+              "cluster.diluz.io": user
             command_prefix: "!wa"
 
           encryption:
@@ -238,8 +238,8 @@ whatsappbridge:
             require: true
             allow_key_sharing: true
             delete_keys:
-                delete_outbound_on_ack: true
-                delete_prev_on_new_session: true
+              delete_outbound_on_ack: true
+              delete_prev_on_new_session: true
 
           network:
             os_name: Mautrix-WhatsApp bridge
