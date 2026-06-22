@@ -213,7 +213,8 @@ whatsappbridge:
 
           appservice:
             id: whatsapp
-            bot_username: whatsappbot
+            bot:
+              username: whatsappbot
             address: http://whatsapp.matrix.svc.cluster.local:29318
             hostname: 0.0.0.0
             port: 29318
