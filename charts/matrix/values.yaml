@@ -177,7 +177,7 @@ whatsappbridge:
         app:
           image:
             repository: dock.mau.dev/mautrix/whatsapp
-            tag: v26.02
+            tag: v26.06
           env:
             TZ: UTC
             CHOWN: 'false'
@@ -210,40 +210,46 @@ whatsappbridge:
           homeserver:
             address: http://synapse.matrix.svc.cluster.local:8008
             domain: cluster.diluz.io
+            software: standard
 
           appservice:
-            id: whatsapp
-            bot:
-              username: whatsappbot
             address: http://whatsapp.matrix.svc.cluster.local:29318
             hostname: 0.0.0.0
             port: 29318
-            database:
-              type: sqlite3-fk-wal
-              uri: /data/mautrix-whatsapp.db
+            id: whatsapp
+            bot:
+                username: whatsappbot
             as_token: ${MAUTRIX_AS_TOKEN}
             hs_token: ${MAUTRIX_HS_TOKEN}
+            username_template: whatsapp_{{.}}
+
+          database:
+            type: sqlite3-fk-wal
+            uri: /data/mautrix-whatsapp.db
+
+          bridge:
+            permissions:
+                "cluster.diluz.io": user
+            command_prefix: "!wa"
 
           encryption:
             allow: true
             default: true
             require: true
-            key_sharing:
-              allow: true
-            # Delete keys after sending to prevent long-term storage of decrypted messages
-            ratchet_keys: true
+            allow_key_sharing: true
             delete_keys:
-              delete_outbound_on_ack: true
-              delete_prev_on_new_session: true
+                delete_outbound_on_ack: true
+                delete_prev_on_new_session: true
 
-          bridge:
-            permissions:
-              "cluster.diluz.io": full
-            # Disable automatic update checks
-            update_notifications: false
+          network:
+            os_name: Mautrix-WhatsApp bridge
+            browser_name: unknown
 
           logging:
-            print_level: info
+            min_level: info
+            writers:
+              - type: stdout
+                format: pretty-colored
 
   persistence:
     data:
