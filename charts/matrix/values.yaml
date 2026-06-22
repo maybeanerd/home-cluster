@@ -208,7 +208,7 @@ whatsappbridge:
       data:
         config.yaml: |
           homeserver:
-            address: http://synapse.matrix.svc.cluster.local:8008
+            address: http://matrix-synapse-main.matrix.svc.cluster.local:8008
             domain: cluster.diluz.io
             software: standard
 
