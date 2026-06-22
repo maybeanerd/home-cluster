@@ -256,12 +256,14 @@ whatsappbridge:
     config:
       enabled: true
       type: configMap
+      name: whatsapp-config
       globalMounts:
         - path: /data/config.yaml
           subPath: config.yaml
     registration:
       enabled: true
       type: secret
+      name: whatsappbridge-secrets
       globalMounts:
         - path: /data/registration.yaml
           subPath: registration.yaml
