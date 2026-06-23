@@ -236,7 +236,7 @@ whatsappbridge:
 
           database:
             type: sqlite3-fk-wal
-            uri: /data/mautrix-whatsapp.db
+            uri: /data/mautrix-whatsapp.db?_txlock=immediate
 
           bridge:
             permissions:
