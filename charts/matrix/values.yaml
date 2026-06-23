@@ -28,6 +28,11 @@ matrix-stack:
         config: |
           app_service_config_files:
             - /data/registrations/whatsapp-registration.yaml
+      experimental-features.yaml:
+        config: |
+          experimental_features:
+            msc3202_transaction_extensions: true
+            msc2409_to_device_messages_enabled: true
     extraVolumes:
       - name: whatsapp-registration
         secret:
@@ -169,6 +174,9 @@ whatsappbridge:
       url: http://whatsappbridge.matrix.svc.cluster.local:29318
       sender_localpart: whatsappbot
       rate_limited: false
+      de.sorunome.msc2409.push_ephemeral: true
+      io.element.msc4190: true
+      org.matrix.msc3202: true
 
   controllers:
     whatsapp:
@@ -235,6 +243,7 @@ whatsappbridge:
             default: true
             require: true
             allow_key_sharing: true
+            appservice: true
             msc4190: true
             delete_keys:
               delete_outbound_on_ack: true
