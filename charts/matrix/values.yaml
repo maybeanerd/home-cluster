@@ -186,6 +186,7 @@ whatsappbridge:
           image:
             repository: dock.mau.dev/mautrix/whatsapp
             tag: v26.06
+          type: statefulset
           env:
             TZ: UTC
             CHOWN: 'false'
