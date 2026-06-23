@@ -174,9 +174,9 @@ whatsappbridge:
       url: http://whatsappbridge.matrix.svc.cluster.local:29318
       sender_localpart: whatsappbot
       rate_limited: false
-      de.sorunome.msc2409.push_ephemeral: true
-      io.element.msc4190: true
-      org.matrix.msc3202: true
+      "de.sorunome.msc2409.push_ephemeral": true
+      "io.element.msc4190": true
+      "org.matrix.msc3202": true
 
   controllers:
     whatsapp:
