@@ -186,6 +186,11 @@ whatsappbridge:
           image:
             repository: dock.mau.dev/mautrix/whatsapp
             tag: v26.06
+          command:
+            - /usr/bin/mautrix-whatsapp
+            - --no-update
+            - -c
+            - /data/config.yaml
           env:
             TZ: UTC
             CHOWN: 'false'
