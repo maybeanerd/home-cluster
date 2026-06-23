@@ -22,6 +22,27 @@ matrix-stack:
     nodeSelector:
       kubernetes.io/role: worker
 
+    # Define configs for bridges
+    additional:
+      whatsappbridge:
+        config: |
+          app_service_config_files:
+            - /data/registrations/whatsapp-registration.yaml
+      experimental-features.yaml:
+        config: |
+          experimental_features:
+            msc3202_transaction_extensions: true
+            msc2409_to_device_messages_enabled: true
+    extraVolumes:
+      - name: whatsapp-registration
+        secret:
+          secretName: whatsappbridge-secrets
+    extraVolumeMounts:
+      - name: whatsapp-registration
+        mountPath: /data/registrations/whatsapp-registration.yaml
+        subPath: registration.yaml
+        readOnly: true
+
   # Element Web client
   elementWeb:
     enabled: true
@@ -133,3 +154,132 @@ matrix-stack:
         memory: 2Gi
     nodeSelector:
       kubernetes.io/role: worker
+
+whatsappbridge:
+  global:
+    fullnameOverride: whatsappbridge
+
+  extraValues:
+    asToken: "TODOREPLACEME"
+    hsToken: "TODOREPLACEME"
+    registration:
+      id: whatsapp
+      namespaces:
+        users:
+          - exclusive: true
+            regex: '@whatsapp_.*:cluster\.diluz\.io'
+        aliases:
+          - exclusive: true
+            regex: '#whatsapp_.*:cluster\.diluz\.io'
+      url: http://whatsappbridge.matrix.svc.cluster.local:29318
+      sender_localpart: whatsappbot
+      rate_limited: false
+      "de.sorunome.msc2409.push_ephemeral": true
+      "io.element.msc4190": true
+      "org.matrix.msc3202": true
+
+  controllers:
+    whatsapp:
+      type: deployment
+      containers:
+        app:
+          image:
+            repository: dock.mau.dev/mautrix/whatsapp
+            tag: v26.06
+          env:
+            TZ: UTC
+            CHOWN: 'false'
+            BRIDGE_APPSERVICE__AS_TOKEN:
+              secretKeyRef:
+                name: whatsappbridge-secrets
+                key: as_token
+            BRIDGE_APPSERVICE__HS_TOKEN:
+              secretKeyRef:
+                name: whatsappbridge-secrets
+                key: hs_token
+      pod:
+        securityContext:
+          fsGroup: 1337
+          fsGroupChangePolicy: 'OnRootMismatch'
+
+  service:
+    whatsapp:
+      controller: whatsapp
+      ports:
+        http:
+          port: 29318
+
+  configMaps:
+    whatsapp-config:
+      enabled: true
+      forceRename: whatsapp-config
+      data:
+        config.yaml: |
+          homeserver:
+            address: http://matrix-synapse-main.matrix.svc.cluster.local:8008
+            domain: cluster.diluz.io
+            software: standard
+
+          appservice:
+            address: http://whatsappbridge.matrix.svc.cluster.local:29318
+            hostname: 0.0.0.0
+            port: 29318
+            id: whatsapp
+            bot:
+              username: whatsappbot
+            username_template: whatsapp_{{`{{.}}`}}
+
+          database:
+            type: sqlite3-fk-wal
+            uri: /data/mautrix-whatsapp.db
+
+          bridge:
+            permissions:
+              "cluster.diluz.io": user
+            command_prefix: "!wa"
+
+          encryption:
+            allow: true
+            default: true
+            require: true
+            allow_key_sharing: true
+            appservice: true
+            msc4190: true
+            delete_keys:
+              delete_outbound_on_ack: true
+              delete_prev_on_new_session: true
+
+          network:
+            os_name: Mautrix-WhatsApp bridge
+            browser_name: unknown
+
+          env_config_prefix: BRIDGE_
+
+          logging:
+            min_level: info
+            writers:
+              - type: stdout
+                format: pretty-colored
+
+  persistence:
+    data:
+      enabled: true
+      type: persistentVolumeClaim
+      accessMode: ReadWriteOnce
+      size: 2Gi
+      globalMounts:
+        - path: /data
+    config:
+      enabled: true
+      type: configMap
+      name: whatsapp-config
+      globalMounts:
+        - path: /data/config.yaml
+          subPath: config.yaml
+    registration:
+      enabled: true
+      type: secret
+      name: whatsappbridge-secrets
+      globalMounts:
+        - path: /data/registration.yaml
+          subPath: registration.yaml
