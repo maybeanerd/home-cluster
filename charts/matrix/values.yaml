@@ -180,12 +180,17 @@ whatsappbridge:
 
   controllers:
     whatsapp:
-      type: deployment
+      type: statefulset
       containers:
         app:
           image:
             repository: dock.mau.dev/mautrix/whatsapp
             tag: v26.06
+          command:
+            - /usr/bin/mautrix-whatsapp
+            - --no-update
+            - -c
+            - /data/config.yaml
           env:
             TZ: UTC
             CHOWN: 'false'
@@ -231,7 +236,7 @@ whatsappbridge:
 
           database:
             type: sqlite3-fk-wal
-            uri: /data/mautrix-whatsapp.db
+            uri: /data/mautrix-whatsapp.db?_txlock=immediate
 
           bridge:
             permissions:
