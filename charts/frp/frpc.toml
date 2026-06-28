@@ -3,6 +3,10 @@ serverPort = {{ .Envs.FRP_SERVER_PORT }}
 
 auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
 
+[transport]
+wireProtocol = "v2"
+proxyProtocolVersion = "v2"
+
 [webServer]
 addr = "127.0.0.1"
 port = 7400
