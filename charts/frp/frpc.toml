@@ -5,7 +5,6 @@ auth.token = "{{ .Envs.FRP_AUTH_TOKEN }}"
 
 [transport]
 wireProtocol = "v2"
-proxyProtocolVersion = "v2"
 
 [webServer]
 addr = "127.0.0.1"
@@ -17,6 +16,7 @@ type = "tcp"
 localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = 80
 remotePort = 80
+transport.proxyProtocolVersion = "v2"
 
 [[proxies]]
 name = "traefik-https"
@@ -24,6 +24,7 @@ type = "tcp"
 localIP = "{{ .Envs.REVERSE_PROXY_IP }}"
 localPort = 443
 remotePort = 443
+transport.proxyProtocolVersion = "v2"
 
 [[proxies]]
 name = "matrix-rtc-tcp"
