@@ -18,6 +18,9 @@ nextcloud:
         authtype: STARTTLS
         name: noreply@diluzio.dev
         password: TODOREPLACEME
+    extraEnv:
+      - name: TRUSTED_PROXIES
+        value: "10.42.0.0/16"
   cronjob:
     enabled: true
   redis:
