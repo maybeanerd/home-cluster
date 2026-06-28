@@ -34,6 +34,9 @@ traefik:
   # always redirect http to https
   ports:
     web:
+      proxyProtocol:
+        trustedIPs:
+          - "10.42.0.0/16"
       http:
         redirections:
           entryPoint:
@@ -41,6 +44,9 @@ traefik:
             scheme: https
             permanent: true
     websecure:
+      proxyProtocol:
+        trustedIPs:
+          - "10.42.0.0/16"
       http:
         tls:
           # Default acme config
