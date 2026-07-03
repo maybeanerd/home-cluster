@@ -2,11 +2,11 @@
 apiVersion: v2
 description: A chart to run cloud native postgres
 name: cnpg
-version: 0.1.1
+version: 0.1.2
 maintainers:
   - name: sebastian
     email: sebastian@diluz.io
 dependencies:
   - name: cloudnative-pg
     repository: https://cloudnative-pg.github.io/charts
-    version: 0.28.3
+    version: 0.29.0
