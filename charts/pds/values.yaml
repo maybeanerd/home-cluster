@@ -1,27 +1,10 @@
 cnpg-cluster:
   fullnameOverride: "cnpg"
-  mode: standalone
-  type: postgresql
-
   cluster:
     instances: 1
     storage:
-      size: 10Gi
+      size: "10Gi"
       storageClass: "longhorn"
-
-    initdb:
-      database: pds
-      owner: pds
-
-    resources:
-      requests:
-        cpu: 100m
-        memory: 256Mi
-      limits:
-        memory: 512Mi
-
-    monitoring:
-      enabled: false
 
 app-template:
   controllers:
