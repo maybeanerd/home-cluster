@@ -1,0 +1,139 @@
+# ============================================================
+# cnpg-cluster — creates the Postgres Cluster CR
+# (assumes the CNPG operator itself is already running)
+# ============================================================
+cnpg-cluster:
+  fullnameOverride: "cnpg"
+  mode: standalone
+  type: postgresql
+
+  cluster:
+    instances: 1
+    storage:
+      size: 10Gi
+      storageClass: "longhorn"        # leave empty for default storageclass
+
+    initdb:
+      database: pds
+      owner: pds
+      # operator auto-creates a `kubernetes.io/basic-auth`-style secret
+      # named "<fullname>-app" (here: tranquil-pds-db-app) with keys:
+      # user, password, dbname, host, port, uri, jdbc-uri
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 256Mi
+      limits:
+        memory: 512Mi
+
+    monitoring:
+      enabled: false
+
+# ============================================================
+# app-template — the actual tranquil-pds workload
+# ============================================================
+app-template:
+  controllers:
+    tranquil-pds:
+      type: deployment
+      replicas: 1
+
+      containers:
+        app:
+          image:
+            repository: atcr.io/tranquil.farm/tranquil-pds
+            tag: v0.6.5
+
+          env:
+            # --- non-secret runtime config ---
+            SERVER_HOST: "0.0.0.0"
+            SERVER_PORT: "3000"
+            PDS_HOSTNAME: "pds.cluster.diluz.io"
+            FRONTEND_ENABLED: "true"
+            INVITE_CODE_REQUIRED: "true"
+            REPO_BACKEND: "postgres"
+            BLOB_STORAGE_BACKEND: "filesystem"
+            BLOB_STORAGE_PATH: "/var/lib/tranquil-pds/blobs"
+            PLC_DIRECTORY_URL: "https://plc.directory"
+            CONTACT_EMAIL: "admin@example.com"
+
+            # --- postgres access: pulled from the CNPG-generated secret ---
+            # (cluster fullname "tranquil-pds-db" -> secret "tranquil-pds-db-app")
+            DATABASE_URL:
+              valueFrom:
+                secretKeyRef:
+                  name: cnpg-app
+                  key: uri
+
+            # --- PDS secrets: plain envvars, left blank here on purpose.
+            # Override these via ArgoCD (Application `helm.valuesObject`,
+            # `helm.parameters`, or an AVP placeholder like
+            # "<path:kv/data/tranquil-pds#jwt_secret>") ---
+            JWT_SECRET: ""
+            DPOP_SECRET: ""
+            MASTER_KEY: ""
+            PLC_ROTATION_KEY: ""
+
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command: ["/usr/local/bin/tranquil-pds", "healthcheck"]
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command: ["/usr/local/bin/tranquil-pds", "healthcheck"]
+                periodSeconds: 15
+                timeoutSeconds: 5
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                exec:
+                  command: ["/usr/local/bin/tranquil-pds", "healthcheck"]
+                periodSeconds: 5
+                failureThreshold: 30
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+
+  service:
+    app:
+      controller: tranquil-pds
+      ports:
+        http:
+          port: 3000
+
+  ingress:
+    app:
+      hosts:
+        - host: "pds.cluster.diluz.io"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    blobs:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 20Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /var/lib/tranquil-pds/blobs
