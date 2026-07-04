@@ -1,4 +1,4 @@
-cnpg:
+cnpg-cluster:
   fullnameOverride: "cnpg"
   mode: standalone
   type: postgresql
