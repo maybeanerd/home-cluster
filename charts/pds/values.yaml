@@ -1,8 +1,4 @@
-# ============================================================
-# cnpg-cluster — creates the Postgres Cluster CR
-# (assumes the CNPG operator itself is already running)
-# ============================================================
-cnpg-cluster:
+cnpg:
   fullnameOverride: "cnpg"
   mode: standalone
   type: postgresql
@@ -16,9 +12,6 @@ cnpg-cluster:
     initdb:
       database: pds
       owner: pds
-      # operator auto-creates a `kubernetes.io/basic-auth`-style secret
-      # named "<fullname>-app" (here: tranquil-pds-db-app) with keys:
-      # user, password, dbname, host, port, uri, jdbc-uri
 
     resources:
       requests:
