@@ -1,0 +1,15 @@
+apiVersion: v2
+name: tranquil-pds
+description: Tranquil PDS (AT Protocol Personal Data Server)
+type: application
+version: 0.1.0
+
+dependencies:
+  - name: app-template
+    version: "5.0.0"
+    repository: "oci://ghcr.io/bjw-s-labs/helm"
+
+  - name: cluster
+    alias: cnpg-cluster
+    version: "0.6.1"
+    repository: "https://cloudnative-pg.github.io/charts"
