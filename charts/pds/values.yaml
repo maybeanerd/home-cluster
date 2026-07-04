@@ -7,7 +7,7 @@ cnpg-cluster:
     instances: 1
     storage:
       size: 10Gi
-      storageClass: "longhorn"        # leave empty for default storageclass
+      storageClass: "longhorn"
 
     initdb:
       database: pds
@@ -23,9 +23,6 @@ cnpg-cluster:
     monitoring:
       enabled: false
 
-# ============================================================
-# app-template — the actual tranquil-pds workload
-# ============================================================
 app-template:
   controllers:
     tranquil-pds:
@@ -39,7 +36,6 @@ app-template:
             tag: v0.6.5
 
           env:
-            # --- non-secret runtime config ---
             SERVER_HOST: "0.0.0.0"
             SERVER_PORT: "3000"
             PDS_HOSTNAME: "pds.cluster.diluz.io"
@@ -51,18 +47,12 @@ app-template:
             PLC_DIRECTORY_URL: "https://plc.directory"
             CONTACT_EMAIL: "admin@example.com"
 
-            # --- postgres access: pulled from the CNPG-generated secret ---
-            # (cluster fullname "tranquil-pds-db" -> secret "tranquil-pds-db-app")
             DATABASE_URL:
               valueFrom:
                 secretKeyRef:
                   name: cnpg-app
                   key: uri
 
-            # --- PDS secrets: plain envvars, left blank here on purpose.
-            # Override these via ArgoCD (Application `helm.valuesObject`,
-            # `helm.parameters`, or an AVP placeholder like
-            # "<path:kv/data/tranquil-pds#jwt_secret>") ---
             JWT_SECRET: ""
             DPOP_SECRET: ""
             MASTER_KEY: ""
