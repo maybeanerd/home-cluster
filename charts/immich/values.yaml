@@ -136,10 +136,12 @@ immichframe:
             ApiKey: "TODOCHANGEME"
             AuthenticationSecret: "TODOCHANGEME"
             Albums: "ce727154-095e-40d8-b8be-7757792b959a"
+            UnitSystem: "metric"
             ShowMemories: false
             ShowFavorites: false
             ImageZoom: false
             Interval: 45
+            Layout: "single"
             ShowClock: true
             ShowProgressBar: true
             ShowPhotoDate: true
