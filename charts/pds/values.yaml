@@ -32,7 +32,6 @@ app-template:
             PDS_HOSTNAME: "pds.cluster.diluz.io"
             PDS_AGE_ASSURANCE_OVERRIDE: "true"
             FRONTEND_ENABLED: "true"
-            TRUSTED_PROXY_COUNT: 2
             INVITE_CODE_REQUIRED: "true"
             REPO_BACKEND: "postgres"
             BLOB_STORAGE_BACKEND: "filesystem"
