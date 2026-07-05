@@ -44,10 +44,10 @@ app-template:
                   name: cnpg-app
                   key: uri
 
-            JWT_SECRET: ""
-            DPOP_SECRET: ""
-            MASTER_KEY: ""
-            PLC_ROTATION_KEY: ""
+            JWT_SECRET: "TODOCHANGEME"
+            DPOP_SECRET: "TODOCHANGEME"
+            MASTER_KEY: "TODOCHANGEME"
+            PLC_ROTATION_KEY: "TODOCHANGEME"
 
             PDS_USER_HANDLE_DOMAINS: "diluz.io"
 
