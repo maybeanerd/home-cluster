@@ -47,7 +47,8 @@ app-template:
             JWT_SECRET: "TODOCHANGEME"
             DPOP_SECRET: "TODOCHANGEME"
             MASTER_KEY: "TODOCHANGEME"
-            PLC_ROTATION_KEY: "TODOCHANGEME"
+            # TODO consider adding this later on
+            # PLC_ROTATION_KEY: "TODOCHANGEME"
 
             PDS_USER_HANDLE_DOMAINS: "diluz.io"
 
