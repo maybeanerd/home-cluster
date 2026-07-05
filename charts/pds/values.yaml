@@ -6,12 +6,20 @@ cnpg-cluster:
       size: "10Gi"
       storageClass: "longhorn"
 
+imageCredentials:
+  registry: atcr.io
+  username: "maybeanerd.bsky.social"
+  password: "TODOCHANGEME"
+
 app-template:
   controllers:
     tranquil-pds:
       type: deployment
       replicas: 1
 
+      pod:
+        imagePullSecrets:
+          - name: imagepullsecret
       containers:
         app:
           image:
