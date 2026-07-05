@@ -49,6 +49,16 @@ app-template:
             MASTER_KEY: ""
             PLC_ROTATION_KEY: ""
 
+            # Handle domain for anyone who signs up on this instance
+            # (e.g. alice.diluz.io instead of alice.pds.cluster.diluz.io).
+            PDS_USER_HANDLE_DOMAINS: "diluz.io"
+
+            SSO_OIDC_ENABLED: "true"
+            SSO_OIDC_ISSUER: "TODO"
+            SSO_OIDC_DISPLAY_NAME: "Authentik"
+            SSO_OIDC_CLIENT_ID: "TODOCHANGEME"
+            SSO_OIDC_CLIENT_SECRET: "TODOCHANGEME"
+
           probes:
             liveness:
               enabled: true
