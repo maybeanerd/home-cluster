@@ -52,9 +52,9 @@ app-template:
             PDS_USER_HANDLE_DOMAINS: "diluz.io"
 
             SSO_OIDC_ENABLED: "true"
-            SSO_OIDC_ISSUER: "TODO"
+            SSO_OIDC_ISSUER: "https://auth.cluster.diluz.io/application/o/pds/"
             SSO_OIDC_DISPLAY_NAME: "Authentik"
-            SSO_OIDC_CLIENT_ID: "TODOCHANGEME"
+            SSO_OIDC_CLIENT_ID: "VrCNTx13z6q58Wm3Y1trPPRADvoc3lKBLIOahx4c"
             SSO_OIDC_CLIENT_SECRET: "TODOCHANGEME"
 
           probes:
