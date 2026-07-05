@@ -27,16 +27,16 @@ app-template:
             tag: v0.6.5
 
           env:
+            # https://tangled.org/tranquil.farm/tranquil-pds/blob/main/example.toml
             SERVER_HOST: "0.0.0.0"
-            SERVER_PORT: "3000"
             PDS_HOSTNAME: "pds.cluster.diluz.io"
+            PDS_AGE_ASSURANCE_OVERRIDE: "true"
             FRONTEND_ENABLED: "true"
             INVITE_CODE_REQUIRED: "true"
             REPO_BACKEND: "postgres"
             BLOB_STORAGE_BACKEND: "filesystem"
             BLOB_STORAGE_PATH: "/var/lib/tranquil-pds/blobs"
-            PLC_DIRECTORY_URL: "https://plc.directory"
-            CONTACT_EMAIL: "admin@example.com"
+            CONTACT_EMAIL: "pds@diluz.io"
 
             DATABASE_URL:
               valueFrom:
@@ -49,8 +49,6 @@ app-template:
             MASTER_KEY: ""
             PLC_ROTATION_KEY: ""
 
-            # Handle domain for anyone who signs up on this instance
-            # (e.g. alice.diluz.io instead of alice.pds.cluster.diluz.io).
             PDS_USER_HANDLE_DOMAINS: "diluz.io"
 
             SSO_OIDC_ENABLED: "true"
