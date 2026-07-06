@@ -24,7 +24,7 @@ app-template:
         app:
           image:
             repository: atcr.io/tranquil.farm/tranquil-pds
-            tag: v0.6.5
+            tag: v3.2.34
 
           env:
             # https://tangled.org/tranquil.farm/tranquil-pds/blob/main/example.toml
