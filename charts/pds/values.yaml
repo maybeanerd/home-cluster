@@ -8,20 +8,18 @@ app-template:
         app:
           image:
             repository: ghcr.io/bluesky-social/pds
-            tag: latest # check https://github.com/bluesky-social/pds/pkgs/container/pds for a pinned version
+            tag: 0.4.5009
 
           env:
-            # https://github.com/bluesky-social/pds#environment-variables
-            PDS_HOSTNAME: "pds.bumsco.de"
+            PDS_HOSTNAME: "bumsco.de"
             PDS_DATA_DIRECTORY: "/pds"
             PDS_BLOBSTORE_DISK_LOCATION: "/pds/blocks"
 
             PDS_CONTACT_EMAIL_ADDRESS: "pds@diluz.io"
             PDS_INVITE_REQUIRED: "true"
 
-            PDS_JWT_SECRET: "TODOCHANGEME" # openssl rand -hex 32
+            PDS_JWT_SECRET: "TODOCHANGEME"
             PDS_ADMIN_PASSWORD: "TODOCHANGEME"
-            PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "TODOCHANGEME" # openssl rand -hex 32
 
           probes:
             liveness:
@@ -71,14 +69,14 @@ app-template:
   ingress:
     app:
       hosts:
-        - host: "pds.bumsco.de"
+        - host: "bumsco.de"
           paths:
             - path: /
               pathType: Prefix
               service:
                 identifier: app
                 port: http
-        - host: "bumsco.de"
+        - host: "*.bumsco.de"
           paths:
             - path: /
               pathType: Prefix
