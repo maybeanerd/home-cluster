@@ -20,6 +20,7 @@ app-template:
 
             PDS_JWT_SECRET: "TODOCHANGEME"
             PDS_ADMIN_PASSWORD: "TODOCHANGEME"
+            PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "TODOCHANGEME"
 
           probes:
             liveness:
