@@ -28,7 +28,8 @@ app-template:
             PDS_ADMIN_PASSWORD: "TODOCHANGEME"
             PDS_PLC_ROTATION_KEY_K256_PRIVATE_KEY_HEX: "TODOCHANGEME"
 
-            LOG_LEVEL: "debug"
+            LOG_ENABLED: "true"
+            PDS_CRAWLERS: "https://bsky.network"
 
           probes:
             liveness:
