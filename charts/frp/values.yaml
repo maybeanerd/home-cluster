@@ -5,6 +5,7 @@ image:
 authToken: 'TODOCHANGEME'
 serverAddr: 'frp.diluz.io'
 serverPort: 7000
+knotSshIp: 'knot-ssh.knot.svc.cluster.local'
 reverseProxyIp: 'traefik.traefik.svc.cluster.local'
 matrixRtcTcpIp: 'matrix-matrix-rtc-sfu-tcp.matrix.svc.cluster.local'
 matrixRtcUdpIp: 'matrix-matrix-rtc-sfu-muxed-udp.matrix.svc.cluster.local'
