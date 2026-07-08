@@ -13,7 +13,7 @@ spec:
             pathType: Prefix
             backend:
               service:
-                name: {{ $.Release.Name }}-app-template
+                name: {{ $.Release.Name }}
                 port:
                   number: 3000
     {{- end }}
