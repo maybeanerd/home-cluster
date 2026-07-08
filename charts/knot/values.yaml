@@ -75,9 +75,6 @@ app-template:
           targetPort: http
     ssh:
       controller: knot
-      type: LoadBalancer
-      annotations:
-        metallb.universe.tf/loadBalancerIPs: "192.168.178.132"
       ports:
         ssh:
           port: 22

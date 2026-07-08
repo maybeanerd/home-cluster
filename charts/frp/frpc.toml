@@ -29,7 +29,7 @@ transport.proxyProtocolVersion = "v2"
 [[proxies]]
 name = "knot-ssh"
 type = "tcp"
-localIP = "192.168.178.132"
+localIP = "{{ .Envs.KNOT_SSH_IP }}"
 localPort = 22
 remotePort = 2222
 
