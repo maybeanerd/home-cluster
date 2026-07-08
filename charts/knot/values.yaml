@@ -1,0 +1,91 @@
+imageCredentials:
+  registry: atcr.io
+  username: "maybeanerd.bsky.social"
+  password: "TODOCHANGEME"
+
+app-template:
+  controllers:
+    knot:
+      type: deployment
+      replicas: 1
+      pod:
+          imagePullSecrets:
+            - name: imagepullsecret
+      containers:
+        app:
+          image:
+            repository: atcr.io/tangled.org/knot
+            tag: v1.15.0-alpha
+
+          env:
+            KNOT_SERVER_HOSTNAME: "knot.bumsco.de"
+            KNOT_SERVER_OWNER: "did:plc:x5mzoesuejzv73cv2dlcjylg"
+            KNOT_SERVER_PORT: 443
+            KNOT_SERVER_DB_PATH: /app/knotserver.db
+            KNOT_REPO_SCAN_PATH: /home/git/repositories
+            KNOT_SERVER_INTERNAL_LISTEN_ADDR: localhost:5444
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /xrpc/_health
+                  port: 3000
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /xrpc/_health
+                  port: 3000
+                periodSeconds: 15
+                timeoutSeconds: 5
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                httpGet:
+                  path: /xrpc/_health
+                  port: 3000
+                periodSeconds: 5
+                failureThreshold: 30
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+
+  service:
+    app:
+      controller: knot
+      ports:
+        http:
+          port: 443
+
+  ingress:
+    app:
+      hosts:
+        - host: "knot.bumsco.de"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    data:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 20Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /pds
