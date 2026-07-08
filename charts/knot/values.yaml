@@ -29,31 +29,31 @@ app-template:
             KNOT_SERVER_DB_PATH: /app/knotserver.db
             KNOT_REPO_SCAN_PATH: /home/git/repositories
             KNOT_SERVER_INTERNAL_LISTEN_ADDR: localhost:5444
-            probes:
-              liveness:
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: 5555
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
                   initialDelaySeconds: 10
                   periodSeconds: 30
                   timeoutSeconds: 10
                   failureThreshold: 3
-              readiness:
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: 5555
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
                   periodSeconds: 15
                   timeoutSeconds: 5
-              startup:
-                enabled: true
-                custom: true
-                spec:
-                  tcpSocket:
-                    port: 5555
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
                   periodSeconds: 5
                   failureThreshold: 30
 
