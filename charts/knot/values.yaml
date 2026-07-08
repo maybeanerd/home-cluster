@@ -36,26 +36,26 @@ app-template:
               spec:
                 tcpSocket:
                   port: 5555
-                  initialDelaySeconds: 10
-                  periodSeconds: 30
-                  timeoutSeconds: 10
-                  failureThreshold: 3
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
             readiness:
               enabled: true
               custom: true
               spec:
                 tcpSocket:
                   port: 5555
-                  periodSeconds: 15
-                  timeoutSeconds: 5
+                periodSeconds: 15
+                timeoutSeconds: 5
             startup:
               enabled: true
               custom: true
               spec:
                 tcpSocket:
                   port: 5555
-                  periodSeconds: 5
-                  failureThreshold: 30
+                periodSeconds: 5
+                failureThreshold: 30
 
           resources:
             requests:
@@ -73,6 +73,8 @@ app-template:
     ssh:
       controller: knot
       type: LoadBalancer
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: "10.0.0.55"
       ports:
         ssh:
           port: 22

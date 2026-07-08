@@ -27,6 +27,13 @@ remotePort = 443
 transport.proxyProtocolVersion = "v2"
 
 [[proxies]]
+name = "knot-ssh"
+type = "tcp"
+localIP = "10.0.0.55"
+localPort = 22
+remotePort = 2222
+
+[[proxies]]
 name = "matrix-rtc-tcp"
 type = "tcp"
 localIP = "{{ .Envs.MATRIX_RTC_TCP_IP }}"
