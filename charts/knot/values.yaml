@@ -1,0 +1,121 @@
+imageCredentials:
+  registry: atcr.io
+  username: "maybeanerd.bumsco.de"
+  password: "TODOCHANGEME"
+
+app-template:
+  controllers:
+    knot:
+      type: deployment
+      replicas: 1
+      pod:
+        imagePullSecrets:
+          - name: imagepullsecret
+        securityContext:
+          fsGroup: 1000
+      containers:
+        app:
+          image:
+            repository: atcr.io/tangled.org/knot
+            tag: v1.15.0-alpha
+
+          ports:
+            - name: http
+              containerPort: 5555
+            - name: ssh
+              containerPort: 22
+
+          env:
+            KNOT_SERVER_HOSTNAME: "knot.bumsco.de"
+            KNOT_SERVER_OWNER: "did:plc:x5mzoesuejzv73cv2dlcjylg"
+            KNOT_SERVER_DB_PATH: /app/knotserver.db
+            KNOT_REPO_SCAN_PATH: /home/git/repositories
+            KNOT_SERVER_INTERNAL_LISTEN_ADDR: localhost:5444
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
+                periodSeconds: 15
+                timeoutSeconds: 5
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 5555
+                periodSeconds: 5
+                failureThreshold: 30
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+
+  service:
+    app:
+      controller: knot
+      ports:
+        http:
+          port: 5555
+          targetPort: http
+    ssh:
+      controller: knot
+      type: LoadBalancer
+      annotations:
+        metallb.universe.tf/loadBalancerIPs: "192.168.178.132"
+      ports:
+        ssh:
+          port: 22
+          targetPort: ssh
+
+  ingress:
+    app:
+      hosts:
+        - host: "knot.bumsco.de"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    keys:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 1Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /etc/ssh/keys
+    repositories:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 50Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /home/git/repositories
+    app-data:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 5Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /app
