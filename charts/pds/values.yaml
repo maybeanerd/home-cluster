@@ -86,7 +86,7 @@ app-template:
               service:
                 identifier: app
                 port: http
-      - host: "maybeanerd.bumsco.de"
+        - host: "maybeanerd.bumsco.de"
           paths:
             - path: /
               pathType: Prefix
