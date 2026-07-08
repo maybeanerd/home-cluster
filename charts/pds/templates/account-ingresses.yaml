@@ -3,8 +3,6 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: {{ .Release.Name }}-pds-accounts
-  labels:
-    {{- include "app-template.labels" (dict "context" (index .Subcharts "app-template")) | nindent 4 }}
 spec:
   rules:
     {{- range .Values.pdsAccounts }}
