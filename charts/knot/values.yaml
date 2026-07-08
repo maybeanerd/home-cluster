@@ -9,8 +9,8 @@ app-template:
       type: deployment
       replicas: 1
       pod:
-          imagePullSecrets:
-            - name: imagepullsecret
+        imagePullSecrets:
+          - name: imagepullsecret
       containers:
         app:
           image:
