@@ -1,3 +1,7 @@
+pdsAccountDomain: "bumsco.de"
+pdsAccounts:
+  - maybeanerd
+
 app-template:
   controllers:
     pds:
@@ -73,13 +77,6 @@ app-template:
     app:
       hosts:
         - host: "bumsco.de"
-          paths:
-            - path: /
-              pathType: Prefix
-              service:
-                identifier: app
-                port: http
-        - host: "maybeanerd.bumsco.de"
           paths:
             - path: /
               pathType: Prefix

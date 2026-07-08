@@ -1,0 +1,20 @@
+{{- if .Values.pdsAccounts }}
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: {{ .Release.Name }}-pds-accounts
+spec:
+  rules:
+    {{- range .Values.pdsAccounts }}
+    - host: "{{ . }}.{{ $.Values.pdsAccountDomain }}"
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: {{ $.Release.Name }}
+                port:
+                  number: 3000
+    {{- end }}
+{{- end }}
