@@ -11,6 +11,8 @@ app-template:
       pod:
         imagePullSecrets:
           - name: imagepullsecret
+        securityContext:
+          fsGroup: 1000
       containers:
         app:
           image:
@@ -18,10 +20,10 @@ app-template:
             tag: v1.15.0-alpha
 
           ports:
-            http:
-              port: 5555
-            ssh:
-              port: 22
+            - name: http
+              containerPort: 5555
+            - name: ssh
+              containerPort: 22
 
           env:
             KNOT_SERVER_HOSTNAME: "knot.bumsco.de"
@@ -70,6 +72,7 @@ app-template:
       ports:
         http:
           port: 5555
+          targetPort: http
     ssh:
       controller: knot
       type: LoadBalancer
@@ -78,7 +81,7 @@ app-template:
       ports:
         ssh:
           port: 22
-          targetPort: 22
+          targetPort: ssh
 
   ingress:
     app:
