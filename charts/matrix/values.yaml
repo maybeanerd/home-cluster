@@ -202,6 +202,7 @@ whatsappbridge:
               secretKeyRef:
                 name: whatsappbridge-secrets
                 key: hs_token
+            BRIDGE_ENCRYPTION__PICKLE_KEY: 'TODOCHANGEME'
       pod:
         securityContext:
           fsGroup: 1337
