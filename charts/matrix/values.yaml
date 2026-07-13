@@ -275,7 +275,7 @@ whatsappbridge:
           env_config_prefix: BRIDGE_
 
           logging:
-            min_level: info
+            min_level: debug
             writers:
               - type: stdout
                 format: pretty-colored
