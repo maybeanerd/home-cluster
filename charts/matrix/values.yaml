@@ -258,9 +258,15 @@ whatsappbridge:
             allow_key_sharing: true
             appservice: true
             msc4190: true
+            self_sign: true
             delete_keys:
               delete_outbound_on_ack: true
               delete_prev_on_new_session: true
+            verification_levels:
+              receive: unverified
+              send: unverified
+              # default is cross-signed-tofu
+              share: unverified
 
           network:
             os_name: Mautrix-WhatsApp bridge
