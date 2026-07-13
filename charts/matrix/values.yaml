@@ -259,6 +259,15 @@ whatsappbridge:
             os_name: Mautrix-WhatsApp bridge
             browser_name: unknown
 
+
+            history_sync:
+              # -1 = backfill all conversations from the initial WhatsApp history sync.
+              max_initial_conversations: -1
+              request_full_sync: false
+              dispatch_wait: 1m
+              media_requests:
+                auto_request_media: true
+                request_method: immediate
           env_config_prefix: BRIDGE_
 
           logging:
