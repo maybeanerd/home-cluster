@@ -162,6 +162,7 @@ whatsappbridge:
   extraValues:
     asToken: "TODOREPLACEME"
     hsToken: "TODOREPLACEME"
+    pickleKey: "TODOREPLACEME"
     registration:
       id: whatsapp
       namespaces:
@@ -202,6 +203,10 @@ whatsappbridge:
               secretKeyRef:
                 name: whatsappbridge-secrets
                 key: hs_token
+            BRIDGE_ENCRYPTION__PICKLE_KEY:
+              secretKeyRef:
+                name: whatsappbridge-secrets
+                key: pickle_key
       pod:
         securityContext:
           fsGroup: 1337
@@ -242,6 +247,9 @@ whatsappbridge:
             permissions:
               "cluster.diluz.io": user
             command_prefix: "!wa"
+
+          backfill:
+            enabled: true
 
           encryption:
             allow: true
