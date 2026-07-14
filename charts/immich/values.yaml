@@ -116,7 +116,7 @@ immichframe:
         main:
           image:
             repository: ghcr.io/immichframe/immichframe
-            tag: v1.0.35.0
+            tag: v1.0.36.0
             pullPolicy: IfNotPresent
           probes:
             liveness:
