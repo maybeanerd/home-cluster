@@ -2,14 +2,14 @@
 apiVersion: v2
 description: A chart to power Immich running on kubernetes
 name: immich
-version: 0.3.210
+version: 0.3.211
 maintainers:
   - name: sebastian
     email: sebastian@diluz.io
 dependencies:
   - name: immich
     repository: oci://ghcr.io/maybeanerd/immich-charts
-    version: 0.14.4
+    version: 0.14.5
   - name: app-template
     repository: https://bjw-s-labs.github.io/helm-charts
     version: 5.0.1
