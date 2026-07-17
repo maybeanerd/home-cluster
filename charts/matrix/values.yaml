@@ -186,7 +186,7 @@ whatsappbridge:
         app:
           image:
             repository: dock.mau.dev/mautrix/whatsapp
-            tag: v26.06
+            tag: v26.07
           command:
             - /usr/bin/mautrix-whatsapp
             - --no-update
