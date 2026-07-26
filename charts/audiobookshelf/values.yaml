@@ -19,9 +19,6 @@ service:
       http:
         port: 80
 
-serviceAccount:
-  create: true
-
 persistence:
   config-longhorn:
     enabled: true
