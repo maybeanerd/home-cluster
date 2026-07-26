@@ -49,6 +49,7 @@ defaultPodOptions:
 
 persistence:
   data-longhorn:
+    suffix: data-longhorn
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     storageClass: "longhorn"
