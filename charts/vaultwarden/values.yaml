@@ -1,5 +1,3 @@
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
-
 controllers:
   main:
     strategy: Recreate
@@ -90,6 +88,7 @@ defaultPodOptions:
 
 persistence:
   data-longhorn:
+    suffix: data-longhorn
     type: persistentVolumeClaim
     accessMode: ReadWriteOnce
     storageClass: "longhorn"

@@ -1,6 +1,3 @@
----
-# yaml-language-server: $schema=https://raw.githubusercontent.com/bjw-s/helm-charts/app-template-3.6.0/charts/other/app-template/values.schema.json
-
 controllers:
   main:
     containers:
@@ -21,9 +18,6 @@ service:
     ports:
       http:
         port: 80
-
-serviceAccount:
-  create: true
 
 persistence:
   config-longhorn:
