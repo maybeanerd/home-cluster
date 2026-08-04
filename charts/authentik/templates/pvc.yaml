@@ -2,10 +2,6 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: "data-authentik-postgresql-longhorn"
-  labels:
-    recurring-job-group.longhorn.io/default: "enabled"
-    recurring-job-group.longhorn.io/hetzner: "enabled"
-    recurring-job-group.longhorn.io/crmbs: "enabled"
 spec:
   accessModes:
     - "ReadWriteOnce"

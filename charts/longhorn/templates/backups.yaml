@@ -36,9 +36,6 @@ spec:
   retain: 14
   groups:
     - default
-    - hetzner
-    # TODO remove this once we migrate crmbs to be default
-    - crmbs
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
