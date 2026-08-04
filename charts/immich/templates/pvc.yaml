@@ -6,6 +6,7 @@ spec:
   accessModes:
     - "ReadWriteOnce"
   storageClassName: "longhorn"
+  backupTargetName: "crmbs"
   resources:
     requests:
       storage: "2Ti"
@@ -18,6 +19,7 @@ spec:
   accessModes:
     - "ReadWriteOnce"
   storageClassName: "longhorn"
+  backupTargetName: "crmbs"
   resources:
     requests:
       storage: "20Gi"
