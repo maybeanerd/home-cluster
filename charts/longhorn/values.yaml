@@ -25,7 +25,7 @@ backups:
     secretKey: 'TODO_HETZNER_SECRET'
     virtualHostedStyle: 'true'
   crmbs:
-    endpoint: 'https://todo'
+    endpoint: 'https://s3.crmbs.net'
     accessKey: 'TODO_CRMBS_KEY'
     secretKey: 'TODO_CRMBS_SECRET'
     virtualHostedStyle: 'false'

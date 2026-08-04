@@ -93,5 +93,8 @@ persistence:
     accessMode: ReadWriteOnce
     storageClass: "longhorn"
     size: 20Gi
+    labels:
+      recurring-job-group.longhorn.io/default: "true"
+      recurring-job-group.longhorn.io/hetzner: "true"
     globalMounts:
       - path: /data

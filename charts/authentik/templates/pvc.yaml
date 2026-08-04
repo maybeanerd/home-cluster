@@ -6,6 +6,9 @@ spec:
   accessModes:
     - "ReadWriteOnce"
   storageClassName: "longhorn"
+  labels:
+    recurring-job-group.longhorn.io/default: "true"
+    recurring-job-group.longhorn.io/hetzner: "true"
   resources:
     requests:
       storage: "20Gi"
