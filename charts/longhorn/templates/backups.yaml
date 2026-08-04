@@ -5,10 +5,22 @@ metadata:
   namespace: {{ .Release.Namespace }}
 type: Opaque
 stringData:
-  AWS_ACCESS_KEY_ID: {{ .Values.backups.s3.accessKey | quote }}
-  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.s3.secretKey | quote }}
-  AWS_ENDPOINTS: {{ .Values.backups.s3.endpoint | quote }}
-  VIRTUAL_HOSTED_STYLE: "true"
+  AWS_ACCESS_KEY_ID: {{ .Values.backups.hetzner.accessKey | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.hetzner.secretKey | quote }}
+  AWS_ENDPOINTS: {{ .Values.backups.hetzner.endpoint | quote }}
+  VIRTUAL_HOSTED_STYLE: {{ .Values.backups.hetzner.virtualHostedStyle | quote }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: crmbs-s3-backup-secret
+  namespace: {{ .Release.Namespace }}
+type: Opaque
+stringData:
+  AWS_ACCESS_KEY_ID: {{ .Values.backups.crmbs.accessKey | quote }}
+  AWS_SECRET_ACCESS_KEY: {{ .Values.backups.crmbs.secretKey | quote }}
+  AWS_ENDPOINTS: {{ .Values.backups.crmbs.endpoint | quote }}
+  VIRTUAL_HOSTED_STYLE: {{ .Values.backups.crmbs.virtualHostedStyle | quote }}
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
@@ -17,13 +29,28 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   task: backup
-  name: daily-volume-backup
+  name: daily-volume-backup-crmbs
   # 3 AM every day
   cron: "0 3 * * *"
   concurrency: 1
   retain: 14
   groups:
     - default
+---
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-volume-backup
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: backup
+  name: daily-volume-backup-hetzner
+  # 3 AM every day
+  cron: "0 3 * * *"
+  concurrency: 1
+  retain: 14
+  groups:
+    - hetzner
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob

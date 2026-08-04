@@ -19,7 +19,13 @@ longhorn:
       traefik.ingress.kubernetes.io/router.middlewares: traefik-authentik-admin@kubernetescrd
 
 backups:
-  s3:
+  hetzner:
     endpoint: 'https://fsn1.your-objectstorage.com'
     accessKey: 'TODO_HETZNER_KEY'
     secretKey: 'TODO_HETZNER_SECRET'
+    virtualHostedStyle: 'true'
+  crmbs:
+    endpoint: 'https://todo'
+    accessKey: 'TODO_CRMBS_KEY'
+    secretKey: 'TODO_CRMBS_SECRET'
+    virtualHostedStyle: 'false'
