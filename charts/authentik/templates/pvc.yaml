@@ -9,6 +9,7 @@ spec:
   labels:
     recurring-job-group.longhorn.io/default: "true"
     recurring-job-group.longhorn.io/hetzner: "true"
+    recurring-job-group.longhorn.io/crmbs: "true"
   resources:
     requests:
       storage: "20Gi"
