@@ -94,8 +94,8 @@ persistence:
     storageClass: "longhorn"
     size: 20Gi
     labels:
-      recurring-job-group.longhorn.io/default: "true"
-      recurring-job-group.longhorn.io/hetzner: "true"
-      recurring-job-group.longhorn.io/crmbs: "true"
+      recurring-job-group.longhorn.io/default: "enabled"
+      recurring-job-group.longhorn.io/hetzner: "enabled"
+      recurring-job-group.longhorn.io/crmbs: "enabled"
     globalMounts:
       - path: /data
