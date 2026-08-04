@@ -29,28 +29,16 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   task: backup
-  name: daily-volume-backup-crmbs
+  name: daily-volume-backups
   # 3 AM every day
   cron: "0 3 * * *"
   concurrency: 1
   retain: 14
   groups:
     - default
----
-apiVersion: longhorn.io/v1beta2
-kind: RecurringJob
-metadata:
-  name: daily-volume-backup
-  namespace: {{ .Release.Namespace }}
-spec:
-  task: backup
-  name: daily-volume-backup-hetzner
-  # 3 AM every day
-  cron: "0 3 * * *"
-  concurrency: 1
-  retain: 14
-  groups:
     - hetzner
+    # TODO remove this once we migrate crmbs to be default
+    - crmbs
 ---
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
