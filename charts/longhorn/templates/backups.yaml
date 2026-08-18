@@ -50,7 +50,21 @@ spec:
   retain: 14
   parameters:
     volumeBackupPolicy: "disabled"
-
+---
+# Weekly filesystem trim
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: weekly-trim
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: "filesystem-trim"
+  # Every Sunday at 3 AM
+  cron: "0 3 * * 0"
+  retain: 0
+  concurrency: 1
+  groups:
+    - default
 
 # Manager Restarts
 # Backups often error out when the previous one failed to connect to our flakey s3 and therefore kept some phantom locks. restarting the managers solves this issue, so we do it before creating backups
