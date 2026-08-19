@@ -51,6 +51,34 @@ spec:
   parameters:
     volumeBackupPolicy: "disabled"
 ---
+# Delete artifacts that are more than what we want to retain
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-snapshot-delete
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: "snapshot-delete"
+  cron: "0 10 * * *"
+  retain: 24
+  concurrency: 1
+  groups:
+    - default
+---
+# Remove artifacts that are marked for deletion
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: daily-snapshot-cleanup
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: "snapshot-cleanup"
+  cron: "0 16 * * *"
+  retain: 0
+  concurrency: 1
+  groups:
+    - default
+---
 # Weekly filesystem trim
 apiVersion: longhorn.io/v1beta2
 kind: RecurringJob
