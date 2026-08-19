@@ -59,7 +59,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   task: "snapshot-delete"
-  cron: "0 10 * * *"
+  cron: "0 20 * * *"
   retain: 24
   concurrency: 1
   groups:
@@ -73,7 +73,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   task: "snapshot-cleanup"
-  cron: "0 16 * * *"
+  cron: "0 23 * * *"
   retain: 0
   concurrency: 1
   groups:
