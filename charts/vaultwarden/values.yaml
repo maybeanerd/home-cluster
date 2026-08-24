@@ -5,7 +5,7 @@ controllers:
       main:
         image:
           repository: vaultwarden/server
-          tag: 1.37.1
+          tag: 1.37.2
           pullPolicy: IfNotPresent
         env:
           # https://github.com/dani-garcia/vaultwarden/blob/main/.env.template
