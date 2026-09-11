@@ -10,7 +10,8 @@ app-template:
         app:
           image:
             repository: ghcr.io/zhaofengli/attic
-            tag: "latest" # sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
+            tag: "latest"
+            # sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
             # TODO find good way to pin this, as it has no semver releases
 
           ports:
