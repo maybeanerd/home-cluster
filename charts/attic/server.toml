@@ -1,0 +1,20 @@
+listen = "[::]:8080"
+
+[database]
+url = "postgres://attic:attic@pgattic:5432/attic_prod"
+
+[storage]
+type = "local"
+path = "/attic/storage"
+
+[chunking]
+nar-size-threshold = 65536
+min-size = 16384
+avg-size = 65536
+max-size = 262144
+
+[compression]
+type = "zstd"
+
+[garbage-collection]
+interval = "12 hours"

@@ -1,0 +1,90 @@
+# TODO inspire by https://nexveridian.com/blog/attic-compose/ and https://github.com/tiborpilz/infrastructure/tree/main/applications/services/attic
+
+app-template:
+  controllers:
+    attic:
+      type: deployment
+      replicas: 1
+      pod:
+      containers:
+        app:
+          image:
+            repository: ghcr.io/zhaofengli/attic
+            tag: "latest"
+            # sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
+            # TODO find good way to pin this, as it has no semver releases
+
+          ports:
+            - name: http
+              containerPort: 8080
+
+          env:
+            # https://github.com/tiborpilz/infrastructure/blob/main/applications/services/attic/config.yaml
+            POSTGRES_DB: attic_prod
+            POSTGRES_USER: attic
+            POSTGRES_PASSWORD: attic
+            DATABASE_URL: postgres://attic:attic@localhost:5432/attic_prod
+            ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64: "<openssl rand 64 | base64 -w0>"
+
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8080
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8080
+                periodSeconds: 15
+                timeoutSeconds: 5
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: 8080
+                periodSeconds: 5
+                failureThreshold: 30
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+
+  service:
+    app:
+      controller: attic
+      ports:
+        http:
+          port: 8080
+          targetPort: http
+
+  ingress:
+    app:
+      hosts:
+        - host: "attic.cluster.diluz.io"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: app
+                port: http
+
+
+postgres:
+  cluster:
+    # TODO figure out if 2 is the minimum when wanting easy updates etc
+    instances: 1
+    storage:
+      size: "10Gi"
+      storageClass: "longhorn"
