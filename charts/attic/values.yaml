@@ -1,4 +1,4 @@
-# TODO inspire by https://nexveridian.com/blog/attic-compose/
+# TODO inspire by https://nexveridian.com/blog/attic-compose/ and https://github.com/tiborpilz/infrastructure/tree/main/applications/services/attic
 
 app-template:
   controllers:
@@ -19,6 +19,7 @@ app-template:
               containerPort: 8080
 
           env:
+            # https://github.com/tiborpilz/infrastructure/blob/main/applications/services/attic/config.yaml
             POSTGRES_DB: attic_prod
             POSTGRES_USER: attic
             POSTGRES_PASSWORD: attic
