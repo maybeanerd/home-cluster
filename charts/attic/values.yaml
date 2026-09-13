@@ -22,7 +22,6 @@ app-template:
               containerPort: 8080
 
           env:
-            # https://github.com/tiborpilz/infrastructure/blob/main/applications/services/attic/config.yaml
             - name: ATTIC_SERVER_DATABASE_URL
               valueFrom:
                 secretKeyRef:
@@ -106,3 +105,19 @@ postgres:
     storage:
       size: "10Gi"
       storageClass: "longhorn"
+
+
+# TODO find a way to mount the configmap as volume"
+#         volumeMounts:
+# - name: config
+#   mountPath: /etc/attic/server.toml
+#   subPath: server.toml
+#   readOnly: true
+
+# volumes:
+# - name: config
+# configMap:
+#   name: server
+#   items:
+#   - key: server.toml
+#     path: server.toml
