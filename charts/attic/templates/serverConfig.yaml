@@ -1,0 +1,9 @@
+# This ConfigMap is just a way to define the server.toml file in k8s.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: attic-config
+  namespace: {{ .Release.Namespace }}
+data:
+  server.toml: |
+{{ .Files.Get "server.toml" | indent 4 }}

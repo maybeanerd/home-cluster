@@ -1,0 +1,28 @@
+listen = "[::]:8080"
+
+# Must match the public URL and end with a slash; attic hands this out to
+# clients in `attic login`, so getting it wrong breaks pushes silently.
+api-endpoint = "https://attic.cluster.diluz.io/"
+allowed-hosts = ["attic.cluster.diluz.io"]
+
+[database]
+
+[storage]
+type = "s3"
+region = "fsn1"
+bucket = "attic-diluzio"
+endpoint = "https://fsn1.your-objectstorage.com"
+
+[chunking]
+nar-size-threshold = 65536
+min-size = 16384
+avg-size = 65536
+max-size = 262144
+
+[compression]
+type = "zstd"
+
+[garbage-collection]
+interval = "12 hours"
+# Paths not pushed or pulled within this window become GC candidates.
+default-retention-period = "1 month"
