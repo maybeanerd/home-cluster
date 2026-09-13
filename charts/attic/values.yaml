@@ -13,6 +13,9 @@ app-template:
             tag: "latest"
             # sha256:18574aba70fc89d2b695273fbe2e7b2f8ad7e8e786b4cc535124fbe14bada1d0
             # TODO find good way to pin this, as it has no semver releases
+          args:
+            - --config
+            - /etc/attic/server.toml
 
           ports:
             - name: http
@@ -20,19 +23,28 @@ app-template:
 
           env:
             # https://github.com/tiborpilz/infrastructure/blob/main/applications/services/attic/config.yaml
-            POSTGRES_DB: attic_prod
-            POSTGRES_USER: attic
-            POSTGRES_PASSWORD: attic
-            DATABASE_URL: postgres://attic:attic@localhost:5432/attic_prod
-            ATTIC_SERVER_TOKEN_HS256_SECRET_BASE64: "<openssl rand 64 | base64 -w0>"
+            - name: ATTIC_SERVER_DATABASE_URL
+              valueFrom:
+                secretKeyRef:
+                  name: attic-db-app
+                  key: uri
+            - name: ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64
+              value: "TODO REPLACE ME ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64"
+            - name: AWS_ACCESS_KEY_ID
+              value: "TODO REPLACE ME AWS_ACCESS_KEY_ID"
+            - name: AWS_SECRET_ACCESS_KEY
+              value: "TODO REPLACE ME AWS_SECRET_ACCESS_KEY"
 
           probes:
             liveness:
               enabled: true
               custom: true
               spec:
-                tcpSocket:
-                  port: 8080
+                httpGet:
+                  port: http
+                  httpHeaders:
+                    - name: Host
+                      value: attic.cluster.diluz.io
                 initialDelaySeconds: 10
                 periodSeconds: 30
                 timeoutSeconds: 10
@@ -41,16 +53,22 @@ app-template:
               enabled: true
               custom: true
               spec:
-                tcpSocket:
-                  port: 8080
+                httpGet:
+                  port: http
+                  httpHeaders:
+                    - name: Host
+                      value: attic.cluster.diluz.io
                 periodSeconds: 15
                 timeoutSeconds: 5
             startup:
               enabled: true
               custom: true
               spec:
-                tcpSocket:
-                  port: 8080
+                httpGet:
+                  port: http
+                  httpHeaders:
+                    - name: Host
+                      value: attic.cluster.diluz.io
                 periodSeconds: 5
                 failureThreshold: 30
 
