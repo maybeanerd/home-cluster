@@ -11,7 +11,7 @@ allowed-hosts = ["attic.cluster.diluz.io"]
 # TODO hetzner bucket settings
 type = "s3"
 region = "fsn1"
-bucket = "attic"
+bucket = "attic-diluzio"
 endpoint = "https://fsn1.your-objectstorage.com"
 
 [chunking]
