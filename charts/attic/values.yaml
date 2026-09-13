@@ -1,4 +1,7 @@
-# TODO inspire by https://nexveridian.com/blog/attic-compose/ and https://github.com/tiborpilz/infrastructure/tree/main/applications/services/attic
+secrets:
+  accessKeyId: "TODO REPLACE ME AWS_ACCESS_KEY_ID"
+  secretAccessKey: "TODO REPLACE ME AWS_SECRET_ACCESS_KEY"
+  serverToken: "TODO REPLACE ME ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64"
 
 app-template:
   controllers:
@@ -30,11 +33,20 @@ app-template:
                   name: attic-db-app
                   key: uri
             - name: ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64
-              value: "TODO REPLACE ME ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64"
+              valueFrom:
+                secretKeyRef:
+                  name: attic-secrets
+                  key: ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64
             - name: AWS_ACCESS_KEY_ID
-              value: "TODO REPLACE ME AWS_ACCESS_KEY_ID"
+              valueFrom:
+                secretKeyRef:
+                  name: attic-secrets
+                  key: AWS_ACCESS_KEY_ID
             - name: AWS_SECRET_ACCESS_KEY
-              value: "TODO REPLACE ME AWS_SECRET_ACCESS_KEY"
+              valueFrom:
+                secretKeyRef:
+                  name: attic-secrets
+                  key: AWS_SECRET_ACCESS_KEY
 
           probes:
             liveness:
