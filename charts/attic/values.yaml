@@ -6,6 +6,8 @@ app-template:
       type: deployment
       replicas: 1
       pod:
+        annotations:
+          checksum/config: '{{ .Files.Get `server.toml` | sha256sum }}'
       containers:
         app:
           image:
@@ -97,27 +99,20 @@ app-template:
                 identifier: app
                 port: http
 
+  persistence:
+    server-config:
+      type: configMap
+      name: attic-config
+      globalMounts:
+        - path: /etc/attic/server.toml
+          subPath: server.toml
+          readOnly: true
 
 postgres:
+  nameOverride: db
   cluster:
     # TODO figure out if 2 is the minimum when wanting easy updates etc
     instances: 1
     storage:
       size: "10Gi"
       storageClass: "longhorn"
-
-
-# TODO find a way to mount the configmap as volume"
-#         volumeMounts:
-# - name: config
-#   mountPath: /etc/attic/server.toml
-#   subPath: server.toml
-#   readOnly: true
-
-# volumes:
-# - name: config
-# configMap:
-#   name: server
-#   items:
-#   - key: server.toml
-#     path: server.toml

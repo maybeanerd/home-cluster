@@ -10,9 +10,9 @@ allowed-hosts = ["attic.cluster.diluz.io"]
 [storage]
 # TODO hetzner bucket settings
 type = "s3"
-region = "us-east-1"
+region = "fsn1"
 bucket = "attic"
-endpoint = "http://rook-ceph-rgw-ceph-objectstore.rook-ceph.svc"
+endpoint = "https://fsn1.your-objectstorage.com"
 
 [chunking]
 nar-size-threshold = 65536
