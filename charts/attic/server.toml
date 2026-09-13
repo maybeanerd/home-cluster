@@ -8,7 +8,6 @@ allowed-hosts = ["attic.cluster.diluz.io"]
 [database]
 
 [storage]
-# TODO hetzner bucket settings
 type = "s3"
 region = "fsn1"
 bucket = "attic-diluzio"
