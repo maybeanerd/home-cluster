@@ -8,10 +8,8 @@ allowed-hosts = ["attic.cluster.diluz.io"]
 [database]
 
 [storage]
-type = "s3"
-region = "fsn1"
-bucket = "attic-diluzio"
-endpoint = "https://fsn1.your-objectstorage.com"
+type = "local"
+path = "/storage"
 
 [chunking]
 nar-size-threshold = 65536

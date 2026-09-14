@@ -1,6 +1,4 @@
 secrets:
-  accessKeyId: "TODO REPLACE ME AWS_ACCESS_KEY_ID"
-  secretAccessKey: "TODO REPLACE ME AWS_SECRET_ACCESS_KEY"
   serverToken: "TODO REPLACE ME ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64"
 
 app-template:
@@ -37,16 +35,6 @@ app-template:
                 secretKeyRef:
                   name: attic-secrets
                   key: ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64
-            - name: AWS_ACCESS_KEY_ID
-              valueFrom:
-                secretKeyRef:
-                  name: attic-secrets
-                  key: AWS_ACCESS_KEY_ID
-            - name: AWS_SECRET_ACCESS_KEY
-              valueFrom:
-                secretKeyRef:
-                  name: attic-secrets
-                  key: AWS_SECRET_ACCESS_KEY
 
           probes:
             liveness:
@@ -90,7 +78,8 @@ app-template:
               cpu: 100m
               memory: 256Mi
             limits:
-              memory: 1Gi
+              cpu: 3000m
+              memory: 4Gi
 
   service:
     app:
@@ -120,10 +109,17 @@ app-template:
           subPath: server.toml
           readOnly: true
 
+    blob-storage:
+      type: persistentVolumeClaim
+      storageClass: "longhorn"
+      accessMode: ReadWriteOnce
+      size: "100Gi"
+      globalMounts:
+        - path: /storage
+
 postgres:
   nameOverride: db
   cluster:
-    # TODO figure out if 2 is the minimum when wanting easy updates etc
     instances: 1
     storage:
       size: "10Gi"
