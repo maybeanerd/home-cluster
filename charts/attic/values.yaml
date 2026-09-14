@@ -35,6 +35,8 @@ app-template:
                 secretKeyRef:
                   name: attic-secrets
                   key: ATTIC_SERVER_TOKEN_RS256_SECRET_BASE64
+            - name: RUST_LOG
+              value: "attic_server=info,tower_http=warn"
 
           probes:
             liveness:
