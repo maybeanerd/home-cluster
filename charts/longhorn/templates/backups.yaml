@@ -51,7 +51,7 @@ spec:
   # Run at a harmless time
   cron: "0 0 29 2 *"
   concurrency: 1
-  retain: 2
+  retain: 0
   groups:
     - no-backup
 
