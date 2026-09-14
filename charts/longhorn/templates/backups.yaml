@@ -38,6 +38,22 @@ spec:
   retain: 14
   parameters:
     volumeBackupPolicy: "disabled"
+---
+# Dummy job to create a group that we can assign to exclude volumes from backups
+apiVersion: longhorn.io/v1beta2
+kind: RecurringJob
+metadata:
+  name: no-backup
+  namespace: {{ .Release.Namespace }}
+spec:
+  task: snapshot-cleanup
+  name: no-backup
+  # Run at a harmless time
+  cron: "0 0 29 2 *"
+  concurrency: 1
+  retain: 2
+  groups:
+    - no-backup
 
 # Manager Restarts
 # Backups often error out when the previous one failed to connect to our flakey s3 and therefore kept some phantom locks. restarting the managers solves this issue, so we do it before creating backups
