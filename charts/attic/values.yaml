@@ -115,7 +115,7 @@ app-template:
       accessMode: ReadWriteOnce
       size: "100Gi"
       globalMounts:
-        - path: /storage
+        - path: /var/lib/attic/storage
 
 postgres:
   nameOverride: db

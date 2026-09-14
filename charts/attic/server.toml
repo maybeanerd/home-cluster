@@ -9,7 +9,7 @@ allowed-hosts = ["attic.cluster.diluz.io"]
 
 [storage]
 type = "local"
-path = "/storage"
+path = "/var/lib/attic/storage"
 
 [chunking]
 nar-size-threshold = 65536
