@@ -13,6 +13,8 @@ matrix-stack:
       storage:
         size: 100Gi
         storageClassName: longhorn
+    podSecurityContext:
+      fsGroupChangePolicy: "OnRootMismatch"
     resources:
       requests:
         cpu: 1000m
