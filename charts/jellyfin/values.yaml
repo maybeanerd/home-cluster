@@ -63,7 +63,7 @@ persistence:
     # subPath: some-subpath
     enabled: true
     accessMode: ReadWriteOnce
-    size: 20Gi
+    size: 50Gi
     storageClass: longhorn
   media:
     ## Directory where media is persisted
