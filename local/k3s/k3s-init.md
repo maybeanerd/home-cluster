@@ -3,7 +3,13 @@ Based on this https://docs.turingpi.com/docs/turing-pi2-kubernetes-installation
 ## Install on main node (cube01):
     
 ```bash
-curl -sfL https://get.k3s.io | sh -s - --write-kubeconfig-mode 644 --disable servicelb --token SECRET --node-ip 10.0.0.61 --disable-cloud-controller --disable local-storage
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.31.5+k3s1" sh -s - --cluster-init --write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable local-storage --disable-cloud-controller --node-ip "192.168.1.102" --token SECRET
+
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.31.5+k3s1" sh -s - server --cluster-init --write-kubeconfig-mode "644" --disable "servicelb" --disable "traefik" --disable "local-storage" --disable-cloud-controller --node-ip "192.168.1.102" --etcd-arg "force-new-cluster=true" --token "SECRET"
+
+
+INSTALL_K3S_VERSION="v1.31.5+k3s1" curl -sfL https://k3s.io | sh -s - server --cluster-init --write-kubeconfig-mode 644 --disable servicelb --disable traefik --disable local-storage --disable-cloud-controller --node-ip 192.168.1.102 --etcd-arg force-new-cluster=true --token xxx
+
 ```
 ## Install on other nodes (cube01, cube03, cube04):
     
@@ -26,7 +32,7 @@ curl -sfL https://get.k3s.io | K3S_URL=https://10.0.0.61:6443 K3S_TOKEN=SECRET s
 ## main server/cube01:
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
+curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET INSTALL_K3S_VERSION="v1.31.5+k3s1" sh -s - server \
     --cluster-init --disable=servicelb --write-kubeconfig-mode 644 --disable traefik
 ```
 
@@ -42,7 +48,7 @@ curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - server \
 ## agents:
 
 ```bash
-curl -sfL https://get.k3s.io | K3S_TOKEN=SECRET sh -s - agent \
+curl -sfL https://get.k3s.io | INSTALL_K3S_VERSION="v1.31.5+k3s1" K3S_TOKEN=SECRET sh -s - agent \
     --server https://cube01:6443
 ```
 
@@ -63,7 +69,8 @@ kubectl label nodes cube04 kubernetes.io/role=worker
 ```bash	
 k3s server \
   --cluster-reset \
-  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube01-1773835204
+  --etcd-s3=false \
+  --cluster-reset-restore-path=/var/lib/rancher/k3s/server/db/snapshots/etcd-snapshot-cube01-1790985602
 ```
 
 ### set up mnt storage for rpi with external drive on mnt/tardis
