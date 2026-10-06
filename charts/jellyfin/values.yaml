@@ -6,7 +6,7 @@ replicaCount: 1
 
 image:
   repository: jellyfin/jellyfin
-  tag: "12.1"
+  tag: "12.2"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
