@@ -137,7 +137,6 @@ immichframe:
                 timeoutSeconds: 1
                 failureThreshold: 3
 
-  # Rendered as <fullname>-config, i.e. "immichframe-config"
   secrets:
     config:
       enabled: true
@@ -168,7 +167,7 @@ immichframe:
     config:
       enabled: true
       type: secret
-      identifier: config        # points at secrets.config above
+      identifier: config
       advancedMounts:
         main:
           main:
