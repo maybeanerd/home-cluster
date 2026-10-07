@@ -110,6 +110,11 @@ immich:
 immichframe:
   global:
     fullnameOverride: immichframe
+
+  frameSecrets:
+    apiKey: "TODOCHANGEME"
+    authenticationSecret: "TODOCHANGEME"
+
   controllers:
     main:
       containers:
@@ -118,6 +123,8 @@ immichframe:
             repository: ghcr.io/immichframe/immichframe
             tag: v1.0.37.0
             pullPolicy: IfNotPresent
+          env:
+            TZ: "Europe/Berlin"
           probes:
             liveness:
               enabled: true
@@ -129,19 +136,19 @@ immichframe:
                 periodSeconds: 30
                 timeoutSeconds: 1
                 failureThreshold: 3
-          env:
-            # https://github.com/immichframe/ImmichFrame/blob/main/docker/example.env
-            TZ: "Europe/Berlin"
-            ImmichServerUrl: "https://immich.cluster.diluz.io"
-            ApiKey: "TODOCHANGEME"
-            AuthenticationSecret: "TODOCHANGEME"
-            Albums: "ce727154-095e-40d8-b8be-7757792b959a"
-            UnitSystem: "metric"
-            ShowMemories: false
-            ShowFavorites: false
-            ImageZoom: false
+
+  # Rendered as <fullname>-config, i.e. "immichframe-config"
+  secrets:
+    config:
+      enabled: true
+      stringData:
+        Settings.yml: |
+          General:
+            AuthenticationSecret: {{ .Values.frameSecrets.authenticationSecret | quote }}
+            UnitSystem: metric
             Interval: 45
-            Layout: "single"
+            Layout: single
+            ImageZoom: false
             ShowClock: true
             ShowProgressBar: true
             ShowPhotoDate: true
@@ -149,6 +156,26 @@ immichframe:
             ShowPeopleDesc: true
             ShowAlbumName: true
             ShowImageLocation: true
+          Accounts:
+            - ImmichServerUrl: "https://immich.cluster.diluz.io"
+              ApiKey: {{ .Values.frameSecrets.apiKey | quote }}
+              ShowMemories: false
+              ShowFavorites: false
+              Albums:
+                - "ce727154-095e-40d8-b8be-7757792b959a"
+
+  persistence:
+    config:
+      enabled: true
+      type: secret
+      identifier: config        # points at secrets.config above
+      advancedMounts:
+        main:
+          main:
+            - path: /app/Config/Settings.yml
+              subPath: Settings.yml
+              readOnly: true
+
 
   service:
     main:
