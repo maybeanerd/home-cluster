@@ -13,3 +13,4 @@ dependencies:
   - name: app-template
     repository: https://bjw-s-labs.github.io/helm-charts
     version: 5.2.1
+    alias: celeryband
