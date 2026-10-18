@@ -1,3 +1,36 @@
+secrets:
+  app-env:
+    enabled: true
+    stringData:
+      NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
+      OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
+      SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
+      SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
+
+configMaps:
+  app-config:
+    enabled: true
+    data:
+      config.yaml: |
+        serverUrl: "https://test.celery.band"
+        acceptedDomain: "gmail.com"
+        currency: "€"
+        disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
+        roles:
+          - software engineer
+          - product manager
+          - designer
+        seniorityLevels:
+          - junior
+          - professional
+          - senior
+          - staff
+          - principal
+        departments:
+          - gamma
+          - delta
+          - omega
+
 controllers:
   main:
     containers:
@@ -7,14 +40,22 @@ controllers:
           tag: 0.2.1
           pullPolicy: IfNotPresent
         env:
-          NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
-          OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
-          SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
-          SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
-        volumeMounts:
-          - name: config
-            mountPath: /app/config.yaml
-            subPath: config.yaml
+          NUXT_SESSION_PASSWORD:
+            secretKeyRef:
+              name: {{ include "app-template.fullname" . }}-app-env
+              key: NUXT_SESSION_PASSWORD
+          OBFUSCATION_SALT:
+            secretKeyRef:
+              name: {{ include "app-template.fullname" . }}-app-env
+              key: OBFUSCATION_SALT
+          SMTP_USERNAME:
+            secretKeyRef:
+              name: {{ include "app-template.fullname" . }}-app-env
+              key: SMTP_USERNAME
+          SMTP_PASSWORD:
+            secretKeyRef:
+              name: {{ include "app-template.fullname" . }}-app-env
+              key: SMTP_PASSWORD
         resources:
           requests:
             cpu: 50m
@@ -23,29 +64,16 @@ controllers:
             cpu: 200m
             memory: 512Mi
     pod:
-      volumes:
-        - name: config
-          configMap:
-            name: {{ include "bjw-s.common.names.fullname" . }}-config
-
-service:
-  main:
-    controller: main
-    ports:
-      http:
-        port: 3000
-
-defaultPodOptions:
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/role
-                operator: In
-                values:
-                  - worker
+      affinity:
+        nodeAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 1
+              preference:
+                matchExpressions:
+                  - key: kubernetes.io/role
+                    operator: In
+                    values:
+                      - worker
 
 persistence:
   data-longhorn:
@@ -56,6 +84,21 @@ persistence:
     size: 1Gi
     globalMounts:
       - path: /app/data
+  config:
+    enabled: true
+    type: configMap
+    name: {{ include "app-template.fullname" . }}-app-config
+    globalMounts:
+      - path: /app/config.yaml
+        subPath: config.yaml
+        readOnly: true
+
+service:
+  main:
+    controller: main
+    ports:
+      http:
+        port: 3000
 
 ingress:
   main:
@@ -75,23 +118,3 @@ ingress:
             service:
               identifier: main
               port: http
-
-config:
-  serverUrl: "https://test.celery.band"
-  acceptedDomain: "gmail.com"
-  currency: "€"
-  disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
-  roles:
-    - software engineer
-    - product manager
-    - designer
-  seniorityLevels:
-    - junior
-    - professional
-    - senior
-    - staff
-    - principal
-  departments:
-    - gamma
-    - delta
-    - omega
