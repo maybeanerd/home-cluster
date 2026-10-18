@@ -8,6 +8,26 @@ celeryband:
         SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
         SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
 
+  configMaps:
+    config:
+      enabled: true
+      data:
+        config.yaml: |
+          serverUrl: "https://test.celery.band"
+          acceptedDomain: "gmail.com"
+          currency: "€"
+          disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
+          departments:
+            test:
+              roles:
+                software engineer:
+                  seniorityLevels:
+                    - junior
+                    - professional
+                    - senior
+                    - staff
+                    - principal
+
   controllers:
     main:
       containers:
@@ -78,10 +98,7 @@ celeryband:
           subPath: config.yaml
           readOnly: true
 
-    globalMounts:
-      - path: /app/config.yaml
-        subPath: config.yaml
-        readOnly: true
+  ingress:
     main:
       enabled: true
       hosts:
@@ -99,20 +116,3 @@ celeryband:
               service:
                 identifier: main
                 port: http
-
-  config:
-    configYaml: |
-      serverUrl: "https://test.celery.band"
-      acceptedDomain: "gmail.com"
-      currency: "€"
-      disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
-      departments:
-        test:
-          roles:
-            software engineer:
-              seniorityLevels:
-                - junior
-                - professional
-                - senior
-                - staff
-                - principal
