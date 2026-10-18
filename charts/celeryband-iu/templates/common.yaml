@@ -10,5 +10,34 @@ global:
 {{- end -}}
 {{- $_ := mergeOverwrite .Values (include "celeryband-iu.hardcodedValues" . | fromYaml) -}}
 
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "bjw-s.common.names.fullname" . }}-config
+  labels:
+    {{- include "bjw-s.common.labels.default" . | nindent 4 }}
+data:
+  config.yaml: |
+    serverUrl: {{ .Values.config.serverUrl | quote }}
+    acceptedDomain: {{ .Values.config.acceptedDomain | quote }}
+    currency: {{ .Values.config.currency | quote }}
+    {{- if .Values.config.disclaimer }}
+    disclaimer: {{ .Values.config.disclaimer | quote }}
+    {{- else }}
+    disclaimer: null
+    {{- end }}
+    departments:
+    {{- range .Values.config.departments }}
+      {{ . | quote }}:
+        roles:
+        {{- range .Values.config.roles }}
+          {{ . | quote }}:
+            seniorityLevels:
+            {{- range .Values.config.seniorityLevels }}
+              - {{ . }}
+            {{- end }}
+        {{- end }}
+    {{- end }}
+
 {{/* Render the templates */}}
 {{ include "bjw-s.common.loader.generate" . }}
