@@ -34,7 +34,7 @@ celeryband:
         main:
           image:
             repository: ghcr.io/maybeanerd/celeryband
-            tag: 0.2.1
+            tag: 0.3.0
             pullPolicy: IfNotPresent
           env:
             NUXT_SESSION_PASSWORD:
