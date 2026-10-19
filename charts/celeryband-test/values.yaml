@@ -20,36 +20,38 @@ celeryband:
           currency: "€"
           disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
           departments:
-            Engineering:
+            gamma:
+              label: "Gamma One"
               roles:
-                Software Engineer:
-                  seniorityLevels:
-                    - junior
-                    - professional
-                    - senior
-                    - staff
-                    - principal
-                Engineering Manager:
-                  seniorityLevels:
-                    - lead
-                    - head
-                    - director
-            Product:
+                - software_engineer
+                - product_manager
+            delta:
+              label: "Delta Five"
               roles:
-                Product Manager:
-                  seniorityLevels:
-                    - junior
-                    - professional
-                    - senior
-                    - staff
-                    - principal
+                - software_engineer
+                - product_manager
+          roles:
+            software_engineer:
+              label: "Software Engineer"
+              seniorityLevels:
+                - junior
+                - professional
+                - senior
+                - staff
+                - principal
+            product_manager:
+              label: "Product Manager"
+              seniorityLevels:
+                - junior
+                - professional
+                - senior
   controllers:
     main:
       containers:
         main:
           image:
             repository: ghcr.io/maybeanerd/celeryband
-            tag: 0.3.0
+            tag: 0.4.0
             pullPolicy: IfNotPresent
           env:
             NUXT_SESSION_PASSWORD:
