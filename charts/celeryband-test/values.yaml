@@ -2,6 +2,7 @@ celeryband:
   secrets:
     app-env:
       enabled: true
+      forceRename: app-env
       stringData:
         NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
         OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
@@ -11,6 +12,7 @@ celeryband:
   configMaps:
     config:
       enabled: true
+      forceRename: app-config
       data:
         config.yaml: |
           serverUrl: "https://test.celery.band"
