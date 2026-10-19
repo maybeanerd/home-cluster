@@ -52,19 +52,19 @@ celeryband:
           env:
             NUXT_SESSION_PASSWORD:
               secretKeyRef:
-                name: {{ include "celeryband.fullname" . }}-app-env
+                name: "{{ include \"celeryband.fullname\" . }}-app-env"
                 key: NUXT_SESSION_PASSWORD
             OBFUSCATION_SALT:
               secretKeyRef:
-                name: {{ include "celeryband.fullname" . }}-app-env
+                name: "{{ include \"celeryband.fullname\" . }}-app-env"
                 key: OBFUSCATION_SALT
             SMTP_USERNAME:
               secretKeyRef:
-                name: {{ include "celeryband.fullname" . }}-app-env
+                name: "{{ include \"celeryband.fullname\" . }}-app-env"
                 key: SMTP_USERNAME
             SMTP_PASSWORD:
               secretKeyRef:
-                name: {{ include "celeryband.fullname" . }}-app-env
+                name: "{{ include \"celeryband.fullname\" . }}-app-env"
                 key: SMTP_PASSWORD
           resources:
             requests:
@@ -93,7 +93,7 @@ celeryband:
     config:
       enabled: true
       type: configMap
-      name: {{ include "celeryband.fullname" . }}-config
+      name: '{{ include "celeryband.fullname" . }}-config'
       globalMounts:
         - path: /app/config.yaml
           subPath: config.yaml
