@@ -18,16 +18,29 @@ celeryband:
           currency: "€"
           disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
           departments:
-            test:
+            Engineering:
               roles:
-                software engineer:
+                Software Engineer:
                   seniorityLevels:
                     - junior
                     - professional
                     - senior
                     - staff
                     - principal
-
+                Engineering Manager:
+                  seniorityLevels:
+                    - lead
+                    - head
+                    - director
+            Product:
+              roles:
+                Product Manager:
+                  seniorityLevels:
+                    - junior
+                    - professional
+                    - senior
+                    - staff
+                    - principal
   controllers:
     main:
       containers:
