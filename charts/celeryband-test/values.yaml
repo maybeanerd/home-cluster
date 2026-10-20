@@ -55,7 +55,7 @@ celeryband:
             pullPolicy: IfNotPresent
           envFrom:
             - secretRef:
-              name: app-env
+                name: app-env
           resources:
             requests:
               cpu: 50m
