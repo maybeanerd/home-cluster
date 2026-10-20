@@ -53,23 +53,9 @@ celeryband:
             repository: ghcr.io/maybeanerd/celeryband
             tag: 0.4.0
             pullPolicy: IfNotPresent
-          env:
-            NUXT_SESSION_PASSWORD:
-              secretKeyRef:
-                name: app-env
-                key: NUXT_SESSION_PASSWORD
-            OBFUSCATION_SALT:
-              secretKeyRef:
-                name: app-env
-                key: OBFUSCATION_SALT
-            SMTP_USERNAME:
-              secretKeyRef:
-                name: app-env
-                key: SMTP_USERNAME
-            SMTP_PASSWORD:
-              secretKeyRef:
-                name: app-env
-                key: SMTP_PASSWORD
+          envFrom:
+            - secretRef:
+              name: app-env
           resources:
             requests:
               cpu: 50m
