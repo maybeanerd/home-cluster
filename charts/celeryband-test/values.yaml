@@ -1,77 +1,111 @@
-controllers:
-  main:
-    containers:
-      main:
-        image:
-          repository: ghcr.io/maybeanerd/celeryband
-          tag: 0.2.2
-          pullPolicy: IfNotPresent
-        env:
-          NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
-          OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
-          ROLES: software engineer,product manager,designer
-          SENIORITY_LEVELS: junior,professional,senior,staff,principal
-          DEPARTMENTS: gamma,delta,omega
-          CURRENCY: €
-          ACCEPTED_DOMAIN: gmail.com
-          SERVER_URL: https://test.celery.band
-          NUXT_PUBLIC_DISCLAIMER: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
-          SMTP_HOST: smtp.servivum.com
-          SMTP_PORT: 587
-          SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
-          SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
-        resources:
-          requests:
-            cpu: 50m
-            memory: 128Mi
-          limits:
-            cpu: 200m
-            memory: 512Mi
+celeryband:
+  secrets:
+    app-env:
+      enabled: true
+      forceRename: app-env
+      stringData:
+        NUXT_SESSION_PASSWORD: TODO_PROVIDE_A_SECURE_SECRET
+        OBFUSCATION_SALT: TODO_PROVIDE_A_SECURE_SALT
+        SMTP_HOST: smtp.servivum.com
+        SMTP_PORT: "587"
+        SMTP_USERNAME: TODO_PROVIDE_SMTP_USERNAME
+        SMTP_PASSWORD: TODO_PROVIDE_SMTP_PASSWORD
 
-service:
-  main:
-    controller: main
-    ports:
-      http:
-        port: 3000
+  configMaps:
+    config:
+      enabled: true
+      forceRename: app-config
+      data:
+        config.yaml: |
+          serverUrl: "https://test.celery.band"
+          acceptedDomain: "gmail.com"
+          currency: "€"
+          disclaimer: "This platform was not created on behalf of Google or any of its affiliates. All content is based on publicly available or voluntarily provided information and is intended solely for the independent promotion of transparency."
+          departments:
+            gamma:
+              label: "Gamma One"
+              roles:
+                - software_engineer
+                - product_manager
+            delta:
+              label: "Delta Five"
+              roles:
+                - software_engineer
+                - product_manager
+          roles:
+            software_engineer:
+              label: "Software Engineer"
+              seniorityLevels:
+                - junior
+                - professional
+                - senior
+                - staff
+                - principal
+            product_manager:
+              label: "Product Manager"
+              seniorityLevels:
+                - junior
+                - professional
+                - senior
+  controllers:
+    main:
+      containers:
+        main:
+          image:
+            repository: ghcr.io/maybeanerd/celeryband
+            tag: 0.4.1
+            pullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: app-env
+          resources:
+            requests:
+              cpu: 50m
+              memory: 128Mi
+            limits:
+              cpu: 200m
+              memory: 512Mi
 
-defaultPodOptions:
-  affinity:
-    nodeAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution:
-        - weight: 1
-          preference:
-            matchExpressions:
-              - key: kubernetes.io/role
-                operator: In
-                values:
-                  - worker
+  service:
+    main:
+      controller: main
+      ports:
+        http:
+          port: 3000
 
-persistence:
-  data-longhorn:
-    suffix: data-longhorn
-    type: persistentVolumeClaim
-    accessMode: ReadWriteOnce
-    storageClass: "longhorn"
-    size: 1Gi
-    globalMounts:
-      - path: /app/data
+  persistence:
+    data-longhorn:
+      suffix: data-longhorn
+      type: persistentVolumeClaim
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      size: 1Gi
+      globalMounts:
+        - path: /app/data
+    config:
+      enabled: true
+      type: configMap
+      name: app-config
+      globalMounts:
+        - path: /app/config.yaml
+          subPath: config.yaml
+          readOnly: true
 
-ingress:
-  main:
-    enabled: true
-    hosts:
-      - host: test.celery.band
-        paths:
-          - path: /
-            pathType: Prefix
-            service:
-              identifier: main
-              port: http
-      - host: celery.band
-        paths:
-          - path: /
-            pathType: Prefix
-            service:
-              identifier: main
-              port: http
+  ingress:
+    main:
+      enabled: true
+      hosts:
+        - host: test.celery.band
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: main
+                port: http
+        - host: celery.band
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: main
+                port: http
