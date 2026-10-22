@@ -2,7 +2,7 @@ nextcloud:
   image:
     flavor: "fpm"
     # Nextcloud images stay within the same tag for things like security updates that only relate to the image itself, not the Nextcloud version. This way we always get those.
-    pull policy: "always"
+    pullPolicy: "always"
   ingress:
     enabled: true
   nextcloud:
