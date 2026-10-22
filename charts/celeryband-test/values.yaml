@@ -53,7 +53,7 @@ celeryband:
         main:
           image:
             repository: ghcr.io/maybeanerd/celeryband
-            tag: 0.4.1
+            tag: 0.4.2
             pullPolicy: IfNotPresent
           envFrom:
             - secretRef:
