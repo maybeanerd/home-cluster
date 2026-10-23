@@ -17,7 +17,7 @@ app-template:
         app:
           image:
             repository: atcr.io/tangled.org/knot
-            tag: v1.15.0-alpha
+            tag: v1.16.1-alpha
 
           ports:
             - name: http
