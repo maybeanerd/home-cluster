@@ -4,11 +4,7 @@ imageCredentials:
   password: "TODOCHANGEME"
 
 knot:
-  hostname: "knot.bumsco.de"
-  admins:
-    - "did:plc:x5mzoesuejzv73cv2dlcjylg"
   masterKey: "TODOCHANGEME"
-  contactEmail: "knot@diluz.io"
 
 app-template:
   controllers:
@@ -34,10 +30,10 @@ app-template:
               protocol: TCP
 
           env:
-            KNOT_HOSTNAME: {{ .Values.knot.hostname | quote }}
-            KNOT_ADMINS: {{ join "," .Values.knot.admins | quote }}
+            KNOT_HOSTNAME: "knot.bumsco.de"
+            KNOT_ADMINS: "did:plc:x5mzoesuejzv73cv2dlcjylg"
             KNOT_PLC_DIRECTORY: "https://plc.directory"
-            KNOT_CONTACT_EMAIL: {{ .Values.knot.contactEmail | quote }}
+            KNOT_CONTACT_EMAIL: "knot@diluz.io"
             KNOT_MASTER_KEY_ENV: "KNOT_MASTER_KEY"
             KNOT_SCAN_PATH: "/var/knot/repos"
             KNOT_SEALED_KEY_FILE: "/var/knot/sealed-keys"
