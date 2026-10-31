@@ -45,6 +45,8 @@ app-template:
             KNOT_SEALED_KEY_FILE: "/var/knot/sealed-keys"
             KNOT_SSH_HOST_KEY_FILE: "/var/knot/ssh_host_key"
             KNOT_LFS_STORE_PATH: "/var/knot/lfs"
+            KNOT_XRPC_TRUSTED_PROXY_HEADER: "x-forwarded-for"
+            KNOT_XRPC_TRUSTED_PROXIES: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
 
             KNOT_MASTER_KEY:
               secretKeyRef:
