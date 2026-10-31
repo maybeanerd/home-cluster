@@ -4,6 +4,4 @@ metadata:
   name: knot-homepage
   namespace: {{ .Release.Namespace }}
 data:
-  index.html: |
-{{ .Files.Get "assets/homepage.html" | b64enc | indent 2 }}
-
+  index.html: {{ .Files.Get "assets/homepage.html" | quote }}
