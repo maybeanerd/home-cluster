@@ -6,6 +6,7 @@ imageCredentials:
 app-template:
   controllers:
     knot:
+      strategy: Recreate
       type: deployment
       replicas: 1
       pod:
@@ -18,7 +19,7 @@ app-template:
         app:
           image:
             repository: atcr.io/tangled.org/knot
-            tag: v2.0.0
+            tag: "2"
 
           ports:
             http:
