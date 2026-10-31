@@ -3,6 +3,13 @@ imageCredentials:
   username: "maybeanerd.bumsco.de"
   password: "TODOCHANGEME"
 
+knot:
+  hostname: "knot.bumsco.de"
+  admins:
+    - "did:plc:x5mzoesuejzv73cv2dlcjylg"
+  masterKey: "TODOCHANGEME"
+  contactEmail: "knot@diluz.io"
+
 app-template:
   controllers:
     knot:
@@ -27,12 +34,20 @@ app-template:
               protocol: TCP
 
           env:
-            KNOT_SERVER_HOSTNAME: "knot.bumsco.de"
-            KNOT_SERVER_OWNER: "did:plc:x5mzoesuejzv73cv2dlcjylg"
-            KNOT_SERVER_DB_PATH: /var/data/knotserver.db
-            KNOT_BLOBSTORE_PATH: /var/data/blobs
-            KNOT_GIT_REPOS_PATH: /var/data/repos
-            KNOT_SERVER_INTERNAL_LISTEN_ADDR: localhost:5444
+            KNOT_HOSTNAME: {{ .Values.knot.hostname | quote }}
+            KNOT_ADMINS: {{ join "," .Values.knot.admins | quote }}
+            KNOT_PLC_DIRECTORY: "https://plc.directory"
+            KNOT_CONTACT_EMAIL: {{ .Values.knot.contactEmail | quote }}
+            KNOT_MASTER_KEY_ENV: "KNOT_MASTER_KEY"
+            KNOT_SCAN_PATH: "/var/knot/repos"
+            KNOT_SEALED_KEY_FILE: "/var/knot/sealed-keys"
+            KNOT_SSH_HOST_KEY_FILE: "/var/knot/ssh_host_key"
+            KNOT_LFS_STORE_PATH: "/var/knot/lfs"
+
+            KNOT_MASTER_KEY:
+              secretKeyRef:
+                name: knot-master-key
+                key: knot-master-key
 
           probes:
             liveness:
@@ -96,4 +111,4 @@ app-template:
       accessMode: ReadWriteOnce
       storageClass: "longhorn"
       globalMounts:
-        - path: /var/data
+        - path: /var/knot
