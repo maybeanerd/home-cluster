@@ -25,7 +25,7 @@ app-template:
             tag: "2"
 
           ports:
-            http:
+            - name: http
               containerPort: 5555
               protocol: TCP
 
