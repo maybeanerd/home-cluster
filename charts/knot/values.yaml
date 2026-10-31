@@ -47,6 +47,7 @@ app-template:
             KNOT_LFS_STORE_PATH: "/var/knot/lfs"
             KNOT_XRPC_TRUSTED_PROXY_HEADER: "x-forwarded-for"
             KNOT_XRPC_TRUSTED_PROXIES: "10.0.0.0/8,172.16.0.0/12,192.168.0.0/16"
+            KNOT_HOMEPAGE_PATH: "/etc/knot/homepage/index.html"
 
             KNOT_MASTER_KEY:
               secretKeyRef:
@@ -108,6 +109,12 @@ app-template:
                 port: http
 
   persistence:
+    homepage:
+      enabled: true
+      type: configMap
+      name: knot-homepage
+      globalMounts:
+        - path: /etc/knot/homepage
     data:
       enabled: true
       type: persistentVolumeClaim
