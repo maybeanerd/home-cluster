@@ -27,7 +27,7 @@ app-template:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              mkdir -p /var/knot/repos /var/knot/sealed-keys /var/knot/lfs /var/knot/ssh
+              mkdir -p /var/knot/repos /var/knot/lfs
               exec knot-server
 
           ports:
