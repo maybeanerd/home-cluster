@@ -1,0 +1,110 @@
+imageCredentials:
+  registry: atcr.io
+  username: "maybeanerd.bumsco.de"
+  password: "TODOCHANGEME"
+
+knot:
+  masterKey: "TODOCHANGEME"
+
+app-template:
+  controllers:
+    knot:
+      strategy: Recreate
+      type: deployment
+      replicas: 1
+      pod:
+        imagePullSecrets:
+          - name: imagepullsecret
+        securityContext:
+          fsGroup: 1000
+          fsGroupChangePolicy: "OnRootMismatch"
+      containers:
+        app:
+          image:
+            repository: atcr.io/tangled.org/knot
+            tag: "2"
+
+          ports:
+            - name: http
+              containerPort: 5555
+              protocol: TCP
+
+          env:
+            KNOT_HOSTNAME: "knot.bumsco.de"
+            KNOT_ADMINS: "did:plc:x5mzoesuejzv73cv2dlcjylg"
+            KNOT_PLC_DIRECTORY: "https://plc.directory"
+            KNOT_CONTACT_EMAIL: "knot@diluz.io"
+            KNOT_MASTER_KEY_ENV: "KNOT_MASTER_KEY"
+            KNOT_SCAN_PATH: "/var/knot/repos"
+            KNOT_SEALED_KEY_FILE: "/var/knot/sealed-keys"
+            KNOT_SSH_HOST_KEY_FILE: "/var/knot/ssh_host_key"
+            KNOT_LFS_STORE_PATH: "/var/knot/lfs"
+
+            KNOT_MASTER_KEY:
+              secretKeyRef:
+                name: knot-master-key
+                key: knot-master-key
+
+          probes:
+            liveness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: http
+                initialDelaySeconds: 10
+                periodSeconds: 30
+                timeoutSeconds: 10
+                failureThreshold: 3
+            readiness:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: http
+                periodSeconds: 15
+                timeoutSeconds: 5
+            startup:
+              enabled: true
+              custom: true
+              spec:
+                tcpSocket:
+                  port: http
+                periodSeconds: 5
+                failureThreshold: 30
+
+          resources:
+            requests:
+              cpu: 100m
+              memory: 256Mi
+            limits:
+              memory: 1Gi
+
+  service:
+    app:
+      controller: knot
+      ports:
+        http:
+          port: 5555
+          targetPort: http
+
+  ingress:
+    app:
+      hosts:
+        - host: "knot.bumsco.de"
+          paths:
+            - path: /
+              pathType: Prefix
+              service:
+                identifier: app
+                port: http
+
+  persistence:
+    data:
+      enabled: true
+      type: persistentVolumeClaim
+      size: 50Gi
+      accessMode: ReadWriteOnce
+      storageClass: "longhorn"
+      globalMounts:
+        - path: /var/knot

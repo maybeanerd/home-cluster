@@ -48,8 +48,6 @@ spec:
           value: "{{ .Values.matrixRtcUdpIp }}"
         - name: MATRIX_RTC_TURN_IP
           value: "{{ .Values.matrixRtcTurnIp }}"
-        - name: KNOT_SSH_IP
-          value: "{{ .Values.knotSshIp }}"
         # Wait for initial startup. It will not have connected, since the old pod is still connected.
         startupProbe:
           exec:
