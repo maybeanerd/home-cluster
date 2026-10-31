@@ -24,6 +24,12 @@ app-template:
             repository: atcr.io/tangled.org/knot
             tag: "2"
 
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              mkdir -p /var/knot/repos /var/knot/sealed-keys /var/knot/lfs /var/knot/ssh
+              exec knot-server
+
           ports:
             - name: http
               containerPort: 5555
