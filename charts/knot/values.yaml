@@ -15,8 +15,8 @@ app-template:
       pod:
         imagePullSecrets:
           - name: imagepullsecret
-        securityContext:
-          fsGroup: 1000
+        # securityContext:
+          # fsGroup: 1000
           # fsGroupChangePolicy: "OnRootMismatch"
       containers:
         app:
@@ -26,9 +26,8 @@ app-template:
 
           command: ["/bin/sh", "-c"]
           args:
-            - |
-              mkdir -p /var/knot/repos /var/knot/lfs
-              exec knot-server
+            -|
+echo "=== DEBUG: identity ===" id || true echo "=== DEBUG: /var/knot ===" ls -ldn /var/knot || true ls -lan /var/knot || true echo "=== DEBUG: starting knot ===" mkdir -p /var/knot/repos /var/knot/lfs exec knot-server
 
           ports:
             - name: http
