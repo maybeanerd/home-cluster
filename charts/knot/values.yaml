@@ -16,20 +16,50 @@ app-template:
         imagePullSecrets:
           - name: imagepullsecret
         securityContext:
-          fsGroup: 1000
-          # fsGroupChangePolicy: "OnRootMismatch"
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+      initContainers:
+        fix-perms:
+          image:
+            repository: busybox
+            tag: "1.36"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -eu
+              DATA=/var/knot
+              WANT=1000:1000
+
+              # create the layout (no-op if it exists)
+              mkdir -p "$DATA/repos" "$DATA/lfs"
+
+              # volume root: fresh volumes start as root:root
+              [ "$(stat -c %u:%g "$DATA")" = "$WANT" ] || chown "$WANT" "$DATA"
+              chmod 755 "$DATA"
+
+              # data dirs: recurse only if the top level is wrong,
+              # so a healthy volume isn't walked on every start
+              for d in repos lfs; do
+                [ "$(stat -c %u:%g "$DATA/$d")" = "$WANT" ] || chown -R "$WANT" "$DATA/$d"
+              done
+
+              # secrets: must be owned by knot and private
+              for f in ssh_host_key sealed-keys; do
+                if [ -f "$DATA/$f" ]; then
+                  chown "$WANT" "$DATA/$f"
+                  chmod 600 "$DATA/$f"
+                fi
+              done
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
       containers:
         app:
           image:
             repository: atcr.io/tangled.org/knot
             tag: "2"
-
-          command: ["/bin/sh", "-c"]
-          args:
-            - |
-              mkdir -p /var/knot/repos /var/knot/lfs
-              exec knot-server
-
           ports:
             - name: http
               containerPort: 5555
