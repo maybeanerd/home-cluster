@@ -30,7 +30,8 @@ app-template:
               echo "=== DEBUG: identity ===" id || true
               echo "=== DEBUG: /var/knot ===" ls -ldn /var/knot || true ls -lan /var/knot || true
               echo "=== DEBUG: starting knot ==="
-              mkdir -p /var/knot/repos /var/knot/lfs exec knot-server
+              mkdir -p /var/knot/repos /var/knot/lfs
+              exec knot-server
 
           ports:
             - name: http
