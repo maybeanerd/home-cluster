@@ -17,7 +17,7 @@ app-template:
           - name: imagepullsecret
         securityContext:
           fsGroup: 1000
-          fsGroupChangePolicy: "OnRootMismatch"
+          # fsGroupChangePolicy: "OnRootMismatch"
       containers:
         app:
           image:
