@@ -15,9 +15,32 @@ app-template:
       pod:
         imagePullSecrets:
           - name: imagepullsecret
-        # securityContext:
-          # fsGroup: 1000
-          # fsGroupChangePolicy: "OnRootMismatch"
+        securityContext: 
+          runAsUser: 1000
+          runAsGroup: 1000
+          runAsNonRoot: true
+      initContainers:
+        fix-perms:
+          image:
+            repository: busybox
+            tag: "1.36"
+          command: ["/bin/sh", "-c"]
+          args:
+            - |
+              set -e
+              chown 1000:1000 /var/knot
+              chmod 755 /var/knot
+              chown -R 1000:1000 /var/knot/repos /var/knot/lfs 2>/dev/null || true
+              for f in /var/knot/ssh_host_key /var/knot/sealed-keys; do
+                if [ -f "$f" ]; then
+                  chown 1000:1000 "$f"
+                  chmod 600 "$f"
+                fi
+              done
+          securityContext:
+            runAsUser: 0
+            runAsGroup: 0
+            runAsNonRoot: false
       containers:
         app:
           image:
@@ -27,12 +50,6 @@ app-template:
           command: ["/bin/sh", "-c"]
           args:
             - |
-              echo "=== DEBUG: identity ==="
-              id || true
-              echo "=== DEBUG: /var/knot ==="
-              ls -ldn /var/knot || true
-              ls -lan /var/knot || true
-              echo "=== DEBUG: starting knot ==="
               mkdir -p /var/knot/repos /var/knot/lfs
               exec knot-server
 
