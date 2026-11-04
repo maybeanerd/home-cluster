@@ -1,6 +1,7 @@
 pdsAccountDomain: "bumsco.de"
 pdsAccounts:
   - maybeanerd
+  - liz
 
 app-template:
   controllers:
