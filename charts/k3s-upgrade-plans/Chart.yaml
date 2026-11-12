@@ -1,0 +1,12 @@
+---
+apiVersion: v2
+description: A chart to manage k3s server and agent upgrade plans
+name: k3s-upgrade-plans
+version: 0.1.0
+home: https://docs.k3s.io/upgrades/automated
+icon: https://k3s.io/img/k3s-logo-light.svg
+sources:
+  - https://github.com/rancher/system-upgrade-controller
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io

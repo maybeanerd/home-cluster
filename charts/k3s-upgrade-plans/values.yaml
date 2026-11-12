@@ -1,0 +1,31 @@
+# Single source of truth for the k3s version.
+#
+# Never use a release channel here. Minor bumps must be one step at a time and
+# are validated by .github/workflows/k3s-version-guard.yml.
+k3s:
+  version: v1.31.5+k3s1
+
+upgrade:
+  # The tag is intentionally omitted. system-upgrade-controller appends the
+  # target version from spec.version.
+  image: rancher/k3s-upgrade
+
+server:
+  concurrency: 1
+  jobActiveDeadlineSecs: 1800
+  postCompleteDelay: 1m
+
+agent:
+  concurrency: 1
+  jobActiveDeadlineSecs: 1800
+  postCompleteDelay: 1m
+
+# Optional maintenance window. The Plans app is manually synced, so this is
+# only needed if you want SUC to wait for a specific time after the sync.
+window:
+  enabled: false
+  days:
+    - sunday
+  startTime: "02:00"
+  endTime: "04:00"
+  timeZone: Europe/Berlin

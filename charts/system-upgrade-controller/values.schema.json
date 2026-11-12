@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "required": ["image", "controller", "job"],
+  "properties": {
+    "image": {
+      "type": "object",
+      "required": ["repository", "tag", "pullPolicy"],
+      "properties": {
+        "repository": {
+          "type": "string"
+        },
+        "tag": {
+          "type": "string",
+          "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "pullPolicy": {
+          "type": "string",
+          "enum": ["Always", "IfNotPresent", "Never"]
+        }
+      }
+    },
+    "controller": {
+      "type": "object",
+      "required": ["debug", "threads", "planPollingInterval"],
+      "properties": {
+        "debug": {
+          "type": "boolean"
+        },
+        "threads": {
+          "type": "string"
+        },
+        "planPollingInterval": {
+          "type": "string"
+        }
+      }
+    },
+    "job": {
+      "type": "object",
+      "required": [
+        "privileged",
+        "activeDeadlineSeconds",
+        "backoffLimit",
+        "ttlSecondsAfterFinished",
+        "imagePullPolicy",
+        "kubectlImage"
+      ],
+      "properties": {
+        "privileged": {
+          "type": "boolean"
+        },
+        "activeDeadlineSeconds": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "backoffLimit": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "ttlSecondsAfterFinished": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "imagePullPolicy": {
+          "type": "string",
+          "enum": ["Always", "IfNotPresent", "Never"]
+        },
+        "kubectlImage": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

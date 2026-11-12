@@ -1,0 +1,19 @@
+image:
+  repository: rancher/system-upgrade-controller
+  tag: v0.21.0
+  pullPolicy: IfNotPresent
+
+controller:
+  debug: false
+  threads: "2"
+  planPollingInterval: 15m
+
+job:
+  # The server Plan's prepare step needs to chroot into the host to take an
+  # etcd snapshot and back up the k3s binary.
+  privileged: true
+  activeDeadlineSeconds: 1800
+  backoffLimit: 99
+  ttlSecondsAfterFinished: 900
+  imagePullPolicy: IfNotPresent
+  kubectlImage: rancher/kubectl:v1.30.3

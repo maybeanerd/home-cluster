@@ -1,0 +1,92 @@
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: k3s-server
+  namespace: system-upgrade
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  concurrency: {{ .Values.server.concurrency }}
+  cordon: true
+  exclusive: true
+  jobActiveDeadlineSecs: {{ .Values.server.jobActiveDeadlineSecs }}
+  postCompleteDelay: {{ .Values.server.postCompleteDelay | quote }}
+  version: {{ .Values.k3s.version | quote }}
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: Exists
+  serviceAccountName: system-upgrade
+  tolerations:
+    - key: node-role.kubernetes.io/control-plane
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/master
+      operator: Exists
+      effect: NoSchedule
+    - key: node-role.kubernetes.io/etcd
+      operator: Exists
+      effect: NoSchedule
+  prepare:
+    image: {{ .Values.upgrade.image }}
+    command:
+      - /bin/sh
+      - -c
+    args:
+      - |
+        set -eu
+        TARGET="$(echo "$SYSTEM_UPGRADE_PLAN_LATEST_VERSION" | tr '+' '-')"
+        NAME="pre-upgrade-${TARGET}-$(date -u +%Y%m%dT%H%M%SZ)"
+        echo "Creating etcd snapshot ${NAME}"
+        chroot /host /usr/local/bin/k3s etcd-snapshot save --name "$NAME"
+        echo "Backing up k3s binary to /usr/local/bin/k3s.pre-${TARGET}"
+        cp -a /host/usr/local/bin/k3s "/host/usr/local/bin/k3s.pre-${TARGET}"
+        echo "Pre-upgrade backup complete: ${NAME}"
+    securityContext:
+      privileged: true
+      runAsUser: 0
+  upgrade:
+    image: {{ .Values.upgrade.image }}
+  {{- if .Values.window.enabled }}
+  window:
+    days:
+{{ toYaml .Values.window.days | indent 6 }}
+    startTime: {{ .Values.window.startTime | quote }}
+    endTime: {{ .Values.window.endTime | quote }}
+    timeZone: {{ .Values.window.timeZone | quote }}
+  {{- end }}
+---
+apiVersion: upgrade.cattle.io/v1
+kind: Plan
+metadata:
+  name: k3s-agent
+  namespace: system-upgrade
+  annotations:
+    argocd.argoproj.io/sync-options: SkipDryRunOnMissingResource=true
+spec:
+  concurrency: {{ .Values.agent.concurrency }}
+  cordon: true
+  exclusive: true
+  jobActiveDeadlineSecs: {{ .Values.agent.jobActiveDeadlineSecs }}
+  postCompleteDelay: {{ .Values.agent.postCompleteDelay | quote }}
+  version: {{ .Values.k3s.version | quote }}
+  nodeSelector:
+    matchExpressions:
+      - key: node-role.kubernetes.io/control-plane
+        operator: DoesNotExist
+  serviceAccountName: system-upgrade
+  prepare:
+    image: {{ .Values.upgrade.image }}
+    args:
+      - prepare
+      - k3s-server
+  upgrade:
+    image: {{ .Values.upgrade.image }}
+  {{- if .Values.window.enabled }}
+  window:
+    days:
+{{ toYaml .Values.window.days | indent 6 }}
+    startTime: {{ .Values.window.startTime | quote }}
+    endTime: {{ .Values.window.endTime | quote }}
+    timeZone: {{ .Values.window.timeZone | quote }}
+  {{- end }}

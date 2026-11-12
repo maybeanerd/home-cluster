@@ -1,0 +1,12 @@
+---
+apiVersion: v2
+description: A chart to install the Rancher system-upgrade-controller
+name: system-upgrade-controller
+version: 0.1.0
+home: https://github.com/rancher/system-upgrade-controller
+icon: https://raw.githubusercontent.com/rancher/system-upgrade-controller/master/logo.png
+sources:
+  - https://github.com/rancher/system-upgrade-controller
+maintainers:
+  - name: sebastian
+    email: sebastian@diluz.io
