@@ -121,7 +121,7 @@ immichframe:
         main:
           image:
             repository: ghcr.io/immichframe/immichframe
-            tag: v1.0.39.0
+            tag: v1.0.40.0
             pullPolicy: IfNotPresent
           env:
             TZ: "Europe/Berlin"
