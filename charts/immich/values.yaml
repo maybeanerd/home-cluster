@@ -125,6 +125,7 @@ immichframe:
             pullPolicy: IfNotPresent
           env:
             TZ: "Europe/Berlin"
+            IMMICHFRAME_CONFIG_SOURCE: "file"
           probes:
             liveness:
               enabled: true
