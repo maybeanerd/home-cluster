@@ -1,7 +1,10 @@
-imageCredentials:
-  registry: atcr.io
-  username: "maybeanerd.bumsco.de"
-  password: "TODOCHANGEME"
+# The atcr.io pull secret is provided by the external-secrets release
+# (charts/external-secrets) instead of carrying the password in this chart.
+imagePullSecret:
+  enabled: true
+  storeName: atcr
+  credentialsSecret: atcr-pull-credentials
+  name: imagepullsecret
 
 knot:
   masterKey: "TODOCHANGEME"
