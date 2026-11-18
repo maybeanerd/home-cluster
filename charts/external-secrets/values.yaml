@@ -1,0 +1,49 @@
+# atcr.io registry credential. It is stored once in this release's namespace and
+# fanned out to the namespaces that ask for it with an ExternalSecret.
+atcr:
+  # Name of the ClusterSecretStore that apps reference from their ExternalSecret.
+  storeName: atcr
+
+  # Secret in this namespace that holds the docker config.
+  credentialsSecretName: atcr-pull-credentials
+
+  # Set to false to keep the password out of Helm values and create the secret
+  # once yourself (same name, type kubernetes.io/dockerconfigjson):
+  #   kubectl create secret docker-registry atcr-pull-credentials \
+  #     -n external-secrets \
+  #     --docker-server=atcr.io \
+  #     --docker-username=maybeanerd.com \
+  #     --docker-password=...
+  createCredentialsSecret: true
+
+  registry: atcr.io
+  username: "maybeanerd.com"
+  password: "TODOCHANGEME"
+
+external-secrets:
+  installCRDs: true
+  replicaCount: 1
+  resources:
+    requests:
+      cpu: 25m
+      memory: 64Mi
+    limits:
+      memory: 192Mi
+
+  webhook:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 128Mi
+
+  certController:
+    replicaCount: 1
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        memory: 128Mi

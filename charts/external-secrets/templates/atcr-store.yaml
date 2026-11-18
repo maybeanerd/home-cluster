@@ -1,0 +1,87 @@
+{{- if .Values.atcr.createCredentialsSecret }}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ .Values.atcr.credentialsSecretName }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: external-secrets
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+type: kubernetes.io/dockerconfigjson
+stringData:
+  .dockerconfigjson: {{ printf `{"auths":{"%s":{"username":"%s","password":"%s","auth":"%s"}}}` .Values.atcr.registry .Values.atcr.username .Values.atcr.password (printf "%s:%s" .Values.atcr.username .Values.atcr.password | b64enc) | quote }}
+{{- end }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: external-secrets-atcr
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: external-secrets
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: external-secrets-atcr
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: external-secrets
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+rules:
+  - apiGroups:
+      - ""
+    resources:
+      - secrets
+    verbs:
+      - get
+      - list
+      - watch
+  # The Kubernetes provider validates the store with a SelfSubjectRulesReview.
+  - apiGroups:
+      - authorization.k8s.io
+    resources:
+      - selfsubjectrulesreviews
+    verbs:
+      - create
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: external-secrets-atcr
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: external-secrets
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+subjects:
+  - kind: ServiceAccount
+    name: external-secrets-atcr
+    namespace: {{ .Release.Namespace }}
+roleRef:
+  kind: Role
+  name: external-secrets-atcr
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: external-secrets.io/v1
+kind: ClusterSecretStore
+metadata:
+  name: {{ .Values.atcr.storeName }}
+  labels:
+    app.kubernetes.io/name: external-secrets
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+spec:
+  provider:
+    kubernetes:
+      remoteNamespace: {{ .Release.Namespace }}
+      server:
+        url: https://kubernetes.default.svc
+        caProvider:
+          type: ConfigMap
+          name: kube-root-ca.crt
+          key: ca.crt
+          namespace: {{ .Release.Namespace }}
+      auth:
+        serviceAccount:
+          name: external-secrets-atcr
+          namespace: {{ .Release.Namespace }}
