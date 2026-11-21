@@ -17,7 +17,7 @@ atcr:
   createCredentialsSecret: true
 
   registry: atcr.io
-  username: "maybeanerd.com"
+  username: "atcr-pull.bumsco.de"
   password: "TODOCHANGEME"
 
 external-secrets:
