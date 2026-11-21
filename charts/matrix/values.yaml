@@ -71,6 +71,9 @@ matrix-stack:
         value: 'TODOREPLACEME'
     additional:
       auth.yaml:
+        # The MAS claim templates below are escaped with Go-template backticks because
+        # ESS 26.11.2+ renders `additional` config through tpl. Keep this comment outside
+        # the block scalar so the generated MAS config stays byte-identical.
         config: |
           passwords:
             # Users will only be able to log in using upstream OIDC providers
@@ -87,13 +90,13 @@ matrix-stack:
                 claims_imports:
                   localpart:
                     action: suggest
-                    template: "{{ user.preferred_username }}"
+                    template: "{{`{{ user.preferred_username }}`}}"
                   displayname:
                     action: suggest
-                    template: "{{ user.name }}"
+                    template: "{{`{{ user.name }}`}}"
                   email:
                     action: require
-                    template: "{{ user.email }}"
+                    template: "{{`{{ user.email }}`}}"
     nodeSelector:
       kubernetes.io/role: worker
 
