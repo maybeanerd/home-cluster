@@ -1,6 +1,7 @@
 pdsAccountDomain: "bumsco.de"
 pdsAccounts:
   - maybeanerd
+  - atcr-pull
   - liz
 
 app-template:
