@@ -62,7 +62,7 @@ app-template:
         app:
           image:
             repository: atcr.io/tangled.org/knot
-            tag: "1.20.1"
+            tag: "v1.20.1"
           ports:
             - name: http
               containerPort: 5555
