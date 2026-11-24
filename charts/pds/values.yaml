@@ -14,7 +14,7 @@ app-template:
         app:
           image:
             repository: ghcr.io/bluesky-social/pds
-            tag: 0.4.5051
+            tag: 0.4.5065
 
           env:
             PDS_HOSTNAME: "bumsco.de"
